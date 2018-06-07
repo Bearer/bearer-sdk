@@ -5,11 +5,13 @@ const fs = require('fs')
 const ini = require('ini')
 const pathJs = require('path')
 const Case = require('case')
-const { UPLOAD_BUCKET } = require('./constants')
 
 const deploy = (emitter, config) => async ({ path = '.' }) => {
   emitter.emit('deploy:started')
-  const { rootPathRc } = config
+  const {
+    rootPathRc,
+    scenarioConfig: { config: scenarioConfigFile }
+  } = config
 
   if (!rootPathRc) {
     emitter.emit('rootPath:doesntExist')
@@ -18,10 +20,6 @@ const deploy = (emitter, config) => async ({ path = '.' }) => {
 
   const mergedConfig = { ...config.bearerConfig, ...config.scenarioConfig }
   let { scenarioTitle, OrgId } = mergedConfig
-
-  const {
-    scenarioConfig: { config: scenarioConfigFile }
-  } = config
 
   const inquireScenarioTitle = () => {
     emitter.emit('scenarioTitle:missing')
@@ -57,7 +55,10 @@ const deploy = (emitter, config) => async ({ path = '.' }) => {
 
   await deployScenario({ path, scenarioUuid }, emitter, config)
   const setupUrl = `https://demo.bearer.tech/?scenarioUuid=${scenarioUuid}&scenarioTagName=${scenarioTitle}&name=${scenarioTitle}`
+
   emitter.emit('deploy:finished', {
+    scenarioUuid,
+    scenarioTitle,
     setupUrl
   })
 }

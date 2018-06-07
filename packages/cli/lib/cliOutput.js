@@ -29,6 +29,14 @@ module.exports = (emitter, { appConfig }) => {
     term('\n')
   })
 
+  emitter.on('pushScenario:error', error => {
+    term.white('Bearer: ')
+    term.red(`There was an error when trying to push scenario: `)
+    term('\n')
+    term(error.toString())
+    term('\n')
+  })
+
   emitter.on('pushScenario:start', Key => {
     term.white('Bearer: ')
     term.yellow(`Pushing scenario ${Key}...`)
@@ -190,6 +198,22 @@ module.exports = (emitter, { appConfig }) => {
   emitter.on('screen:upload:success', () => {
     term.white('Bearer: ')
     term.yellow('Screens uploaded successfully.')
+    term('\n')
+  })
+
+  emitter.on('screen:upload:error', e => {
+    term.white('Bearer: ')
+    term.red('ERROR: Screens upload failed.')
+    term('\n')
+    term(e.toString())
+    term('\n')
+  })
+
+  emitter.on('screen:fileUpload:error', e => {
+    term.white('Bearer: ')
+    term.red('ERROR: Screen file upload failed.')
+    term('\n')
+    term(e.toString())
     term('\n')
   })
   emitter.on('screen:fileUpload:success', distPath => {

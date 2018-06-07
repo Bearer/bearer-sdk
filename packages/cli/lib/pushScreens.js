@@ -4,66 +4,56 @@ const path = require('path') // from node.js
 const globby = require('globby')
 const mime = require('mime-types')
 const rc = require('rc')
-const { UPLOAD_BUCKET: BUCKET } = require('./commands/constants')
+const serviceClient = require('./serviceClient')
 
 const DIST_DIRECTORY = 'dist'
 const WWW_DIRECTORY = 'www'
 
-const corsParams = {
-  Bucket: BUCKET,
-  CORSConfiguration: {
-    CORSRules: [
-      {
-        AllowedHeaders: ['*'],
-        AllowedMethods: ['GET', 'PUT', 'POST', 'DELETE'],
-        AllowedOrigins: ['*']
-      }
-    ]
-  }
-}
+const pushScreens = async (
+  screensDirectory,
+  scenarioTitle,
+  OrgId,
+  emitter,
+  { DeploymentUrl, token }
+) =>
+  new Promise(async (resolve, reject) => {
+    const configuration = {
+      distPath: path.join(screensDirectory, DIST_DIRECTORY),
+      wwwPath: path.join(screensDirectory, WWW_DIRECTORY)
+    }
 
-const pushScreens = async (screensDirectory, bucketPrefix, emitter) => {
-  const configuration = {
-    s3BucketName: BUCKET,
-    distPath: path.join(screensDirectory, DIST_DIRECTORY),
-    wwwPath: path.join(screensDirectory, WWW_DIRECTORY)
-  }
+    const integrationsClient = serviceClient(DeploymentUrl)
+    try {
+      emitter.emit('screen:upload:start')
 
-  // initialize S3 client
-  const s3 = new AWS.S3({ signatureVersion: 'v4' })
+      const files = await globby([
+        configuration.distPath,
+        configuration.wwwPath
+      ])
 
-  // TODO: we don't care about the cors at the moment
-  // await s3.putBucketCors(corsParams, function(err, data) {
-  //   if (err) console.log(err, err.stack)
-  //   else
-  //     // an error occurred
-  //     console.log(data) // successful response
-  // })
-  const files = await globby([configuration.distPath, configuration.wwwPath])
+      const paths = files.map(filePath =>
+        filePath.replace(screensDirectory + path.sep, '')
+      )
 
-  emitter.emit('screen:upload:start')
-  return new Promise(async (resolve, reject) => {
-    await files.forEach(async filePath => {
-      const distPath = filePath.replace(screensDirectory + path.sep, '')
-      await fs.readFile(filePath, async (error, fileContent) => {
+      await files.forEach(async (filePath, i) => {
         try {
-          await s3
-            .putObject({
-              Bucket: configuration.s3BucketName,
-              Key: `${bucketPrefix}/${distPath}`,
-              ACL: 'public-read',
-              Body: fileContent,
-              ContentType: mime.lookup(filePath)
-            })
-            .promise()
+          const fileContent = fs.readFileSync(filePath)
+          const Key = `${OrgId}/${scenarioTitle}/${paths[i]}`
+          const res = await integrationsClient.signedUrl(token, Key, 'screen')
+          const s3Client = serviceClient(res.body)
+          await s3Client.upload(fileContent.toString(), {
+            'Content-Type': mime.lookup(filePath)
+          })
         } catch (e) {
-          emitter.emit('screen:fileUpload:failure', distPath)
+          emitter.emit('screen:fileUpload:error', e)
           reject(e)
         }
       })
-    })
-    resolve('success')
+      resolve('done')
+    } catch (e) {
+      emitter.emit('screen:upload:error', e)
+      reject(e)
+    }
   })
-}
 
 module.exports = pushScreens
