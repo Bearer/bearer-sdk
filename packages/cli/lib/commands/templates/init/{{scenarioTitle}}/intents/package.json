@@ -1,0 +1,10 @@
+{
+  "name": "{{scenarioTitle}}-intents",
+  "version": "0.0.1",
+  "description": "{{scenarioTitle}} intents",
+  "main": "index.js",
+  "dependencies": {
+    "@bearer/intents": "latest"
+  },
+  "license": "MIT"
+}

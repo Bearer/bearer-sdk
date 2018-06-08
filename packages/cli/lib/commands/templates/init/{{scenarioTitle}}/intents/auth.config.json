@@ -1,0 +1,9 @@
+{
+  "authorizationURL": null ,
+  "tokenURL": null,
+  "clientID": null,
+  "clientSecret": null,
+  "config": {
+    "scope": []
+  }
+}

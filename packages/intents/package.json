@@ -1,0 +1,18 @@
+{
+  "name": "@bearer/intents",
+  "version": "0.0.1",
+  "description": "Bearer Intents",
+  "main": "src/index.js",
+  "author": "Bearer",
+  "license": "UNLICENSED",
+  "files": [
+    "src/*.js"
+  ],
+  "scripts": {
+    "test": "echo 'No tests yet'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:BearerSH/bearer"
+  }
+}

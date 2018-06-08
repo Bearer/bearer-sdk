@@ -1,0 +1,87 @@
+// TODO: remove reboot at some point => smaller footprint, manage maring/padding by ourself
+@import 'node_modules/bootstrap/scss/reboot';
+@import 'node_modules/bootstrap/scss/popover';
+$top-arrow: 50px;
+
+.root {
+  position: relative;
+  display: inline-block;
+}
+
+.popover {
+  min-width: 250px;
+  min-height: 272px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+
+  &.direction-bottom {
+    top: 100%;
+    transform: translateX(-50%);
+    margin-left: 50%;
+
+    .arrow {
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      &:after {
+        border-bottom-color: $popover-header-bg;
+      }
+    }
+  }
+
+  &.direction-top {
+    bottom: 100%;
+    left: 0;
+    top: initial;
+    transform: translateX(-50%);
+    margin-left: 50%;
+
+    .arrow {
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+    }
+  }
+
+  &.direction-left {
+    top: calc((#{-$top-arrow} / 2) - (#{$popover-arrow-height} / 2));
+    left: initial;
+    right: 100%;
+
+    .arrow {
+      transform: translateY(-50%);
+      top: $top-arrow;
+      margin: 0;
+    }
+  }
+
+  &.direction-right {
+    left: 100%;
+    top: calc((#{-$top-arrow} / 2) - (#{$popover-arrow-height} / 2));
+
+    .arrow {
+      transform: translateY(-50%);
+      margin-top: 0;
+      top: $top-arrow;
+    }
+  }
+}
+
+.popover-body {
+  display: flex;
+  overflow: auto;
+  max-height: calc(80vh - 50px);
+  // TODO: temporary remove padding
+  padding: 0;
+  flex: 1;
+}
+
+.header {
+  padding-left: 25px;
+}
+
+.header-arrow {
+  position: absolute;
+  left: 5px;
+}

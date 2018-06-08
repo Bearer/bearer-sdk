@@ -1,0 +1,58 @@
+{
+  "name": "@bearer/ui",
+  "version": "0.0.1",
+  "description": "Bearer UI helper",
+  "main": "dist/bearer-ui.js",
+  "types": "dist/types/components.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "files": [
+    "src/",
+    "dist/"
+  ],
+  "browser": "dist/mycomponent.js",
+  "scripts": {
+    "build": "stencil build",
+    "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
+    "serve": "stencil-dev-server",
+    "start": "npm run dev",
+    "test": "jest --no-cache",
+    "test.watch": "jest --watch --no-cache",
+    "prepublishOnly": "yarn build",
+    "publish:demo": "cd demo && yarn install && yarn publish:demo"
+  },
+  "dependencies": {
+    "@bearer/core": "^0.7.35",
+    "@stencil/sass": "^0.0.5",
+    "bootstrap": "^4.1.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^0.9.5",
+    "@stencil/dev-server": "latest",
+    "@stencil/utils": "latest",
+    "@types/jest": "^22.2.3",
+    "jest": "^23.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ionic-team/stencil-component-starter.git"
+  },
+  "author": "Ionic Team",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ionic-team/stencil"
+  },
+  "homepage": "https://github.com/ionic-team/stencil",
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "jsx"
+    ]
+  }
+}
