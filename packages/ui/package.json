@@ -21,7 +21,7 @@
     "publish:demo": "cd demo && yarn install && yarn publish:demo"
   },
   "dependencies": {
-    "@bearer/core": "^0.7.35",
+    "@bearer/core": "^0.0.3",
     "@stencil/sass": "^0.0.5",
     "bootstrap": "^4.1.0"
   },
