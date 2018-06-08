@@ -1,12 +1,12 @@
 # Bearer
 
-[![CircleCI](https://circleci.com/gh/BearerSH/bearer.svg?style=svg&circle-token=3d97ece8fa24ce1ec62a31dbde1d4d3178080537)](https://circleci.com/gh/BearerSH/bearer)
+[![CircleCI](https://circleci.com/gh/BearerSH/bearer.svg?style=svg&circle-token=a18705e56c8c60cb7a98cc08e1af5be001e4239a)](https://circleci.com/gh/BearerSH/bearer)
 
 This repository contains
 
-* [Bearer core](./packages/core)
-* [Bearer CLI](./packages/cli)
-* [Bearer ui](./packages/ui)
+- [Bearer core](./packages/core)
+- [Bearer CLI](./packages/cli)
+- [Bearer ui](./packages/ui)
 
 ## How to get Started
 
