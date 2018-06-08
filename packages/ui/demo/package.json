@@ -19,8 +19,8 @@
     "publish:demo": "yarn build && node scripts/publish.js"
   },
   "dependencies": {
-    "@bearer/core": "^0.7.2",
-    "@bearer/ui": "^0.7.3",
+    "@bearer/core": "lastest",
+    "@bearer/ui": "^lastest",
     "@stencil/core": "^0.9.7",
     "@stencil/router": "0.2.1",
     "@stencil/sass": "^0.0.5"
