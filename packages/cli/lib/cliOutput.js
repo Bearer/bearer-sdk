@@ -28,6 +28,22 @@ module.exports = (emitter, { appConfig }) => {
     term.yellow(`Artefact configured : ${intentNames.join(' | ')}`)
     term('\n')
   })
+  emitter.on('pushScenario:unauthorized', ({ message }) => {
+    term.white('Bearer: ')
+    term.red(`ERROR: ${message}`)
+    term('\n')
+    term.white('Bearer: ')
+    term.red(`Please try to `)
+    term('bearer login ')
+    term.red('again.')
+    term('\n')
+  })
+
+  emitter.on('pushScenario:httpError', res => {
+    term.white('Bearer: ')
+    term.red(`ERROR: ${JSON.stringify(res, null, 2)}`)
+    term('\n')
+  })
 
   emitter.on('pushScenario:error', error => {
     term.white('Bearer: ')

@@ -23,7 +23,8 @@ module.exports = url => {
     signup: body => requestPromise(url, 'POST', 'signup', body),
     login: body => requestPromise(url, 'POST', 'login', body),
     putItem: body => requestPromise(url, 'POST', 'items', body),
-    assemblyScenario: body => requestPromise(url, 'POST', 'deploy', body),
+    assemblyScenario: (token, body) =>
+      requestPromise(url, 'POST', 'deploy', body, { Authorization: token }),
     signedUrl: (token, Key, type) =>
       requestPromise(
         url,

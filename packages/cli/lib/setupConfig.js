@@ -25,17 +25,17 @@ module.exports = () => {
     }
   }
 
-  const {
-    authorization: {
-      AuthenticationResult: { IdToken }
-    }
-  } = bearerConfig
+  let token
+  try {
+    token = bearerConfig.authorization.AuthenticationResult.IdToken
+  } catch (e) {}
+
   return {
     ...setup,
     HandlerBase: 'index.js',
     bearerConfig,
     scenarioConfig,
-    token: IdToken,
+    token,
     rootPathRc,
     storeBearerConfig(config) {
       fs.writeFileSync(
