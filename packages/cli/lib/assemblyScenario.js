@@ -1,17 +1,11 @@
-const { promisify } = require('util')
-const requestAsync = promisify(require('request'))
+const serviceClient = require('./serviceClient')
 
-module.exports = (scenarioTitle, emitter, { Bucket, Path, DeploymentUrl }) => {
-  const options = {
-    uri: DeploymentUrl + Path,
-    method: 'POST',
-    json: true,
-    body: { bucketKey: scenarioTitle, bucketName: Bucket }
-  }
-
+module.exports = (scenarioTitle, emitter, { DeploymentUrl, token }) => {
+  const deploymentClient = serviceClient(DeploymentUrl)
   emitter.emit('assemblyScenario:start')
 
-  return requestAsync(options)
+  return deploymentClient
+    .assemblyScenario(token, { bucketKey: scenarioTitle })
     .then((response, body) => {
       if (response.statusCode === 201) {
         emitter.emit('assemblyScenario:success', response.body)

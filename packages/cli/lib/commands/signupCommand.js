@@ -1,26 +1,10 @@
 const inquirer = require('inquirer')
-const request = require('request')
-const PATH = 'signup'
-
-const post = (url, body) =>
-  new Promise((resolve, reject) => {
-    request(
-      {
-        method: 'POST',
-        uri: url + PATH,
-        json: true,
-        body
-      },
-      (err, res) => {
-        if (err) reject(err)
-        else resolve(res)
-      }
-    )
-  })
+const serviceClient = require('../serviceClient')
 
 const signup = (emitter, config) => async ({ email }) => {
+  const { IntegrationServiceUrl } = config
+  const client = serviceClient(IntegrationServiceUrl)
   try {
-    const { ApiRouterUrl } = config
     const answers = await inquirer.prompt([
       {
         message: 'Setup a new password: ',
@@ -29,9 +13,7 @@ const signup = (emitter, config) => async ({ email }) => {
       }
     ])
 
-    const body = { Username: email, ...answers }
-
-    const res = await post(ApiRouterUrl, body)
+    const res = await client.signup({ Username: email, ...answers })
 
     if (res.statusCode == 200) {
       config.storeBearerConfig(res.body)

@@ -28,6 +28,30 @@ module.exports = (emitter, { appConfig }) => {
     term.yellow(`Artefact configured : ${intentNames.join(' | ')}`)
     term('\n')
   })
+  emitter.on('pushScenario:unauthorized', ({ message }) => {
+    term.white('Bearer: ')
+    term.red(`ERROR: ${message}`)
+    term('\n')
+    term.white('Bearer: ')
+    term.red(`Please try to `)
+    term('bearer login ')
+    term.red('again.')
+    term('\n')
+  })
+
+  emitter.on('pushScenario:httpError', res => {
+    term.white('Bearer: ')
+    term.red(`ERROR: ${JSON.stringify(res, null, 2)}`)
+    term('\n')
+  })
+
+  emitter.on('pushScenario:error', error => {
+    term.white('Bearer: ')
+    term.red(`There was an error when trying to push scenario: `)
+    term('\n')
+    term(error.toString())
+    term('\n')
+  })
 
   emitter.on('pushScenario:start', Key => {
     term.white('Bearer: ')
@@ -190,6 +214,22 @@ module.exports = (emitter, { appConfig }) => {
   emitter.on('screen:upload:success', () => {
     term.white('Bearer: ')
     term.yellow('Screens uploaded successfully.')
+    term('\n')
+  })
+
+  emitter.on('screen:upload:error', e => {
+    term.white('Bearer: ')
+    term.red('ERROR: Screens upload failed.')
+    term('\n')
+    term(e.toString())
+    term('\n')
+  })
+
+  emitter.on('screen:fileUpload:error', e => {
+    term.white('Bearer: ')
+    term.red('ERROR: Screen file upload failed.')
+    term('\n')
+    term(e.toString())
     term('\n')
   })
   emitter.on('screen:fileUpload:success', distPath => {

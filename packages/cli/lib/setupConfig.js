@@ -12,7 +12,8 @@ const rootPathRc = findUp.sync('.scenariorc')
 
 let setup = {
   DeploymentUrl: 'https://developer.staging.bearer.sh/v1/',
-  ApiRouterUrl: 'https://int.staging.bearer.sh/api/v1/'
+  IntegrationServiceUrl: 'https://int.staging.bearer.sh/api/v1/',
+  BearerEnv: 'staging'
 }
 
 module.exports = () => {
@@ -21,17 +22,22 @@ module.exports = () => {
   if (BEARER_ENV === 'dev') {
     setup = {
       DeploymentUrl: 'https://developer.dev.bearer.sh/v1/',
-      ApiRouterUrl: 'https://int.dev.bearer.sh/api/v1/'
+      IntegrationServiceUrl: 'https://int.dev.bearer.sh/api/v1/',
+      BearerEnv: 'dev'
     }
   }
 
+  let token
+  try {
+    token = bearerConfig.authorization.AuthenticationResult.IdToken
+  } catch (e) {}
+
   return {
     ...setup,
-    Bucket: 'vanilla-deployments',
-    Path: 'deploy',
     HandlerBase: 'index.js',
     bearerConfig,
     scenarioConfig,
+    token,
     rootPathRc,
     storeBearerConfig(config) {
       fs.writeFileSync(

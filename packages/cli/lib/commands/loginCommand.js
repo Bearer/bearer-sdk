@@ -1,22 +1,6 @@
 const inquirer = require('inquirer')
-const request = require('request')
-const PATH = 'login'
+const serviceClient = require('../serviceClient')
 
-const post = (url, body) =>
-  new Promise((resolve, reject) => {
-    request(
-      {
-        method: 'POST',
-        uri: url + PATH,
-        json: true,
-        body
-      },
-      (err, res) => {
-        if (err) reject(err)
-        else resolve(res)
-      }
-    )
-  })
 const login = (emitter, config) => async ({ email }) => {
   let {
     bearerConfig: { Username }
@@ -30,7 +14,7 @@ const login = (emitter, config) => async ({ email }) => {
 
   emitter.emit('login:userFound', Username)
   try {
-    const { ApiRouterUrl } = config
+    const client = serviceClient(config.IntegrationServiceUrl)
     const { Password } = await inquirer.prompt([
       {
         message: `Please enter password:`,
@@ -39,17 +23,22 @@ const login = (emitter, config) => async ({ email }) => {
       }
     ])
 
-    const body = { Username, Password }
+    const res = await client.login({ Username, Password })
 
-    const res = await post(ApiRouterUrl, body)
-
-    if (res.statusCode == 200) {
-      config.storeBearerConfig({
-        ...res.body.user,
-        authorization: res.body.authorization
-      })
-      emitter.emit('login:success', res.body)
-    } else emitter.emit('login:failure', res.body)
+    switch (res.statusCode) {
+      case 200:
+        config.storeBearerConfig({
+          ...res.body.user,
+          authorization: res.body.authorization
+        })
+        emitter.emit('login:success', res.body)
+        break
+      case 401:
+        emitter.emit('login:failure', res.body)
+        break
+      default:
+        emitter.emit('login:error', { code: res.statusCode, body: res.body })
+    }
   } catch (e) {
     emitter.emit('login:error', e)
   }
