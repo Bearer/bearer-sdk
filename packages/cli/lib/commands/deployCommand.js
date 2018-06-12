@@ -10,7 +10,8 @@ const deploy = (emitter, config) => async ({ path = '.' }) => {
   emitter.emit('deploy:started')
   const {
     rootPathRc,
-    scenarioConfig: { config: scenarioConfigFile }
+    scenarioConfig: { config: scenarioConfigFile },
+    BearerEnv
   } = config
 
   if (!rootPathRc) {
@@ -54,7 +55,7 @@ const deploy = (emitter, config) => async ({ path = '.' }) => {
   fs.writeFileSync(pathJs.join(rootPathRc), ini.stringify(scenarioConfigUpdate))
 
   await deployScenario({ path, scenarioUuid }, emitter, config)
-  const setupUrl = `https://demo.bearer.tech/?scenarioUuid=${scenarioUuid}&scenarioTagName=${scenarioTitle}&name=${scenarioTitle}`
+  const setupUrl = `https://demo.bearer.tech/?scenarioUuid=${scenarioUuid}&scenarioTagName=${scenarioTitle}&name=${scenarioTitle}&orgId=${OrgId}&stage=${BearerEnv}`
 
   emitter.emit('deploy:finished', {
     scenarioUuid,

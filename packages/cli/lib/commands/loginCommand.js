@@ -14,8 +14,7 @@ const login = (emitter, config) => async ({ email }) => {
 
   emitter.emit('login:userFound', Username)
   try {
-    const { IntegrationServiceUrl } = config
-    const client = serviceClient(IntegrationServiceUrl)
+    const client = serviceClient(config.IntegrationServiceUrl)
     const { Password } = await inquirer.prompt([
       {
         message: `Please enter password:`,
@@ -26,13 +25,20 @@ const login = (emitter, config) => async ({ email }) => {
 
     const res = await client.login({ Username, Password })
 
-    if (res.statusCode == 200) {
-      config.storeBearerConfig({
-        ...res.body.user,
-        authorization: res.body.authorization
-      })
-      emitter.emit('login:success', res.body)
-    } else emitter.emit('login:failure', res.body)
+    switch (res.statusCode) {
+      case 200:
+        config.storeBearerConfig({
+          ...res.body.user,
+          authorization: res.body.authorization
+        })
+        emitter.emit('login:success', res.body)
+        break
+      case 401:
+        emitter.emit('login:failure', res.body)
+        break
+      default:
+        emitter.emit('login:error', { code: res.statusCode, body: res.body })
+    }
   } catch (e) {
     emitter.emit('login:error', e)
   }

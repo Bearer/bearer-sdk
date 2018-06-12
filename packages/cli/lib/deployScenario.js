@@ -15,7 +15,8 @@ module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
   const {
     rootPathRc,
     scenarioConfig: { scenarioTitle },
-    bearerConfig: { OrgId }
+    bearerConfig: { OrgId },
+    BearerEnv
   } = config
 
   if (!rootPathRc) {
@@ -69,7 +70,7 @@ module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
       env: {
         BEARER_SCENARIO_ID: scenarioUuid,
         ...process.env,
-        CDN_HOST: `https://screens-bucket-dev.s3.eu-west-3.amazonaws.com/${OrgId}/${scenarioTitle}/dist/${scenarioTitle}/`
+        CDN_HOST: `https://screens-bucket-${BearerEnv}.s3.eu-west-3.amazonaws.com/${OrgId}/${scenarioTitle}/dist/${scenarioTitle}/`
       }
     })
 

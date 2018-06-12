@@ -12,7 +12,8 @@ const rootPathRc = findUp.sync('.scenariorc')
 
 let setup = {
   DeploymentUrl: 'https://developer.staging.bearer.sh/v1/',
-  IntegrationServiceUrl: 'https://int.staging.bearer.sh/api/v1/'
+  IntegrationServiceUrl: 'https://int.staging.bearer.sh/api/v1/',
+  BearerEnv: 'staging'
 }
 
 module.exports = () => {
@@ -21,7 +22,8 @@ module.exports = () => {
   if (BEARER_ENV === 'dev') {
     setup = {
       DeploymentUrl: 'https://developer.dev.bearer.sh/v1/',
-      IntegrationServiceUrl: 'https://int.dev.bearer.sh/api/v1/'
+      IntegrationServiceUrl: 'https://int.dev.bearer.sh/api/v1/',
+      BearerEnv: 'dev'
     }
   }
 
