@@ -56,6 +56,19 @@ export class BearerForm {
                   }
                 />
               )
+            case 'radio':
+              return (
+                <bearer-radio
+                  label={input.label}
+                  controlName={input.controlName}
+                  value={input.value}
+                  buttons={input.buttons}
+                  inline={input.inline}
+                  onValueChange={value =>
+                    this.handleValue(input.controlName, value)
+                  }
+                />
+              )
           }
         })}
         <bearer-input type="submit" onSubmit={() => this.handleSubmit()} />

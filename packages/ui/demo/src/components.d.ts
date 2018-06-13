@@ -622,6 +622,48 @@ declare global {
 declare global {
 
   namespace StencilComponents {
+    interface BearerRadio {
+      'buttons': Array<{ label: string, value: string, checked?: boolean }>;
+      'controlName': string;
+      'inline': boolean;
+      'label': string;
+      'value': string;
+    }
+  }
+
+  interface HTMLBearerRadioElement extends StencilComponents.BearerRadio, HTMLStencilElement {}
+
+  var HTMLBearerRadioElement: {
+    prototype: HTMLBearerRadioElement;
+    new (): HTMLBearerRadioElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-radio': HTMLBearerRadioElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-radio': HTMLBearerRadioElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-radio': JSXElements.BearerRadioAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerRadioAttributes extends HTMLAttributes {
+      'buttons'?: Array<{ label: string, value: string, checked?: boolean }>;
+      'controlName'?: string;
+      'inline'?: boolean;
+      'label'?: string;
+      'onValueChange'?: (event: CustomEvent) => void;
+      'value'?: string;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface BearerTextarea {
       'controlName': string;
       'hint': string;
