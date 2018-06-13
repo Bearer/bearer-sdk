@@ -1,4 +1,6 @@
-import { Component } from '@stencil/core'
+import { Component, Prop } from '@stencil/core'
+import { createStore, combineReducers } from 'redux'
+import { Store } from '@stencil/redux'
 import singers from '../navigator/data.json'
 
 const SINGERS = singers
@@ -8,10 +10,33 @@ const SINGERS = singers
   .map((item, index) => ({ ...item, name: `${index} - ${item.name}` }))
 const PER_PAGE = 5
 
+/**
+ * Store configuration
+ */
+const demoReducer = (state = SINGERS, action) => {
+  switch (action.type) {
+    default:
+      return state
+  }
+}
+
+const rootReducer = (combineReducers as any)({
+  demoReducer
+})
+
+const configureStore = (preloadedState: any) =>
+  createStore(rootReducer, preloadedState)
+
+/**
+ * Component
+ */
 @Component({
   tag: 'app-scrollable'
 })
 export class AppScrollable {
+  @Prop({ context: 'store' })
+  store: Store
+
   renderCollection = collection => (
     <bearer-navigator-collection
       data={collection}
@@ -30,12 +55,31 @@ export class AppScrollable {
     })
   }
 
+  componentWillLoad() {
+    this.store.setStore(configureStore({}))
+    this.store.mapStateToProps(this, state => {
+      const {
+        demoReducer: { name }
+      } = state
+      return {
+        name
+      }
+    })
+    this.store.mapDispatchToProps(this, {
+      addPullRequest: () => (dispatch, _state) =>
+        dispatch({ type: 'CLICK', payload: { id: Math.random() * 1000 } })
+    })
+    console.log(this.store)
+  }
+
   render() {
     return (
       <div>
         <h4>Existing collection</h4>
         <bearer-scrollable
           perPage={PER_PAGE}
+          store={this.store}
+          reducer="demoReducer"
           fetcher={this.fetcher}
           renderCollection={this.renderCollection}
         />

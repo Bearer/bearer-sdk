@@ -23,7 +23,8 @@
     "@bearer/ui": "latest",
     "@stencil/core": "^0.9.7",
     "@stencil/router": "0.2.1",
-    "@stencil/sass": "^0.0.5"
+    "@stencil/sass": "^0.0.5",
+    "redux": "^4.0.0"
   },
   "devDependencies": {
     "@stencil/dev-server": "latest",
