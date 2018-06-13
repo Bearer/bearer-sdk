@@ -3,7 +3,7 @@
 
 */
 
-import { Component } from '@stencil/core'
+import { Component } from '@bearer/core'
 import '@bearer/ui'
 
 @Component({
