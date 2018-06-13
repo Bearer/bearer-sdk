@@ -1,6 +1,4 @@
-import { Component } from '@stencil/core'
-
-import { BearerComponent, Intent, BearerFetch } from '@bearer/core'
+import { Component, BearerComponent, Intent, BearerFetch } from '@bearer/core'
 
 @BearerComponent
 @Component({

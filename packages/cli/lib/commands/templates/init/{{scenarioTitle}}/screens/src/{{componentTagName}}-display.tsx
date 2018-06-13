@@ -3,7 +3,7 @@
   Its responsibility is to retrieve the scenario state from a previous action
   of a user.
 */
-import { Component } from '@stencil/core'
+import { Component } from '@bearer/core'
 import '@bearer/ui'
 
 @Component({

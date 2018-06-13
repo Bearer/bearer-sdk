@@ -2,7 +2,7 @@
   The purpose of this component is to save scenario credentials.
 */
 
-import { Component } from '@stencil/core'
+import { Component } from '@bearer/core'
 import '@bearer/ui'
 
 @Component({
