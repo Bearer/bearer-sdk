@@ -1,28 +1,30 @@
+const serviceClient = require('./serviceClient')
 const fs = require('fs')
-const AWS = require('aws-sdk') // from AWS SDK
-const s3 = new AWS.S3({ signatureVersion: 'v4' })
 
-module.exports = (packagePath, { Key, Bucket }, emitter) => {
-  return new Promise((resolve, reject) => {
+module.exports = (packagePath, { Key }, emitter, { token, DeploymentUrl }) =>
+  new Promise(async (resolve, reject) => {
     emitter.emit('pushScenario:start', Key)
 
-    fs.readFile(packagePath, (error, fileContent) => {
-      // if unable to read file contents, throw exception
-      if (error) reject(error)
+    try {
+      const deploymentServiceClient = serviceClient(DeploymentUrl)
 
-      // upload file to S3
-      s3.putObject(
-        {
-          Bucket,
-          Key,
-          ACL: 'public-read',
-          Body: fileContent
-        },
-        (err, data) => {
-          if (err) reject(err)
-          else resolve(data)
-        }
-      )
-    })
+      const res = await deploymentServiceClient.signedUrl(token, Key, 'intent')
+
+      if (res.statusCode === 201) {
+        const url = res.body
+        const s3Client = serviceClient(url)
+        const artifact = fs.readFileSync(packagePath)
+        const response = await s3Client.upload(artifact)
+        resolve(response)
+      } else if (res.statusCode === 401) {
+        emitter.emit('pushScenario:unauthorized', res.body)
+        reject('unauthorized')
+      } else {
+        emitter.emit('pushScenario:httpError', res)
+        reject('httpError')
+      }
+    } catch (e) {
+      emitter.emit('pushScenario:error', e)
+      reject(e)
+    }
   })
-}

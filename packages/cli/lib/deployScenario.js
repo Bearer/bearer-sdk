@@ -14,7 +14,9 @@ const AUTH_CONFIG_FILE = 'auth.config.json'
 module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
   const {
     rootPathRc,
-    scenarioConfig: { scenarioTitle }
+    scenarioConfig: { scenarioTitle },
+    bearerConfig: { OrgId },
+    BearerEnv
   } = config
 
   if (!rootPathRc) {
@@ -50,12 +52,12 @@ module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
     await pushScenario(
       scenarioArtifact,
       {
-        Key: scenarioUuid,
-        Bucket: config.Bucket
+        Key: scenarioUuid
       },
       emitter,
       config
     )
+
     await assembly(scenarioUuid, emitter, config)
 
     emitter.emit('screens:installingDependencies')
@@ -68,12 +70,12 @@ module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
       env: {
         BEARER_SCENARIO_ID: scenarioUuid,
         ...process.env,
-        CDN_HOST: `https://webcomponents-bucket.s3.eu-west-3.amazonaws.com/${scenarioUuid}/dist/${scenarioTitle}/`
+        CDN_HOST: `https://screens-bucket-${BearerEnv}.s3.eu-west-3.amazonaws.com/${OrgId}/${scenarioTitle}/dist/${scenarioTitle}/`
       }
     })
 
     emitter.emit('screens:pushingDist')
-    await pushScreens(screensDirectory, scenarioUuid, emitter)
+    await pushScreens(screensDirectory, scenarioTitle, OrgId, emitter, config)
 
     emitter.emit('screen:upload:success')
   } catch (e) {
