@@ -28,7 +28,11 @@ declare global {
 
 import '@stencil/router';
 import '@stencil/state-tunnel';
+import '@stencil/redux';
 
+import {
+  Store,
+} from '@stencil/redux';
 
 declare global {
 
@@ -1206,9 +1210,11 @@ declare global {
     interface BearerScrollable {
       'fetcher': ({ page: number }) => Promise<{ items: Array<any> }>;
       'perPage': number;
+      'reducer': string;
       'renderCollection': (collection: Array<any>) => any;
       'renderFetching': () => any;
       'reset': () => void;
+      'store': Store;
     }
   }
 
@@ -1233,8 +1239,10 @@ declare global {
     export interface BearerScrollableAttributes extends HTMLAttributes {
       'fetcher'?: ({ page: number }) => Promise<{ items: Array<any> }>;
       'perPage'?: number;
+      'reducer'?: string;
       'renderCollection'?: (collection: Array<any>) => any;
       'renderFetching'?: () => any;
+      'store'?: Store;
     }
   }
 }

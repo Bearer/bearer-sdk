@@ -1,4 +1,5 @@
 import { Component, Listen, Prop, State, Method, Element } from '@stencil/core'
+import { Store } from '@stencil/redux'
 
 @Component({
   tag: 'bearer-scrollable',
@@ -9,6 +10,8 @@ export class BearerScrollable {
   @Prop() renderFetching: () => any
   @Prop() perPage: number = 5
   @Prop() fetcher: ({ page: number }) => Promise<{ items: Array<any> }>
+  @Prop() store: Store
+  @Prop() reducer: string
 
   @State() hasMore: boolean = true
   @State() page: number = 1
@@ -19,7 +22,21 @@ export class BearerScrollable {
 
   @Listen('BearerScrollableNext')
   fetchNext() {
-    if (this.hasMore) {
+    if (this.store && this.hasMore) {
+      const redux = this.store.getState()[this.reducer]
+      this.fetching = true
+      this.hasMore = redux.length > this.collection.length
+      this.collection = [
+        ...this.collection,
+        ...redux.splice(
+          (this.page - 1) * this.perPage,
+          this.page * this.perPage
+        )
+      ]
+      this.fetching = false
+      this.page = this.page + 1
+    }
+    if (!this.store && this.hasMore) {
       this.fetching = true
       this.fetcher({ page: this.page })
         .then(({ items }) => {
