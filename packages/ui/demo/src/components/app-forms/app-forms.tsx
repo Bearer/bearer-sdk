@@ -6,7 +6,26 @@ import { Component, State } from '@stencil/core'
 })
 export class AppForms {
   @State()
-  inputs: { login: string; password: string } = { login: '', password: '' }
+  inputs: { login: string; password: string; gender: string } = {
+    login: '',
+    password: '',
+    gender: 'male'
+  }
+  @State()
+  radioValues = [
+    {
+      label: 'Male',
+      value: 'male'
+    },
+    {
+      label: 'Female',
+      value: 'female'
+    },
+    {
+      label: 'Other',
+      value: 'other'
+    }
+  ]
 
   @State() showResult: boolean = false
 
@@ -29,6 +48,34 @@ export class AppForms {
       controlName: 'phonenumber'
     },
     { label: 'Password', type: 'password', value: '', controlName: 'password' },
+    {
+      label: 'Age range',
+      type: 'radio',
+      controlName: 'range',
+      inline: true,
+      buttons: [
+        {
+          label: '< 18',
+          value: 0
+        },
+        {
+          label: '18 - 35',
+          value: 1
+        },
+        {
+          label: '35 - 50',
+          value: 2
+        },
+        {
+          label: '50 - 65',
+          value: 3
+        },
+        {
+          label: '> 65',
+          value: 4
+        }
+      ]
+    },
     {
       label: 'story',
       type: 'textarea',
@@ -77,6 +124,13 @@ export class AppForms {
               placeholder="A long, long time ago, in a galaxy far, far away..."
               hint="wookies are fun"
             />
+            <bearer-radio
+              label="Gender"
+              controlName="gender"
+              onValueChange={value => this.handleValue('gender', value)}
+              buttons={this.radioValues}
+              value={this.inputs.gender}
+            />
             <bearer-input
               type="submit"
               onSubmit={e => this.handleSubmit(0, e)}
@@ -85,6 +139,8 @@ export class AppForms {
           {this.showResult ? (
             <p>
               Login: {this.inputs.login} - Password: {this.inputs.password}
+              <br />
+              Radio: {this.inputs.gender}
             </p>
           ) : (
             ''
