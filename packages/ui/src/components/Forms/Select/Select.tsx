@@ -15,7 +15,7 @@ export class BearerSelect {
   options: Array<{ label: string; value: string; default?: boolean }> = []
   @Event() valueChange: EventEmitter
 
-  inputClicked(event) {
+  onSelectChange = event => {
     this.valueChange.emit(event.path[0].value)
   }
 
@@ -23,7 +23,7 @@ export class BearerSelect {
     return (
       <div class="form-group">
         {this.label ? <label>{this.label}</label> : ''}
-        <select class="form-control" onChange={this.inputClicked.bind(this)}>
+        <select class="form-control" onChange={this.onSelectChange}>
           {this.options.map(value => {
             return (
               <option
