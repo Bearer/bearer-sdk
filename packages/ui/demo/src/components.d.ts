@@ -547,6 +547,48 @@ declare global {
 declare global {
 
   namespace StencilComponents {
+    interface BearerCheckbox {
+      'buttons': Array<{ label: string; value: string; checked?: boolean }>;
+      'controlName': string;
+      'inline': boolean;
+      'label': string;
+      'value': Array<string>;
+    }
+  }
+
+  interface HTMLBearerCheckboxElement extends StencilComponents.BearerCheckbox, HTMLStencilElement {}
+
+  var HTMLBearerCheckboxElement: {
+    prototype: HTMLBearerCheckboxElement;
+    new (): HTMLBearerCheckboxElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-checkbox': HTMLBearerCheckboxElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-checkbox': HTMLBearerCheckboxElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-checkbox': JSXElements.BearerCheckboxAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerCheckboxAttributes extends HTMLAttributes {
+      'buttons'?: Array<{ label: string; value: string; checked?: boolean }>;
+      'controlName'?: string;
+      'inline'?: boolean;
+      'label'?: string;
+      'onValueChange'?: (event: CustomEvent) => void;
+      'value'?: Array<string>;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface BearerForm {
       'fields': Array<any>;
     }

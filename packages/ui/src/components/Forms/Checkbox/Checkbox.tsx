@@ -1,22 +1,29 @@
 import { Component, Prop, Element, Event, EventEmitter } from '@stencil/core'
 
 @Component({
-  tag: 'bearer-radio',
-  styleUrl: './Radio.scss',
+  tag: 'bearer-checkbox',
+  styleUrl: './Checkbox.scss',
   shadow: true
 })
-export class BearerRadio {
+export class BearerCheckbox {
   @Element() el: HTMLElement
   @Prop() label?: string
   @Prop() controlName: string
   @Prop() inline: boolean = false
   @Prop({ mutable: true })
-  value: string
+  value: Array<string> = []
   @Prop() buttons: Array<{ label: string; value: string; checked?: boolean }>
   @Event() valueChange: EventEmitter
 
   inputClicked(event) {
-    this.valueChange.emit(event.path[0].value)
+    const index = this.value.indexOf(event.path[0].value)
+    if (index >= 0) {
+      this.value.splice(index, 1)
+      this.valueChange.emit(this.value)
+    } else {
+      this.value.push(event.path[0].value)
+      this.valueChange.emit(this.value)
+    }
   }
 
   render() {
@@ -29,10 +36,10 @@ export class BearerRadio {
             <div class={css}>
               <input
                 class="form-check-input"
-                type="radio"
+                type="checkbox"
                 name={this.controlName}
                 value={value.value}
-                checked={this.value === value.value ? true : false}
+                checked={this.value.indexOf(value.value) >= 0 ? true : false}
                 onClick={this.inputClicked.bind(this)}
               />
               <label class="form-check-label">{value.label}</label>

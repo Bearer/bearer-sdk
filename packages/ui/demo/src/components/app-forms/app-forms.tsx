@@ -11,11 +11,13 @@ export class AppForms {
     password: string
     gender: string
     country: string
+    leisure: Array<string>
   } = {
     login: '',
     password: '',
     gender: 'male',
-    country: 'United Kingdom'
+    country: 'United Kingdom',
+    leisure: []
   }
   @State()
   radioValues = [
@@ -30,6 +32,25 @@ export class AppForms {
     {
       label: 'Other',
       value: 'other'
+    }
+  ]
+  @State()
+  checkboxValues = [
+    {
+      label: 'Sailing',
+      value: 'sailing'
+    },
+    {
+      label: 'Rowing',
+      value: 'rowing'
+    },
+    {
+      label: 'Climbing',
+      value: 'climbing'
+    },
+    {
+      label: 'Scuba-diving',
+      value: 'scuba-diving'
     }
   ]
 
@@ -79,6 +100,25 @@ export class AppForms {
         {
           label: '> 65',
           value: 4
+        }
+      ]
+    },
+    {
+      label: 'Leisure',
+      type: 'checkbox',
+      controlName: 'leisure',
+      buttons: [
+        {
+          label: 'Polo',
+          value: 'polo'
+        },
+        {
+          label: 'Golf',
+          value: 'golf'
+        },
+        {
+          label: 'Tennis',
+          value: 'tennis'
         }
       ]
     },
@@ -164,6 +204,13 @@ export class AppForms {
               options={this.countries}
               value={this.inputs.country}
             />
+            <bearer-checkbox
+              label="Leisure"
+              controlName="leisure"
+              onValueChange={value => this.handleValue('leisure', value)}
+              buttons={this.checkboxValues}
+              value={this.inputs.leisure}
+            />
             <bearer-input
               type="submit"
               onSubmit={e => this.handleSubmit(0, e)}
@@ -176,6 +223,8 @@ export class AppForms {
               Radio: {this.inputs.gender}
               <br />
               Country: {this.inputs.country}
+              <br />
+              Checkbox: {this.inputs.leisure.map(el => el + ' ')}
             </p>
           ) : (
             ''
@@ -189,9 +238,6 @@ export class AppForms {
           />
           {this.generatedForm ? (
             <ul>
-              {/* {this.generatedForm.map((field) => {
-                <li>{field.label} - {field.value}</li>
-              })} */}
               <li>
                 {this.generatedForm[0].label} - {this.generatedForm[0].value}
               </li>
