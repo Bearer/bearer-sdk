@@ -710,6 +710,46 @@ declare global {
 declare global {
 
   namespace StencilComponents {
+    interface BearerSelect {
+      'controlName': string;
+      'label': string;
+      'options': Array<{ label: string; value: string; default?: boolean }>;
+      'value': string;
+    }
+  }
+
+  interface HTMLBearerSelectElement extends StencilComponents.BearerSelect, HTMLStencilElement {}
+
+  var HTMLBearerSelectElement: {
+    prototype: HTMLBearerSelectElement;
+    new (): HTMLBearerSelectElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-select': HTMLBearerSelectElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-select': HTMLBearerSelectElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-select': JSXElements.BearerSelectAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerSelectAttributes extends HTMLAttributes {
+      'controlName'?: string;
+      'label'?: string;
+      'onValueChange'?: (event: CustomEvent) => void;
+      'options'?: Array<{ label: string; value: string; default?: boolean }>;
+      'value'?: string;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface BearerTextarea {
       'controlName': string;
       'hint': string;

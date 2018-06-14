@@ -10,11 +10,13 @@ export class AppForms {
     login: string
     password: string
     gender: string
+    country: string
     leisure: Array<string>
   } = {
     login: '',
     password: '',
     gender: 'male',
+    country: 'GB',
     leisure: []
   }
   @State()
@@ -50,6 +52,26 @@ export class AppForms {
       label: 'Scuba-diving',
       value: 'scuba-diving'
     }
+  ]
+
+  @State()
+  countries = [
+    { label: 'Austria', value: 'A' },
+    { label: 'Belgium', value: 'B' },
+    { label: 'France', value: 'F' },
+    { label: 'Germany', value: 'D' },
+    { label: 'Greece', value: 'GR' },
+    { label: 'Iceland', value: 'IS' },
+    { label: 'Irland', value: 'IRL' },
+    { label: 'Italy', value: 'I' },
+    { label: 'Luxembourg', value: 'L' },
+    { label: 'Netherland', value: 'NL' },
+    { label: 'Poland', value: 'PL' },
+    { label: 'Portugal', value: 'P' },
+    { label: 'South Africa', value: 'ZA' },
+    { label: 'Spain', value: 'E' },
+    { label: 'Switzerland', value: 'CH' },
+    { label: 'United Kingdom', value: 'GB' }
   ]
 
   @State() showResult: boolean = false
@@ -121,6 +143,12 @@ export class AppForms {
       ]
     },
     {
+      label: 'Country',
+      type: 'select',
+      controlName: 'country',
+      options: this.countries
+    },
+    {
       label: 'story',
       type: 'textarea',
       controlName: 'story',
@@ -146,7 +174,12 @@ export class AppForms {
     return (
       <div>
         <div>
-          <h4>Form with inputs</h4>
+          <bearer-typography kind="h2" id="demo">
+            Demo
+          </bearer-typography>
+          <bearer-typography kind="h3" id="input-component">
+            Form with inputs
+          </bearer-typography>
           <form onSubmit={e => this.handleSubmit(0, e)}>
             <bearer-input
               type="text"
@@ -175,6 +208,13 @@ export class AppForms {
               buttons={this.radioValues}
               value={this.inputs.gender}
             />
+            <bearer-select
+              label="Country"
+              controlName="country"
+              onValueChange={value => this.handleValue('country', value)}
+              options={this.countries}
+              value={this.inputs.country}
+            />
             <bearer-checkbox
               label="Leisure"
               controlName="leisure"
@@ -193,6 +233,8 @@ export class AppForms {
               <br />
               Radio: {this.inputs.gender}
               <br />
+              Country: {this.inputs.country}
+              <br />
               Checkbox: {this.inputs.leisure.map(el => el + ' ')}
             </p>
           ) : (
@@ -200,7 +242,7 @@ export class AppForms {
           )}
         </div>
         <div>
-          <h4>Generated form</h4>
+          <h3 id="form-component">Generated form</h3>
           <bearer-form
             fields={this.fields}
             onSubmit={e => this.handleSubmit(1, e)}
