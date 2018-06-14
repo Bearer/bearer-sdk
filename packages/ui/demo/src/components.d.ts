@@ -627,7 +627,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerRadio {
-      'buttons': Array<{ label: string, value: string, checked?: boolean }>;
+      'buttons': Array<{ label: string; value: string; checked?: boolean }>;
       'controlName': string;
       'inline': boolean;
       'label': string;
@@ -654,11 +654,51 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerRadioAttributes extends HTMLAttributes {
-      'buttons'?: Array<{ label: string, value: string, checked?: boolean }>;
+      'buttons'?: Array<{ label: string; value: string; checked?: boolean }>;
       'controlName'?: string;
       'inline'?: boolean;
       'label'?: string;
       'onValueChange'?: (event: CustomEvent) => void;
+      'value'?: string;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface BearerSelect {
+      'controlName': string;
+      'label': string;
+      'options': Array<{ label: string; value: string; default?: boolean }>;
+      'value': string;
+    }
+  }
+
+  interface HTMLBearerSelectElement extends StencilComponents.BearerSelect, HTMLStencilElement {}
+
+  var HTMLBearerSelectElement: {
+    prototype: HTMLBearerSelectElement;
+    new (): HTMLBearerSelectElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-select': HTMLBearerSelectElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-select': HTMLBearerSelectElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-select': JSXElements.BearerSelectAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerSelectAttributes extends HTMLAttributes {
+      'controlName'?: string;
+      'label'?: string;
+      'onValueChange'?: (event: CustomEvent) => void;
+      'options'?: Array<{ label: string; value: string; default?: boolean }>;
       'value'?: string;
     }
   }

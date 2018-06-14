@@ -6,10 +6,16 @@ import { Component, State } from '@stencil/core'
 })
 export class AppForms {
   @State()
-  inputs: { login: string; password: string; gender: string } = {
+  inputs: {
+    login: string
+    password: string
+    gender: string
+    country: string
+  } = {
     login: '',
     password: '',
-    gender: 'male'
+    gender: 'male',
+    country: 'United Kingdom'
   }
   @State()
   radioValues = [
@@ -84,6 +90,26 @@ export class AppForms {
     }
   ]
 
+  @State()
+  countries = [
+    { label: 'Austria', value: 'A' },
+    { label: 'Belgium', value: 'B' },
+    { label: 'France', value: 'F' },
+    { label: 'Germany', value: 'D' },
+    { label: 'Greece', value: 'GR' },
+    { label: 'Iceland', value: 'IS' },
+    { label: 'Irland', value: 'IRL' },
+    { label: 'Italy', value: 'I' },
+    { label: 'Luxembourg', value: 'L' },
+    { label: 'Netherland', value: 'NL' },
+    { label: 'Poland', value: 'PL' },
+    { label: 'Portugal', value: 'P' },
+    { label: 'South Africa', value: 'ZA' },
+    { label: 'Spain', value: 'E' },
+    { label: 'Switzerland', value: 'CH' },
+    { label: 'United Kingdom', value: 'GB' }
+  ]
+
   handleValue(field, value) {
     this.inputs[field] = value.detail
   }
@@ -131,6 +157,13 @@ export class AppForms {
               buttons={this.radioValues}
               value={this.inputs.gender}
             />
+            <bearer-select
+              label="Country"
+              controlName="country"
+              onValueChange={value => this.handleValue('country', value)}
+              options={this.countries}
+              value={this.inputs.country}
+            />
             <bearer-input
               type="submit"
               onSubmit={e => this.handleSubmit(0, e)}
@@ -141,6 +174,8 @@ export class AppForms {
               Login: {this.inputs.login} - Password: {this.inputs.password}
               <br />
               Radio: {this.inputs.gender}
+              <br />
+              Country: {this.inputs.country}
             </p>
           ) : (
             ''
