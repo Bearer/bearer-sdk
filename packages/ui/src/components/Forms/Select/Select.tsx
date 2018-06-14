@@ -23,13 +23,12 @@ export class BearerSelect {
     return (
       <div class="form-group">
         {this.label ? <label>{this.label}</label> : ''}
-        <select class="form-control">
+        <select class="form-control" onChange={this.inputClicked.bind(this)}>
           {this.options.map(value => {
             return (
               <option
                 value={value.value}
                 selected={this.value === value.value ? true : false}
-                onClick={this.inputClicked.bind(this)}
               >
                 {value.label}
               </option>

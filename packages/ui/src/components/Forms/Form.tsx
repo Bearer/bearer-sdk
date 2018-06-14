@@ -82,6 +82,18 @@ export class BearerForm {
                   }
                 />
               )
+            case 'select':
+              return (
+                <bearer-select
+                  label={input.label}
+                  controlName={input.controlName}
+                  value={input.value}
+                  options={input.options}
+                  onValueChange={value =>
+                    this.handleValue(input.controlName, value)
+                  }
+                />
+              )
           }
         })}
         <bearer-input type="submit" onSubmit={() => this.handleSubmit()} />
