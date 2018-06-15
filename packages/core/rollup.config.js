@@ -1,11 +1,11 @@
 import babel from 'rollup-plugin-babel'
-import uglify from 'rollup-plugin-uglify'
 import typescript from 'rollup-plugin-typescript2'
-import serve from 'rollup-plugin-serve'
-import livereload from 'rollup-plugin-livereload'
+// import serve from 'rollup-plugin-serve'
+// import livereload from 'rollup-plugin-livereload'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import replace from 'rollup-plugin-replace'
+import { terser } from 'rollup-plugin-terser'
 
 import { version } from './package.json'
 
@@ -48,8 +48,12 @@ function plugins() {
     })
   ]
   return isProduction
-    ? [...base, uglify()]
-    : [...base, serve({ contentBase: ['dist', 'static'] }), livereload()]
+    ? [...base, terser()]
+    : [
+        ...base
+        // serve({ contentBase: ['dist', 'static'], port: 20002 }),
+        // livereload()
+      ]
 }
 
 const bundles = [
@@ -79,6 +83,14 @@ const bundles = [
       file: 'dist/plugins.js',
       format: 'cjs'
     }
+  },
+  {
+    input: 'src/state.ts',
+    output: {
+      file: 'dist/state.js',
+      format: 'cjs'
+    },
+    plugins: plugins()
   }
 ]
 
