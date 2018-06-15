@@ -1,11 +1,10 @@
 import babel from 'rollup-plugin-babel'
-import uglify from 'rollup-plugin-uglify'
 import typescript from 'rollup-plugin-typescript2'
-import serve from 'rollup-plugin-serve'
-import livereload from 'rollup-plugin-livereload'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import replace from 'rollup-plugin-replace'
+import { terser } from 'rollup-plugin-terser'
+import copy from 'rollup-plugin-copy'
 
 import { version } from './package.json'
 
@@ -47,9 +46,7 @@ function plugins() {
       LIB_VERSION: version
     })
   ]
-  return isProduction
-    ? [...base, uglify()]
-    : [...base, serve({ contentBase: ['dist', 'static'] }), livereload()]
+  return isProduction ? [...base, terser()] : base
 }
 
 const bundles = [
@@ -79,6 +76,17 @@ const bundles = [
       file: 'dist/plugins.js',
       format: 'cjs'
     }
+  },
+  {
+    input: 'src/state.ts',
+    output: {
+      file: 'dist/state.js',
+      format: 'es'
+    },
+    plugins: [
+      ...plugins(),
+      copy({ 'src/declarations': 'dist/declarations', verbose: true })
+    ]
   }
 ]
 
