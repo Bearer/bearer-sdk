@@ -1,4 +1,3 @@
-import rc from 'rc'
 import replace from 'rollup-plugin-replace'
 
 export const plugins = () => {

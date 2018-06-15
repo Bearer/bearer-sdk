@@ -46,16 +46,9 @@ function plugins() {
     }),
     replace({
       LIB_VERSION: version
-    }),
-    copy({ 'src/declarations': 'dist/declarations' })
+    })
   ]
-  return isProduction
-    ? [...base, terser()]
-    : [
-        ...base
-        // serve({ contentBase: ['dist', 'static'], port: 20002 }),
-        // livereload()
-      ]
+  return isProduction ? [...base, terser()] : base
 }
 
 const bundles = [
@@ -92,7 +85,11 @@ const bundles = [
       file: 'dist/state.js',
       format: 'cjs'
     },
-    plugins: plugins()
+    // plugins: plugins()
+    plugins: [
+      ...plugins(),
+      copy({ 'src/declarations': 'dist/declarations', verbose: true })
+    ]
   }
 ]
 

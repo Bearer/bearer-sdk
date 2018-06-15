@@ -1,11 +1,6 @@
 export * from '../declarations/state'
-import {
-  Store,
-  MapStateToPropsFunction,
-  MapDispatchToPropsFunction,
-  BearerStore,
-  PromisifiedStore
-} from '../declarations/state'
+import * as d from '../declarations/state'
+import { Store } from 'redux'
 
 function getStore(configStore: () => Store): Store {
   return (window[`BEARER_SCENARIO_ID_store`] =
@@ -14,10 +9,10 @@ function getStore(configStore: () => Store): Store {
 
 export function BearerState(configStore) {
   return (target: any, key: string) => {
-    const getter = (): PromisifiedStore => {
-      return new Promise<BearerStore>((resolve, _reject) => {
+    const getter = (): d.PromisifiedStore => {
+      return new Promise<d.BearerStore>((resolve, _reject) => {
         const store = getStore(configStore)
-        const mapDispatchToProps: MapDispatchToPropsFunction = function(
+        const mapDispatchToProps: d.MapDispatchToPropsFunction = function(
           component: any,
           props: any
         ) {
@@ -32,7 +27,7 @@ export function BearerState(configStore) {
           })
         }
 
-        const mapStateToProps: MapStateToPropsFunction = function(
+        const mapStateToProps: d.MapStateToPropsFunction = function(
           component: any,
           mapState: Function
         ) {
@@ -54,7 +49,7 @@ export function BearerState(configStore) {
           store,
           mapStateToProps,
           mapDispatchToProps
-        } as BearerStore)
+        } as d.BearerStore)
       })
     }
 
