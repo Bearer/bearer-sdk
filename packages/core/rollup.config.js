@@ -1,7 +1,5 @@
 import babel from 'rollup-plugin-babel'
 import typescript from 'rollup-plugin-typescript2'
-// import serve from 'rollup-plugin-serve'
-// import livereload from 'rollup-plugin-livereload'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import replace from 'rollup-plugin-replace'
@@ -85,7 +83,6 @@ const bundles = [
       file: 'dist/state.js',
       format: 'cjs'
     },
-    // plugins: plugins()
     plugins: [
       ...plugins(),
       copy({ 'src/declarations': 'dist/declarations', verbose: true })
