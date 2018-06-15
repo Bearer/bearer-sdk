@@ -81,7 +81,7 @@ const bundles = [
     input: 'src/state.ts',
     output: {
       file: 'dist/state.js',
-      format: 'cjs'
+      format: 'es'
     },
     plugins: [
       ...plugins(),
