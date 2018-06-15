@@ -1,27 +1,16 @@
-import { Store } from '../interfaces'
+export * from '../declarations/state'
+import {
+  Store,
+  MapStateToPropsFunction,
+  MapDispatchToPropsFunction,
+  BearerStore,
+  PromisifiedStore
+} from '../declarations/state'
 
-function getStore(configStore): Store {
+function getStore(configStore: () => Store): Store {
   return (window[`BEARER_SCENARIO_ID_store`] =
     window[`BEARER_SCENARIO_ID_store`] || configStore())
 }
-
-export declare type MapStateToPropsFunction = (
-  component: any,
-  mapState: <T>(state: T) => any
-) => void
-
-export declare type MapDispatchToPropsFunction = (
-  component: any,
-  mapState: { [key: string]: Function }
-) => void
-
-export declare interface BearerStore extends Store {
-  store: Store
-  mapStateToProps: MapStateToPropsFunction
-  mapDispatchToProps: MapDispatchToPropsFunction
-}
-
-export type PromisifiedStore = Promise<BearerStore>
 
 export function BearerState(configStore) {
   return (target: any, key: string) => {

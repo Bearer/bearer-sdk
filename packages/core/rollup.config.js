@@ -6,6 +6,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import replace from 'rollup-plugin-replace'
 import { terser } from 'rollup-plugin-terser'
+import copy from 'rollup-plugin-copy'
 
 import { version } from './package.json'
 
@@ -45,7 +46,8 @@ function plugins() {
     }),
     replace({
       LIB_VERSION: version
-    })
+    }),
+    copy({ 'src/declarations': 'dist/declarations' })
   ]
   return isProduction
     ? [...base, terser()]
