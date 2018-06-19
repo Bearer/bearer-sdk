@@ -22,10 +22,20 @@ interface ConfigSetupData {
 })
 export class BearerSetup {
   @State()
-  inputs: { clientID: string; clientSecret: string } = {
-    clientID: '',
-    clientSecret: ''
-  }
+  inputs = [
+    {
+      label: 'Client ID',
+      type: 'text',
+      value: '',
+      controlName: 'clientID'
+    },
+    {
+      label: 'Client Secret',
+      type: 'password',
+      value: '',
+      controlName: 'clientSecret'
+    }
+  ]
   @Element() element: HTMLElement
   @Event() stepCompleted: EventEmitter
   @Prop() scenarioId: string = ''
@@ -36,8 +46,8 @@ export class BearerSetup {
     // we trick the system for the moment and we don't give a shit
     // the intentName is the reference ID
     BearerState.storeSecret(this.scenarioId, {
-      clientID: this.inputs.clientID,
-      clientSecret: this.inputs.clientSecret
+      clientID: this.inputs[0].value,
+      clientSecret: this.inputs[1].value
     })
       // .then(() => {
       //   this.error = false
@@ -82,7 +92,10 @@ export class BearerSetup {
             [Error] Unable to store the credentials
           </bearer-alert>
         )}
-        <bearer-input
+
+        <bearer-form fields={this.inputs} onSubmit={this.handleSubmit} />
+
+        {/* <bearer-input
           type="text"
           controlName="clientID"
           label="Client ID"
@@ -96,7 +109,7 @@ export class BearerSetup {
           value={this.inputs.clientSecret}
           onValueChange={value => this.handleValue('clientSecret', value)}
         />
-        <bearer-input type="submit" onSubmit={this.handleSubmit} />
+        <bearer-input type="submit" onSubmit={this.handleSubmit} /> */}
       </form>
     )
   }

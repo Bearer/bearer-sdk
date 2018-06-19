@@ -1,4 +1,4 @@
-import { Component, Prop, Event, EventEmitter } from '@stencil/core'
+import { Component, Prop, Event, Listen, EventEmitter } from '@stencil/core'
 
 @Component({
   tag: 'bearer-form',
@@ -18,6 +18,11 @@ export class BearerForm {
       const index = this.fields.findIndex(el => el.controlName === field)
       this.fields[index].value = value.detail
     }
+  }
+
+  @Listen('keydown.enter')
+  handleScroll() {
+    this.submit.emit(this.fields)
   }
 
   render() {
