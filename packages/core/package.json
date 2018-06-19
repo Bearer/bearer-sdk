@@ -8,8 +8,7 @@
   "license": "UNLICENSED",
   "types": "dist/index.d.ts",
   "files": [
-    "src/*.js",
-    "dist/*.js"
+    "dist/"
   ],
   "scripts": {
     "start": "yarn build",
