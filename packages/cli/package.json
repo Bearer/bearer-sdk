@@ -45,6 +45,9 @@
   },
   "devDependencies": {
     "jest": "^22.4.3",
-    "mkdir-recursive": "^0.4.0"
+    "mkdir-recursive": "^0.4.0",
+    "ts-loader": "^4.4.1",
+    "typescript": "^2.9.2",
+    "webpack": "^4.12.0"
   }
 }
