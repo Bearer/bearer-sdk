@@ -1,4 +1,4 @@
-const { GetCollection } = require('@bearer/intents')
+import { GetCollection } from '@bearer/intents'
 
 export default class GetHelloWorlsIntent {
   static intentName: string = 'getHelloWorlds'

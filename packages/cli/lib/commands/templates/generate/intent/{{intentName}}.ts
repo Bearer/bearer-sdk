@@ -1,4 +1,4 @@
-const { {{intentType}} } = require("@bearer/intents");
+import { {{intentType}} } from '@bearer/intents'
 
 export default class {{intentName}}Intent {
   static intentName: string = '{{intentName}}'
