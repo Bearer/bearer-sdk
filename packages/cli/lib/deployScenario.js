@@ -39,13 +39,15 @@ module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
 
   try {
     emitter.emit('intents:installingDependencies')
-    await exec('yarn install --production', { cwd: intentsDirectory })
+    await exec('yarn install', { cwd: intentsDirectory })
+
     await buildArtifact(
       output,
       handler,
       { path: intentsDirectory, scenarioUuid },
       emitter
     )
+
     const authConfigFilePath = pathJs.join(intentsDirectory, AUTH_CONFIG_FILE)
     await storeCredentials(authConfigFilePath, config, emitter)
 
