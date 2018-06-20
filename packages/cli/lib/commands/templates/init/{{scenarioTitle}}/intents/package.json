@@ -6,5 +6,8 @@
   "dependencies": {
     "@bearer/intents": "latest"
   },
+  "devDependencies": {
+    "@bearer/bearer-cli": "latest"
+  },
   "license": "MIT"
 }
