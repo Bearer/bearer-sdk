@@ -13,9 +13,12 @@ declare global {
   }
   namespace JSXElements {}
 
+  interface HTMLElement {
+    componentOnReady?: () => Promise<this | null>;
+  }
+
   interface HTMLStencilElement extends HTMLElement {
     componentOnReady(): Promise<this>;
-    componentOnReady(done: (ele?: this) => void): void;
 
     forceUpdate(): void;
   }
@@ -23,6 +26,11 @@ declare global {
   interface HTMLAttributes {}
 }
 
+import '@stencil/redux';
+
+import {
+  Store,
+} from '@stencil/redux';
 
 declare global {
 
@@ -174,6 +182,48 @@ declare global {
 declare global {
 
   namespace StencilComponents {
+    interface BearerCheckbox {
+      'buttons': Array<{ label: string; value: string; checked?: boolean }>;
+      'controlName': string;
+      'inline': boolean;
+      'label': string;
+      'value': Array<string>;
+    }
+  }
+
+  interface HTMLBearerCheckboxElement extends StencilComponents.BearerCheckbox, HTMLStencilElement {}
+
+  var HTMLBearerCheckboxElement: {
+    prototype: HTMLBearerCheckboxElement;
+    new (): HTMLBearerCheckboxElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-checkbox': HTMLBearerCheckboxElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-checkbox': HTMLBearerCheckboxElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-checkbox': JSXElements.BearerCheckboxAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerCheckboxAttributes extends HTMLAttributes {
+      'buttons'?: Array<{ label: string; value: string; checked?: boolean }>;
+      'controlName'?: string;
+      'inline'?: boolean;
+      'label'?: string;
+      'onValueChange'?: (event: CustomEvent) => void;
+      'value'?: Array<string>;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface BearerForm {
       'fields': Array<any>;
     }
@@ -244,6 +294,88 @@ declare global {
       'onValueChange'?: (event: CustomEvent) => void;
       'placeholder'?: string;
       'type'?: string;
+      'value'?: string;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface BearerRadio {
+      'buttons': Array<{ label: string; value: string; checked?: boolean }>;
+      'controlName': string;
+      'inline': boolean;
+      'label': string;
+      'value': string;
+    }
+  }
+
+  interface HTMLBearerRadioElement extends StencilComponents.BearerRadio, HTMLStencilElement {}
+
+  var HTMLBearerRadioElement: {
+    prototype: HTMLBearerRadioElement;
+    new (): HTMLBearerRadioElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-radio': HTMLBearerRadioElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-radio': HTMLBearerRadioElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-radio': JSXElements.BearerRadioAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerRadioAttributes extends HTMLAttributes {
+      'buttons'?: Array<{ label: string; value: string; checked?: boolean }>;
+      'controlName'?: string;
+      'inline'?: boolean;
+      'label'?: string;
+      'onValueChange'?: (event: CustomEvent) => void;
+      'value'?: string;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface BearerSelect {
+      'controlName': string;
+      'label': string;
+      'options': Array<{ label: string; value: string; default?: boolean }>;
+      'value': string;
+    }
+  }
+
+  interface HTMLBearerSelectElement extends StencilComponents.BearerSelect, HTMLStencilElement {}
+
+  var HTMLBearerSelectElement: {
+    prototype: HTMLBearerSelectElement;
+    new (): HTMLBearerSelectElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-select': HTMLBearerSelectElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-select': HTMLBearerSelectElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-select': JSXElements.BearerSelectAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerSelectAttributes extends HTMLAttributes {
+      'controlName'?: string;
+      'label'?: string;
+      'onValueChange'?: (event: CustomEvent) => void;
+      'options'?: Array<{ label: string; value: string; default?: boolean }>;
       'value'?: string;
     }
   }
@@ -837,9 +969,11 @@ declare global {
     interface BearerScrollable {
       'fetcher': ({ page: number }) => Promise<{ items: Array<any> }>;
       'perPage': number;
+      'reducer': string;
       'renderCollection': (collection: Array<any>) => any;
       'renderFetching': () => any;
       'reset': () => void;
+      'store': Store;
     }
   }
 
@@ -864,8 +998,10 @@ declare global {
     export interface BearerScrollableAttributes extends HTMLAttributes {
       'fetcher'?: ({ page: number }) => Promise<{ items: Array<any> }>;
       'perPage'?: number;
+      'reducer'?: string;
       'renderCollection'?: (collection: Array<any>) => any;
       'renderFetching'?: () => any;
+      'store'?: Store;
     }
   }
 }
