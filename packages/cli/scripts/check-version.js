@@ -1,8 +1,17 @@
 const semver = require('semver')
 const term = require('terminal-kit').terminal
-const { engines } = require('../package.json')
+const updateNotifier = require('update-notifier')
 
-const version = engines.node
+const pkg = require('../package.json')
+const version = pkg.engines.node
+
+// Check if a new version is available
+const notifier = updateNotifier({
+  pkg,
+  updateCheckInterval: 1000 * 60 * 60 * 24 // everyday for the moment
+})
+notifier.notify()
+
 if (!semver.satisfies(process.version, version)) {
   term.white('Bearer: ')
   term.red(
