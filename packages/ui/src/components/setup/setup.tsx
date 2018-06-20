@@ -7,7 +7,8 @@ import {
   Prop
 } from '@stencil/core'
 import Bearer, { BearerState } from '@bearer/core'
-import { FieldSet, FieldType } from '../Forms/Fieldset'
+import { FieldSet } from '../Forms/Fieldset'
+import { BearerOAuth2Setup, BearerEmailSetup } from './setup-types'
 
 interface ConfigSetupData {
   Item: {
@@ -22,21 +23,10 @@ interface ConfigSetupData {
   shadow: true
 })
 export class BearerSetup {
-  @State()
-  inputs: FieldSet = new FieldSet([
-    {
-      label: 'Client ID',
-      type: FieldType.TEXT,
-      value: '',
-      controlName: 'clientID'
-    },
-    {
-      label: 'Client Secret',
-      type: FieldType.PASSWORD,
-      value: '',
-      controlName: 'clientSecret'
-    }
-  ])
+  @Prop() type: 'oauth2' | 'email'
+  @Prop() referenceId: string
+
+  @State() fields: FieldSet
   @Element() element: HTMLElement
   @Event() stepCompleted: EventEmitter
   @Prop() scenarioId: string = ''
@@ -49,8 +39,8 @@ export class BearerSetup {
     // we trick the system for the moment and we don't give a shit
     // the intentName is the reference ID
     BearerState.storeSecret(this.scenarioId, {
-      clientID: this.inputs.getValue('clientID'),
-      clientSecret: this.inputs.getValue('clientSecret')
+      clientID: this.fields.getValue('clientID'),
+      clientSecret: this.fields.getValue('clientSecret')
     })
       // .then(() => {
       //   this.error = false
@@ -74,16 +64,26 @@ export class BearerSetup {
   }
 
   handleValue(field, value) {
-    this.inputs[field] = value.detail
+    this.fields[field] = value.detail
   }
 
   componentDidLoad() {
+    // Load form according to type
+    switch (this.type) {
+      case 'oauth2':
+        this.fields = BearerOAuth2Setup.fields
+        break
+      case 'email':
+        this.fields = BearerEmailSetup.fields
+        break
+    }
+
     const form = this.element.shadowRoot.querySelector('bearer-form')
     BearerState.getData(this.scenarioId)
       .then(data => {
-        this.inputs.setValue('clientID', 'bob-the-great')
-        this.inputs.setValue('clientSecret', 'jaojdoisajdoisa')
-        form.updateFieldSet(this.inputs)
+        this.fields.setValue('clientID', 'bob-the-great')
+        this.fields.setValue('clientSecret', 'jaojdoisajdoisa')
+        form.updateFieldSet(this.fields)
         console.debug('[BEARER]', 'get_setup_success', data)
         Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
           referenceID: this.scenarioId
@@ -105,7 +105,11 @@ export class BearerSetup {
         {this.loading ? (
           <bearer-loading />
         ) : (
-          <bearer-form fields={this.inputs} onSubmit={this.handleSubmit} />
+          <bearer-form
+            fields={this.fields}
+            clearOnInput={true}
+            onSubmit={this.handleSubmit}
+          />
         )}
       </div>
     )

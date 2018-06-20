@@ -26,8 +26,10 @@ export class BearerInput {
   value: string
   @Prop({ mutable: true })
   hint: string
+  @Prop() disabled: boolean
   @Event() valueChange: EventEmitter
   @Event() submit: EventEmitter
+  @Event() inputClick: EventEmitter
 
   // @Watch('value')
   // valueChanged(newValue: boolean, oldValue: boolean) {
@@ -47,6 +49,8 @@ export class BearerInput {
   inputClicked() {
     if (this.type === 'submit') {
       this.submit.emit('submit')
+    } else {
+      this.inputClick.emit('click')
     }
   }
 
@@ -62,6 +66,7 @@ export class BearerInput {
           class={this.type === 'submit' ? 'btn btn-primary' : 'form-control'}
           onInput={this.inputChanged.bind(this)}
           onClick={this.inputClicked.bind(this)}
+          disabled={this.disabled}
         />
         {this.hint ? (
           <small class="form-text text-muted">{this.hint}</small>

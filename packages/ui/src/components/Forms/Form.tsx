@@ -17,6 +17,7 @@ import { FieldSet } from './Fieldset'
 export class BearerForm {
   @Prop({ mutable: true })
   fields: FieldSet
+  @Prop() clearOnInput: boolean
   @Event() submit: EventEmitter
   @State() values: Array<string> = []
 
@@ -37,7 +38,7 @@ export class BearerForm {
   }
 
   @Listen('keydown.enter')
-  handleScroll() {
+  handleEnterKey() {
     this.submit.emit(this.fields)
   }
 
@@ -49,8 +50,28 @@ export class BearerForm {
     })
   }
 
+  handleInputClicked() {
+    if (this.clearOnInput) {
+      this.clearValues()
+    }
+  }
+
+  clearValues() {
+    this.fields.map(el => {
+      el.value = ''
+      el.valueList = []
+      return el
+    })
+    this.updateValues(this.fields)
+  }
+
   componentDidLoad() {
     this.updateValues(this.fields)
+  }
+
+  // WIP
+  isValid() {
+    return true
   }
 
   renderInputs() {
@@ -72,6 +93,7 @@ export class BearerForm {
               onValueChange={value =>
                 this.handleValue(input.controlName, value)
               }
+              onInputClick={_ => this.handleInputClicked()}
             />
           )
         case 'textarea':
@@ -133,7 +155,11 @@ export class BearerForm {
     return (
       <form onSubmit={() => this.handleSubmit()}>
         {this.renderInputs()}
-        <bearer-input type="submit" onSubmit={() => this.handleSubmit()} />
+        <bearer-input
+          type="submit"
+          disabled={!this.isValid()}
+          onSubmit={() => this.handleSubmit()}
+        />
       </form>
     )
   }

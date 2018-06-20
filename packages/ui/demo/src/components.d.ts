@@ -593,6 +593,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerForm {
+      'clearOnInput': boolean;
       'fields': FieldSet;
       'updateFieldSet': (fields: FieldSet) => void;
     }
@@ -617,6 +618,7 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerFormAttributes extends HTMLAttributes {
+      'clearOnInput'?: boolean;
       'fields'?: FieldSet;
       'onSubmit'?: (event: CustomEvent) => void;
     }
@@ -629,6 +631,7 @@ declare global {
   namespace StencilComponents {
     interface BearerInput {
       'controlName': string;
+      'disabled': boolean;
       'hint': string;
       'label': string;
       'placeholder': string;
@@ -657,8 +660,10 @@ declare global {
   namespace JSXElements {
     export interface BearerInputAttributes extends HTMLAttributes {
       'controlName'?: string;
+      'disabled'?: boolean;
       'hint'?: string;
       'label'?: string;
+      'onInputClick'?: (event: CustomEvent) => void;
       'onSubmit'?: (event: CustomEvent) => void;
       'onValueChange'?: (event: CustomEvent) => void;
       'placeholder'?: string;
@@ -1413,7 +1418,10 @@ declare global {
 
   namespace StencilComponents {
     interface BearerSetup {
+      'referenceId': string;
       'scenarioId': string;
+      'type': 'oauth2'
+    | 'email';
     }
   }
 
@@ -1437,7 +1445,10 @@ declare global {
   namespace JSXElements {
     export interface BearerSetupAttributes extends HTMLAttributes {
       'onStepCompleted'?: (event: CustomEvent) => void;
+      'referenceId'?: string;
       'scenarioId'?: string;
+      'type'?: 'oauth2'
+    | 'email';
     }
   }
 }
