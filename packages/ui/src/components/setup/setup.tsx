@@ -49,8 +49,8 @@ export class BearerSetup {
     // we trick the system for the moment and we don't give a shit
     // the intentName is the reference ID
     BearerState.storeSecret(this.scenarioId, {
-      clientID: this.inputs[0].value,
-      clientSecret: this.inputs[1].value
+      clientID: this.inputs.getValue('clientID'),
+      clientSecret: this.inputs.getValue('clientSecret')
     })
       // .then(() => {
       //   this.error = false
@@ -78,10 +78,12 @@ export class BearerSetup {
   }
 
   componentDidLoad() {
+    const form = this.element.shadowRoot.querySelector('bearer-form')
     BearerState.getData(this.scenarioId)
       .then(data => {
         this.inputs.setValue('clientID', 'bob-the-great')
-        // this.inputs.setValue('clientSecret', 'jaojdoisajdoisa')
+        this.inputs.setValue('clientSecret', 'jaojdoisajdoisa')
+        form.updateFieldSet(this.inputs)
         console.debug('[BEARER]', 'get_setup_success', data)
         Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
           referenceID: this.scenarioId
@@ -100,8 +102,9 @@ export class BearerSetup {
             [Error] Unable to store the credentials
           </bearer-alert>
         )}
-        {this.loading && <bearer-loading />}
-        {!this.loading && (
+        {this.loading ? (
+          <bearer-loading />
+        ) : (
           <bearer-form fields={this.inputs} onSubmit={this.handleSubmit} />
         )}
       </div>

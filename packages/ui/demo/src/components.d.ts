@@ -594,6 +594,7 @@ declare global {
   namespace StencilComponents {
     interface BearerForm {
       'fields': FieldSet;
+      'updateFieldSet': (fields: FieldSet) => void;
     }
   }
 

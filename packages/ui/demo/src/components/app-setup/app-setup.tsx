@@ -18,12 +18,6 @@ export class AppSetup {
         <bearer-typography kind="h4">Setup Component</bearer-typography>
         <bearer-dropdown-button innerListener={innerListener}>
           <span slot="buttonText">Setup Scenario</span>
-          {/* <bearer-input
-            type="text"
-            label="Scenario Identifier"
-            value={this.scenarioId}
-            onValueChange={this.scenarioIdChanged}
-          /> */}
           <bearer-setup scenario-id={this.scenarioId} />
         </bearer-dropdown-button>
         <div class="down">
