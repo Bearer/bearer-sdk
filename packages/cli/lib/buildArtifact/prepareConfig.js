@@ -23,7 +23,7 @@ module.exports = (codePath, scenarioUuid) => {
         if (intent && intent.intentName)
           acc.then(config =>
             config.intents.push({
-              [intent.intentName]: `dist/index.${intent.intentName}`
+              [intent.intentName]: `index.${intent.intentName}`
             })
           )
         return acc
