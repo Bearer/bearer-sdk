@@ -31,6 +31,9 @@ import '@stencil/state-tunnel';
 import '@stencil/redux';
 
 import {
+  FieldSet,
+} from './components/ui/Forms/Fieldset';
+import {
   Store,
 } from '@stencil/redux';
 
@@ -590,7 +593,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerForm {
-      'fields': Array<any>;
+      'fields': FieldSet;
     }
   }
 
@@ -613,7 +616,7 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerFormAttributes extends HTMLAttributes {
-      'fields'?: Array<any>;
+      'fields'?: FieldSet;
       'onSubmit'?: (event: CustomEvent) => void;
     }
   }

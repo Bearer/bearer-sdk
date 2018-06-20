@@ -1,4 +1,5 @@
 import { Component, Prop, Event, Listen, EventEmitter } from '@stencil/core'
+import { FieldSet } from './Fieldset'
 
 @Component({
   tag: 'bearer-form',
@@ -6,7 +7,8 @@ import { Component, Prop, Event, Listen, EventEmitter } from '@stencil/core'
   shadow: true
 })
 export class BearerForm {
-  @Prop() fields: Array<any>
+  @Prop({ mutable: true })
+  fields: FieldSet
   @Event() submit: EventEmitter
 
   handleSubmit() {
@@ -15,8 +17,7 @@ export class BearerForm {
 
   handleValue(field: string, value: any) {
     if (value) {
-      const index = this.fields.findIndex(el => el.controlName === field)
-      this.fields[index].value = value.detail
+      this.fields.setValue(field, value.detail)
     }
   }
 
@@ -79,7 +80,7 @@ export class BearerForm {
                 <bearer-checkbox
                   label={input.label}
                   controlName={input.controlName}
-                  value={input.value}
+                  value={input.valueList}
                   buttons={input.buttons}
                   inline={input.inline}
                   onValueChange={value =>

@@ -31,10 +31,10 @@ export class BearerInput {
 
   @Watch('value')
   valueChanged() {
-    const inputEl = this.el.shadowRoot.querySelector('input')
-    if (inputEl.value !== this.value) {
-      inputEl.value = this.value
-    }
+    // const inputEl = this.el.shadowRoot.querySelector('input')
+    // if (inputEl.value !== this.value) {
+    //   inputEl.value = this.value
+    // }
   }
 
   inputChanged(event: any) {

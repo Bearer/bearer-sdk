@@ -7,6 +7,7 @@ import {
   Prop
 } from '@stencil/core'
 import Bearer, { BearerState } from '@bearer/core'
+import { FieldSet, FieldType } from '../Forms/Fieldset'
 
 interface ConfigSetupData {
   Item: {
@@ -22,27 +23,29 @@ interface ConfigSetupData {
 })
 export class BearerSetup {
   @State()
-  inputs = [
+  inputs: FieldSet = new FieldSet([
     {
       label: 'Client ID',
-      type: 'text',
+      type: FieldType.TEXT,
       value: '',
       controlName: 'clientID'
     },
     {
       label: 'Client Secret',
-      type: 'password',
+      type: FieldType.PASSWORD,
       value: '',
       controlName: 'clientSecret'
     }
-  ]
+  ])
   @Element() element: HTMLElement
   @Event() stepCompleted: EventEmitter
   @Prop() scenarioId: string = ''
   @State() error: boolean = false
+  @State() loading: boolean = false
 
   handleSubmit = (e: any) => {
     e.preventDefault()
+    this.loading = true
     // we trick the system for the moment and we don't give a shit
     // the intentName is the reference ID
     BearerState.storeSecret(this.scenarioId, {
@@ -56,13 +59,16 @@ export class BearerSetup {
       //   })
       // })
       .then((data: ConfigSetupData) => {
+        this.loading = false
         Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
           // clientID: this.inputs.clientID,
           referenceID: data.Item.referenceId
         })
       })
+      // .then()
       .catch(() => {
         this.error = true
+        this.loading = false
         Bearer.emitter.emit(`setup_error:${this.scenarioId}`, {})
       })
   }
@@ -74,6 +80,8 @@ export class BearerSetup {
   componentDidLoad() {
     BearerState.getData(this.scenarioId)
       .then(data => {
+        this.inputs.setValue('clientID', 'bob-the-great')
+        // this.inputs.setValue('clientSecret', 'jaojdoisajdoisa')
         console.debug('[BEARER]', 'get_setup_success', data)
         Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
           referenceID: this.scenarioId
@@ -86,31 +94,17 @@ export class BearerSetup {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <div>
         {this.error && (
           <bearer-alert kind="danger">
             [Error] Unable to store the credentials
           </bearer-alert>
         )}
-
-        <bearer-form fields={this.inputs} onSubmit={this.handleSubmit} />
-
-        {/* <bearer-input
-          type="text"
-          controlName="clientID"
-          label="Client ID"
-          value={this.inputs.clientID}
-          onValueChange={value => this.handleValue('clientID', value)}
-        />
-        <bearer-input
-          type="password"
-          controlName="clientSecret"
-          label="Client Secret"
-          value={this.inputs.clientSecret}
-          onValueChange={value => this.handleValue('clientSecret', value)}
-        />
-        <bearer-input type="submit" onSubmit={this.handleSubmit} /> */}
-      </form>
+        {this.loading && <bearer-loading />}
+        {!this.loading && (
+          <bearer-form fields={this.inputs} onSubmit={this.handleSubmit} />
+        )}
+      </div>
     )
   }
 }
