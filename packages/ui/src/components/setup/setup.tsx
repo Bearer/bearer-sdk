@@ -8,7 +8,6 @@ import {
 } from '@stencil/core'
 import Bearer, { BearerState } from '@bearer/core'
 import { FieldSet } from '../Forms/Fieldset'
-import { BearerOAuth2Setup, BearerEmailSetup } from './setup-types'
 
 interface ConfigSetupData {
   Item: {
@@ -23,10 +22,9 @@ interface ConfigSetupData {
   shadow: true
 })
 export class BearerSetup {
-  @Prop() type: 'oauth2' | 'email'
+  @Prop() fields: FieldSet
   @Prop() referenceId: string
 
-  @State() fields: FieldSet
   @Element() element: HTMLElement
   @Event() stepCompleted: EventEmitter
   @Prop() scenarioId: string = ''
@@ -68,16 +66,6 @@ export class BearerSetup {
   }
 
   componentDidLoad() {
-    // Load form according to type
-    switch (this.type) {
-      case 'oauth2':
-        this.fields = BearerOAuth2Setup.fields
-        break
-      case 'email':
-        this.fields = BearerEmailSetup.fields
-        break
-    }
-
     const form = this.element.shadowRoot.querySelector('bearer-form')
     BearerState.getData(this.scenarioId)
       .then(data => {

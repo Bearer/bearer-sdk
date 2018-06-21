@@ -1420,8 +1420,7 @@ declare global {
     interface BearerSetup {
       'referenceId': string;
       'scenarioId': string;
-      'type': 'oauth2'
-    | 'email';
+      'type': 'oauth2' | 'email';
     }
   }
 
@@ -1447,8 +1446,7 @@ declare global {
       'onStepCompleted'?: (event: CustomEvent) => void;
       'referenceId'?: string;
       'scenarioId'?: string;
-      'type'?: 'oauth2'
-    | 'email';
+      'type'?: 'oauth2' | 'email';
     }
   }
 }
