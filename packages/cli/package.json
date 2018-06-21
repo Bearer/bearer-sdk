@@ -1,8 +1,8 @@
 {
   "name": "@bearer/bearer-cli",
-  "version": "0.0.10",
+  "version": "0.0.14",
   "main": "index.js",
-  "repository": "git@github.com:BearerSH/bearer.git",
+  "repository": "git@github.com:Bearer/bearer.git",
   "author": "Radek Molenda <radek@bearer.com>",
   "license": "MIT",
   "engines": {
@@ -40,6 +40,7 @@
     "terminal-kit": "^1.15.1",
     "unzip": "^0.1.11",
     "unzip-stream": "^0.3.0",
+    "update-notifier": "^2.5.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
