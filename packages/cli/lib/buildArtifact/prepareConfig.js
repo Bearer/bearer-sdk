@@ -12,31 +12,18 @@ module.exports = (codePath, scenarioUuid) => {
 
   module.paths.push(path.join(fullPath, 'node_modules'))
 
-  return globby([
-    `${fullPath}/*.js`,
-    `!${fullPath}/node_modules`,
-    `!${fullPath}/*.test.js`,
-    `!${fullPath}/*.spec.js`
-  ]).then(files =>
+  return globby([`${fullPath}/dist/*.js`]).then(files =>
     files
       .reduce(async (acc, f) => {
-        let code = await readFileAsync(f)
+        const code = await readFileAsync(f)
+        const context = vm.createContext({ module: {} })
+        vm.runInNewContext(code.toString(), context)
+        const intent = context.module.exports.default
 
-        let exports = {}
-        let sandbox = { module: { exports } }
-
-        const script = new vm.Script(`((require) => {${code.toString()}})`)
-        vm.createContext(sandbox)
-
-        try {
-          script.runInContext(sandbox)(module.require.bind(module))
-        } catch (e) {
-          console.log(e)
-        }
-        if (exports.intentName)
+        if (intent && intent.intentName)
           acc.then(config =>
             config.intents.push({
-              [exports.intentName]: `index.${exports.intentName}`
+              [intent.intentName]: `index.${intent.intentName}`
             })
           )
         return acc
