@@ -98,7 +98,10 @@ class Bearer {
   }
 
   initSession() {
-    if (typeof window !== 'undefined') {
+    if (
+      typeof window !== 'undefined' &&
+      !document.querySelector(`#${IFRAME_NAME}`)
+    ) {
       window.addEventListener('message', this.messageReceived)
       this.iframe = document.createElement('iframe')
       this.iframe.src = `${this.bearerConfig.integrationHost}v1/user/initialize`
