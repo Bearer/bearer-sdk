@@ -120,6 +120,7 @@ function transpileIntents(path) {
         },
         (err, stats) => {
           if (err || stats.hasErrors()) {
+            // TODO: print better error messages
             console.log('[BEARER]', 'stats', stats.toJson('verbose'))
             reject(false)
           } else {
