@@ -88,14 +88,29 @@ function transpileIntents(path) {
             rules: [
               {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+                options: {
+                  compilerOptions: {
+                    allowUnreachableCode: false,
+                    declaration: false,
+                    lib: ['es2017'],
+                    noUnusedLocals: false,
+                    noUnusedParameters: false,
+                    allowSyntheticDefaultImports: true,
+                    experimentalDecorators: true,
+                    moduleResolution: 'node',
+                    module: 'es6',
+                    target: 'es2017'
+                  }
+                }
               }
             ]
           },
           resolve: {
             extensions: ['.tsx', '.ts', '.js']
           },
+          target: 'node',
           output: {
             libraryTarget: 'commonjs2',
             filename: '[name].js',
