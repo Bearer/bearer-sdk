@@ -22,30 +22,58 @@ interface ConfigSetupData {
   shadow: true
 })
 export class BearerSetup {
-  @Prop() fields: FieldSet
+  @Prop() fields: Array<any> = []
   @Prop() referenceId: string
+  @Prop() scenarioId: string
 
   @Element() element: HTMLElement
   @Event() stepCompleted: EventEmitter
-  @Prop() scenarioId: string = ''
+
+  @State() fieldSet: FieldSet
   @State() error: boolean = false
   @State() loading: boolean = false
 
   handleSubmit = (e: any) => {
     e.preventDefault()
     this.loading = true
+    const secretSet = this.fieldSet.map(el => {
+      return { key: el.controlName, value: el.value }
+    })
+    const publicSet = this.fieldSet
+      .filter(el => el.type !== 'password')
+      .map(el => {
+        return { key: el.controlName, value: el.value }
+      })
+    console.log(
+      secretSet,
+      secretSet.reduce(
+        (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
+        {}
+      ),
+      publicSet.reduce(
+        (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
+        {}
+      )
+    )
     // we trick the system for the moment and we don't give a shit
     // the intentName is the reference ID
-    BearerState.storeSecret(this.scenarioId, {
-      clientID: this.fields.getValue('clientID'),
-      clientSecret: this.fields.getValue('clientSecret')
-    })
-      // .then(() => {
-      //   this.error = false
-      //   return BearerState.storeData(`${this.scenarioId}-setup`, {
-      //     clientId: this.inputs.clientID
-      //   })
-      // })
+    BearerState.storeSecret(
+      this.scenarioId,
+      secretSet.reduce(
+        (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
+        {}
+      )
+    )
+      .then(() => {
+        this.error = false
+        return BearerState.storeData(
+          `${this.scenarioId}-setup`,
+          publicSet.reduce(
+            (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
+            {}
+          )
+        )
+      })
       .then((data: ConfigSetupData) => {
         this.loading = false
         Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
@@ -53,7 +81,6 @@ export class BearerSetup {
           referenceID: data.Item.referenceId
         })
       })
-      // .then()
       .catch(() => {
         this.error = true
         this.loading = false
@@ -65,21 +92,35 @@ export class BearerSetup {
     this.fields[field] = value.detail
   }
 
+  componentWillLoad() {
+    this.fieldSet = new FieldSet(this.fields)
+  }
+
   componentDidLoad() {
     const form = this.element.shadowRoot.querySelector('bearer-form')
-    BearerState.getData(this.scenarioId)
-      .then(data => {
-        this.fields.setValue('clientID', 'bob-the-great')
-        this.fields.setValue('clientSecret', 'jaojdoisajdoisa')
-        form.updateFieldSet(this.fields)
-        console.debug('[BEARER]', 'get_setup_success', data)
-        Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
-          referenceID: this.scenarioId
+    if (true || this.referenceId) {
+      BearerState.getData(`${this.scenarioId}-setup`)
+        .then((data: { Item: Object }) => {
+          Object.keys(data.Item).forEach(key => {
+            if (
+              data.Item.hasOwnProperty(key) &&
+              key !== 'ReadAllowed' &&
+              key !== 'referenceId'
+            ) {
+              console.log(key, data.Item[key])
+              this.fieldSet.setValue(key, data.Item[key])
+            }
+          })
+          form.updateFieldSet(this.fieldSet)
+          console.debug('[BEARER]', 'get_setup_success', data)
+          Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
+            referenceID: this.scenarioId
+          })
         })
-      })
-      .catch(e => {
-        console.error('[BEARER]', 'get_setup_error', e)
-      })
+        .catch(e => {
+          console.error('[BEARER]', 'get_setup_error', e)
+        })
+    }
   }
 
   render() {
@@ -94,7 +135,7 @@ export class BearerSetup {
           <bearer-loading />
         ) : (
           <bearer-form
-            fields={this.fields}
+            fields={this.fieldSet}
             clearOnInput={true}
             onSubmit={this.handleSubmit}
           />

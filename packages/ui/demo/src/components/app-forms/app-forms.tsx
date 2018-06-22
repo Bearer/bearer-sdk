@@ -1,5 +1,5 @@
 import { Component, State } from '@stencil/core'
-import { FieldSet, FieldType } from '../ui/Forms/FieldSet'
+import { FieldSet } from '../ui/Forms/FieldSet'
 
 @Component({
   tag: 'app-forms',
@@ -81,33 +81,33 @@ export class AppForms {
   fields: FieldSet = new FieldSet([
     {
       label: 'Username',
-      type: FieldType.TEXT,
+      type: 'text',
       value: '',
       controlName: 'username'
     },
     {
       label: 'Email address',
-      type: FieldType.EMAIL,
+      type: 'email',
       value: '',
       controlName: 'email',
       hint: 'Do not forget the @ sign'
     },
     {
       label: 'Phone number',
-      type: FieldType.TEL,
+      type: 'tel',
       value: '',
       placeholder: 'Enter your phone',
       controlName: 'phonenumber'
     },
     {
       label: 'Password',
-      type: FieldType.PASSWORD,
+      type: 'password',
       value: '',
       controlName: 'password'
     },
     {
       label: 'Age range',
-      type: FieldType.RADIO,
+      type: 'radio',
       controlName: 'range',
       inline: true,
       buttons: [
@@ -135,7 +135,7 @@ export class AppForms {
     },
     {
       label: 'Leisure',
-      type: FieldType.CHECKBOX,
+      type: 'checkbox',
       controlName: 'leisure',
       buttons: [
         {
@@ -154,13 +154,13 @@ export class AppForms {
     },
     {
       label: 'Country',
-      type: FieldType.SELECT,
+      type: 'select',
       controlName: 'country',
       options: this.countries
     },
     {
       label: 'story',
-      type: FieldType.TEXTAREA,
+      type: 'textarea',
       controlName: 'story',
       placeholder: 'Your story'
     }

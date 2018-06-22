@@ -5,5 +5,19 @@
   "clientSecret": null,
   "config": {
     "scope": []
-  }
+  },
+  "setup": [
+    {
+      "type": "text",
+      "label": "Client ID",
+      "controlName": "clientId",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "Client Secret",
+      "controlName": "clientSecret",
+      "required": true
+    }
+  ]
 }

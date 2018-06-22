@@ -1,15 +1,3 @@
-export enum FieldType {
-  TEXT = 'text',
-  PASSWORD = 'password',
-  EMAIL = 'email',
-  TEL = 'tel',
-  SUBMIT = 'submit',
-  TEXTAREA = 'textarea',
-  RADIO = 'radio',
-  CHECKBOX = 'checkbox',
-  SELECT = 'select'
-}
-
 export interface CheckableInput {
   label: string
   value: string
@@ -23,7 +11,16 @@ export interface Option {
 }
 
 export interface Field {
-  type: FieldType
+  type:
+    | 'text'
+    | 'password'
+    | 'email'
+    | 'tel'
+    | 'submit'
+    | 'textarea'
+    | 'radio'
+    | 'checkbox'
+    | 'select'
   label: string
   controlName: string
   value?: string
@@ -63,5 +60,20 @@ export class FieldSet {
 
   map(func: (value: Field, index: number, array: Field[]) => {}) {
     return this.set.map(func)
+  }
+
+  reduce(
+    func: (
+      previousValue: Field,
+      currentValue: Field,
+      currentIndex: number,
+      array: Field[]
+    ) => Field
+  ) {
+    return this.set.reduce(func)
+  }
+
+  filter(func: (value: Field, index: number, array: Field[]) => {}) {
+    return this.set.filter(func)
   }
 }

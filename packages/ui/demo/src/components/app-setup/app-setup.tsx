@@ -6,6 +6,46 @@ import { Component, State } from '@stencil/core'
 })
 export class AppSetup {
   @State() scenarioId: string = 'alice-attach-pull-request'
+  @State()
+  fields = [
+    {
+      type: 'text',
+      label: 'Some text',
+      controlName: 'ulogin'
+    },
+    {
+      type: 'select',
+      label: 'Your region',
+      controlName: 'region',
+      options: [
+        {
+          label: 'Africa',
+          value: 'africa'
+        },
+        {
+          label: 'America',
+          value: 'america'
+        },
+        {
+          label: 'Asia',
+          value: 'asia'
+        },
+        {
+          label: 'Europe',
+          value: 'europe'
+        },
+        {
+          label: 'Oceania',
+          value: 'oceania'
+        }
+      ]
+    },
+    {
+      type: 'password',
+      label: 'Your password',
+      controlName: 'passwd'
+    }
+  ]
 
   scenarioIdChanged = ({ detail }) => {
     this.scenarioId = detail
@@ -18,7 +58,7 @@ export class AppSetup {
         <bearer-typography kind="h4">Setup Component</bearer-typography>
         <bearer-dropdown-button innerListener={innerListener}>
           <span slot="buttonText">Setup Scenario</span>
-          <bearer-setup scenario-id={this.scenarioId} />
+          <bearer-setup scenario-id={this.scenarioId} fields={this.fields} />
         </bearer-dropdown-button>
         <div class="down">
           <bearer-typography kind="h4">Setup Display</bearer-typography>

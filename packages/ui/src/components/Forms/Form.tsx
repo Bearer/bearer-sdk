@@ -18,6 +18,7 @@ export class BearerForm {
   @Prop({ mutable: true })
   fields: FieldSet
   @Prop() clearOnInput: boolean
+  @State() hasBeenCleared: boolean
   @Event() submit: EventEmitter
   @State() values: Array<string> = []
 
@@ -51,8 +52,9 @@ export class BearerForm {
   }
 
   handleInputClicked() {
-    if (this.clearOnInput) {
+    if (this.clearOnInput && !this.hasBeenCleared) {
       this.clearValues()
+      this.hasBeenCleared = true
     }
   }
 
