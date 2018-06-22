@@ -193,6 +193,12 @@ module.exports = (emitter, { appConfig }) => {
     term('\n')
   })
 
+  emitter.on('screens:generateSetupComponent', () => {
+    term.white('Bearer: ')
+    term.yellow('Generating setup component.')
+    term('\n')
+  })
+
   emitter.on('screens:buildingDist', () => {
     term.white('Bearer: ')
     term.yellow('Building dist.')

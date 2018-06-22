@@ -3,8 +3,8 @@ import {
   Prop,
   Element,
   Event,
-  EventEmitter,
-  Watch
+  EventEmitter
+  // Watch
 } from '@stencil/core'
 
 @Component({
@@ -23,13 +23,13 @@ export class BearerTextarea {
   hint: string
   @Event() valueChange: EventEmitter
 
-  @Watch('value')
-  valueChanged() {
-    const inputEl = this.el.shadowRoot.querySelector('input')
-    if (inputEl.value !== this.value) {
-      inputEl.value = this.value
-    }
-  }
+  // @Watch('value')
+  // valueChanged() {
+  //   const inputEl = this.el.shadowRoot.querySelector('input')
+  //   if (inputEl.value !== this.value) {
+  //     inputEl.value = this.value
+  //   }
+  // }
 
   inputChanged(event: any) {
     let val = event.target && event.target.value

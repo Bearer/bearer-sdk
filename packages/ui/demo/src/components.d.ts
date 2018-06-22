@@ -30,6 +30,9 @@ import '@stencil/state-tunnel';
 import '@stencil/redux';
 
 import {
+  FieldSet,
+} from './components/ui/Forms/Fieldset';
+import {
   Store,
 } from '@stencil/redux';
 
@@ -589,7 +592,9 @@ declare global {
 
   namespace StencilComponents {
     interface BearerForm {
-      'fields': Array<any>;
+      'clearOnInput': boolean;
+      'fields': FieldSet;
+      'updateFieldSet': (fields: FieldSet) => void;
     }
   }
 
@@ -612,7 +617,8 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerFormAttributes extends HTMLAttributes {
-      'fields'?: Array<any>;
+      'clearOnInput'?: boolean;
+      'fields'?: FieldSet;
       'onSubmit'?: (event: CustomEvent) => void;
     }
   }
@@ -624,6 +630,7 @@ declare global {
   namespace StencilComponents {
     interface BearerInput {
       'controlName': string;
+      'disabled': boolean;
       'hint': string;
       'label': string;
       'placeholder': string;
@@ -652,8 +659,10 @@ declare global {
   namespace JSXElements {
     export interface BearerInputAttributes extends HTMLAttributes {
       'controlName'?: string;
+      'disabled'?: boolean;
       'hint'?: string;
       'label'?: string;
+      'onInputClick'?: (event: CustomEvent) => void;
       'onSubmit'?: (event: CustomEvent) => void;
       'onValueChange'?: (event: CustomEvent) => void;
       'placeholder'?: string;
@@ -1408,6 +1417,8 @@ declare global {
 
   namespace StencilComponents {
     interface BearerSetup {
+      'fields': Array<any> | string;
+      'referenceId': string;
       'scenarioId': string;
     }
   }
@@ -1431,7 +1442,9 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerSetupAttributes extends HTMLAttributes {
+      'fields'?: Array<any> | string;
       'onStepCompleted'?: (event: CustomEvent) => void;
+      'referenceId'?: string;
       'scenarioId'?: string;
     }
   }

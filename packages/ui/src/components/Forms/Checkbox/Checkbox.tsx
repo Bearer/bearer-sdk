@@ -16,7 +16,7 @@ export class BearerCheckbox {
   @Event() valueChange: EventEmitter
 
   inputClicked(event) {
-    const index = this.value.indexOf(event.path[0].value)
+    const index = this.value ? this.value.indexOf(event.path[0].value) : -1
     if (index >= 0) {
       this.value.splice(index, 1)
       this.valueChange.emit(this.value)
@@ -39,7 +39,11 @@ export class BearerCheckbox {
                 type="checkbox"
                 name={this.controlName}
                 value={value.value}
-                checked={this.value.indexOf(value.value) >= 0 ? true : false}
+                checked={
+                  this.value && this.value.indexOf(value.value) >= 0
+                    ? true
+                    : false
+                }
                 onClick={this.inputClicked.bind(this)}
               />
               <label class="form-check-label">{value.label}</label>

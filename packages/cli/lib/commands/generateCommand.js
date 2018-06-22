@@ -2,16 +2,23 @@ const copy = require('copy-template-dir')
 const path = require('path')
 const inquirer = require('inquirer')
 const Case = require('case')
+const fs = require('fs')
+const util = require('util')
 
 const INTENT = 'intent'
 const SCREEN = 'screen'
 const COLLECTION = 'GetCollection'
 const SINGLE_RESOURCE = 'GetObject'
 
-const generate = (emitter, { rootPathRc }) => async () => {
+const generate = (emitter, { rootPathRc }) => async env => {
   if (!rootPathRc) {
     emitter.emit('rootPath:doesntExist')
     process.exit(1)
+  }
+
+  if (env.setup) {
+    generateSetup({ emitter, rootPathRc })
+    return
   }
 
   const { template, name } = await inquirer.prompt([
@@ -37,7 +44,6 @@ const generate = (emitter, { rootPathRc }) => async () => {
     }
   ])
 
-  const params = { emitter, rootPathRc, name }
   switch (template) {
     case INTENT:
       generateIntent(params)
@@ -47,6 +53,32 @@ const generate = (emitter, { rootPathRc }) => async () => {
       break
     default:
   }
+}
+
+async function generateSetup({ emitter, rootPathRc }) {
+  const authConfig = require(path.dirname(rootPathRc) +
+    '/intents/auth.config.json')
+  const scenariorc = fs.readFileSync(path.dirname(rootPathRc) + '/.scenariorc')
+  const scenarioId = scenariorc
+    .toString()
+    .split('=')[1]
+    .replace(/[\n\r]+/g, '')
+    .trim()
+
+  const vars = {
+    scenarioTitle: Case.camel(scenarioId),
+    componentTagName: Case.kebab(scenarioId),
+    fields: authConfig.setup ? JSON.stringify(authConfig.type) : '[]'
+  }
+  const inDir = path.join(__dirname, 'templates/generate/setup')
+  const outDir = path.join(path.dirname(rootPathRc), '/screens/src/')
+
+  copy(inDir, outDir, vars, (err, createdFiles) => {
+    if (err) throw err
+    createdFiles.forEach(filePath =>
+      emitter.emit('generateIntent:fileGenerated', filePath)
+    )
+  })
 }
 
 function generateScreen({ emitter, rootPathRc, name }) {
@@ -106,6 +138,7 @@ module.exports = {
 `
       )
       // .option('-t, --type <intentType>', 'Intent type.')
+      .option('--setup', 'generate setup file')
       .action(generate(emitter, config))
   }
 }

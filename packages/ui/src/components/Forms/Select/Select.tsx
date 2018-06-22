@@ -11,12 +11,19 @@ export class BearerSelect {
   @Prop() controlName: string
   @Prop({ mutable: true })
   value: string
-  @Prop()
+  @Prop({ mutable: true })
   options: Array<{ label: string; value: string; default?: boolean }> = []
   @Event() valueChange: EventEmitter
 
   onSelectChange = event => {
     this.valueChange.emit(event.path[0].value)
+  }
+
+  componentDidLoad() {
+    this.options = [
+      { label: '--- choose an option ---', value: '' },
+      ...this.options
+    ]
   }
 
   render() {

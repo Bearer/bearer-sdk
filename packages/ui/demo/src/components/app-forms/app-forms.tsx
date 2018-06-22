@@ -1,4 +1,5 @@
 import { Component, State } from '@stencil/core'
+import { FieldSet } from '../ui/Forms/FieldSet'
 
 @Component({
   tag: 'app-forms',
@@ -76,10 +77,14 @@ export class AppForms {
 
   @State() showResult: boolean = false
 
-  @State() generatedForm: Array<any>
-
-  fields = [
-    { label: 'Username', type: 'text', value: '', controlName: 'username' },
+  @State()
+  fields: FieldSet = new FieldSet([
+    {
+      label: 'Username',
+      type: 'text',
+      value: '',
+      controlName: 'username'
+    },
     {
       label: 'Email address',
       type: 'email',
@@ -94,7 +99,12 @@ export class AppForms {
       placeholder: 'Enter your phone',
       controlName: 'phonenumber'
     },
-    { label: 'Password', type: 'password', value: '', controlName: 'password' },
+    {
+      label: 'Password',
+      type: 'password',
+      value: '',
+      controlName: 'password'
+    },
     {
       label: 'Age range',
       type: 'radio',
@@ -103,23 +113,23 @@ export class AppForms {
       buttons: [
         {
           label: '< 18',
-          value: 0
+          value: '0'
         },
         {
           label: '18 - 35',
-          value: 1
+          value: '1'
         },
         {
           label: '35 - 50',
-          value: 2
+          value: '2'
         },
         {
           label: '50 - 65',
-          value: 3
+          value: '3'
         },
         {
           label: '> 65',
-          value: 4
+          value: '4'
         }
       ]
     },
@@ -154,7 +164,7 @@ export class AppForms {
       controlName: 'story',
       placeholder: 'Your story'
     }
-  ]
+  ])
 
   handleValue(field, value) {
     this.inputs[field] = value.detail
@@ -163,7 +173,7 @@ export class AppForms {
   handleSubmit(index: number, e: any) {
     e.preventDefault()
     if (index === 1) {
-      this.generatedForm = e.detail
+      this.fields = new FieldSet(e.detail.set)
     }
     if (index === 0) {
       this.showResult = true
@@ -247,15 +257,13 @@ export class AppForms {
             fields={this.fields}
             onSubmit={e => this.handleSubmit(1, e)}
           />
-          {this.generatedForm ? (
-            <ul>
+          <ul>
+            {this.fields.map(el => (
               <li>
-                {this.generatedForm[0].label} - {this.generatedForm[0].value}
+                {el.label} - {el.value}
               </li>
-            </ul>
-          ) : (
-            ''
-          )}
+            ))}
+          </ul>
         </div>
       </div>
     )
