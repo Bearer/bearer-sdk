@@ -1052,7 +1052,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerSetup {
-      'fields': Array<any>;
+      'fields': Array<any> | string;
       'referenceId': string;
       'scenarioId': string;
     }
@@ -1077,7 +1077,7 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerSetupAttributes extends HTMLAttributes {
-      'fields'?: Array<any>;
+      'fields'?: Array<any> | string;
       'onStepCompleted'?: (event: CustomEvent) => void;
       'referenceId'?: string;
       'scenarioId'?: string;
