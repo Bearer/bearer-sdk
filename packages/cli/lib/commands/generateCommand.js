@@ -68,7 +68,7 @@ async function generateSetup({ emitter, rootPathRc }) {
   const vars = {
     scenarioTitle: Case.camel(scenarioId),
     componentTagName: Case.kebab(scenarioId),
-    fields: authConfig.setup ? JSON.stringify(authConfig.setup) : '[]'
+    fields: authConfig.setup ? JSON.stringify(authConfig.type) : '[]'
   }
   const inDir = path.join(__dirname, 'templates/generate/setup')
   const outDir = path.join(path.dirname(rootPathRc), '/screens/src/')

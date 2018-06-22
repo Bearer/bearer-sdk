@@ -10,17 +10,19 @@ export interface Option {
   checked?: boolean
 }
 
+export type FieldType =
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'tel'
+  | 'submit'
+  | 'textarea'
+  | 'radio'
+  | 'checkbox'
+  | 'select'
+
 export interface Field {
-  type:
-    | 'text'
-    | 'password'
-    | 'email'
-    | 'tel'
-    | 'submit'
-    | 'textarea'
-    | 'radio'
-    | 'checkbox'
-    | 'select'
+  type: FieldType
   label: string
   controlName: string
   value?: string
