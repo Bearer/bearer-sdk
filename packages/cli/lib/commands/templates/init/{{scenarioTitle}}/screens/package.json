@@ -17,7 +17,6 @@
     "test.watch": "jest --watch --no-cache"
   },
   "dependencies": {
-    "@bearer/cli": "latest",
     "@bearer/core": "latest",
     "@bearer/ui": "latest"
   },
