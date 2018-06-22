@@ -19,9 +19,9 @@
     "publish:demo": "yarn build && node scripts/publish.js"
   },
   "dependencies": {
-    "@bearer/core": "latest",
-    "@bearer/ui": "latest",
-    "@stencil/core": "^0.9.7",
+    "@bearer/core": "0.1.1",
+    "@bearer/ui": "0.1.1",
+    "@stencil/core": "^0.9.11",
     "@stencil/router": "0.2.1",
     "@stencil/sass": "^0.0.5",
     "redux": "^4.0.0"
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@stencil/dev-server": "latest",
     "@stencil/utils": "latest",
-    "@types/jest": "^23.0.0",
+    "@types/jest": "^23.1.1",
     "aws-sdk": "^2.250.1",
     "bootstrap": "^4.1.1",
     "express": "^4.16.3",
