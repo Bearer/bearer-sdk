@@ -3,13 +3,13 @@
   "version": "0.2.1",
   "description": "Bearer UI helper",
   "main": "dist/bearer-ui.js",
+  "module": "dist/esm/index.js",
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
     "src/",
     "dist/"
   ],
-  "browser": "dist/mycomponent.js",
   "scripts": {
     "build": "stencil build",
     "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
