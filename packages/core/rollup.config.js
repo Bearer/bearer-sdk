@@ -39,7 +39,8 @@ function plugins() {
       browser: true
     }),
     replace({
-      LIB_VERSION: version
+      LIB_VERSION: version,
+      'process.env.BUILD': JSON.stringify(process.env.BUILD)
     })
   ]
   return isProduction ? [...base, terser()] : base
