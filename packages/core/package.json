@@ -1,6 +1,6 @@
 {
   "name": "@bearer/core",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Bearer Core",
   "main": "dist/main.js",
   "types": "dist/index.d.ts",
