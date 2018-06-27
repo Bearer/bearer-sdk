@@ -1,54 +1,36 @@
-import { Component, State } from '@bearer/core'
+import Bearer, { Component, State } from '@bearer/core'
 
 @Component({
   tag: 'app-setup',
   styleUrl: 'app-setup.scss'
 })
 export class AppSetup {
-  @State() scenarioId: string = 'alice-attach-pull-request'
-  @State()
-  fields = [
-    {
-      type: 'text',
-      label: 'Some text',
-      controlName: 'ulogin'
-    },
-    {
-      type: 'select',
-      label: 'Your region',
-      controlName: 'region',
-      options: [
-        {
-          label: 'Africa',
-          value: 'africa'
-        },
-        {
-          label: 'America',
-          value: 'america'
-        },
-        {
-          label: 'Asia',
-          value: 'asia'
-        },
-        {
-          label: 'Europe',
-          value: 'europe'
-        },
-        {
-          label: 'Oceania',
-          value: 'oceania'
-        }
-      ]
-    },
-    {
-      type: 'password',
-      label: 'Your password',
-      controlName: 'passwd'
-    }
-  ]
+  @State() scenarioId: string = 'alice-setup-demo'
+  @State() fields = 'oauth2'
+  @State() referenceID: string
 
   scenarioIdChanged = ({ detail }) => {
     this.scenarioId = detail
+  }
+
+  /*
+    Put referenceID in localStorage
+    This is an easy way but probably not the most secure.
+   */
+  componentWillLoad() {
+    this.referenceID = window.localStorage.getItem('fakeReference') || ''
+  }
+
+  componentDidLoad() {
+    /*
+      Successful setup Listener
+      When a successful setup is done, a Bearer.emission is made
+      Here is how to capture the referenceID
+     */
+    Bearer.emitter.addListener(`setup_success:${this.scenarioId}`, data => {
+      window.localStorage.setItem('fakeReference', data.referenceID)
+      this.referenceID = data.referenceID
+    })
   }
 
   render() {
@@ -58,11 +40,15 @@ export class AppSetup {
         <bearer-typography kind="h4">Setup Component</bearer-typography>
         <bearer-dropdown-button innerListener={innerListener}>
           <span slot="buttonText">Setup Scenario</span>
-          <bearer-setup scenario-id={this.scenarioId} fields={this.fields} />
+          <bearer-setup
+            scenarioId={this.scenarioId}
+            fields={this.fields}
+            referenceId={this.referenceID}
+          />
         </bearer-dropdown-button>
         <div class="down">
           <bearer-typography kind="h4">Setup Display</bearer-typography>
-          <bearer-setup-display setup-id={this.scenarioId} />
+          <bearer-setup-display scenarioId={this.scenarioId} />
         </div>
       </div>
     )
