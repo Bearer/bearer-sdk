@@ -6,57 +6,27 @@ import Bearer, { Component, State } from '@bearer/core'
 })
 export class AppSetup {
   @State() scenarioId: string = 'alice-setup-demo'
-  @State()
-  fields = [
-    {
-      type: 'text',
-      label: 'Some text',
-      controlName: 'ulogin'
-    },
-    {
-      type: 'select',
-      label: 'Your region',
-      controlName: 'region',
-      options: [
-        {
-          label: 'Africa',
-          value: 'africa'
-        },
-        {
-          label: 'America',
-          value: 'america'
-        },
-        {
-          label: 'Asia',
-          value: 'asia'
-        },
-        {
-          label: 'Europe',
-          value: 'europe'
-        },
-        {
-          label: 'Oceania',
-          value: 'oceania'
-        }
-      ]
-    },
-    {
-      type: 'password',
-      label: 'Your password',
-      controlName: 'passwd'
-    }
-  ]
+  @State() fields = 'oauth2'
   @State() referenceID: string
 
   scenarioIdChanged = ({ detail }) => {
     this.scenarioId = detail
   }
 
+  /*
+    Put referenceID in localStorage
+    This is an easy way but probably not the most secure.
+   */
   componentWillLoad() {
     this.referenceID = window.localStorage.getItem('fakeReference') || ''
   }
 
   componentDidLoad() {
+    /*
+      Successful setup Listener
+      When a successful setup is done, a Bearer.emission is made
+      Here is how to capture the referenceID
+     */
     Bearer.emitter.addListener(`setup_success:${this.scenarioId}`, data => {
       window.localStorage.setItem('fakeReference', data.referenceID)
       this.referenceID = data.referenceID
