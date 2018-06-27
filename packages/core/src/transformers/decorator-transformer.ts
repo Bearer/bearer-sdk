@@ -83,20 +83,10 @@ export default function DecoratorTransdormer({
         }
         case ts.SyntaxKind.Decorator: {
           const decoNode = node as ts.Decorator
-          log(
-            '[BEARER]',
-            'decorator',
-            decoNode.expression.getChildCount() &&
-              decoNode.getChildAt(1).getText()
-          )
-          if (
-            decoNode.expression.getChildCount() &&
-            decoNode
-              .getChildAt(0)
-              .getText()
-              .match(/^Component/)
-          ) {
+          if (isComponentDecorator(node as ts.Decorator)) {
             return visitDecorator(node as ts.Decorator)
+          } else {
+            return ts.visitEachChild(node, visit, transformContext)
           }
         }
       }
@@ -108,4 +98,17 @@ export default function DecoratorTransdormer({
       return visit(tsSourceFile) as ts.SourceFile
     }
   }
+}
+
+function isComponentDecorator(node: ts.Decorator): boolean {
+  return (
+    node.expression.getChildCount() &&
+    Boolean(
+      node.expression
+        .getChildAt(1)
+        .getText()
+        .match(/^Component/)
+    )
+  )
+  // return false
 }
