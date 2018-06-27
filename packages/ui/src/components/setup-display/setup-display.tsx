@@ -7,11 +7,13 @@ import Bearer from '@bearer/core'
   shadow: true
 })
 export class BearerSetupDisplay {
-  @Prop() setupId = ''
+  @Prop() scenarioId = ''
   @State() isSetup: boolean = false
+  @State() setupId = ''
 
   componentDidLoad() {
-    Bearer.emitter.addListener(`setup_success:${this.setupId}`, () => {
+    Bearer.emitter.addListener(`setup_success:${this.scenarioId}`, data => {
+      this.setupId = data.referenceID
       this.isSetup = true
     })
   }

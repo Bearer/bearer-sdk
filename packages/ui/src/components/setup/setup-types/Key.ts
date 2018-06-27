@@ -1,6 +1,6 @@
 import { FieldType } from '../../Forms/Fieldset'
 
-export const EmailSetupType = [
+export const KeySetupType = [
   {
     type: 'text' as FieldType,
     label: 'Enter your Key',

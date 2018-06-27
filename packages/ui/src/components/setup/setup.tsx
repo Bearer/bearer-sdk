@@ -8,7 +8,7 @@ import {
 } from '@bearer/core'
 import Bearer, { BearerState } from '@bearer/core'
 import { FieldSet } from '../Forms/Fieldset'
-import { OAuth2SetupType } from './setup-types'
+import { OAuth2SetupType, EmailSetupType, KeySetupType } from './setup-types'
 
 interface ConfigSetupData {
   Item: {
@@ -46,21 +46,9 @@ export class BearerSetup {
       .map(el => {
         return { key: el.controlName, value: el.value }
       })
-    console.log(
-      secretSet,
-      secretSet.reduce(
-        (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
-        {}
-      ),
-      publicSet.reduce(
-        (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
-        {}
-      )
-    )
-    // we trick the system for the moment and we don't give a shit
-    // the intentName is the reference ID
+    const setupId = BearerState.generateUniqueId(30)
     BearerState.storeSecret(
-      this.scenarioId,
+      setupId,
       secretSet.reduce(
         (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
         {}
@@ -69,18 +57,18 @@ export class BearerSetup {
       .then(() => {
         this.error = false
         return BearerState.storeData(
-          `${this.scenarioId}-setup`,
+          `${setupId}setup`,
           publicSet.reduce(
             (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
             {}
           )
         )
       })
-      .then((data: ConfigSetupData) => {
+      .then(_ => {
         this.loading = false
         Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
           // clientID: this.inputs.clientID,
-          referenceID: data.Item.referenceId
+          referenceID: setupId
         })
       })
       .catch(() => {
@@ -91,17 +79,27 @@ export class BearerSetup {
   }
 
   componentWillLoad() {
-    if (typeof this.fields === 'string' && this.fields === 'oauth2') {
-      this.fieldSet = new FieldSet(OAuth2SetupType)
-    } else {
+    if (typeof this.fields !== 'string') {
       this.fieldSet = new FieldSet(this.fields as Array<any>)
+      return
+    }
+    switch (this.fields) {
+      case 'email':
+        this.fieldSet = new FieldSet(EmailSetupType)
+        break
+      case 'type':
+        this.fieldSet = new FieldSet(KeySetupType)
+        break
+      case 'oauth2':
+      default:
+        this.fieldSet = new FieldSet(OAuth2SetupType)
     }
   }
 
   componentDidLoad() {
     const form = this.element.shadowRoot.querySelector('bearer-form')
     if (this.referenceId) {
-      BearerState.getData(`${this.scenarioId}-setup`)
+      BearerState.getData(`${this.referenceId}setup`)
         .then((data: ConfigSetupData) => {
           Object.keys(data.Item).forEach(key => {
             if (
@@ -115,7 +113,7 @@ export class BearerSetup {
           form.updateFieldSet(this.fieldSet)
           console.debug('[BEARER]', 'get_setup_success', data)
           Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
-            referenceID: this.scenarioId
+            referenceID: this.referenceId
           })
         })
         .catch(e => {
