@@ -10,21 +10,30 @@ const IntentMapper = {
   [IntentType.GetResource]: GetResourceIntent
 }
 
-const MISSING_SCENARIO_ID =
-  'Scenario ID is missing. Add BearerComponent above @Component({...}) decorator'
+interface IDecorator {
+  (target: any, key: string): void
+}
 
-// Property Decorator
+const MISSING_SCENARIO_ID =
+  'Scenario ID is missing. Please add @Component decorator above your class definition'
+
+// Usage
+// @Intent('intentName') propertyName: BearerFetch
+// or
+// @Intent('intentNameResource',IntentType.GetResource ) propertyName: BearerFetch
 export function Intent(
   intentName: string,
   type: IntentType = IntentType.GetCollection
-): (target: any, key: string) => void {
-  return function(target: any, key: string) {
+): IDecorator {
+  return function(target: any, key: string): void {
     const getter = (): BearerFetch => {
       if (!target['SCENARIO_ID']) {
         console.warn(MISSING_SCENARIO_ID)
       }
+
       return function(...args) {
         const scenarioId = target['SCENARIO_ID']
+
         if (!scenarioId) {
           return Promise.reject(new Error(MISSING_SCENARIO_ID))
         } else {
@@ -43,6 +52,61 @@ export function Intent(
       })
     }
   }
+}
+
+// Usage
+// @SaveStateItent() propertyName: BearerFetch
+// or
+// @SaveStateItent(IntentType.GetResource ) propertyName: BearerFetch
+export function SaveStateItent(
+  type: IntentType = IntentType.GetCollection
+): IDecorator {
+  return function(target: any, key: string): void {
+    const getter = (): BearerFetch => {
+      if (!target['SCENARIO_ID']) {
+        console.warn(MISSING_SCENARIO_ID)
+      }
+
+      return function(
+        params: { body?: any; [key: string]: any } = {},
+        init: Object = {}
+      ) {
+        const scenarioId = target['SCENARIO_ID']
+
+        if (!scenarioId) {
+          return Promise.reject(new Error(MISSING_SCENARIO_ID))
+        } else {
+          const { body, ...query } = params
+          const intent = intentRequest({ intentName: 'saveState', scenarioId })
+          return IntentMapper[type](
+            intent.apply(null, [
+              {},
+              { ...init, method: 'PUT', body: JSON.stringify(body) }
+            ])
+          )
+        }
+      }
+    }
+
+    const setter = () => {}
+
+    if (delete target[key]) {
+      Object.defineProperty(target, key, {
+        get: getter,
+        set: setter
+      })
+    }
+  }
+}
+
+// Usage
+// @RetrieveStateItent() propertyName: BearerFetch
+// or
+// @RetrieveStateItent(IntentType.GetResource ) propertyName: BearerFetch
+export function RetrieveStateItent(
+  type: IntentType = IntentType.GetCollection
+): IDecorator {
+  return Intent('retrieveState', type)
 }
 
 export function GetCollectionIntent(promise): Promise<any> {
