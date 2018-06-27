@@ -55,10 +55,10 @@ export function Intent(
 }
 
 // Usage
-// @SaveStateItent() propertyName: BearerFetch
+// @SaveStateIntent() propertyName: BearerFetch
 // or
-// @SaveStateItent(IntentType.GetResource ) propertyName: BearerFetch
-export function SaveStateItent(
+// @SaveStateIntent(IntentType.GetResource ) propertyName: BearerFetch
+export function SaveStateIntent(
   type: IntentType = IntentType.GetCollection
 ): IDecorator {
   return function(target: any, key: string): void {
@@ -80,7 +80,7 @@ export function SaveStateItent(
           const intent = intentRequest({ intentName: 'saveState', scenarioId })
           return IntentMapper[type](
             intent.apply(null, [
-              {},
+              { ...query },
               { ...init, method: 'PUT', body: JSON.stringify(body) }
             ])
           )
@@ -100,10 +100,10 @@ export function SaveStateItent(
 }
 
 // Usage
-// @RetrieveStateItent() propertyName: BearerFetch
+// @RetrieveStateIntent() propertyName: BearerFetch
 // or
-// @RetrieveStateItent(IntentType.GetResource ) propertyName: BearerFetch
-export function RetrieveStateItent(
+// @RetrieveStateIntent(IntentType.GetResource ) propertyName: BearerFetch
+export function RetrieveStateIntent(
   type: IntentType = IntentType.GetCollection
 ): IDecorator {
   return Intent('retrieveState', type)
