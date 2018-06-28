@@ -4,10 +4,12 @@
   "description": "{{scenarioTitle}} intents",
   "main": "index.js",
   "dependencies": {
-    "@bearer/intents": "latest"
+    "@bearer/intents": "latest",
+    "axios": "^0.18.0"
   },
   "devDependencies": {
-    "@bearer/bearer-cli": "latest"
+    "@bearer/bearer-cli": "latest",
+    "@types/node": "latest"
   },
   "license": "MIT"
 }
