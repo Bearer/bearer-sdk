@@ -1,8 +1,7 @@
 {
-  "authorizationURL": null ,
+  "authorizationURL": null,
   "tokenURL": null,
-  "clientID": null,
-  "clientSecret": null,
+  "authType": "noAuth",
   "config": {
     "scope": []
   },
