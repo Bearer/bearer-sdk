@@ -1,6 +1,6 @@
 const term = require('terminal-kit').terminal
 
-module.exports = (emitter, { appConfig }) => {
+module.exports = emitter => {
   emitter.on('buildArtifact:output:close', output_path => {
     term.white('Bearer: ')
     term.yellow('Artifact stored in ')
@@ -333,12 +333,12 @@ module.exports = (emitter, { appConfig }) => {
     term('\n')
   })
 
-  emitter.on('login:error', e => {
+  emitter.on('login:error', body => {
     term.white('Bearer: ')
     term.red('There was an error while trying to login to bearer')
     term('\n')
     term.white('Error: ')
-    term.red(e.toString())
+    term.red(body.body.message)
     term('\n')
   })
 

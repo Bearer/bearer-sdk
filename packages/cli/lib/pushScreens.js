@@ -14,7 +14,14 @@ const pushScreens = async (
   scenarioTitle,
   OrgId,
   emitter,
-  { DeploymentUrl, token }
+  {
+    DeploymentUrl,
+    bearerConfig: {
+      authorization: {
+        AuthenticationResult: { IdToken: token }
+      }
+    }
+  }
 ) =>
   new Promise(async (resolve, reject) => {
     const configuration = {

@@ -1,7 +1,19 @@
 const serviceClient = require('./serviceClient')
 const fs = require('fs')
 
-module.exports = (packagePath, { Key }, emitter, { token, DeploymentUrl }) =>
+module.exports = (
+  packagePath,
+  { Key },
+  emitter,
+  {
+    bearerConfig: {
+      authorization: {
+        AuthenticationResult: { IdToken: token }
+      }
+    },
+    DeploymentUrl
+  }
+) =>
   new Promise(async (resolve, reject) => {
     emitter.emit('pushScenario:start', Key)
 
@@ -18,10 +30,10 @@ module.exports = (packagePath, { Key }, emitter, { token, DeploymentUrl }) =>
         resolve(response)
       } else if (res.statusCode === 401) {
         emitter.emit('pushScenario:unauthorized', res.body)
-        reject('unauthorized')
+        reject(new Error('unauthorized'))
       } else {
         emitter.emit('pushScenario:httpError', res)
-        reject('httpError')
+        reject(new Error('httpError'))
       }
     } catch (e) {
       emitter.emit('pushScenario:error', e)

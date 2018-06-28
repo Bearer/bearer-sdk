@@ -1,5 +1,4 @@
 const request = require('request')
-const FormData = require('form-data')
 
 const requestPromise = (url, method, path, body, headers = {}) =>
   new Promise((resolve, reject) => {
@@ -22,6 +21,7 @@ module.exports = url => {
   return {
     signup: body => requestPromise(url, 'POST', 'signup', body),
     login: body => requestPromise(url, 'POST', 'login', body),
+    refresh: body => requestPromise(url, 'POST', 'refresh_token', body),
     putItem: body => requestPromise(url, 'POST', 'items', body),
     assemblyScenario: (token, body) =>
       requestPromise(url, 'POST', 'deploy', body, { Authorization: token }),
