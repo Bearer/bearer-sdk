@@ -8,10 +8,11 @@ const pushScenario = require('./pushScenario')
 const pushScreens = require('./pushScreens')
 const assembly = require('./assemblyScenario')
 const storeCredentials = require('./storeCredentials')
+const refreshToken = require('./refreshToken')
 
 const AUTH_CONFIG_FILE = 'auth.config.json'
 
-module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
+module.exports = async ({ scenarioUuid }, emitter, config) => {
   const {
     rootPathRc,
     scenarioConfig: { scenarioTitle },
@@ -51,16 +52,23 @@ module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
     const authConfigFilePath = pathJs.join(intentsDirectory, AUTH_CONFIG_FILE)
     await storeCredentials(authConfigFilePath, config, emitter)
 
+    const { ExpiresAt } = config.bearerConfig
+    let calculatedConfig = config
+
+    if (ExpiresAt < Date.now()) {
+      calculatedConfig = await refreshToken(config, emitter)
+    }
+
     await pushScenario(
       scenarioArtifact,
       {
         Key: scenarioUuid
       },
       emitter,
-      config
+      calculatedConfig
     )
 
-    await assembly(scenarioUuid, emitter, config)
+    await assembly(scenarioUuid, emitter, calculatedConfig)
 
     emitter.emit('screens:installingDependencies')
     await exec('yarn install', { cwd: screensDirectory })
@@ -80,7 +88,13 @@ module.exports = async ({ path = '.', scenarioUuid }, emitter, config) => {
     })
 
     emitter.emit('screens:pushingDist')
-    await pushScreens(screensDirectory, scenarioTitle, OrgId, emitter, config)
+    await pushScreens(
+      screensDirectory,
+      scenarioTitle,
+      OrgId,
+      emitter,
+      calculatedConfig
+    )
 
     emitter.emit('screen:upload:success')
   } catch (e) {

@@ -10,7 +10,7 @@ const login = (emitter, config) => async ({ email }) => {
     process.exit(1)
   }
 
-  if (!!email) Username = email
+  if (email) Username = email
 
   emitter.emit('login:userFound', Username)
   try {
@@ -25,10 +25,14 @@ const login = (emitter, config) => async ({ email }) => {
 
     const res = await client.login({ Username, Password })
 
+    let ExpiresAt
     switch (res.statusCode) {
       case 200:
+        ExpiresAt =
+          res.body.authorization.AuthenticationResult.ExpiresIn + Date.now()
         config.storeBearerConfig({
           ...res.body.user,
+          ExpiresAt,
           authorization: res.body.authorization
         })
         emitter.emit('login:success', res.body)

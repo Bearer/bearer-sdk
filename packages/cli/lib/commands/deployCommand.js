@@ -1,5 +1,4 @@
 const deployScenario = require('../deployScenario')
-const rc = require('rc')
 const inquirer = require('inquirer')
 const fs = require('fs')
 const ini = require('ini')
@@ -8,11 +7,7 @@ const Case = require('case')
 
 const deploy = (emitter, config) => async ({ path = '.' }) => {
   emitter.emit('deploy:started')
-  const {
-    rootPathRc,
-    scenarioConfig: { config: scenarioConfigFile },
-    BearerEnv
-  } = config
+  const { rootPathRc, BearerEnv } = config
 
   if (!rootPathRc) {
     emitter.emit('rootPath:doesntExist')
@@ -20,7 +15,8 @@ const deploy = (emitter, config) => async ({ path = '.' }) => {
   }
 
   const mergedConfig = { ...config.bearerConfig, ...config.scenarioConfig }
-  let { scenarioTitle, OrgId } = mergedConfig
+  let { scenarioTitle } = mergedConfig
+  const { OrgId } = mergedConfig
 
   const inquireScenarioTitle = () => {
     emitter.emit('scenarioTitle:missing')
