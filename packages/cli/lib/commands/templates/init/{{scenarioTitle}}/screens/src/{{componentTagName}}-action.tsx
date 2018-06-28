@@ -18,7 +18,7 @@ export class {{scenarioTitle}}Action {
         <bearer-typography as="h1" kind="h3">{{scenarioTitle}} Scenario</bearer-typography>
         <bearer-navigator>
           {/*<bearer-navigator-auth-screen />*/}
-          <bearer-navigator-screen renderFunc={() => <list-star-wars-characters />} />
+          <bearer-navigator-screen navigationTitle="Characters" renderFunc={() => <list-star-wars-characters />} />
         </bearer-navigator>
       </div>
     )
