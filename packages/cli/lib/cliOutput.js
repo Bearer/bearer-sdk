@@ -258,18 +258,6 @@ module.exports = emitter => {
     term('\n')
   })
 
-  emitter.on('storeCredentials:missingCredentials', configFile => {
-    term.white('Bearer: ')
-    term.yellow('Missing ')
-    term('{ clientID, clientSecret } ')
-    term.yellow('in ')
-    term(configFile)
-    term('\n')
-    term.white('Bearer: ')
-    term.yellow('Please ensure Bob knows how to set clientID and clientSecret')
-    term('\n')
-  })
-
   emitter.on('storeCredentials:failure', e => {
     term.white('Bearer: ')
     term.red('There was an error while trying to save credentials')

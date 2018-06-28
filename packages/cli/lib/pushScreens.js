@@ -9,6 +9,12 @@ const serviceClient = require('./serviceClient')
 const DIST_DIRECTORY = 'dist'
 const WWW_DIRECTORY = 'www'
 
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
+
 const pushScreens = async (
   screensDirectory,
   scenarioTitle,
@@ -42,7 +48,7 @@ const pushScreens = async (
         filePath.replace(screensDirectory + path.sep, '')
       )
 
-      files.forEach(async (filePath, i) => {
+      await asyncForEach(files, async (filePath, i) => {
         try {
           const fileContent = fs.readFileSync(filePath)
           const Key = `${OrgId}/${scenarioTitle}/${paths[i]}`
