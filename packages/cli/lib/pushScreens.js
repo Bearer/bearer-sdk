@@ -42,7 +42,7 @@ const pushScreens = async (
         filePath.replace(screensDirectory + path.sep, '')
       )
 
-      await files.forEach(async (filePath, i) => {
+      files.forEach(async (filePath, i) => {
         try {
           const fileContent = fs.readFileSync(filePath)
           const Key = `${OrgId}/${scenarioTitle}/${paths[i]}`
