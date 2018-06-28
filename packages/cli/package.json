@@ -16,10 +16,12 @@
     "requirements-check": "node scripts/check-version.js"
   },
   "dependencies": {
+    "@bearer/intents": "latest",
     "amazon-cognito-identity-js": "^2.0.3",
     "archiver": "^2.1.1",
     "async": "^2.6.0",
     "aws-sdk": "^2.224.1",
+    "axios": "^0.18.0",
     "case": "^1.5.5",
     "copy-template-dir": "^1.4.0",
     "find-up": "^2.1.0",

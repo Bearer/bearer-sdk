@@ -4,6 +4,7 @@ const inquirer = require('inquirer')
 const Case = require('case')
 const fs = require('fs')
 const util = require('util')
+const intents = require('@bearer/intents')
 
 const INTENT = 'intent'
 const SCREEN = 'screen'
@@ -43,6 +44,8 @@ const generate = (emitter, { rootPathRc }) => async env => {
       name: 'name'
     }
   ])
+
+  const params = { emitter, rootPathRc, name }
 
   switch (template) {
     case INTENT:
@@ -98,22 +101,18 @@ function generateScreen({ emitter, rootPathRc, name }) {
   })
 }
 
+const choices = Object.keys(intents).map(intent => ({
+  name: intent,
+  value: intent
+}))
+
 async function generateIntent({ emitter, rootPathRc, name }) {
   const { intentType } = await inquirer.prompt([
     {
       message: 'What type of intent do you wan to generate',
       type: 'list',
       name: 'intentType',
-      choices: [
-        {
-          name: 'Collection',
-          value: COLLECTION
-        },
-        {
-          name: 'Single resource',
-          value: SINGLE_RESOURCE
-        }
-      ]
+      choices
     }
   ])
   const vars = { intentName: name, intentType }
