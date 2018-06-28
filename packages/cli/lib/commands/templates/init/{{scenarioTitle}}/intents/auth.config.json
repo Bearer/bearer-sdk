@@ -1,9 +1,3 @@
 {
-  "authorizationURL": null,
-  "tokenURL": null,
-  "authType": "noAuth",
-  "config": {
-    "scope": []
-  },
-  "type": null
+  "authType": "noAuth"
 }
