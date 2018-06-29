@@ -1,4 +1,3 @@
-const AWS = require('aws-sdk') // from AWS SDK
 const fs = require('fs') // from node.js
 const path = require('path') // from node.js
 const globby = require('globby')
@@ -44,16 +43,23 @@ const pushScreens = async (
         configuration.wwwPath
       ])
 
-      const paths = files.map(filePath =>
-        filePath.replace(screensDirectory + path.sep, '')
-      )
+      const paths = files.reduce((acc, filePath) => {
+        const relativePath = filePath.replace(screensDirectory + path.sep, '')
+        acc[`${OrgId}/${scenarioTitle}/${relativePath}`] = filePath
+        return acc
+      }, {})
 
-      await asyncForEach(files, async (filePath, i) => {
+      const urls = (await integrationsClient.signedUrls(
+        token,
+        Object.keys(paths),
+        'screen'
+      )).body
+
+      await asyncForEach(Object.keys(paths), async key => {
         try {
+          const filePath = paths[key]
           const fileContent = fs.readFileSync(filePath)
-          const Key = `${OrgId}/${scenarioTitle}/${paths[i]}`
-          const res = await integrationsClient.signedUrl(token, Key, 'screen')
-          const s3Client = serviceClient(res.body)
+          const s3Client = serviceClient(urls[key])
           await s3Client.upload(fileContent.toString(), {
             'Content-Type': mime.lookup(filePath)
           })
