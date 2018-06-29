@@ -312,21 +312,21 @@ module.exports = emitter => {
     term.yellow('!')
     term('\n')
   })
-  emitter.on('login:failure', body => {
+  emitter.on('login:failure', ({ message }) => {
     term.white('Bearer: ')
     term.red('There was an error while trying to login to bearer')
     term('\n')
     term.white('IntegrationService: ')
-    term.red(body.message)
+    term.red(message)
     term('\n')
   })
 
-  emitter.on('login:error', body => {
+  emitter.on('login:error', ({ body: { message } }) => {
     term.white('Bearer: ')
     term.red('There was an error while trying to login to bearer')
     term('\n')
     term.white('Error: ')
-    term.red(body.body.message)
+    term.red(message)
     term('\n')
   })
 
@@ -341,6 +341,30 @@ module.exports = emitter => {
     term('\n')
     term.yellow(`Scenario setup: `)
     term.white(setupUrl)
+    term('\n')
+  })
+
+  emitter.on('invalidateCloudFront:success', () => {
+    term.white('Bearer: ')
+    term.yellow('Screen invalidation success.')
+    term('\n')
+  })
+
+  emitter.on('invalidateCloudFront:invalidationFailed', ({ message }) => {
+    term.white('Bearer: ')
+    term.red("Couldn't invalidate screens cache.")
+    term('\n')
+    term.white('Error: ')
+    term.red(message)
+    term('\n')
+  })
+
+  emitter.on('invalidateCloudFront:error', ({ message }) => {
+    term.white('Bearer: ')
+    term.red('There was an error while trying to invalidate screens cache.')
+    term('\n')
+    term.white('Error: ')
+    term.red(message)
     term('\n')
   })
 }

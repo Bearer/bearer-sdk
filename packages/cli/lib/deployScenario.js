@@ -9,6 +9,7 @@ const pushScreens = require('./pushScreens')
 const assembly = require('./assemblyScenario')
 const storeCredentials = require('./storeCredentials')
 const refreshToken = require('./refreshToken')
+const invalidateCloudFront = require('./invalidateCloudFront')
 
 const AUTH_CONFIG_FILE = 'auth.config.json'
 
@@ -97,6 +98,7 @@ module.exports = async ({ scenarioUuid }, emitter, config) => {
     )
 
     emitter.emit('screen:upload:success')
+    await invalidateCloudFront(emitter, calculatedConfig)
   } catch (e) {
     console.log(e)
   }
