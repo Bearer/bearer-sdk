@@ -1,9 +1,5 @@
 const archiver = require('archiver')
 const globby = require('globby')
-const { promisify } = require('util')
-const fs = require('fs')
-const uuidv4 = require('uuid/v4')
-const readFileAsync = promisify(fs.readFile)
 const pathJs = require('path')
 const webpack = require('webpack')
 
