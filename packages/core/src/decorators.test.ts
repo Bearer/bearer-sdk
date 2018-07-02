@@ -109,7 +109,7 @@ describe('Intent decorator', () => {
 
       const instance = new MissingBearerComponentDecorator()
       await expect(instance.rejectedIntent()).rejects.toThrow(
-        'Scenario ID is missing. Add BearerComponent above @Component({...}) decorator'
+        'Scenario ID is missing. Please add @Component decorator above your class definition'
       )
     })
   })
