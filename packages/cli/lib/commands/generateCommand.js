@@ -1,4 +1,5 @@
 const copy = require('copy-template-dir')
+const del = require('del')
 const path = require('path')
 const inquirer = require('inquirer')
 const Case = require('case')
@@ -71,10 +72,14 @@ async function generateSetup({ emitter, rootPathRc }) {
   const vars = {
     scenarioTitle: Case.camel(scenarioId),
     componentTagName: Case.kebab(scenarioId),
-    fields: authConfig.setup ? JSON.stringify(authConfig.type) : '[]'
+    fields: authConfig.setup ? JSON.stringify(authConfig.setup) : '[]'
   }
   const inDir = path.join(__dirname, 'templates/generate/setup')
   const outDir = path.join(path.dirname(rootPathRc), '/screens/src/')
+
+  await del(`${outDir}*setup*.tsx`).then(paths => {
+    console.log('Deleted files and folders:\n', paths.join('\n'));
+  });
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
     if (err) throw err
