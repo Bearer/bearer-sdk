@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const copy = require('copy-template-dir')
 const Case = require('case')
-const spawn = require('child_process').spawn
+const { spawn } = require('child_process')
 
 const start = (emitter, config) => async ({ open }) => {
   console.log(open)
