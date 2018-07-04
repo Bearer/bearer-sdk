@@ -400,6 +400,20 @@ module.exports = emitter => {
     term('\n')
   })
 
+  emitter.on('start:watchers:stencil:stdout', ({ data }) => {
+    term.white('Bearer: ')
+    term.yellow('[watcher-stencil] ')
+    term.green(data)
+  })
+
+  emitter.on('start:watchers:stencil:stderr', ({ data }) => {
+    term.white('Bearer: ')
+    term.yellow('[watcher-stencil] ')
+    term.green(data)
+  })
+
+  // emitter.emit('start:watchers:stencil:stdout', )
+
   emitter.on('start:failed', ({ error }) => {
     term.white('Bearer: ')
     term.red('An error occured')

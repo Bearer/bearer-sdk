@@ -2,13 +2,15 @@ const path = require('path')
 const fs = require('fs')
 const copy = require('copy-template-dir')
 const Case = require('case')
+const spawn = require('child_process').spawn
 
-const start = (emitter, config) => () => {
+const start = (emitter, config) => async ({ open }) => {
+  console.log(open)
+
   const {
     rootPathRc,
     scenarioConfig: { scenarioTitle }
   } = config
-  console.log('[BEARER]', 'config', config)
   const rootLevel = path.dirname(rootPathRc)
   const screensDirectory = path.join(rootLevel, 'screens')
   const buildDirectory = path.join(screensDirectory, '.build')
@@ -57,6 +59,21 @@ const start = (emitter, config) => () => {
     // Launch in ||
     //    bearer-tsc
     //    stencil-dev-server
+
+    const stencil = spawn('yarn', ['start', !open && '--no-open'], {
+      cwd: buildDirectory
+    })
+    stencil.stdout.on('data', data => {
+      emitter.emit('start:watchers:stencil:stdout', { data })
+    })
+
+    stencil.stderr.on('data', data => {
+      emitter.emit('start:watchers:stencil:stderr', { data })
+    })
+
+    stencil.on('close', code => {
+      console.log(`child process exited with code ${code}`)
+    })
   } catch (e) {
     emitter.emit('start:failed', { error: e })
   }
@@ -81,6 +98,7 @@ module.exports = {
     $ bearer start
 `
       )
+      .option('--no-open', 'Do not open web browser')
       .action(start(emitter, config))
   }
 }
