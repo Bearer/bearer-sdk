@@ -8,7 +8,6 @@ export interface TranspilerConfiguration extends ts.CompilerOptions {
   outDir: string
 }
 
-export interface Strategy {}
 export default class Transpiler {
   constructor(private readonly options: TranspilerConfiguration) {}
 
