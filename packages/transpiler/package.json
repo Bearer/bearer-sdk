@@ -1,0 +1,50 @@
+{
+  "name": "@bearer/transpiler",
+  "version": "0.0.1",
+  "description": "Bearer transpiler",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Bearer",
+  "license": "UNLICENSED",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "start": "yarn build",
+    "build": "tsc -p tsconfig.json",
+    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
+    "test": "jest"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/preprocessor.js"
+    },
+    "testMatch": [
+      "**/__tests__/*.+(ts|tsx|js)"
+    ],
+    "setupFiles": [
+      "./jest.setup.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:Bearer/bearer"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.1.1",
+    "@types/node": "9.6.7",
+    "jest": "^23.1.0",
+    "ts-jest": "^22.4.6"
+  },
+  "dependencies": {
+    "async-foreach": "^0.1.3",
+    "fs-extra": "^6.0.1",
+    "typescript": "^2.9.2"
+  }
+}
