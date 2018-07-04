@@ -30,11 +30,6 @@ module.exports = async ({ scenarioUuid }, emitter, config) => {
   const rootLevel = pathJs.dirname(rootPathRc)
   const artifactDirectory = pathJs.join(rootLevel, '.bearer')
   const intentsDirectory = pathJs.join(rootLevel, 'intents')
-  const { buildDirectory: screensDirectory } = await prepare(emitter, config)
-  if (!screensDirectory) {
-    process.exit(1)
-    return false
-  }
 
   if (!fs.existsSync(artifactDirectory)) {
     fs.mkdirSync(artifactDirectory)
@@ -76,8 +71,14 @@ module.exports = async ({ scenarioUuid }, emitter, config) => {
 
     await assembly(scenarioUuid, emitter, calculatedConfig)
 
-    emitter.emit('screens:installingDependencies')
-    await exec('yarn install', { cwd: screensDirectory })
+    const { buildDirectory: screensDirectory } = await prepare(
+      emitter,
+      config
+    )()
+    if (!screensDirectory) {
+      process.exit(1)
+      return false
+    }
 
     emitter.emit('screens:generateSetupComponent')
     await exec('bearer generate --setup', { cwd: screensDirectory })

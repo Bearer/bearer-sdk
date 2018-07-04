@@ -187,12 +187,6 @@ module.exports = emitter => {
     term('\n')
   })
 
-  emitter.on('screens:installingDependencies', () => {
-    term.white('Bearer: ')
-    term.yellow('Installing screens dependencies.')
-    term('\n')
-  })
-
   emitter.on('screens:generateSetupComponent', () => {
     term.white('Bearer: ')
     term.yellow('Generating setup component.')
@@ -400,6 +394,12 @@ module.exports = emitter => {
     term('\n')
   })
 
+  emitter.on('start:prepare:installingDependencies', () => {
+    term.white('Bearer: ')
+    term.yellow('Installing screens dependencies.')
+    term('\n')
+  })
+
   emitter.on('start:watchers', () => {
     term.white('Bearer: ')
     term.yellow('Starting watchers')
@@ -419,6 +419,15 @@ module.exports = emitter => {
   })
 
   // emitter.emit('start:watchers:stencil:stdout', )
+
+  emitter.on('start:prepare:failed', ({ error }) => {
+    term.white('Bearer: ')
+    term.red('An error occured')
+    term('\n')
+    term.white('    Error: ')
+    term.red(error)
+    term('\n')
+  })
 
   emitter.on('start:failed', ({ error }) => {
     term.white('Bearer: ')

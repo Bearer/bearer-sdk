@@ -2,70 +2,77 @@ const path = require('path')
 const fs = require('fs')
 const copy = require('copy-template-dir')
 const Case = require('case')
-const { spawn } = require('child_process')
+const { spawn, execSync } = require('child_process')
 
 function prepare(emitter, config) {
-  try {
-    const {
-      rootPathRc,
-      scenarioConfig: { scenarioTitle }
-    } = config
-    const rootLevel = path.dirname(rootPathRc)
-    const screensDirectory = path.join(rootLevel, 'screens')
-    const buildDirectory = path.join(screensDirectory, '.build')
+  return async ({ install = true } = { install: true }) => {
+    try {
+      const {
+        rootPathRc,
+        scenarioConfig: { scenarioTitle }
+      } = config
+      const rootLevel = path.dirname(rootPathRc)
+      const screensDirectory = path.join(rootLevel, 'screens')
+      const buildDirectory = path.join(screensDirectory, '.build')
 
-    // Create hidden folder
-    emitter.emit('start:prepare:buildFolder')
-    if (!fs.existsSync(buildDirectory)) {
-      fs.mkdirSync(buildDirectory)
-      fs.mkdirSync(path.join(buildDirectory, 'src'))
-    }
+      // Create hidden folder
+      emitter.emit('start:prepare:buildFolder')
+      if (!fs.existsSync(buildDirectory)) {
+        fs.mkdirSync(buildDirectory)
+        fs.mkdirSync(path.join(buildDirectory, 'src'))
+      }
 
-    // Symlink node_modules
-    emitter.emit('start:symlinkNodeModules')
-    const nodeModuleLink = path.join(buildDirectory, 'node_modules')
-    createEvenIfItExists(
-      path.join(screensDirectory, 'node_modules'),
-      nodeModuleLink
-    )
-
-    // symlink package.json
-    emitter.emit('start:symlinkPackage')
-
-    const packageLink = path.join(buildDirectory, 'package.json')
-    createEvenIfItExists(
-      path.join(screensDirectory, 'package.json'),
-      packageLink
-    )
-
-    // Copy stencil.config.json
-    emitter.emit('start:prepare:stencilConfig')
-
-    const vars = {
-      componentTagName: Case.kebab(scenarioTitle)
-    }
-    const inDir = path.join(__dirname, 'templates/start/.build')
-    const outDir = buildDirectory
-
-    copy(inDir, outDir, vars, (err, createdFiles) => {
-      if (err) throw err
-      createdFiles.forEach(filePath =>
-        emitter.emit('start:prepare:copyFile', filePath)
+      // Symlink node_modules
+      emitter.emit('start:symlinkNodeModules')
+      const nodeModuleLink = path.join(buildDirectory, 'node_modules')
+      createEvenIfItExists(
+        path.join(screensDirectory, 'node_modules'),
+        nodeModuleLink
       )
-    })
 
-    return {
-      buildDirectory
+      // symlink package.json
+      emitter.emit('start:symlinkPackage')
+
+      const packageLink = path.join(buildDirectory, 'package.json')
+      createEvenIfItExists(
+        path.join(screensDirectory, 'package.json'),
+        packageLink
+      )
+
+      // Copy stencil.config.json
+      emitter.emit('start:prepare:stencilConfig')
+
+      const vars = {
+        componentTagName: Case.kebab(scenarioTitle)
+      }
+      const inDir = path.join(__dirname, 'templates/start/.build')
+      const outDir = buildDirectory
+
+      copy(inDir, outDir, vars, (err, createdFiles) => {
+        if (err) throw err
+        createdFiles.forEach(filePath =>
+          emitter.emit('start:prepare:copyFile', filePath)
+        )
+      })
+
+      if (install) {
+        emitter.emit('start:prepare:installingDependencies')
+        execSync('yarn install', { cwd: screensDirectory })
+      }
+
+      return {
+        buildDirectory
+      }
+    } catch (error) {
+      emitter.emit('start:prepare:failed', { error })
+      return {}
     }
-  } catch (error) {
-    emitter.emit('start:prepare:failed', { error })
-    return {}
   }
 }
 
-const start = (emitter, config) => async ({ open }) => {
+const start = (emitter, config) => async ({ open, install }) => {
   try {
-    const { buildDirectory } = await prepare(emitter, config)
+    const { buildDirectory } = await prepare(emitter, config)({ install })
     emitter.emit('start:watchers')
     // Launch in ||
     //    bearer-tsc
@@ -115,6 +122,7 @@ module.exports = {
 `
       )
       .option('--no-open', 'Do not open web browser')
+      .option('--no-install', 'Do not run yarn|npm install')
       .action(start(emitter, config))
   }
 }
