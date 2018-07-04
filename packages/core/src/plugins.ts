@@ -1,5 +1,4 @@
 import replace from 'rollup-plugin-replace'
-import alias from 'rollup-plugin-alias'
 
 export const plugins = () => {
   const basePLugins = [
