@@ -1,14 +1,7 @@
 import * as requests from './requests'
 
-export function generateUniqueId(n) {
-  var text = ''
-  var possible =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
-  for (var i = 0; i < n; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length))
-
-  return text
+export function storeSetup(payload: any) {
+  return postSetup({ ...payload, ReadAllowed: false })
 }
 
 export function storeSecret(referenceId: string, payload: any) {
@@ -36,6 +29,17 @@ export function removeData(referenceId: string) {
     {},
     {
       method: 'DELETE'
+    }
+  )
+}
+
+function postSetup(payload: any) {
+  const request = requests.itemRequest()
+  return request(
+    {},
+    {
+      method: 'POST',
+      body: JSON.stringify(payload)
     }
   )
 }

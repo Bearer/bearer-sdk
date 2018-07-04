@@ -18,6 +18,10 @@ interface ConfigSetupData {
   }
 }
 
+type TSetupPayload = {
+  Item: { referenceId: string }
+}
+
 @Component({
   tag: 'bearer-setup',
   styleUrl: 'setup.scss',
@@ -38,37 +42,20 @@ export class BearerSetup {
   handleSubmit = (e: any) => {
     e.preventDefault()
     this.loading = true
-    const secretSet = this.fieldSet.map(el => {
+    const formSet = this.fieldSet.map(el => {
       return { key: el.controlName, value: el.value }
     })
-    const publicSet = this.fieldSet
-      .filter(el => el.type !== 'password')
-      .map(el => {
-        return { key: el.controlName, value: el.value }
-      })
-    const setupId = BearerState.generateUniqueId(30)
-    BearerState.storeSecret(
-      setupId,
-      secretSet.reduce(
+    BearerState.storeSetup(
+      formSet.reduce(
         (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
         {}
       )
     )
-      .then(() => {
-        this.error = false
-        return BearerState.storeData(
-          `${setupId}setup`,
-          publicSet.reduce(
-            (acc, obj) => ({ ...acc, [obj['key']]: obj['value'] }),
-            {}
-          )
-        )
-      })
-      .then(_ => {
+      .then((item: TSetupPayload) => {
         this.loading = false
+        console.log(`${this.scenarioId}`)
         Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
-          // clientID: this.inputs.clientID,
-          referenceID: setupId
+          referenceID: item.Item.referenceId
         })
       })
       .catch(() => {
