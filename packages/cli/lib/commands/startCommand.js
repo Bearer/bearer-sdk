@@ -20,6 +20,7 @@ const start = (emitter, config) => async ({ open }) => {
     emitter.emit('start:generate:buildFolder')
     if (!fs.existsSync(buildDirectory)) {
       fs.mkdirSync(buildDirectory)
+      fs.mkdirSync(path.join(buildDirectory, 'src'))
     }
 
     // Symlink node_modules
@@ -59,7 +60,7 @@ const start = (emitter, config) => async ({ open }) => {
     // Launch in ||
     //    bearer-tsc
     //    stencil-dev-server
-
+    //
     const stencil = spawn('yarn', ['start', !open && '--no-open'], {
       cwd: buildDirectory
     })
