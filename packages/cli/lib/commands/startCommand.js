@@ -14,13 +14,23 @@ const start = (emitter, config) => () => {
       fs.mkdirSync(buildDirectory)
     }
 
+    // Symlink node_modules
+    emitter.emit('start:symlinkNodeModules')
+    const nodeModuleLink = path.join(buildDirectory, 'node_modules')
+
+    if (!fs.existsSync(nodeModuleLink)) {
+      fs.symlinkSync(
+        path.join(screensDirectory, 'node_modules'),
+        nodeModuleLink
+      )
+    }
+
+    // symlink package.json
+    emitter.emit('start:symlinkPackage')
+
     // Copy stencil.config.json
     emitter.emit('start:generate:stencilConfig')
 
-    emitter.emit('start:symlinkNodeModules')
-    // symlink node_modules
-    emitter.emit('start:symlinkPackage')
-    // symlink package.json
     emitter.emit('start:watchers')
     // Launch in ||
     //    bearer-tsc
