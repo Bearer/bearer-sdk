@@ -61,7 +61,11 @@ const start = (emitter, config) => async ({ open }) => {
     //    bearer-tsc
     //    stencil-dev-server
     //
-    const stencil = spawn('yarn', ['start', !open && '--no-open'], {
+    const args = ['start']
+    if (!open) {
+      args.push('--no-open')
+    }
+    const stencil = spawn('yarn', args, {
       cwd: buildDirectory
     })
     stencil.stdout.on('data', data => {
