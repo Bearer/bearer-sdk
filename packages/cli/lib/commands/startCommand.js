@@ -1,9 +1,22 @@
+const path = require('path')
+const fs = require('fs')
+
 const start = (emitter, config) => () => {
+  const { rootPathRc } = config
+  const rootLevel = path.dirname(rootPathRc)
+  const screensDirectory = path.join(rootLevel, 'screens')
+  const buildDirectory = path.join(screensDirectory, '.build')
+
   try {
-    emitter.emit('start:generate:buildFolder')
     // Create hidden folder
-    emitter.emit('start:generate:stencilConfig')
+    emitter.emit('start:generate:buildFolder')
+    if (!fs.existsSync(buildDirectory)) {
+      fs.mkdirSync(buildDirectory)
+    }
+
     // Copy stencil.config.json
+    emitter.emit('start:generate:stencilConfig')
+
     emitter.emit('start:symlinkNodeModules')
     // symlink node_modules
     emitter.emit('start:symlinkPackage')
