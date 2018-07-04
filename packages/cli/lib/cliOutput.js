@@ -367,4 +367,45 @@ module.exports = emitter => {
     term.red(message)
     term('\n')
   })
+
+  /* ********* Start output ********* */
+
+  emitter.on('start:generate:buildFolder', () => {
+    term.white('Bearer: ')
+    term.yellow('Generating .build folder ')
+    term('\n')
+  })
+
+  emitter.on('start:generate:stencilConfig', () => {
+    term.white('Bearer: ')
+    term.yellow('Generating stencil configuration')
+    term('\n')
+  })
+
+  emitter.on('start:symlinkNodeModules', () => {
+    term.white('Bearer: ')
+    term.yellow('Symlinking node_modules')
+    term('\n')
+  })
+
+  emitter.on('start:symlinkPackage', () => {
+    term.white('Bearer: ')
+    term.yellow('Symlinking package.json')
+    term('\n')
+  })
+
+  emitter.on('start:watchers', () => {
+    term.white('Bearer: ')
+    term.yellow('Starting watchers')
+    term('\n')
+  })
+
+  emitter.on('start:failed', ({ error }) => {
+    term.white('Bearer: ')
+    term.red('An error occured')
+    term('\n')
+    term.white('    Error: ')
+    term.red(error)
+    term('\n')
+  })
 }
