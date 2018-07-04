@@ -4,20 +4,18 @@ const copy = require('copy-template-dir')
 const Case = require('case')
 const { spawn } = require('child_process')
 
-const start = (emitter, config) => async ({ open }) => {
-  console.log(open)
-
-  const {
-    rootPathRc,
-    scenarioConfig: { scenarioTitle }
-  } = config
-  const rootLevel = path.dirname(rootPathRc)
-  const screensDirectory = path.join(rootLevel, 'screens')
-  const buildDirectory = path.join(screensDirectory, '.build')
-
+function prepare(emitter, config) {
   try {
+    const {
+      rootPathRc,
+      scenarioConfig: { scenarioTitle }
+    } = config
+    const rootLevel = path.dirname(rootPathRc)
+    const screensDirectory = path.join(rootLevel, 'screens')
+    const buildDirectory = path.join(screensDirectory, '.build')
+
     // Create hidden folder
-    emitter.emit('start:generate:buildFolder')
+    emitter.emit('start:prepare:buildFolder')
     if (!fs.existsSync(buildDirectory)) {
       fs.mkdirSync(buildDirectory)
       fs.mkdirSync(path.join(buildDirectory, 'src'))
@@ -41,7 +39,7 @@ const start = (emitter, config) => async ({ open }) => {
     )
 
     // Copy stencil.config.json
-    emitter.emit('start:generate:stencilConfig')
+    emitter.emit('start:prepare:stencilConfig')
 
     const vars = {
       componentTagName: Case.kebab(scenarioTitle)
@@ -52,10 +50,22 @@ const start = (emitter, config) => async ({ open }) => {
     copy(inDir, outDir, vars, (err, createdFiles) => {
       if (err) throw err
       createdFiles.forEach(filePath =>
-        emitter.emit('start:generate:stencilConfig', filePath)
+        emitter.emit('start:prepare:copyFile', filePath)
       )
     })
 
+    return {
+      buildDirectory
+    }
+  } catch (error) {
+    emitter.emit('start:prepare:failed', { error })
+    return {}
+  }
+}
+
+const start = (emitter, config) => async ({ open }) => {
+  try {
+    const { buildDirectory } = await prepare(emitter, config)
     emitter.emit('start:watchers')
     // Launch in ||
     //    bearer-tsc
@@ -95,6 +105,7 @@ function createEvenIfItExists(target, path) {
 }
 
 module.exports = {
+  prepare,
   useWith: (program, emitter, config) => {
     program
       .command('start')

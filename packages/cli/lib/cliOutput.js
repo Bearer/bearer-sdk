@@ -370,15 +370,21 @@ module.exports = emitter => {
 
   /* ********* Start output ********* */
 
-  emitter.on('start:generate:buildFolder', () => {
+  emitter.on('start:prepare:buildFolder', () => {
     term.white('Bearer: ')
     term.yellow('Generating .build folder ')
     term('\n')
   })
 
-  emitter.on('start:generate:stencilConfig', () => {
+  emitter.on('start:prepare:stencilConfig', () => {
     term.white('Bearer: ')
     term.yellow('Generating stencil configuration')
+    term('\n')
+  })
+
+  emitter.on('start:prepare:copyFile', file => {
+    term.white('Bearer: ')
+    term.yellow(`Copied: ${file}`)
     term('\n')
   })
 
