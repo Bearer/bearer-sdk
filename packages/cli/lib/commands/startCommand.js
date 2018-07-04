@@ -1,8 +1,14 @@
 const path = require('path')
 const fs = require('fs')
+const copy = require('copy-template-dir')
+const Case = require('case')
 
 const start = (emitter, config) => () => {
-  const { rootPathRc } = config
+  const {
+    rootPathRc,
+    scenarioConfig: { scenarioTitle }
+  } = config
+  console.log('[BEARER]', 'config', config)
   const rootLevel = path.dirname(rootPathRc)
   const screensDirectory = path.join(rootLevel, 'screens')
   const buildDirectory = path.join(screensDirectory, '.build')
@@ -33,6 +39,19 @@ const start = (emitter, config) => () => {
 
     // Copy stencil.config.json
     emitter.emit('start:generate:stencilConfig')
+
+    const vars = {
+      componentTagName: Case.kebab(scenarioTitle)
+    }
+    const inDir = path.join(__dirname, 'templates/start/.build')
+    const outDir = buildDirectory
+
+    copy(inDir, outDir, vars, (err, createdFiles) => {
+      if (err) throw err
+      createdFiles.forEach(filePath =>
+        emitter.emit('start:generate:stencilConfig', filePath)
+      )
+    })
 
     emitter.emit('start:watchers')
     // Launch in ||
