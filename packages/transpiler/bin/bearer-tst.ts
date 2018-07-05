@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-// import Transpiler from '../src/index'
 import * as ts from 'typescript'
 import * as fs from 'fs-extra'
 import * as path from 'path'
+import * as chokidar from 'chokidar'
 
 import ComponentTransformer from '../src/component-transformer'
 
@@ -12,8 +12,11 @@ const compilerOptions = ts.readConfigFile('tsconfig.json', ts.sys.readFile)
 let host = ts.createCompilerHost(compilerOptions)
 
 const SCREENS_DIRECTORY = path.join(process.cwd(), 'screens')
+const SRC_DIRECTORY = path.join(SCREENS_DIRECTORY, 'src')
 const BUILD_DIRECTORY = path.join(SCREENS_DIRECTORY, '.build')
-fs.emptyDirSync(BUILD_DIRECTORY)
+const BUILD_SRC_DIRECTORY = path.join(BUILD_DIRECTORY, 'src')
+
+fs.emptyDirSync(BUILD_SRC_DIRECTORY)
 
 type TransformerOptions = {
   verbose?: true
@@ -34,8 +37,12 @@ const sourceCode = tsSourceFile => {
   return printer.printNode(ts.EmitHint.Unspecified, tsSourceFile, resultFile)
 }
 
-const { config } = ts.readConfigFile('project/tsconfig.json', ts.sys.readFile)
+const config = ts.readConfigFile(
+  path.join(BUILD_DIRECTORY, 'tsconfig.json'),
+  ts.sys.readFile
+)
 const parsed = ts.parseJsonConfigFileContent(config, ts.sys, process.cwd())
+
 function storeOutput({
   verbose
 }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
@@ -60,17 +67,47 @@ function storeOutput({
   }
 }
 
-console.log(parsed.fileNames)
-
 const transformers: ts.CustomTransformers = {
   before: [
-    ComponentTransformer({ verbose: true }),
+    // ComponentTransformer({ verbose: true }),
     storeOutput({ verbose: true })
   ],
   after: []
 }
 
 function watch(rootFileNames: string[], options: ts.CompilerOptions) {
+  function callback(error) {
+    if (error) {
+      console.log('[BEARER]', 'error', error)
+    }
+  }
+
+  console.log('[BEARER]', 'BUILD_DIRECTORY', SRC_DIRECTORY)
+  chokidar
+    .watch(SRC_DIRECTORY + '/**', {
+      ignored: /\.tsx?$/,
+      // ignored: /(^|[\/\\])\../,
+      persistent: true,
+      followSymlinks: false
+    })
+    .on('all', (event, filePath) => {
+      const relativePath = filePath.replace(SRC_DIRECTORY, '')
+      const targetPath = path.join(BUILD_SRC_DIRECTORY, relativePath)
+      // Creating symlink
+      if (event == 'add' || event == 'addDir') {
+        console.log('creating symlink')
+        fs.ensureSymlink(filePath, targetPath, callback)
+      }
+
+      // // Deleting symlink
+      if (event == 'unlink') {
+        console.log('deleting symlink')
+        fs.unlink(targetPath, err => {
+          if (err) throw err
+          console.log(targetPath + ' was deleted')
+        })
+      }
+    })
   const files: ts.MapLike<{ version: number }> = {}
 
   // initialize the list of files
