@@ -36,7 +36,7 @@ const SaveState = {
           console.log('[BEARER]', 'received', response.data)
           const state = response.data.Item
           action(
-            event.accessToken,
+            event.context,
             event.queryStringParameters,
             event.body,
             state,
@@ -58,7 +58,7 @@ const SaveState = {
         })
         .catch(response => {
           action(
-            event.accessToken,
+            event.context,
             event.queryStringParameters,
             event.body,
             {},
