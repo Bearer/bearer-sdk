@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@bearer/intents": "latest",
+    "@bearer/transpiler": "^0.7.2",
     "amazon-cognito-identity-js": "^2.0.3",
     "archiver": "^2.1.1",
     "async": "^2.6.0",
