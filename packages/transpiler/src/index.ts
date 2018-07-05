@@ -4,23 +4,21 @@ import * as fs from 'fs-extra'
 import { forEach } from 'async-foreach'
 import ComponentTransformer from './component-transformer'
 
-export interface TranspilerConfiguration extends ts.CompilerOptions {
-  outDir: string
-}
-
 export default class Transpiler {
-  constructor(private readonly options: TranspilerConfiguration) {}
+  constructor(
+    private readonly options: ts.CompilerOptions,
+    private readonly program: any
+  ) {}
 
-  async run(fileNames) {
+  async run() {
     const { outDir } = this.options
     await fs.mkdirp(outDir)
-    let program = ts.createProgram(fileNames, this.options)
-    let files = this.getFileNames(program)
+    let files = this.getFileNames()
 
     forEach(files, filePath => {
-      let sourceFile = program.getSourceFile(filePath)
+      let sourceFile = this.program.getSourceFile(filePath)
       let fileName = path.basename(filePath)
-      program.getCompilerOptions()
+      this.program.getCompilerOptions()
 
       let res = ts.transform(sourceFile, [ComponentTransformer()])
 
@@ -45,12 +43,12 @@ export default class Transpiler {
     })
   }
 
-  private getFileNames(program: ts.Program): string[] {
-    return program
+  private getFileNames(): string[] {
+    return this.program
       .getSourceFiles()
       .filter(
         file =>
-          !program.isSourceFileFromExternalLibrary(file) &&
+          !this.program.isSourceFileFromExternalLibrary(file) &&
           !file.fileName.endsWith('d.ts')
       )
       .map(file => file.fileName)
