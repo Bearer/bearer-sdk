@@ -1,7 +1,46 @@
 #!/usr/bin/env node
 
-import Transpiler from '../src/index'
+// import Transpiler from '../src/index'
 import * as ts from 'typescript'
+import * as fs from 'fs'
+
+import ComponentTransformer from '../src/component-transformer'
+
+type TransformerOptions = {
+  verbose?: true
+}
+
+const resultFile = ts.createSourceFile(
+  'tmp.ts',
+  '',
+  ts.ScriptTarget.Latest,
+  /*setParentNodes*/ false,
+  ts.ScriptKind.TS
+)
+const printer = ts.createPrinter({
+  newLine: ts.NewLineKind.LineFeed
+})
+
+function storeOutput({
+  verbose
+}: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
+  function log(...args) {
+    if (verbose) {
+      console.log.apply(this, args)
+    }
+  }
+  return _transformContext => {
+    return tsSourceFile => {
+      const result = printer.printNode(
+        ts.EmitHint.Unspecified,
+        tsSourceFile,
+        resultFile
+      )
+      log('myFile:', result)
+      return tsSourceFile
+    }
+  }
+}
 
 const formatHost: ts.FormatDiagnosticsHost = {
   getCanonicalFileName: path => path,
@@ -49,10 +88,7 @@ host.afterProgramCreate = program => {
 }
 
 // `createWatchProgram` creates an initial program, watches files, and updates the program over time.
-const program = ts.createWatchProgram(host)
-console.log(ts.readConfigFile(configPath, ts.sys.readFile))
-console.log(program.getProgram().getCompilerOptions())
-// const tranpspiler = new Transpiler(options, program)
+// // const tranpspiler = new Transpiler(options, program)
 
 function reportDiagnostic(diagnostic: ts.Diagnostic) {
   console.error(
@@ -66,8 +102,20 @@ function reportDiagnostic(diagnostic: ts.Diagnostic) {
   )
 }
 
+var program = ts.createWatchProgram(host).getProgram()
+
 function reportWatchStatusChanged(diagnostic: ts.Diagnostic) {
   console.info(ts.formatDiagnostic(diagnostic, formatHost))
+
+  if (program) {
+    program.emit(undefined, undefined, undefined, undefined, transformers)
+  }
 }
 
-console.log(configPath)
+const transformers: ts.CustomTransformers = {
+  before: [
+    ComponentTransformer({ verbose: true }),
+    storeOutput({ verbose: true })
+  ],
+  after: []
+}
