@@ -6,7 +6,7 @@
   "author": "Bearer",
   "license": "UNLICENSED",
   "files": [
-    "src/*.js"
+    "src/"
   ],
   "scripts": {
     "test": "echo 'No tests yet'"
