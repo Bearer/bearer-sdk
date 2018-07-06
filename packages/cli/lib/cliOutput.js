@@ -406,23 +406,28 @@ module.exports = emitter => {
     term('\n')
   })
 
-  emitter.on('start:watchers:stencil:stdout', ({ data }) => {
+  emitter.on('start:watchers:stdout', ({ name, data }) => {
     term.white('Bearer: ')
-    term.yellow('[watcher-stencil] ')
+    term.yellow(`[watcher:${name}] `)
     term.green(data)
   })
 
-  emitter.on('start:watchers:stencil:stderr', ({ data }) => {
+  emitter.on('start:watchers:stderr', ({ name, data }) => {
     term.white('Bearer: ')
-    term.yellow('[watcher-stencil] ')
+    term.yellow(`[watcher:${name}] `)
     term.green(data)
+  })
+
+  emitter.on('start:watchers:close', ({ name, code }) => {
+    term.white('Bearer: ')
+    term.yellow(`[watcher:${name}] closed exit code: ${code}\n`)
   })
 
   // emitter.emit('start:watchers:stencil:stdout', )
 
   emitter.on('start:prepare:failed', ({ error }) => {
     term.white('Bearer: ')
-    term.red('An error occured')
+    term.red('Prepare : An error occured')
     term('\n')
     term.white('    Error: ')
     term.red(error)

@@ -61,7 +61,9 @@ function prepare(emitter, config) {
       }
 
       return {
-        buildDirectory
+        rootLevel,
+        buildDirectory,
+        screensDirectory
       }
     } catch (error) {
       emitter.emit('start:prepare:failed', { error })
@@ -72,12 +74,26 @@ function prepare(emitter, config) {
 
 const start = (emitter, config) => async ({ open, install }) => {
   try {
-    const { buildDirectory } = await prepare(emitter, config)({ install })
+    const { buildDirectory, rootLevel } = await prepare(emitter, config)({
+      install
+    })
     emitter.emit('start:watchers')
-    // Launch in ||
-    //    bearer-tsc
-    //    stencil-dev-server
-    //
+
+    /* Start bearer transpiler phase */
+    const bearerTranspiler = spawn(
+      'node',
+      [path.join(__dirname, '..', 'startTranspiler.js')],
+      {
+        cwd: rootLevel
+      }
+    )
+
+    const BEARER = 'bearer-transpiler'
+    bearerTranspiler.stdout.on('data', childProcessStdout(emitter, BEARER))
+    bearerTranspiler.stderr.on('data', childProcessStderr(emitter, BEARER))
+    bearerTranspiler.on('close', childProcessClose(emitter, BEARER))
+
+    /* Start stencil */
     const args = ['start']
     if (!open) {
       args.push('--no-open')
@@ -85,19 +101,32 @@ const start = (emitter, config) => async ({ open, install }) => {
     const stencil = spawn('yarn', args, {
       cwd: buildDirectory
     })
-    stencil.stdout.on('data', data => {
-      emitter.emit('start:watchers:stencil:stdout', { data })
-    })
 
-    stencil.stderr.on('data', data => {
-      emitter.emit('start:watchers:stencil:stderr', { data })
-    })
+    const STENCIL = 'stencil'
 
-    stencil.on('close', code => {
-      console.log(`child process exited with code ${code}`)
-    })
+    stencil.stdout.on('data', childProcessStdout(emitter, STENCIL))
+    stencil.stderr.on('data', childProcessStderr(emitter, STENCIL))
+    stencil.on('close', childProcessClose(emitter, STENCIL))
   } catch (e) {
     emitter.emit('start:failed', { error: e })
+  }
+}
+
+function childProcessStdout(emitter, name) {
+  return data => {
+    emitter.emit('start:watchers:stdout', { name, data })
+  }
+}
+
+function childProcessStderr(emitter, name) {
+  return data => {
+    emitter.emit('start:watchers:stderr', { name, data })
+  }
+}
+
+function childProcessClose(emitter, name) {
+  return code => {
+    emitter.emit('start:watchers:close', { name, code })
   }
 }
 
