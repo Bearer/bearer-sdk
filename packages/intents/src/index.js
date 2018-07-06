@@ -133,6 +133,5 @@ module.exports = {
   GetObject,
   SaveState,
   STATE_CLIENT,
-  RetrieveState,
-  TContext
+  RetrieveState
 }
