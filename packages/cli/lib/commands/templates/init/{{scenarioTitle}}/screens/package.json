@@ -4,6 +4,7 @@
   "description": "{{scenarioTitle}} scenario",
   "main": "dist/{{componentTagName}}.js",
   "types": "dist/types/components.d.ts",
+  "module": "dist/esm/index.js",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
     "dist/"
