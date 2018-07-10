@@ -66,25 +66,12 @@ class Bearer {
     this._maybeInitialized = promise
   }
 
-  // messageReceived = ({ data: { event_id, data } }) => {
-  //   switch (event_id) {
-  //     case Events.BEARER_AUTHORIZED: {
-  //       console.log('[BEARER]', 'Scenario authorized', data['scenarioId'])
-  //       const scenarioId: string = data['scenarioId']
-  //       localStorage.setItem(authorizedKey(scenarioId), AUTHORIZED)
-  //       Bearer.emitter.emit(Events.SCENARIO_AUTHORIZED, {
-  //         authorized: true,
-  //         scenarioId
-  //       })
-  //       break
-  //     }
-  //   }
-  // }
   static onAuthorized = (
     scenarioId: string,
     callback: (authorize: boolean) => void
   ) =>
     Bearer.emitter.addListener(Events.SCENARIO_AUTHORIZED, () => {
+      // TODO : listen only for the scenarioId (+ setupId ?)
       callback(true)
     })
 
@@ -93,6 +80,7 @@ class Bearer {
     callback: (authorize: boolean) => void
   ) =>
     Bearer.emitter.addListener(Events.SCENARIO_REVOKED, () => {
+      // TODO : listen only for the scenarioId (+ setupId ?)
       callback(false)
     })
 
@@ -109,22 +97,23 @@ class Bearer {
           scenarioId: scenarioId,
           integrationId: Bearer.config.integrationId
         })
-        .then(data => {
+        .then(({ data, data: { authorized } }) => {
           console.log('[BEARER]', 'data', data)
-          data.authorized ? resolve(true) : reject(false)
+          authorized ? resolve(true) : reject(false)
         })
-        .catch(e => {
-          console.log('[BEARER]', 'e', e)
-        })
+        .catch(iframeError)
     })
 
   revokeAuthorization = (scenarioId: string): void => {
-    // TODO: revoke
-    // localStorage.setItem(authorizedKey(scenarioId), undefined)
-    // Bearer.emitter.emit(Events.SCENARIO_AUTHORIZED, {
-    //   authorized: this.hasAuthorized(scenarioId),
-    //   scenarioId
-    // })
+    postRobot
+      .send(this.iframe, Events.LOGOUT, {
+        scenarioId: scenarioId,
+        integrationId: Bearer.config.integrationId
+      })
+      .then(() => {
+        console.log('[BEARER]', 'Signing out')
+      })
+      .catch(iframeError)
   }
 
   initSession() {
@@ -170,8 +159,8 @@ class Bearer {
   }
 }
 
-// function authorizedKey(scenarioId) {
-//   return `authorized_${scenarioId}`
-// }
+function iframeError(e) {
+  console.error('[BEARER]', 'Error contacting iframe', e)
+}
 
 export default Bearer
