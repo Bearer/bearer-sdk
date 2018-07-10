@@ -72,15 +72,30 @@ function prepare(emitter, config) {
   }
 }
 
+const ensureSetupAndConfigComponents = rootLevel => {
+  spawn('bearer', ['g', '--config'], {
+    cwd: rootLevel
+  })
+  spawn('bearer', ['g', '--setup'], {
+    cwd: rootLevel
+  })
+}
+
 const start = (emitter, config) => async ({ open, install }) => {
   try {
-    const { buildDirectory, screensDirectory } = await prepare(emitter, config)(
-      {
-        install
-      }
-    )
+    const { buildDirectory, rootLevel } = await prepare(emitter, config)({
+      install
+    })
+
+    ensureSetupAndConfigComponents(rootLevel)
+
     emitter.emit('start:watchers')
 
+    fs.watchFile(
+      path.join(rootLevel, 'intents', 'auth.config.json'),
+      { persistent: true, interval: 250 },
+      () => ensureSetupAndConfigComponents(rootLevel)
+    )
     /* Start bearer transpiler phase */
     const bearerTranspiler = spawn(
       'node',

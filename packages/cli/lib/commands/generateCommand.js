@@ -3,14 +3,43 @@ const del = require('del')
 const path = require('path')
 const inquirer = require('inquirer')
 const Case = require('case')
-const fs = require('fs')
-const util = require('util')
 const intents = require('@bearer/intents')
+const rc = require('rc')
 
 const INTENT = 'intent'
 const SCREEN = 'screen'
-const COLLECTION = 'GetCollection'
-const SINGLE_RESOURCE = 'GetObject'
+
+async function generateTemplates({ emitter, templateType, rootPathRc }) {
+  const authConfig = require(path.join(
+    path.dirname(rootPathRc),
+    'intents',
+    'auth.config.json'
+  ))
+
+  const scenarioConfig = rc('scenario')
+  const { scenarioTitle } = scenarioConfig
+
+  const configKey = `${templateType}Screen`
+
+  const vars = {
+    scenarioTitle: Case.camel(scenarioTitle),
+    componentTagName: Case.kebab(scenarioTitle),
+    fields: authConfig[configKey] ? JSON.stringify(authConfig[configKey]) : '[]'
+  }
+  const inDir = path.join(__dirname, `templates/generate/${templateType}`)
+  const outDir = path.join(path.dirname(rootPathRc), '/screens/.build/src/')
+
+  await del(`${outDir}*${templateType}*.tsx`).then(paths => {
+    console.log('Deleted files and folders:\n', paths.join('\n'))
+  })
+
+  copy(inDir, outDir, vars, (err, createdFiles) => {
+    if (err) throw err
+    createdFiles.forEach(filePath =>
+      emitter.emit('generateIntent:fileGenerated', filePath)
+    )
+  })
+}
 
 const generate = (emitter, { rootPathRc }) => async env => {
   if (!rootPathRc) {
@@ -60,38 +89,6 @@ const generate = (emitter, { rootPathRc }) => async env => {
       break
     default:
   }
-}
-
-async function generateTemplates({ emitter, templateType, rootPathRc }) {
-  const authConfig = require(path.dirname(rootPathRc) +
-    '/intents/auth.config.json')
-  const scenariorc = fs.readFileSync(path.dirname(rootPathRc) + '/.scenariorc')
-  const scenarioId = scenariorc
-    .toString()
-    .split('=')[1]
-    .replace(/[\n\r]+/g, '')
-    .trim()
-
-  const vars = {
-    scenarioTitle: Case.camel(scenarioId),
-    componentTagName: Case.kebab(scenarioId),
-    fields: authConfig[templateType]
-      ? JSON.stringify(authConfig[templateType])
-      : '[]'
-  }
-  const inDir = path.join(__dirname, `templates/generate/${templateType}`)
-  const outDir = path.join(path.dirname(rootPathRc), '/screens/src/')
-
-  await del(`${outDir}*${templateType}*.tsx`).then(paths => {
-    console.log('Deleted files and folders:\n', paths.join('\n'))
-  })
-
-  copy(inDir, outDir, vars, (err, createdFiles) => {
-    if (err) throw err
-    createdFiles.forEach(filePath =>
-      emitter.emit('generateIntent:fileGenerated', filePath)
-    )
-  })
 }
 
 function generateScreen({ emitter, rootPathRc, name }) {
