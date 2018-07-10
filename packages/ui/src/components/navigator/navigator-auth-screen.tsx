@@ -18,7 +18,7 @@ export class BearerNavigatorAuthScreen {
   @Element() el: HTMLStencilElement
 
   @State() sessionInitialized: boolean = false
-  @State() scenarioAuthorized: boolean = false
+  @State() scenarioAuthorized: boolean = null
 
   @Event() scenarioAuthenticate: EventEmitter
   @Event() stepCompleted: EventEmitter
@@ -57,17 +57,17 @@ export class BearerNavigatorAuthScreen {
         .hasAuthorized(this.setupId)
         .then(() => {
           console.log('[BEARER]', 'authorized')
-          this.scenarioAuthorized = true
           this.goNext()
+          this.scenarioAuthorized = true
         })
-        .catch(() => {
-          console.log('[BEARER]', 'unauthorized')
+        .catch(e => {
+          console.log('[BEARER]', 'unauthorized', e)
           this.scenarioAuthorized = false
         })
 
       this.authorizedListener = Bearer.onAuthorized(this.setupId, () => {
-        this.scenarioAuthorized = true
         this.goNext()
+        this.scenarioAuthorized = true
       })
 
       this.revokedListener = Bearer.onRevoked(this.setupId, () => {
@@ -106,6 +106,7 @@ export class BearerNavigatorAuthScreen {
         class="in"
       >
         {this.sessionInitialized &&
+          this.scenarioAuthorized !== null &&
           (this.scenarioAuthorized ? (
             <bearer-button kind="warning" onClick={this.revoke}>
               Logout
