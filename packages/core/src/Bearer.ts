@@ -111,7 +111,7 @@ class Bearer {
         })
         .then(data => {
           console.log('[BEARER]', 'data', data)
-          data.hasAuthorized ? resolve(true) : reject(false)
+          data.authorized ? resolve(true) : reject(false)
         })
         .catch(e => {
           console.log('[BEARER]', 'e', e)
@@ -135,7 +135,7 @@ class Bearer {
       postRobot.on(Events.SESSION_INITIALIZED, event => {
         this.sessionInitialized(event)
       })
-      postRobot.on(Events.SCENARIO_AUTHORIZED, this.authorized)
+      postRobot.on(Events.AUTHORIZED, this.authorized)
       postRobot.on(Events.SCENARIO_REVOKED, this.revoked)
 
       this.iframe = document.createElement('iframe')

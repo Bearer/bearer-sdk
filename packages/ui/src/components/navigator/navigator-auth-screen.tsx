@@ -58,6 +58,7 @@ export class BearerNavigatorAuthScreen {
         .then(() => {
           console.log('[BEARER]', 'authorized')
           this.scenarioAuthorized = true
+          this.goNext()
         })
         .catch(() => {
           console.log('[BEARER]', 'unauthorized')
@@ -66,22 +67,12 @@ export class BearerNavigatorAuthScreen {
 
       this.authorizedListener = Bearer.onAuthorized(this.setupId, () => {
         this.scenarioAuthorized = true
+        this.goNext()
       })
 
       this.revokedListener = Bearer.onRevoked(this.setupId, () => {
         this.scenarioAuthorized = false
       })
-      // this.listener = Bearer.emitter.addListener(
-      //   Events.SCENARIO_AUTHORIZED,
-      //   // TODO: we need to ensure the tokens are not confused
-      //   ({ scenarioId, authorized }) => {
-      //     if (this.setupId === scenarioId) {
-      //       this.scenarioAuthorized = authorized
-      //       this.goNext()
-      //     }
-      //   }
-      // )
-      this.goNext()
     })
   }
 
