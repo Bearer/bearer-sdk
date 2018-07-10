@@ -57,8 +57,7 @@ export class BearerNavigatorAuthScreen {
         .hasAuthorized(this.setupId)
         .then(() => {
           console.log('[BEARER]', 'authorized')
-          this.goNext()
-          this.scenarioAuthorized = true
+          this.goNext(true)
         })
         .catch(e => {
           console.log('[BEARER]', 'unauthorized', e)
@@ -66,8 +65,7 @@ export class BearerNavigatorAuthScreen {
         })
 
       this.authorizedListener = Bearer.onAuthorized(this.setupId, () => {
-        this.goNext()
-        this.scenarioAuthorized = true
+        this.goNext(true)
       })
 
       this.revokedListener = Bearer.onRevoked(this.setupId, () => {
@@ -87,10 +85,11 @@ export class BearerNavigatorAuthScreen {
     }
   }
 
-  goNext() {
-    if (this.scenarioAuthorized) {
+  goNext(force: boolean = this.scenarioAuthorized) {
+    if (this.scenarioAuthorized || force) {
       this.scenarioAuthenticate.emit()
       this.stepCompleted.emit()
+      this.scenarioAuthorized = true
     }
   }
 
