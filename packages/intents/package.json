@@ -1,11 +1,13 @@
 {
   "name": "@bearer/intents",
-  "version": "0.9.3",
+  "version": "0.11.2",
   "description": "Bearer Intents",
   "main": "src/index.js",
   "author": "Bearer",
   "license": "UNLICENSED",
-  "files": ["src/"],
+  "files": [
+    "src/"
+  ],
   "scripts": {
     "test": "echo 'No tests yet'"
   },
