@@ -10,14 +10,17 @@ export default class Transpiler {
   private watcher: any
   private service: ts.LanguageService
   private rootFileNames: string[] = []
-  constructor(
-    private readonly SCREENS_DIRECTORY = path.join(process.cwd(), 'screens')
-  ) {
+
+  constructor(private readonly SCREENS_DIRECTORY = process.cwd()) {
     const config = ts.readConfigFile(
       path.join(this.BUILD_DIRECTORY, 'tsconfig.json'),
       ts.sys.readFile
     )
-    const parsed = ts.parseJsonConfigFileContent(config, ts.sys, process.cwd())
+    const parsed = ts.parseJsonConfigFileContent(
+      config,
+      ts.sys,
+      this.SCREENS_DIRECTORY
+    )
     this.rootFileNames = parsed.fileNames
   }
 
