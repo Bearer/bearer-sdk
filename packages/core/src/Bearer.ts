@@ -4,6 +4,7 @@ import Events from './EventNames'
 import postRobot from 'post-robot'
 
 const BEARER_WINDOW_KEY = 'BEARER'
+const BEARER_CONFIG_KEY = 'BEARER_CONFIG'
 const IFRAME_NAME = 'BEARER-IFRAME'
 
 class Bearer {
@@ -16,7 +17,7 @@ class Bearer {
       }
     }
 
-    this._instance = new Bearer(config || {})
+    this._instance = new Bearer(config || window[BEARER_CONFIG_KEY] || {})
 
     return this.instance
   }
