@@ -1,6 +1,7 @@
 import BearerConfig from './BearerConfig'
 import fbemitter from 'fbemitter'
 import Events from './EventNames'
+import postRobot from 'post-robot'
 
 const BEARER_WINDOW_KEY = 'BEARER'
 const IFRAME_NAME = 'BEARER-IFRAME'
@@ -65,36 +66,65 @@ class Bearer {
     this._maybeInitialized = promise
   }
 
-  messageReceived = ({ data: { event_id, data } }) => {
-    switch (event_id) {
-      case Events.BEARER_SESSION_INITIALIZED: {
-        console.log('[BEARER]', 'session initialized')
-        this.isSessionInitialized = true
-        this.allowIntegrationRequests()
-        break
-      }
-      case Events.BEARER_AUTHORIZED: {
-        console.log('[BEARER]', 'Scenario authorized', data['scenarioId'])
-        const scenarioId: string = data['scenarioId']
-        localStorage.setItem(authorizedKey(scenarioId), AUTHORIZED)
-        Bearer.emitter.emit(Events.SCENARIO_AUTHORIZED, {
-          authorized: true,
-          scenarioId
-        })
-        break
-      }
-    }
-  }
+  // messageReceived = ({ data: { event_id, data } }) => {
+  //   switch (event_id) {
+  //     case Events.BEARER_AUTHORIZED: {
+  //       console.log('[BEARER]', 'Scenario authorized', data['scenarioId'])
+  //       const scenarioId: string = data['scenarioId']
+  //       localStorage.setItem(authorizedKey(scenarioId), AUTHORIZED)
+  //       Bearer.emitter.emit(Events.SCENARIO_AUTHORIZED, {
+  //         authorized: true,
+  //         scenarioId
+  //       })
+  //       break
+  //     }
+  //   }
+  // }
+  static onAuthorized = (
+    scenarioId: string,
+    callback: (authorize: boolean) => void
+  ) =>
+    Bearer.emitter.addListener(Events.SCENARIO_AUTHORIZED, () => {
+      callback(true)
+    })
 
-  hasAuthorized = scenarioId =>
-    localStorage.getItem(authorizedKey(scenarioId)) === AUTHORIZED
+  static onRevoked = (
+    scenarioId: string,
+    callback: (authorize: boolean) => void
+  ) =>
+    Bearer.emitter.addListener(Events.SCENARIO_REVOKED, () => {
+      callback(false)
+    })
+
+  authorized = (scenarioId: string) =>
+    Bearer.emitter.emit(Events.SCENARIO_AUTHORIZED, { scenarioId })
+
+  revoked = (scenarioId: string) =>
+    Bearer.emitter.emit(Events.SCENARIO_REVOKED, { scenarioId })
+
+  hasAuthorized = (scenarioId): Promise<boolean> =>
+    new Promise((resolve, reject) => {
+      postRobot
+        .send(this.iframe, Events.HAS_AUTHORIZED, {
+          scenarioId: scenarioId,
+          integrationId: Bearer.config.integrationId
+        })
+        .then(data => {
+          console.log('[BEARER]', 'data', data)
+          data.hasAuthorized ? resolve(true) : reject(false)
+        })
+        .catch(e => {
+          console.log('[BEARER]', 'e', e)
+        })
+    })
 
   revokeAuthorization = (scenarioId: string): void => {
-    localStorage.setItem(authorizedKey(scenarioId), undefined)
-    Bearer.emitter.emit(Events.SCENARIO_AUTHORIZED, {
-      authorized: this.hasAuthorized(scenarioId),
-      scenarioId
-    })
+    // TODO: revoke
+    // localStorage.setItem(authorizedKey(scenarioId), undefined)
+    // Bearer.emitter.emit(Events.SCENARIO_AUTHORIZED, {
+    //   authorized: this.hasAuthorized(scenarioId),
+    //   scenarioId
+    // })
   }
 
   initSession() {
@@ -102,16 +132,26 @@ class Bearer {
       typeof window !== 'undefined' &&
       !document.querySelector(`#${IFRAME_NAME}`)
     ) {
-      window.addEventListener('message', this.messageReceived)
+      postRobot.on(Events.SESSION_INITIALIZED, event => {
+        this.sessionInitialized(event)
+      })
+      postRobot.on(Events.SCENARIO_AUTHORIZED, this.authorized)
+      postRobot.on(Events.SCENARIO_REVOKED, this.revoked)
+
       this.iframe = document.createElement('iframe')
       this.iframe.src = `${this.bearerConfig.integrationHost}v1/user/initialize`
       this.iframe.id = IFRAME_NAME
       this.iframe.width = '0'
       this.iframe.height = '0'
       this.iframe.frameBorder = '0'
-      // this.iframe.addEventListener('load', this.sessionInitialized, true)
       document.body.appendChild(this.iframe)
     }
+  }
+
+  private sessionInitialized(_event) {
+    console.log('[BEARER]', 'session initialized')
+    this.isSessionInitialized = true
+    this.allowIntegrationRequests()
   }
 
   askAuthorizations({ scenarioId, setupId }) {
@@ -130,8 +170,8 @@ class Bearer {
   }
 }
 
-function authorizedKey(scenarioId) {
-  return `authorized_${scenarioId}`
-}
+// function authorizedKey(scenarioId) {
+//   return `authorized_${scenarioId}`
+// }
 
 export default Bearer
