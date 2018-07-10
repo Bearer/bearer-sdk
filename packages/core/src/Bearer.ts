@@ -5,7 +5,6 @@ import postRobot from 'post-robot'
 
 const BEARER_WINDOW_KEY = 'BEARER'
 const IFRAME_NAME = 'BEARER-IFRAME'
-const AUTHORIZED = 'true'
 
 class Bearer {
   static emitter: fbemitter.EventEmitter = new fbemitter.EventEmitter()
@@ -70,7 +69,7 @@ class Bearer {
     scenarioId: string,
     callback: (authorize: boolean) => void
   ) =>
-    Bearer.emitter.addListener(Events.SCENARIO_AUTHORIZED, () => {
+    Bearer.emitter.addListener(Events.AUTHORIZED, () => {
       // TODO : listen only for the scenarioId (+ setupId ?)
       callback(true)
     })
@@ -79,16 +78,16 @@ class Bearer {
     scenarioId: string,
     callback: (authorize: boolean) => void
   ) =>
-    Bearer.emitter.addListener(Events.SCENARIO_REVOKED, () => {
+    Bearer.emitter.addListener(Events.REVOKED, () => {
       // TODO : listen only for the scenarioId (+ setupId ?)
       callback(false)
     })
 
   authorized = (scenarioId: string) =>
-    Bearer.emitter.emit(Events.SCENARIO_AUTHORIZED, { scenarioId })
+    Bearer.emitter.emit(Events.AUTHORIZED, { scenarioId })
 
   revoked = (scenarioId: string) =>
-    Bearer.emitter.emit(Events.SCENARIO_REVOKED, { scenarioId })
+    Bearer.emitter.emit(Events.REVOKED, { scenarioId })
 
   hasAuthorized = (scenarioId): Promise<boolean> =>
     new Promise((resolve, reject) => {
@@ -106,7 +105,7 @@ class Bearer {
 
   revokeAuthorization = (scenarioId: string): void => {
     postRobot
-      .send(this.iframe, Events.LOGOUT, {
+      .send(this.iframe, Events.REVOKE, {
         scenarioId: scenarioId,
         integrationId: Bearer.config.integrationId
       })
@@ -125,7 +124,7 @@ class Bearer {
         this.sessionInitialized(event)
       })
       postRobot.on(Events.AUTHORIZED, this.authorized)
-      postRobot.on(Events.SCENARIO_REVOKED, this.revoked)
+      postRobot.on(Events.REVOKED, this.revoked)
 
       this.iframe = document.createElement('iframe')
       this.iframe.src = `${this.bearerConfig.integrationHost}v1/user/initialize`
