@@ -7,7 +7,7 @@ import {
   Element,
   Prop
 } from '@bearer/core'
-import Bearer, { Events } from '@bearer/core'
+import Bearer from '@bearer/core'
 
 @Component({
   tag: 'bearer-navigator-auth-screen',
@@ -40,8 +40,6 @@ export class BearerNavigatorAuthScreen {
     return 'Authentication'
   }
 
-  private listener: any
-
   authenticate = () => {
     Bearer.instance.askAuthorizations({
       scenarioId: this.setupId,
@@ -49,28 +47,52 @@ export class BearerNavigatorAuthScreen {
     })
   }
 
+  private authorizedListener: any = null
+  private revokedListener: any = null
+
   componentDidLoad() {
     Bearer.instance.maybeInitialized.then(() => {
       this.sessionInitialized = true
-      this.scenarioAuthorized = Bearer.instance.hasAuthorized(this.setupId)
-      this.listener = Bearer.emitter.addListener(
-        Events.SCENARIO_AUTHORIZED,
-        // TODO: we need to ensure the tokens are not confused
-        ({ scenarioId, authorized }) => {
-          if (this.setupId === scenarioId) {
-            this.scenarioAuthorized = authorized
-            this.goNext()
-          }
-        }
-      )
+      Bearer.instance
+        .hasAuthorized(this.setupId)
+        .then(() => {
+          console.log('[BEARER]', 'authorized')
+          this.scenarioAuthorized = true
+        })
+        .catch(() => {
+          console.log('[BEARER]', 'unauthorized')
+          this.scenarioAuthorized = false
+        })
+
+      this.authorizedListener = Bearer.onAuthorized(this.setupId, () => {
+        this.scenarioAuthorized = true
+      })
+
+      this.revokedListener = Bearer.onRevoked(this.setupId, () => {
+        this.scenarioAuthorized = false
+      })
+      // this.listener = Bearer.emitter.addListener(
+      //   Events.SCENARIO_AUTHORIZED,
+      //   // TODO: we need to ensure the tokens are not confused
+      //   ({ scenarioId, authorized }) => {
+      //     if (this.setupId === scenarioId) {
+      //       this.scenarioAuthorized = authorized
+      //       this.goNext()
+      //     }
+      //   }
+      // )
       this.goNext()
     })
   }
 
   componentDidUnload() {
-    if (this.listener) {
-      this.listener.remove()
-      this.listener = null
+    if (this.authorizedListener) {
+      this.authorizedListener.remove()
+      this.authorizedListener = null
+    }
+    if (this.revokedListener) {
+      this.revokedListener.remove()
+      this.revokedListener = null
     }
   }
 
