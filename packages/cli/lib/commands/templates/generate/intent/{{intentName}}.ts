@@ -1,5 +1,4 @@
-import { {{intentType}} } from '@bearer/intents'
-import { TContext } from '@bearer/intents/types'
+import { {{intentType}}, TContext } from '@bearer/intents'
 
 export default class {{intentName}}Intent {
   static intentName: string = '{{intentName}}'

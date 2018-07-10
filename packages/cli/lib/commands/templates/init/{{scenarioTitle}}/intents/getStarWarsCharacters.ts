@@ -1,5 +1,4 @@
-import { GetCollection } from '@bearer/intents'
-import { TContext } from '@bearer/intents'
+import { GetCollection, TContext } from '@bearer/intents'
 import { CLIENT } from './client'
 
 export default class GetStarWarsCharacters {
