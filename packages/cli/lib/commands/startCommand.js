@@ -74,9 +74,11 @@ function prepare(emitter, config) {
 
 const start = (emitter, config) => async ({ open, install }) => {
   try {
-    const { buildDirectory, rootLevel } = await prepare(emitter, config)({
-      install
-    })
+    const { buildDirectory, screensDirectory } = await prepare(emitter, config)(
+      {
+        install
+      }
+    )
     emitter.emit('start:watchers')
 
     /* Start bearer transpiler phase */
@@ -84,7 +86,7 @@ const start = (emitter, config) => async ({ open, install }) => {
       'node',
       [path.join(__dirname, '..', 'startTranspiler.js')],
       {
-        cwd: rootLevel
+        cwd: screensDirectory
       }
     )
 
