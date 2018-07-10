@@ -25,7 +25,7 @@ export function addBearerIdProp(
 }
 
 function inImportClause(node: ts.ImportClause, libName: string): boolean {
-  return (
+  const inImport =
     node.namedBindings
       .getChildren()
       .filter(n => n.kind === ts.SyntaxKind.SyntaxList)
@@ -36,7 +36,8 @@ function inImportClause(node: ts.ImportClause, libName: string): boolean {
           .map(cn => cn.getText())
       )[0]
       .findIndex(v => v === libName) !== -1
-  )
+
+  return inImport
 }
 
 export function hasImport(node: ts.Node, libName: string): boolean {
@@ -59,7 +60,12 @@ export function hasImport(node: ts.Node, libName: string): boolean {
 }
 
 export function coreImport(node: ts.ImportDeclaration): boolean {
-  return node.moduleSpecifier.getText() === "'@bearer/core'"
+  return Boolean(
+    node.moduleSpecifier
+      .getText()
+      .toString()
+      .match(/@bearer\/core/)
+  )
 }
 
 function propDecorator() {

@@ -139,7 +139,7 @@ export default class Transpiler {
     let output = this.service.getEmitOutput(fileName)
 
     if (!output.emitSkipped) {
-      console.log(`Emitting ${fileName} like a pro!!!`)
+      console.log(`Emitting ${fileName}`)
     } else {
       console.log(`Emitting ${fileName} failed`)
       this.logErrors(fileName)
