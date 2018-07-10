@@ -5,14 +5,15 @@
   "main": "src/index.js",
   "author": "Bearer",
   "license": "UNLICENSED",
-  "files": [
-    "src/"
-  ],
+  "files": ["src/"],
   "scripts": {
     "test": "echo 'No tests yet'"
   },
   "repository": {
     "type": "git",
     "url": "github:BearerSH/bearer"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
   }
 }
