@@ -3,6 +3,7 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as chokidar from 'chokidar'
 import { getSourceCode } from './utils'
+import BearerScenarioIdInjector from './transformers/scenario-id-accessor-injector'
 import PropInjector from './transformers/prop-injector'
 import PropBearerContextInjector from './transformers/prop-bearer-context-injector'
 import PropImporter from './transformers/prop-importer'
@@ -100,6 +101,7 @@ export default class Transpiler {
   get transformers(): ts.CustomTransformers {
     return {
       before: [
+        BearerScenarioIdInjector({ verbose: true }),
         PropImporter({ verbose: true }),
         PropInjector({ verbose: true }),
         PropBearerContextInjector({ verbose: true }),

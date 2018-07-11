@@ -82,6 +82,13 @@ const ensureSetupAndConfigComponents = rootLevel => {
 }
 
 const start = (emitter, config) => async ({ open, install }) => {
+  const {
+    bearerConfig: { OrgId },
+    scenarioConfig: { scenarioTitle }
+  } = config
+
+  const scenarioUuid = `${OrgId}-${scenarioTitle}`
+
   try {
     const { buildDirectory, rootLevel, screensDirectory } = await prepare(
       emitter,
@@ -104,7 +111,11 @@ const start = (emitter, config) => async ({ open, install }) => {
       'node',
       [path.join(__dirname, '..', 'startTranspiler.js')],
       {
-        cwd: screensDirectory
+        cwd: screensDirectory,
+        env: {
+          ...process.env,
+          BEARER_SCENARIO_ID: scenarioUuid
+        }
       }
     )
 

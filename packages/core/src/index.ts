@@ -4,8 +4,6 @@ import Bearer from './Bearer'
 import classNames from './classnames'
 import EventNames from './EventNames'
 
-// export * from './userDataClient'
-export * from './decorators'
 import * as bearerState from './BearerState'
 export const BearerState = bearerState
 export const Events = EventNames

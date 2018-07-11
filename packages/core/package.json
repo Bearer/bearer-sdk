@@ -13,10 +13,9 @@
   "scripts": {
     "start": "yarn build",
     "build": "per-env",
-    "build:development": "concurrently \"yarn build:bundle -w \" \"yarn build:transformers -w\"",
-    "build:production": "NODE_ENV=production yarn build:bundle && yarn build:transformers",
+    "build:development": "yarn build:bundle -w",
+    "build:production": "NODE_ENV=production yarn build:bundle ",
     "build:bundle": "rollup -c",
-    "build:transformers": "tsc src/transformers/* --outDir dist/transformers -d",
     "prepublish": "yarn build:production",
     "prepublishOnly": "BUILD=distribution NODE_ENV=production yarn build:production",
     "test": "jest"
@@ -52,7 +51,6 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "concurrently": "^3.6.0",
     "dotenv": "^6.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
