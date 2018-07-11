@@ -108,11 +108,29 @@ function generateScreen({ emitter, rootPathRc, name }) {
   })
 }
 
-const choices = Object.keys(intents).map(intent => ({
-  name: intent,
-  value: intent
-}))
+const choices = Object.keys(intents)
+  .filter(intent => typeof intents[intent].intent !== 'undefined')
+  .map(intent => ({
+    name: intent,
+    value: intent
+  }))
 
+function getActionExample(intent) {
+  let example = `
+  static action(context: TContext, params: any, callback: (params: any) => void) {
+    //... your code goes here
+    // use the client defined in client.ts to fetch real object like that:
+    // CLIENT.get(\`/people/\${params.id}\`, { headers: headersFor(context.accessToken) })
+    //   .then(({ data }) => {
+    //     callback({ object: data });
+    //   });
+    callback({ object: {}})
+  }
+`
+  const actionExample = intent.template
+  if (actionExample) example = actionExample
+  return example
+}
 async function generateIntent({ emitter, rootPathRc, name }) {
   const { intentType } = await inquirer.prompt([
     {
@@ -122,7 +140,8 @@ async function generateIntent({ emitter, rootPathRc, name }) {
       choices
     }
   ])
-  const vars = { intentName: name, intentType }
+  const actionExample = getActionExample(intents[intentType])
+  const vars = { intentName: name, intentType, actionExample }
   const inDir = path.join(__dirname, 'templates/generate/intent')
   const outDir = path.join(path.dirname(rootPathRc), 'intents')
   copy(inDir, outDir, vars, (err, createdFiles) => {
