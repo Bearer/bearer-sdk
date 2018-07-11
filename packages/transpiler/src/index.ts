@@ -4,6 +4,7 @@ import * as path from 'path'
 import * as chokidar from 'chokidar'
 import { getSourceCode } from './utils'
 import PropInjector from './transformers/prop-injector'
+import PropBearerContextInjector from './transformers/prop-bearer-context-injector'
 import PropImporter from './transformers/prop-importer'
 
 export default class Transpiler {
@@ -101,6 +102,7 @@ export default class Transpiler {
       before: [
         PropImporter({ verbose: true }),
         PropInjector({ verbose: true }),
+        PropBearerContextInjector({ verbose: true }),
         dumpSourceCode(this.SCREENS_DIRECTORY, this.BUILD_DIRECTORY)({
           verbose: true
         })

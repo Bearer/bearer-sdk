@@ -1,5 +1,6 @@
 import * as ts from 'typescript'
 
+// @Prop() BEARER_ID: string;
 export function addBearerIdProp(
   classNode: ts.ClassDeclaration
 ): ts.ClassDeclaration {
@@ -18,6 +19,46 @@ export function addBearerIdProp(
         'BEARER_ID',
         undefined,
         ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+        undefined
+      )
+    ]
+  )
+}
+
+// @Prop({ context: 'bearer' }) bearerContext: any
+export function addBearerContextProp(
+  classNode: ts.ClassDeclaration
+): ts.ClassDeclaration {
+  return ts.updateClassDeclaration(
+    classNode,
+    classNode.decorators,
+    classNode.modifiers,
+    classNode.name,
+    classNode.typeParameters,
+    classNode.heritageClauses,
+    [
+      ...classNode.members,
+      ts.createProperty(
+        [
+          ts.createDecorator(
+            ts.createCall(
+              ts.createIdentifier('Prop') as ts.Expression,
+              undefined,
+              [
+                ts.createObjectLiteral([
+                  ts.createPropertyAssignment(
+                    ts.createLiteral('context'),
+                    ts.createLiteral('bearer')
+                  )
+                ])
+              ]
+            )
+          )
+        ],
+        undefined,
+        'bearerContext',
+        undefined,
+        ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
         undefined
       )
     ]
@@ -80,6 +121,7 @@ function propDecorator() {
 
 export default {
   addBearerIdProp,
+  addBearerContextProp,
   hasImport,
   coreImport
 }
