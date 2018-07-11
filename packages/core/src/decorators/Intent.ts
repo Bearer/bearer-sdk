@@ -82,7 +82,7 @@ export function SaveStateIntent(
         } else {
           const { body, ...query } = params
           const intent = intentRequest({
-            intentName: 'saveState',
+            intentName: 'SaveState',
             scenarioId,
             setupId: retrieveSetupId(target)
           })
@@ -127,7 +127,7 @@ function retrieveSetupId(target: any) {
 export function RetrieveStateIntent(
   type: IntentType = IntentType.GetCollection
 ): IDecorator {
-  return Intent('retrieveState', type)
+  return Intent('RetrieveState', type)
 }
 
 export function GetCollectionIntent(promise): Promise<any> {
