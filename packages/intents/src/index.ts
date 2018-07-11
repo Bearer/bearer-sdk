@@ -2,16 +2,16 @@ import axios from 'axios'
 
 import { sendSuccessMessage, sendErrorMessage } from './lambda'
 
-export const Intent = {
-  getCollection: (callback, { collection }) => {
+export class Intent {
+  static getCollection(callback, { collection }) {
     if (collection) {
       sendSuccessMessage(callback, collection)
     } else {
       sendErrorMessage(callback, { error: 'Error' })
     }
-  },
+  }
 
-  getObject: (callback, { object }) => {
+  static getObject(callback, { object }) {
     if (object) {
       sendSuccessMessage(callback, object)
     } else {
@@ -28,8 +28,8 @@ export const STATE_CLIENT = axios.create({
   }
 })
 
-export const SaveState = {
-  intent(action) {
+export class SaveState {
+  static intent(action) {
     return (event, _context, callback) => {
       const { referenceId } = event.queryStringParameters
       STATE_CLIENT.get(`api/v1/items/${referenceId}`)
@@ -83,8 +83,8 @@ export const SaveState = {
   }
 }
 
-export const RetrieveState = {
-  intent(action) {
+export class RetrieveState {
+  static intent(action) {
     return (event, _context, callback) => {
       const { referenceId } = event.queryStringParameters
 
@@ -110,8 +110,8 @@ export const RetrieveState = {
   }
 }
 
-export const GetCollection = {
-  intent(action) {
+export class GetCollection {
+  static intent(action) {
     return (event, _context, callback) =>
       action(event.accessToken, event.queryStringParameters, result => {
         Intent.getCollection(callback, result)
@@ -119,8 +119,8 @@ export const GetCollection = {
   }
 }
 
-export const GetObject = {
-  intent(action) {
+export class GetObject {
+  static intent(action) {
     return (event, _context, callback) =>
       action(event.accessToken, event.queryStringParameters, result => {
         Intent.getObject(callback, result)
