@@ -8,6 +8,17 @@ const rc = require('rc')
 
 const INTENT = 'intent'
 const SCREEN = 'screen'
+const DEFAULT_ACTION_EXAMPLE = `
+  static action(context: TContext, params: any, callback: (params: any) => void) {
+    //... your code goes here
+    // use the client defined in client.ts to fetch real object like that:
+    // CLIENT.get(\`/people/\${params.id}\`, { headers: headersFor(context.accessToken) })
+    //   .then(({ data }) => {
+    //     callback({ object: data });
+    //   });
+    callback({ object: {}})
+  }
+`
 
 async function generateTemplates({ emitter, templateType, rootPathRc }) {
   const authConfig = require(path.join(
@@ -116,20 +127,11 @@ const choices = Object.keys(intents)
   }))
 
 function getActionExample(intent) {
-  let example = `
-  static action(context: TContext, params: any, callback: (params: any) => void) {
-    //... your code goes here
-    // use the client defined in client.ts to fetch real object like that:
-    // CLIENT.get(\`/people/\${params.id}\`, { headers: headersFor(context.accessToken) })
-    //   .then(({ data }) => {
-    //     callback({ object: data });
-    //   });
-    callback({ object: {}})
-  }
-`
   const actionExample = intent.template
-  if (actionExample) example = actionExample
-  return example
+  if (actionExample) {
+    return actionExample
+  }
+  return DEFAULT_ACTION_EXAMPLE
 }
 async function generateIntent({ emitter, rootPathRc, name }) {
   const { intentType } = await inquirer.prompt([
