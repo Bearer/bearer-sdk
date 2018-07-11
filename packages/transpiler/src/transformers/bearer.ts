@@ -98,6 +98,7 @@ export function addSetupIdProp(
   )
 }
 
+// TODO : append statement if componentDidLoad already exists
 // componentDidLoad(){ this.bearer.setupId = this.setupId }
 export function addComponentDidLoad(
   classNode: ts.ClassDeclaration
