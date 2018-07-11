@@ -33,6 +33,10 @@ export default class Transpiler {
 
     fs.emptyDirSync(this.BUILD_SRC_DIRECTORY)
 
+    // ensure global directory: quick and dirty
+    // TODO: find another way to have the global present within src directory
+    this.ensureGlobalLinked()
+
     const files: ts.MapLike<{ version: number }> = {}
     const servicesHost: ts.LanguageServiceHost = {
       getScriptFileNames: () => this.rootFileNames,
@@ -172,6 +176,16 @@ export default class Transpiler {
         console.log(`  Error: ${message}`)
       }
     })
+  }
+
+  private ensureGlobalLinked() {
+    fs.ensureSymlink(
+      path.join(this.BUILD_DIRECTORY, 'global'),
+      path.join(this.BUILD_SRC_DIRECTORY, 'global'),
+      () => {
+        console.log('Linked globals')
+      }
+    )
   }
 
   private get SRC_DIRECTORY(): string {
