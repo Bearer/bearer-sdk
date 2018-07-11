@@ -2,7 +2,7 @@
   The purpose of this component is to save scenario credentials.
 */
 
-import { Component } from "@bearer/core";
+import { Component, Prop } from "@bearer/core";
 import "@bearer/ui";
 
 @Component({
@@ -15,5 +15,6 @@ export class {{scenarioTitle}}SetupDisplay {
       <bearer-setup-display scenarioId="BEARER_SCENARIO_ID" />
     )
   }
+  @Prop() BEARER_ID: string;
 }
 
