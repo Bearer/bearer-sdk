@@ -1,6 +1,21 @@
 /*
- * Checks if class is decorated with @Component decorator
- * and injects the `@Prop({ context: 'bearer' }) bearerContext: any` into class definition
+ * @Component() 
+ * class StarWarsMovies {}
+ * 
+ * becomes
+ * 
+ * @Component()
+ * class StarWarsMovies {
+ * 
+ *  @Prop({ context: 'bearer' }) bearerContext: string;
+ *  @Prop() setupId: string;
+ * 
+ *  componentDidLoad() {
+ *    if(this.setupId) {
+ *      this.bearerContext.setupId = this.setupId
+ *    }
+ *  }
+ * }
  * 
  */
 import * as ts from 'typescript'
@@ -10,6 +25,12 @@ import bearer from './bearer'
 
 type TransformerOptions = {
   verbose?: true
+}
+
+function injectContext(node: ts.ClassDeclaration): ts.Node {
+  const withContextProp = bearer.addBearerContextProp(node)
+  const withSetupProp = bearer.addSetupIdProp(withContextProp)
+  return bearer.addComponentDidLoad(withSetupProp)
 }
 
 export default function ComponentTransformer({
@@ -26,7 +47,7 @@ export default function ComponentTransformer({
             )
           ) {
             return ts.visitEachChild(
-              bearer.addBearerContextProp(node as ts.ClassDeclaration),
+              injectContext(node as ts.ClassDeclaration),
               visit,
               transformContext
             )

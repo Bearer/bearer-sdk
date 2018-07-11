@@ -65,6 +65,77 @@ export function addBearerContextProp(
   )
 }
 
+// @Prop() setupId: string
+export function addSetupIdProp(
+  classNode: ts.ClassDeclaration
+): ts.ClassDeclaration {
+  return ts.updateClassDeclaration(
+    classNode,
+    classNode.decorators,
+    classNode.modifiers,
+    classNode.name,
+    classNode.typeParameters,
+    classNode.heritageClauses,
+    [
+      ...classNode.members,
+      ts.createProperty(
+        [
+          ts.createDecorator(
+            ts.createCall(
+              ts.createIdentifier('Prop') as ts.Expression,
+              undefined,
+              undefined
+            )
+          )
+        ],
+        undefined,
+        'setupId',
+        undefined,
+        ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+        undefined
+      )
+    ]
+  )
+}
+
+// componentDidLoad(){ this.bearer.setupId = this.setupId }
+export function addComponentDidLoad(
+  classNode: ts.ClassDeclaration
+): ts.ClassDeclaration {
+  const assignSetupId = ts.createStatement(
+    ts.createAssignment(
+      ts.createPropertyAccess(ts.createThis(), 'bearerContext.setupId'),
+      ts.createPropertyAccess(ts.createThis(), 'setupId')
+    )
+  )
+  const ifSetupIdPresent = ts.createIf(
+    ts.createPropertyAccess(ts.createThis(), 'setupId'),
+    ts.createBlock([assignSetupId])
+  )
+  return ts.updateClassDeclaration(
+    classNode,
+    classNode.decorators,
+    classNode.modifiers,
+    classNode.name,
+    classNode.typeParameters,
+    classNode.heritageClauses,
+    [
+      ...classNode.members,
+      ts.createMethod(
+        /* decorators */ undefined,
+        /* modifiers */ undefined,
+        /* asteriskToken */ undefined,
+        'componentDidLoad',
+        /* questionToken */ undefined,
+        /* typeParameters */ undefined,
+        /* parameters */ undefined,
+        /* type */ undefined,
+        ts.createBlock([ifSetupIdPresent])
+      )
+    ]
+  )
+}
+
 function inImportClause(node: ts.ImportClause, libName: string): boolean {
   const inImport =
     node.namedBindings
@@ -122,6 +193,8 @@ function propDecorator() {
 export default {
   addBearerIdProp,
   addBearerContextProp,
+  addSetupIdProp,
+  addComponentDidLoad,
   hasImport,
   coreImport
 }
