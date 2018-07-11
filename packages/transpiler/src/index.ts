@@ -3,6 +3,7 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as chokidar from 'chokidar'
 import { getSourceCode } from './utils'
+import ReplaceIntentDecorators from './transformers/replace-intent-decorator'
 import BearerScenarioIdInjector from './transformers/scenario-id-accessor-injector'
 import PropInjector from './transformers/prop-injector'
 import PropBearerContextInjector from './transformers/prop-bearer-context-injector'
@@ -99,12 +100,14 @@ export default class Transpiler {
   }
 
   get transformers(): ts.CustomTransformers {
+    const verbose = true
     return {
       before: [
-        BearerScenarioIdInjector({ verbose: true }),
-        PropImporter({ verbose: true }),
-        PropInjector({ verbose: true }),
-        PropBearerContextInjector({ verbose: true }),
+        ReplaceIntentDecorators({ verbose }),
+        BearerScenarioIdInjector({ verbose }),
+        PropImporter({ verbose }),
+        PropInjector({ verbose }),
+        PropBearerContextInjector({ verbose }),
         dumpSourceCode(this.SCREENS_DIRECTORY, this.BUILD_DIRECTORY)({
           verbose: true
         })
