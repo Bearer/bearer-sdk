@@ -45,7 +45,7 @@ export function addBearerScenarioIdAccessor(
         undefined,
         undefined,
         ts.createBlock([
-          ts.createReturn(ts.createIdentifier('"BEARER_SCENARIO_ID"'))
+          ts.createReturn(ts.createLiteral(process.env.BEARER_SCENARIO_ID))
         ])
       )
     ]
