@@ -1,7 +1,8 @@
-const axios = require('axios')
-const { sendSuccessMessage, sendErrorMessage } = require('./lambda')
+import axios from 'axios'
 
-const Intent = {
+import { sendSuccessMessage, sendErrorMessage } from './lambda'
+
+export const Intent = {
   getCollection: (callback, { collection }) => {
     if (collection) {
       sendSuccessMessage(callback, collection)
@@ -19,7 +20,7 @@ const Intent = {
   }
 }
 
-const STATE_CLIENT = axios.create({
+export const STATE_CLIENT = axios.create({
   timeout: 5000,
   headers: {
     Accept: 'application/json',
@@ -27,7 +28,7 @@ const STATE_CLIENT = axios.create({
   }
 })
 
-const SaveState = {
+export const SaveState = {
   intent(action) {
     return (event, _context, callback) => {
       const { referenceId } = event.queryStringParameters
@@ -82,7 +83,7 @@ const SaveState = {
   }
 }
 
-const RetrieveState = {
+export const RetrieveState = {
   intent(action) {
     return (event, _context, callback) => {
       const { referenceId } = event.queryStringParameters
@@ -109,7 +110,7 @@ const RetrieveState = {
   }
 }
 
-const GetCollection = {
+export const GetCollection = {
   intent(action) {
     return (event, _context, callback) =>
       action(event.accessToken, event.queryStringParameters, result => {
@@ -118,20 +119,11 @@ const GetCollection = {
   }
 }
 
-const GetObject = {
+export const GetObject = {
   intent(action) {
     return (event, _context, callback) =>
       action(event.accessToken, event.queryStringParameters, result => {
         Intent.getObject(callback, result)
       })
   }
-}
-
-module.exports = {
-  Intent,
-  GetCollection,
-  GetObject,
-  SaveState,
-  STATE_CLIENT,
-  RetrieveState
 }
