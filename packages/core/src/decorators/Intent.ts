@@ -16,7 +16,6 @@ interface IDecorator {
 
 const MISSING_SCENARIO_ID =
   'Scenario ID is missing. Please add @Component decorator above your class definition'
-
 // Usage
 // @Intent('intentName') propertyName: BearerFetch
 // or
@@ -33,11 +32,16 @@ export function Intent(
 
       return function(...args) {
         const scenarioId = target['SCENARIO_ID']
+        // use setupId prop or retrieve it from the context
 
         if (!scenarioId) {
           return Promise.reject(new Error(MISSING_SCENARIO_ID))
         } else {
-          const intent = intentRequest({ intentName, scenarioId })
+          const intent = intentRequest({
+            intentName,
+            scenarioId,
+            setupId: retrieveSetupId(target)
+          })
           return IntentMapper[type](intent.apply(null, [...args]))
         }
       }
@@ -77,7 +81,11 @@ export function SaveStateIntent(
           return Promise.reject(new Error(MISSING_SCENARIO_ID))
         } else {
           const { body, ...query } = params
-          const intent = intentRequest({ intentName: 'SaveState', scenarioId })
+          const intent = intentRequest({
+            intentName: 'SaveState',
+            scenarioId,
+            setupId: retrieveSetupId(target)
+          })
           return IntentMapper[type](
             intent.apply(null, [
               { ...query },
@@ -97,6 +105,19 @@ export function SaveStateIntent(
       })
     }
   }
+}
+
+const MISSING_SETUP_ID =
+  'setupId is missing. Please provide setupId  (setupId|setup-id) '
+
+function retrieveSetupId(target: any) {
+  const setupId =
+    target['setupId'] ||
+    (target['bearerContext'] && target['bearerContext']['setupId'])
+  if (!setupId) {
+    console.warn(MISSING_SETUP_ID)
+  }
+  return setupId
 }
 
 // Usage

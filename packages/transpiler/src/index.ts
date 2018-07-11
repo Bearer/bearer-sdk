@@ -4,6 +4,7 @@ import * as path from 'path'
 import * as chokidar from 'chokidar'
 import { getSourceCode } from './utils'
 import PropInjector from './transformers/prop-injector'
+import PropBearerContextInjector from './transformers/prop-bearer-context-injector'
 import PropImporter from './transformers/prop-importer'
 
 export default class Transpiler {
@@ -32,6 +33,10 @@ export default class Transpiler {
     this.watchNonTSFiles()
 
     fs.emptyDirSync(this.BUILD_SRC_DIRECTORY)
+
+    // ensure global directory: quick and dirty
+    // TODO: find another way to have the global present within src directory
+    this.ensureGlobalLinked()
 
     const files: ts.MapLike<{ version: number }> = {}
     const servicesHost: ts.LanguageServiceHost = {
@@ -97,6 +102,7 @@ export default class Transpiler {
       before: [
         PropImporter({ verbose: true }),
         PropInjector({ verbose: true }),
+        PropBearerContextInjector({ verbose: true }),
         dumpSourceCode(this.SCREENS_DIRECTORY, this.BUILD_DIRECTORY)({
           verbose: true
         })
@@ -172,6 +178,16 @@ export default class Transpiler {
         console.log(`  Error: ${message}`)
       }
     })
+  }
+
+  private ensureGlobalLinked() {
+    fs.ensureSymlink(
+      path.join(this.BUILD_DIRECTORY, 'global'),
+      path.join(this.BUILD_SRC_DIRECTORY, 'global'),
+      () => {
+        console.log('Linked globals')
+      }
+    )
   }
 
   private get SRC_DIRECTORY(): string {

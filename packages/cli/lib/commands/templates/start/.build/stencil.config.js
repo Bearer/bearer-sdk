@@ -13,5 +13,6 @@ exports.config = {
       baseUrl: '/prerender'
     }
   ],
-  plugins: [...plugins()]
+  plugins: [...plugins()],
+  globalScript: 'src/global/context.ts'
 }
