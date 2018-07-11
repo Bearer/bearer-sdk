@@ -56,7 +56,7 @@ describe('Intent decorator', () => {
         .catch(a => console.log(a))
 
       expect(fetch).toBeCalledWith(
-        'http://localhost:5555/api/v1/BEARER_SCENARIO_ID/getCollectionIntent?page=1&integrationId=42',
+        'http://localhost:5555/api/v1/BEARER_SCENARIO_ID/getCollectionIntent?page=1&setupId=&integrationId=42',
         commonParams
       )
 
@@ -91,7 +91,7 @@ describe('Intent decorator', () => {
         .catch(a => console.log(a))
 
       expect(fetch).toBeCalledWith(
-        'http://localhost:5555/api/v1/BEARER_SCENARIO_ID/getResourceIntent?integrationId=42',
+        'http://localhost:5555/api/v1/BEARER_SCENARIO_ID/getResourceIntent?setupId=&integrationId=42',
 
         commonParams
       )
