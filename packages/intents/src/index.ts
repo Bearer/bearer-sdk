@@ -1,16 +1,22 @@
-const axios = require('axios')
-const { sendSuccessMessage, sendErrorMessage } = require('./lambda')
+import axios from 'axios'
 
-const Intent = {
-  getCollection: (callback, { collection }) => {
+import { sendSuccessMessage, sendErrorMessage } from './lambda'
+
+export type TContext = {
+  accessToken: string
+  [key: string]: any
+}
+
+export class Intent {
+  static getCollection(callback, { collection }) {
     if (collection) {
       sendSuccessMessage(callback, collection)
     } else {
       sendErrorMessage(callback, { error: 'Error' })
     }
-  },
+  }
 
-  getObject: (callback, { object }) => {
+  static getObject(callback, { object }) {
     if (object) {
       sendSuccessMessage(callback, object)
     } else {
@@ -19,7 +25,7 @@ const Intent = {
   }
 }
 
-const STATE_CLIENT = axios.create({
+export const STATE_CLIENT = axios.create({
   timeout: 5000,
   headers: {
     Accept: 'application/json',
@@ -27,8 +33,44 @@ const STATE_CLIENT = axios.create({
   }
 })
 
-const SaveState = {
-  intent(action) {
+class BaseIntent {
+  static get template(): string {
+    throw new Error(
+      'Extending class needs to implement `static get template()` method'
+    )
+  }
+
+  static intent(
+    action
+  ): (event: any, context: any, callback: (...args: any[]) => any) => any {
+    throw new Error(
+      'Extending class needs to implement `static intent(action)` method'
+    )
+  }
+}
+
+export class SaveState extends BaseIntent {
+  static get template() {
+    return `
+  static action(
+    _context,
+    _params,
+    body: any,
+    state: any,
+    callback: (any) => void
+  ): void {
+    const { item: { name } } = body
+    const { items = [] }: any = state
+    const newItem: any = { name }
+
+    callback({
+      ...state,
+      items: [...items, newItem]
+    })
+  }
+`
+  }
+  static intent(action) {
     return (event, _context, callback) => {
       const { referenceId } = event.queryStringParameters
       STATE_CLIENT.get(`api/v1/items/${referenceId}`)
@@ -82,8 +124,15 @@ const SaveState = {
   }
 }
 
-const RetrieveState = {
-  intent(action) {
+export class RetrieveState extends BaseIntent {
+  static get template(): string {
+    return `
+  static action(_context: TContext, _params: any, state, callback) => {
+    callback({ items: state.items.map(({name}) => name) })
+  }
+`
+  }
+  static intent(action) {
     return (event, _context, callback) => {
       const { referenceId } = event.queryStringParameters
 
@@ -94,7 +143,7 @@ const RetrieveState = {
           } else {
             console.log('[BEARER]', 'data', response.data)
             action(
-              event.accessToken,
+              event.context,
               event.queryStringParameters,
               response.data.Item,
               prs => callback(null, prs)
@@ -109,8 +158,20 @@ const RetrieveState = {
   }
 }
 
-const GetCollection = {
-  intent(action) {
+export class GetCollection extends BaseIntent {
+  static get template(): string {
+    return `
+  static action(context: TContext, params: any, callback: (params: any) => void) {
+    //... your code goes here
+    // use the client defined in client.ts to fetch real object like that:
+    // CLIENT.get('/people', { headers: headersFor(context.accessToken) }).then(({ data }) => {
+    //   callback({ collection: data.results });
+    // });
+    callback({ collection: []})
+  }
+`
+  }
+  static intent(action) {
     return (event, _context, callback) =>
       action(event.accessToken, event.queryStringParameters, result => {
         Intent.getCollection(callback, result)
@@ -118,20 +179,24 @@ const GetCollection = {
   }
 }
 
-const GetObject = {
-  intent(action) {
+export class GetObject extends BaseIntent {
+  static get template(): string {
+    return `
+  static action(context: TContext, params: any, callback: (params: any) => void) {
+    //... your code goes here
+    // use the client defined in client.ts to fetch real object like that:
+    // CLIENT.get(\`/people/\${params.id}\`, { headers: headersFor(context.accessToken) })
+    //   .then(({ data }) => {
+    //     callback({ object: data });
+    //   });
+    callback({ object: {}})
+  }
+`
+  }
+  static intent(action) {
     return (event, _context, callback) =>
       action(event.accessToken, event.queryStringParameters, result => {
         Intent.getObject(callback, result)
       })
   }
-}
-
-module.exports = {
-  Intent,
-  GetCollection,
-  GetObject,
-  SaveState,
-  STATE_CLIENT,
-  RetrieveState
 }
