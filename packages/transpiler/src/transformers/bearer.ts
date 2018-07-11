@@ -25,6 +25,33 @@ export function addBearerIdProp(
   )
 }
 
+// this.BEARER_SCENARIO_ID => replaced during transpilation
+export function addBearerScenarioIdAccessor(
+  classNode: ts.ClassDeclaration
+): ts.ClassDeclaration {
+  return ts.updateClassDeclaration(
+    classNode,
+    classNode.decorators,
+    classNode.modifiers,
+    classNode.name,
+    classNode.typeParameters,
+    classNode.heritageClauses,
+    [
+      ...classNode.members,
+      ts.createGetAccessor(
+        undefined,
+        [],
+        'SCENARIO_ID',
+        undefined,
+        undefined,
+        ts.createBlock([
+          ts.createReturn(ts.createIdentifier('"BEARER_SCENARIO_ID"'))
+        ])
+      )
+    ]
+  )
+}
+
 // @Prop({ context: 'bearer' }) bearerContext: any
 export function addBearerContextProp(
   classNode: ts.ClassDeclaration
@@ -192,6 +219,7 @@ function propDecorator() {
 }
 
 export default {
+  addBearerScenarioIdAccessor,
   addBearerIdProp,
   addBearerContextProp,
   addSetupIdProp,
