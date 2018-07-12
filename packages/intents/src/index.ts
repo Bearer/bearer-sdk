@@ -173,7 +173,7 @@ export class GetCollection extends BaseIntent {
   }
   static intent(action) {
     return (event, _context, callback) =>
-      action(event.accessToken, event.queryStringParameters, result => {
+      action(event.context, event.queryStringParameters, result => {
         Intent.getCollection(callback, result)
       })
   }
@@ -195,7 +195,7 @@ export class GetObject extends BaseIntent {
   }
   static intent(action) {
     return (event, _context, callback) =>
-      action(event.accessToken, event.queryStringParameters, result => {
+      action(event.context, event.queryStringParameters, result => {
         Intent.getObject(callback, result)
       })
   }
