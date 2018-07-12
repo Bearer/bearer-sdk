@@ -47,8 +47,8 @@ export function itemRequest() {
   return bearerRequest('items')
 }
 
-export function intentRequest({ intentName, scenarioId, setupId }) {
-  return bearerRequest(`${scenarioId}/${intentName}`, { setupId })
+export function intentRequest({ intentName, scenarioId, setupId, configId }) {
+  return bearerRequest(`${scenarioId}/${intentName}`, { setupId, configId })
 }
 
 export default {
