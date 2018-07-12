@@ -4,6 +4,34 @@ const copy = require('copy-template-dir')
 const Case = require('case')
 const { spawn, execSync } = require('child_process')
 
+function createEvenIfItExists(target, sourcePath) {
+  try {
+    fs.symlinkSync(target, sourcePath)
+  } catch (e) {
+    if (!e.code === 'EEXIST') {
+      throw e
+    }
+  }
+}
+
+function childProcessStdout(emitter, name) {
+  return data => {
+    emitter.emit('start:watchers:stdout', { name, data })
+  }
+}
+
+function childProcessStderr(emitter, name) {
+  return data => {
+    emitter.emit('start:watchers:stderr', { name, data })
+  }
+}
+
+function childProcessClose(emitter, name) {
+  return code => {
+    emitter.emit('start:watchers:close', { name, code })
+  }
+}
+
 function prepare(emitter, config) {
   return async ({ install = true } = { install: true }) => {
     try {
@@ -48,11 +76,14 @@ function prepare(emitter, config) {
       const inDir = path.join(__dirname, 'templates/start/.build')
       const outDir = buildDirectory
 
-      copy(inDir, outDir, vars, (err, createdFiles) => {
-        if (err) throw err
-        createdFiles.forEach(filePath =>
-          emitter.emit('start:prepare:copyFile', filePath)
-        )
+      await new Promise((resolve, reject) => {
+        copy(inDir, outDir, vars, (err, createdFiles) => {
+          if (err) reject(err)
+          createdFiles.forEach(filePath =>
+            emitter.emit('start:prepare:copyFile', filePath)
+          )
+          resolve()
+        })
       })
 
       if (install) {
@@ -115,7 +146,9 @@ const start = (emitter, config) => async ({ open, install }) => {
         env: {
           ...process.env,
           BEARER_SCENARIO_ID: scenarioUuid
-        }
+        },
+
+        stdio: ['pipe', 'pipe', 'pipe', 'ipc']
       }
     )
 
@@ -124,50 +157,26 @@ const start = (emitter, config) => async ({ open, install }) => {
     bearerTranspiler.stderr.on('data', childProcessStderr(emitter, BEARER))
     bearerTranspiler.on('close', childProcessClose(emitter, BEARER))
 
-    /* Start stencil */
-    const args = ['start']
-    if (!open) {
-      args.push('--no-open')
-    }
-    const stencil = spawn('yarn', args, {
-      cwd: buildDirectory
+    bearerTranspiler.on('message', ({ event }) => {
+      if (event === 'transpiler:initialized') {
+        /* Start stencil */
+        const args = ['start']
+        if (!open) {
+          args.push('--no-open')
+        }
+        const stencil = spawn('yarn', args, {
+          cwd: buildDirectory
+        })
+
+        const STENCIL = 'stencil'
+
+        stencil.stdout.on('data', childProcessStdout(emitter, STENCIL))
+        stencil.stderr.on('data', childProcessStderr(emitter, STENCIL))
+        stencil.on('close', childProcessClose(emitter, STENCIL))
+      }
     })
-
-    const STENCIL = 'stencil'
-
-    stencil.stdout.on('data', childProcessStdout(emitter, STENCIL))
-    stencil.stderr.on('data', childProcessStderr(emitter, STENCIL))
-    stencil.on('close', childProcessClose(emitter, STENCIL))
   } catch (e) {
     emitter.emit('start:failed', { error: e })
-  }
-}
-
-function childProcessStdout(emitter, name) {
-  return data => {
-    emitter.emit('start:watchers:stdout', { name, data })
-  }
-}
-
-function childProcessStderr(emitter, name) {
-  return data => {
-    emitter.emit('start:watchers:stderr', { name, data })
-  }
-}
-
-function childProcessClose(emitter, name) {
-  return code => {
-    emitter.emit('start:watchers:close', { name, code })
-  }
-}
-
-function createEvenIfItExists(target, path) {
-  try {
-    fs.symlinkSync(target, path)
-  } catch (e) {
-    if (!e.code === 'EEXIST') {
-      throw e
-    }
   }
 }
 
