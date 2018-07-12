@@ -1,4 +1,5 @@
 import * as ts from 'typescript'
+
 export function getSourceCode(node): string {
   const resultFile = ts.createSourceFile(
     'tmp.ts',
