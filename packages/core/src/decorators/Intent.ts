@@ -41,7 +41,8 @@ export function Intent(
           const intent = intentRequest({
             intentName,
             scenarioId,
-            setupId: retrieveSetupId(target)
+            setupId: retrieveSetupId(target),
+            configId: retrieveConfigId(target)
           })
           return IntentMapper[type](intent.apply(null, [...args]))
         }
