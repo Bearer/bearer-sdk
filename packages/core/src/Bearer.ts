@@ -147,7 +147,7 @@ class Bearer {
     if (this.isSessionInitialized) {
       const AUTHORIZED_URL = `${
         Bearer.config.integrationHost
-      }v1/auth/${scenarioId}?setup_id=${setupId}`
+      }v1/auth/${scenarioId}?setupId=${setupId}`
       window.open(
         AUTHORIZED_URL,
         '',
