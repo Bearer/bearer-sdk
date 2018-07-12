@@ -741,7 +741,6 @@ declare global {
   namespace StencilComponents {
     interface BearerNavigatorAuthScreen {
       'getTitle': () => string;
-      'setupId': string;
       'willAppear': () => void;
       'willDisappear': () => void;
     }
@@ -768,7 +767,6 @@ declare global {
     export interface BearerNavigatorAuthScreenAttributes extends HTMLAttributes {
       'onScenarioAuthenticate'?: (event: CustomEvent) => void;
       'onStepCompleted'?: (event: CustomEvent) => void;
-      'setupId'?: string;
     }
   }
 }

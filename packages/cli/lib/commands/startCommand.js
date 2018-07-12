@@ -147,7 +147,6 @@ const start = (emitter, config) => async ({ open, install }) => {
           ...process.env,
           BEARER_SCENARIO_ID: scenarioUuid
         },
-
         stdio: ['pipe', 'pipe', 'pipe', 'ipc']
       }
     )
@@ -165,7 +164,11 @@ const start = (emitter, config) => async ({ open, install }) => {
           args.push('--no-open')
         }
         const stencil = spawn('yarn', args, {
-          cwd: buildDirectory
+          cwd: buildDirectory,
+          env: {
+            ...process.env,
+            BEARER_SCENARIO_ID: scenarioUuid
+          }
         })
 
         const STENCIL = 'stencil'

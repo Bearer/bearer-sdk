@@ -22,8 +22,8 @@ export class BearerNavigatorAuthScreen {
 
   @Event() scenarioAuthenticate: EventEmitter
   @Event() stepCompleted: EventEmitter
-
-  @Prop() setupId: string = 'BEARER_SCENARIO_ID'
+  @Prop({ context: 'bearer' })
+  bearerContext: any
 
   @Method()
   willAppear() {
@@ -40,10 +40,14 @@ export class BearerNavigatorAuthScreen {
     return 'Authentication'
   }
 
+  get SCENARIO_ID() {
+    return 'BEARER_SCENARIO_ID'
+  }
+
   authenticate = () => {
     Bearer.instance.askAuthorizations({
-      scenarioId: this.setupId,
-      setupId: this.setupId
+      scenarioId: this.SCENARIO_ID,
+      setupId: this.bearerContext.setupId
     })
   }
 
@@ -54,7 +58,7 @@ export class BearerNavigatorAuthScreen {
     Bearer.instance.maybeInitialized.then(() => {
       this.sessionInitialized = true
       Bearer.instance
-        .hasAuthorized(this.setupId)
+        .hasAuthorized(this.SCENARIO_ID)
         .then(() => {
           console.log('[BEARER]', 'authorized')
           this.goNext()
@@ -64,11 +68,11 @@ export class BearerNavigatorAuthScreen {
           this.scenarioAuthorized = false
         })
 
-      this.authorizedListener = Bearer.onAuthorized(this.setupId, () => {
+      this.authorizedListener = Bearer.onAuthorized(this.SCENARIO_ID, () => {
         this.goNext()
       })
 
-      this.revokedListener = Bearer.onRevoked(this.setupId, () => {
+      this.revokedListener = Bearer.onRevoked(this.SCENARIO_ID, () => {
         this.scenarioAuthorized = false
       })
     })
@@ -92,7 +96,7 @@ export class BearerNavigatorAuthScreen {
   }
 
   revoke = () => {
-    Bearer.instance.revokeAuthorization(this.setupId)
+    Bearer.instance.revokeAuthorization(this.SCENARIO_ID)
   }
 
   render() {
