@@ -44,7 +44,11 @@ export class BearerDropdownButton {
   }
 
   render() {
-    const { content, ...btnProps } = this.btnProps
+    const { content, ...rest } = this.btnProps
+    const btnProps: JSXElements.BearerButtonAttributes = {
+      ...rest,
+      kind: 'primary'
+    }
     return (
       <div class="root">
         <bearer-button {...btnProps} onClick={this.toggleDisplay}>
