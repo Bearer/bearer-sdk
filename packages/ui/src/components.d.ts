@@ -987,7 +987,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerPopoverNavigator {
-      'button': string;
+      'btnProps': JSXElements.BearerButtonAttributes;
       'direction': string;
     }
   }
@@ -1011,7 +1011,7 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerPopoverNavigatorAttributes extends HTMLAttributes {
-      'button'?: string;
+      'btnProps'?: JSXElements.BearerButtonAttributes;
       'direction'?: string;
     }
   }

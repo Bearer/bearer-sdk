@@ -15,7 +15,8 @@ export class BearerPopoverNavigator {
   @State() navigationTitle: string
 
   @Prop() direction: string = 'top'
-  @Prop() button: string = 'Activate'
+  @Prop() btnProps: JSXElements.BearerButtonAttributes = { content: 'Activate' }
+
   @State() header = 'Popover Navigator'
 
   set visibleScreen(index) {
@@ -99,12 +100,12 @@ export class BearerPopoverNavigator {
   render() {
     return (
       <bearer-button-popover
+        btnProps={this.btnProps}
         id="button"
         direction={this.direction}
         header={this.navigationTitle}
         backNav={this.hasPrevious()}
       >
-        <span slot="buttonText">{this.button}</span>
         <slot />
       </bearer-button-popover>
     )
