@@ -41,7 +41,8 @@ export function Intent(
           const intent = intentRequest({
             intentName,
             scenarioId,
-            setupId: retrieveSetupId(target)
+            setupId: retrieveSetupId(target),
+            configId: retrieveConfigId(target)
           })
           return IntentMapper[type](intent.apply(null, [...args]))
         }
@@ -81,7 +82,8 @@ export function SaveStateIntent(
           const intent = intentRequest({
             intentName: 'SaveState',
             scenarioId,
-            setupId: retrieveSetupId(target)
+            setupId: retrieveSetupId(target),
+            configId: retrieveConfigId(target)
           })
           return IntentMapper[type](
             intent.apply(null, [
@@ -107,6 +109,9 @@ export function SaveStateIntent(
 const MISSING_SETUP_ID =
   'setupId is missing. Please provide setupId  (setupId|setup-id) '
 
+const MISSING_CONFIG_ID =
+  'setupId is missing. Please provide configId  (configId|config-id) '
+
 function retrieveSetupId(target: any) {
   const setupId =
     target['setupId'] ||
@@ -115,6 +120,16 @@ function retrieveSetupId(target: any) {
     console.warn(MISSING_SETUP_ID)
   }
   return setupId
+}
+
+function retrieveConfigId(target: any) {
+  const configId =
+    target['configId'] ||
+    (target['bearerContext'] && target['bearerContext']['configId'])
+  if (!configId) {
+    console.warn(MISSING_CONFIG_ID)
+  }
+  return configId
 }
 
 // Usage

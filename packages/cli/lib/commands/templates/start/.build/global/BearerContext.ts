@@ -4,6 +4,7 @@ class BearerContext {
   }
 
   private _setupId: string
+  private _configId: string
 
   get setupId(): string {
     return this._setupId
@@ -12,6 +13,15 @@ class BearerContext {
   set setupId(setupId) {
     console.log('[BEARER]', 'setSetupId', setupId)
     this._setupId = setupId
+  }
+  
+  get configId(): string {
+    return this._configId
+  }
+
+  set configId(configId) {
+    console.log('[BEARER]', 'setConfigId', configId)
+    this._configId = configId
   }
 }
 

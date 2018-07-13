@@ -16,7 +16,8 @@ export function getData(referenceId: string) {
   const request = requests.intentRequest({
     intentName: referenceId,
     scenarioId: 'items',
-    setupId: 'TODO'
+    setupId: 'TODO',
+    configId: 'TODO'
   })
   return request({})
 }
@@ -25,7 +26,8 @@ export function removeData(referenceId: string) {
   const request = requests.intentRequest({
     intentName: referenceId,
     scenarioId: 'items',
-    setupId: 'TODO'
+    setupId: 'TODO',
+    configId: 'TODO'
   })
   return request(
     {},
@@ -50,7 +52,8 @@ function putItem(referenceId: string, payload: any) {
   const request = requests.intentRequest({
     intentName: referenceId,
     scenarioId: 'items',
-    setupId: 'TODO'
+    setupId: 'TODO',
+    configId: 'TODO'
   })
   return request(
     {},
