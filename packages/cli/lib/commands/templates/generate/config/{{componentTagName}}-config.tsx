@@ -16,8 +16,7 @@ export class {{scenarioTitle}}Config {
   render() {
     return (
       <div>
-        <bearer-dropdown-button innerListener={this.innerListener}>
-          <span slot="buttonText">Config component</span>
+        <bearer-dropdown-button innerListener={this.innerListener} btnProps={{ content: "Config component" }}>
           <bearer-config scenarioId="BEARER_SCENARIO_ID" fields={this.fields} />
         </bearer-dropdown-button>
       </div>
