@@ -7,20 +7,10 @@ import Bearer from '@bearer/core'
   shadow: true
 })
 export class BearerDropdownButton {
-  @State() visible: boolean = process.env.BUILD !== 'distribution'
+  @State() visible: boolean = false
   @Prop() opened: boolean
   @Prop() innerListener: string
-  @Prop()
-  btnKind:
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'light'
-    | 'dark' =
-    'primary'
+  @Prop() btnProps: JSXElements.BearerButtonAttributes = {}
 
   toggleDisplay = e => {
     e.preventDefault()
@@ -54,10 +44,11 @@ export class BearerDropdownButton {
   }
 
   render() {
+    const { content, ...btnProps } = this.btnProps
     return (
       <div class="root">
-        <bearer-button onClick={this.toggleDisplay} kind={this.btnKind}>
-          <slot name="buttonText" />
+        <bearer-button {...btnProps} onClick={this.toggleDisplay}>
+          {content}
           <span class="symbol">▾</span>
         </bearer-button>
         {this.visible && (
