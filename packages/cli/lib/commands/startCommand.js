@@ -137,6 +137,7 @@ const start = (emitter, config) => async ({ open, install }) => {
       { persistent: true, interval: 250 },
       () => ensureSetupAndConfigComponents(rootLevel)
     )
+
     /* Start bearer transpiler phase */
     const bearerTranspiler = spawn(
       'node',
