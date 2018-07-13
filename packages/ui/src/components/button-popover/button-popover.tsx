@@ -7,22 +7,13 @@ import { Component, State, Prop, Listen, Method } from '@bearer/core'
 })
 export class BearerButtonPopover {
   @State() visible: boolean = process.env.NODE_ENV === 'development'
+
   @Prop() opened: boolean
   @Prop() direction: string = 'top'
   @Prop() arrow: boolean = true
   @Prop() header: string
   @Prop() backNav: boolean
-  @Prop()
-  btnKind:
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'light'
-    | 'dark' =
-    'primary'
+  @Prop() btnProps: JSXElements.BearerButtonAttributes = {}
 
   toggleDisplay = e => {
     e.preventDefault()
@@ -53,9 +44,8 @@ export class BearerButtonPopover {
   render() {
     return (
       <div class="root">
-        <bearer-button onClick={this.toggleDisplay} kind={this.btnKind}>
-          <slot name="buttonText" />
-        </bearer-button>
+        <bearer-button {...this.btnProps} onClick={this.toggleDisplay} />
+
         {this.visible && (
           <div
             class={`popover fade show bs-popover-${this.direction} direction-${
