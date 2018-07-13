@@ -125,7 +125,14 @@ export function addSetupIdProp(
   )
 }
 
-// TODO : append statement if componentDidLoad already exists
+function methodeNamed(name: string): (node: ts.Node) => boolean {
+  return (node: ts.Node): boolean =>
+    ts.isMethodDeclaration(node) &&
+    (node as ts.MethodDeclaration).name.getText() === name
+}
+
+const COMPONENT_DID_LOAD = 'componentDidLoad'
+
 // componentDidLoad(){ this.bearer.setupId = this.setupId }
 export function addComponentDidLoad(
   classNode: ts.ClassDeclaration
@@ -140,6 +147,23 @@ export function addComponentDidLoad(
     ts.createPropertyAccess(ts.createThis(), 'setupId'),
     ts.createBlock([assignSetupId])
   )
+  const predicate = methodeNamed(COMPONENT_DID_LOAD)
+  const members = classNode.members.filter(n => !predicate(n))
+
+  const componentDidLoad: ts.MethodDeclaration =
+    (classNode.members.find(predicate) as ts.MethodDeclaration) ||
+    (ts.createMethod(
+      /* decorators */ undefined,
+      /* modifiers */ undefined,
+      /* asteriskToken */ undefined,
+      COMPONENT_DID_LOAD,
+      /* questionToken */ undefined,
+      /* typeParameters */ undefined,
+      /* parameters */ undefined,
+      /* type */ undefined,
+      ts.createBlock([])
+    ) as ts.MethodDeclaration)
+
   return ts.updateClassDeclaration(
     classNode,
     classNode.decorators,
@@ -148,17 +172,17 @@ export function addComponentDidLoad(
     classNode.typeParameters,
     classNode.heritageClauses,
     [
-      ...classNode.members,
+      ...members,
       ts.createMethod(
-        /* decorators */ undefined,
-        /* modifiers */ undefined,
-        /* asteriskToken */ undefined,
-        'componentDidLoad',
-        /* questionToken */ undefined,
-        /* typeParameters */ undefined,
-        /* parameters */ undefined,
-        /* type */ undefined,
-        ts.createBlock([ifSetupIdPresent])
+        componentDidLoad.decorators,
+        componentDidLoad.modifiers,
+        componentDidLoad.asteriskToken,
+        componentDidLoad.name,
+        componentDidLoad.questionToken,
+        componentDidLoad.typeParameters,
+        componentDidLoad.parameters,
+        componentDidLoad.type,
+        ts.createBlock([ifSetupIdPresent, ...componentDidLoad.body.statements])
       )
     ]
   )
