@@ -7,6 +7,7 @@ import { Component, Prop, classnames } from '@bearer/core'
 })
 export class Alert {
   @Prop() onDismiss: () => void
+  @Prop() content: any
   @Prop()
   kind:
     | 'primary'
@@ -28,7 +29,7 @@ export class Alert {
 
     return (
       <div class={classes}>
-        <slot />
+        {this.content || <slot />}
         {this.onDismiss && (
           <button
             type="button"

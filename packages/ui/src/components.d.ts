@@ -38,6 +38,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerAlert {
+      'content': any;
       'kind': 'primary'
     | 'secondary'
     | 'success'
@@ -69,6 +70,7 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerAlertAttributes extends HTMLAttributes {
+      'content'?: any;
       'kind'?: 'primary'
     | 'secondary'
     | 'success'
@@ -87,6 +89,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerBadge {
+      'content': any;
       'kind': 'primary'
     | 'secondary'
     | 'success'
@@ -117,6 +120,7 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerBadgeAttributes extends HTMLAttributes {
+      'content'?: any;
       'kind'?: 'primary'
     | 'secondary'
     | 'success'
@@ -135,6 +139,7 @@ declare global {
   namespace StencilComponents {
     interface BearerButton {
       'as': string;
+      'content': any;
       'kind': 'primary'
     | 'secondary'
     | 'success'
@@ -167,6 +172,7 @@ declare global {
   namespace JSXElements {
     export interface BearerButtonAttributes extends HTMLAttributes {
       'as'?: string;
+      'content'?: any;
       'kind'?: 'primary'
     | 'secondary'
     | 'success'
@@ -561,14 +567,7 @@ declare global {
     interface BearerButtonPopover {
       'arrow': boolean;
       'backNav': boolean;
-      'btnKind': 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'light'
-    | 'dark';
+      'btnProps': JSXElements.BearerButtonAttributes;
       'direction': string;
       'header': string;
       'opened': boolean;
@@ -597,14 +596,7 @@ declare global {
     export interface BearerButtonPopoverAttributes extends HTMLAttributes {
       'arrow'?: boolean;
       'backNav'?: boolean;
-      'btnKind'?: 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'light'
-    | 'dark';
+      'btnProps'?: JSXElements.BearerButtonAttributes;
       'direction'?: string;
       'header'?: string;
       'opened'?: boolean;
@@ -688,14 +680,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerDropdownButton {
-      'btnKind': 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'light'
-    | 'dark';
+      'btnProps': JSXElements.BearerButtonAttributes;
       'innerListener': string;
       'opened': boolean;
       'toggle': (opened: boolean) => void;
@@ -721,14 +706,7 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerDropdownButtonAttributes extends HTMLAttributes {
-      'btnKind'?: 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'light'
-    | 'dark';
+      'btnProps'?: JSXElements.BearerButtonAttributes;
       'innerListener'?: string;
       'opened'?: boolean;
     }
@@ -1009,7 +987,7 @@ declare global {
 
   namespace StencilComponents {
     interface BearerPopoverNavigator {
-      'button': string;
+      'btnProps': JSXElements.BearerButtonAttributes;
       'direction': string;
     }
   }
@@ -1033,7 +1011,7 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerPopoverNavigatorAttributes extends HTMLAttributes {
-      'button'?: string;
+      'btnProps'?: JSXElements.BearerButtonAttributes;
       'direction'?: string;
     }
   }

@@ -6,6 +6,7 @@ import { Component, Prop } from '@bearer/core'
   shadow: true
 })
 export class Button {
+  @Prop() content: any
   @Prop()
   kind:
     | 'primary'
@@ -22,10 +23,6 @@ export class Button {
   render() {
     const Tag = this.as
     const classes = ['btn', `btn-${this.kind}`, `btn-${this.size}`]
-    return (
-      <Tag class={classes.join(' ')}>
-        <slot />
-      </Tag>
-    )
+    return <Tag class={classes.join(' ')}>{this.content || <slot />}</Tag>
   }
 }
