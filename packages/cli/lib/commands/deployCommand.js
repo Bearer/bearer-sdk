@@ -1,4 +1,4 @@
-const deployScenario = require('../deployScenario')
+const { deployScenario } = require('../deployScenario')
 const inquirer = require('inquirer')
 const fs = require('fs')
 const ini = require('ini')

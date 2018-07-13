@@ -143,23 +143,26 @@ const start = (emitter, config) => async ({ open, install }) => {
       install
     })
 
-    /* Rebuild setup and config components on auth.confing.json change */
-    const authConfigWatcher = chokidar.watch(
-      path.join(rootLevel, 'intents', 'auth.config.json')
+    ensureSetupAndConfigComponents(rootLevel)
+
+    emitter.emit('start:watchers')
+
+    fs.watchFile(
+      path.join(rootLevel, 'intents', 'auth.config.json'),
+      { persistent: true, interval: 250 },
+      () => ensureSetupAndConfigComponents(rootLevel)
     )
 
-    authConfigWatcher
-      .on('change', () => ensureSetupAndConfigComponents(rootLevel))
-      .on('ready', () => ensureSetupAndConfigComponents(rootLevel))
-
     /* Start watching intents and deploy if needed */
-    const watcher = chokidar.watch(path.join(rootLevel, 'intents'))
+    const watcher = chokidar.watch(path.join(rootLevel, 'intents', '**', '*'))
 
-    watcher
-      .on('add', deployIntents)
-      .on('change', deployIntents)
-      .on('unlink', deployIntents)
-      .on('ready', deployIntents)
+    console.log(path.join(rootLevel, 'intents'))
+    console.log(watcher.getWatched())
+    // watcher
+    //   .on('add', deployIntents)
+    //   .on('change', deployIntents)
+    //   .on('unlink', deployIntents)
+    //   .on('ready', deployIntents)
 
     /* Start bearer transpiler phase */
     const bearerTranspiler = spawn(
