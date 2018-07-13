@@ -3,6 +3,7 @@ const fs = require('fs-extra')
 const copy = require('copy-template-dir')
 const unzip = require('unzip')
 const Case = require('case')
+const express = require('express')
 
 const { spawn, execSync } = require('child_process')
 
@@ -24,6 +25,8 @@ async function startLocalDevelopmentServer(
       emitter,
       config
     )
+
+    const app = express()
     const buildDir = path.join(rootLevel, 'intents', '.build')
     fs.ensureDirSync(buildDir)
 
@@ -35,6 +38,26 @@ async function startLocalDevelopmentServer(
         .on('error', reject)
     })
     const lambdas = require(buildDir)
+
+    const { integration_uuid, intents } = require(path.join(
+      buildDir,
+      'bearer.config.json'
+    ))
+
+    intents.forEach(intent => {
+      const intentName = Object.keys(intent)[0]
+      const endpoint = `/api/v1/${integration_uuid}/${intentName}`
+      app.get(endpoint, (req, res) => {
+        lambdas[intentName](
+          { context: {}, queryStringParameters: req.query },
+          {},
+          (err, datum) => res.send(datum)
+        )
+      })
+      console.log('Local endpoint set')
+      console.log('http://localhost:3000' + endpoint)
+    })
+    app.listen(3000)
   } catch (e) {
     throw e
   }
