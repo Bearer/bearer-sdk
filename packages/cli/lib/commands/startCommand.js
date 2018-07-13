@@ -2,8 +2,6 @@ const path = require('path')
 const fs = require('fs')
 const copy = require('copy-template-dir')
 const Case = require('case')
-const chokidar = require('chokidar')
-const debounce = require('lodash.debounce')
 const { spawn, execSync } = require('child_process')
 
 function createEvenIfItExists(target, sourcePath) {
@@ -105,19 +103,6 @@ function prepare(emitter, config) {
   }
 }
 
-const deployIntents = debounce(
-  () =>
-    spawn('bearer', ['deploy'], {
-      env: {
-        ...process.env
-      }
-    }),
-  1000,
-  {
-    leading: true,
-    trailing: false
-  }
-)
 const ensureSetupAndConfigComponents = rootLevel => {
   spawn('bearer', ['g', '--config'], {
     cwd: rootLevel
@@ -152,17 +137,6 @@ const start = (emitter, config) => async ({ open, install }) => {
       { persistent: true, interval: 250 },
       () => ensureSetupAndConfigComponents(rootLevel)
     )
-
-    /* Start watching intents and deploy if needed */
-    const watcher = chokidar.watch(path.join(rootLevel, 'intents', '**', '*'))
-
-    console.log(path.join(rootLevel, 'intents'))
-    console.log(watcher.getWatched())
-    // watcher
-    //   .on('add', deployIntents)
-    //   .on('change', deployIntents)
-    //   .on('unlink', deployIntents)
-    //   .on('ready', deployIntents)
 
     /* Start bearer transpiler phase */
     const bearerTranspiler = spawn(
