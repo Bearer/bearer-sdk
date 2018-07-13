@@ -1,0 +1,6 @@
+dist/
+components.d.ts
+www/
+node_modules
+templates
+**/node_modules/**

@@ -1,8 +1,44 @@
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs-extra')
 const copy = require('copy-template-dir')
+const unzip = require('unzip')
 const Case = require('case')
+
 const { spawn, execSync } = require('child_process')
+
+async function startLocalDevelopmentServer(
+  rootLevel,
+  scenarioUuid,
+  emitter,
+  config
+) {
+  try {
+    const { buildIntents } = require(path.join(
+      __dirname,
+      '..',
+      'deployScenario'
+    ))
+    const intentsArtifact = await buildIntents(
+      rootLevel,
+      scenarioUuid,
+      emitter,
+      config
+    )
+    const buildDir = path.join(rootLevel, 'intents', '.build')
+    fs.ensureDirSync(buildDir)
+
+    await new Promise((resolve, reject) => {
+      fs
+        .createReadStream(intentsArtifact)
+        .pipe(unzip.Extract({ path: buildDir }))
+        .on('close', resolve)
+        .on('error', reject)
+    })
+    const lambdas = require(buildDir)
+  } catch (e) {
+    throw e
+  }
+}
 
 function createEvenIfItExists(target, sourcePath) {
   try {
@@ -152,6 +188,8 @@ const start = (emitter, config) => async ({ open, install }) => {
       }
     )
 
+    /* start local development server */
+    startLocalDevelopmentServer(rootLevel, scenarioUuid, emitter, config)
     const BEARER = 'bearer-transpiler'
     bearerTranspiler.stdout.on('data', childProcessStdout(emitter, BEARER))
     bearerTranspiler.stderr.on('data', childProcessStderr(emitter, BEARER))
