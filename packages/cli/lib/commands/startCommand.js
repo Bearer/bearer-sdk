@@ -2,6 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const copy = require('copy-template-dir')
 const Case = require('case')
+const chokidar = require('chokidar')
+const debounce = require('lodash.debounce')
 const { spawn, execSync } = require('child_process')
 
 function createEvenIfItExists(target, sourcePath) {
@@ -103,6 +105,19 @@ function prepare(emitter, config) {
   }
 }
 
+const deployIntents = debounce(
+  () =>
+    spawn('bearer', ['deploy'], {
+      env: {
+        ...process.env
+      }
+    }),
+  1000,
+  {
+    leading: true,
+    trailing: false
+  }
+)
 const ensureSetupAndConfigComponents = rootLevel => {
   spawn('bearer', ['g', '--config'], {
     cwd: rootLevel
@@ -128,15 +143,24 @@ const start = (emitter, config) => async ({ open, install }) => {
       install
     })
 
-    ensureSetupAndConfigComponents(rootLevel)
-
-    emitter.emit('start:watchers')
-
-    fs.watchFile(
-      path.join(rootLevel, 'intents', 'auth.config.json'),
-      { persistent: true, interval: 250 },
-      () => ensureSetupAndConfigComponents(rootLevel)
+    /* Rebuild setup and config components on auth.confing.json change */
+    const authConfigWatcher = chokidar.watch(
+      path.join(rootLevel, 'intents', 'auth.config.json')
     )
+
+    authConfigWatcher
+      .on('change', () => ensureSetupAndConfigComponents(rootLevel))
+      .on('ready', () => ensureSetupAndConfigComponents(rootLevel))
+
+    /* Start watching intents and deploy if needed */
+    const watcher = chokidar.watch(path.join(rootLevel, 'intents'))
+
+    watcher
+      .on('add', deployIntents)
+      .on('change', deployIntents)
+      .on('unlink', deployIntents)
+      .on('ready', deployIntents)
+
     /* Start bearer transpiler phase */
     const bearerTranspiler = spawn(
       'node',
