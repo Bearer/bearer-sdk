@@ -17,7 +17,7 @@ const login = (emitter, config) => async ({ email }) => {
     const client = serviceClient(config.IntegrationServiceUrl)
     const { Password } = await inquirer.prompt([
       {
-        message: `Please enter password:`,
+        message: `Please enter your Access Token:`,
         type: 'password',
         name: 'Password'
       }
