@@ -827,7 +827,13 @@ declare global {
       'getTitle': () => any;
       'name': string;
       'navigationTitle': any;
-      'renderFunc': (data: any) => void;
+      'renderFunc': <T>(
+    params: {
+      next: (data: any) => void
+      prev: (data: any) => void
+      data: T
+    }
+  ) => void;
       'willAppear': (data: any) => void;
       'willDisappear': () => void;
     }
@@ -856,7 +862,13 @@ declare global {
       'navigationTitle'?: any;
       'onNavigatorGoBack'?: (event: CustomEvent) => void;
       'onStepCompleted'?: (event: CustomEvent) => void;
-      'renderFunc'?: (data: any) => void;
+      'renderFunc'?: <T>(
+    params: {
+      next: (data: any) => void
+      prev: (data: any) => void
+      data: T
+    }
+  ) => void;
     }
   }
 }

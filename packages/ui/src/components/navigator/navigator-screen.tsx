@@ -18,7 +18,14 @@ export class BearerNavigatorScreen {
   @State() data: any
 
   @Prop() navigationTitle: any
-  @Prop() renderFunc: (data: any) => void
+  @Prop()
+  renderFunc: <T>(
+    params: {
+      next: (data: any) => void
+      prev: (data: any) => void
+      data: T
+    }
+  ) => void
   @Prop() name: string
 
   @Event() stepCompleted: EventEmitter
