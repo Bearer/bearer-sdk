@@ -128,7 +128,9 @@ class Bearer {
       postRobot.on(Events.REVOKED, this.revoked)
 
       this.iframe = document.createElement('iframe')
-      this.iframe.src = `${this.bearerConfig.integrationHost}v1/user/initialize`
+      this.iframe.src = `${
+        this.bearerConfig.authorizationHost
+      }v1/user/initialize`
       this.iframe.id = IFRAME_NAME
       this.iframe.width = '0'
       this.iframe.height = '0'
