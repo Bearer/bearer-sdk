@@ -7,9 +7,7 @@ describe('Bearer', () => {
     })
 
     it('Set default values ', () => {
-      expect(Bearer.config.integrationHost).toEqual(
-        'https://int.staging.bearer.sh/'
-      )
+      expect(Bearer.config.integrationHost).toEqual('BEARER_INTEGRATION_HOST')
       expect(Bearer.config.loadingComponent).toBeUndefined()
     })
 
