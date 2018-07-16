@@ -4,7 +4,8 @@ export const plugins = () => {
   const basePLugins = [
     replace({
       BEARER_API_HOST: JSON.stringify(process.env.API_HOST),
-      BEARER_SCENARIO_ID: process.env.BEARER_SCENARIO_ID
+      BEARER_SCENARIO_ID: process.env.BEARER_SCENARIO_ID,
+      BEARER_INTEGRATION_HOST: process.env.BEARER_INTEGRATION_HOST
     })
   ]
 
