@@ -4,6 +4,10 @@ const getPort = require('get-port')
 const Router = require('koa-router')
 const unzip = require('unzip')
 const fs = require('fs-extra')
+const cosmiconfig = require('cosmiconfig')
+
+const LOCAL_INTENTS_DEV_CONFIGURATION = 'devIntents'
+const explorer = cosmiconfig(LOCAL_INTENTS_DEV_CONFIGURATION)
 
 const router = new Router({ prefix: '/api/v1/' })
 async function startLocalDevelopmentServer(
@@ -14,6 +18,9 @@ async function startLocalDevelopmentServer(
 ) {
   return new Promise(async (resolve, reject) => {
     try {
+      const { config: devIntentsContext } = await explorer.search(
+        path.join(rootLevel, 'intents')
+      )
       const { buildIntents } = require(path.join(
         __dirname,
         '..',
@@ -52,7 +59,13 @@ async function startLocalDevelopmentServer(
           (ctx, next) =>
             new Promise((resolve, reject) => {
               lambdas[intentName](
-                { context: {}, queryStringParameters: ctx.query },
+                {
+                  context: {
+                    ...devIntentsContext.global,
+                    ...devIntentsContext[intentName]
+                  },
+                  queryStringParameters: ctx.query
+                },
                 {},
                 (err, datum) => {
                   ctx.intentDatum = datum
