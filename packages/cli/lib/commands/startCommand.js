@@ -1,7 +1,10 @@
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs-extra')
 const copy = require('copy-template-dir')
 const Case = require('case')
+const express = require('express')
+const startLocalDevelopmentServer = require('./startLocalDevelopmentServer')
+
 const { spawn, execSync } = require('child_process')
 
 function createEvenIfItExists(target, sourcePath) {
@@ -138,6 +141,15 @@ const start = (emitter, config) => async ({ open, install }) => {
       () => ensureSetupAndConfigComponents(rootLevel)
     )
 
+    /* start local development server */
+    const { host, port } = await startLocalDevelopmentServer(
+      rootLevel,
+      scenarioUuid,
+      emitter,
+      config
+    )
+    const integrationHost = `http://${host}:${port}`
+
     /* Start bearer transpiler phase */
     const bearerTranspiler = spawn(
       'node',
@@ -146,7 +158,8 @@ const start = (emitter, config) => async ({ open, install }) => {
         cwd: screensDirectory,
         env: {
           ...process.env,
-          BEARER_SCENARIO_ID: scenarioUuid
+          BEARER_SCENARIO_ID: scenarioUuid,
+          BEARER_INTEGRATION_HOST: integrationHost
         },
         stdio: ['pipe', 'pipe', 'pipe', 'ipc']
       }
@@ -168,7 +181,8 @@ const start = (emitter, config) => async ({ open, install }) => {
           cwd: buildDirectory,
           env: {
             ...process.env,
-            BEARER_SCENARIO_ID: scenarioUuid
+            BEARER_SCENARIO_ID: scenarioUuid,
+            BEARER_INTEGRATION_HOST: integrationHost
           }
         })
 

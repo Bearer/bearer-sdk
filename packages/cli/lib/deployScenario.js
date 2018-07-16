@@ -8,11 +8,40 @@ const buildArtifact = require('./buildArtifact')
 const pushScenario = require('./pushScenario')
 const pushScreens = require('./pushScreens')
 const assembly = require('./assemblyScenario')
-const storeCredentials = require('./storeCredentials')
 const refreshToken = require('./refreshToken')
 const invalidateCloudFront = require('./invalidateCloudFront')
 
-const AUTH_CONFIG_FILE = 'auth.config.json'
+function buildIntents(rootLevel, scenarioUuid, emitter, config) {
+  return new Promise(async (resolve, reject) => {
+    const artifactDirectory = pathJs.join(rootLevel, '.bearer')
+    const intentsDirectory = pathJs.join(rootLevel, 'intents')
+
+    if (!fs.existsSync(artifactDirectory)) {
+      fs.mkdirSync(artifactDirectory)
+    }
+    try {
+      const scenarioArtifact = pathJs.join(
+        artifactDirectory,
+        `${scenarioUuid}.zip`
+      )
+      const handler = pathJs.join(artifactDirectory, config.HandlerBase)
+      const output = fs.createWriteStream(scenarioArtifact)
+
+      emitter.emit('intents:installingDependencies')
+      await exec('yarn install', { cwd: intentsDirectory })
+
+      await buildArtifact(
+        output,
+        handler,
+        { path: intentsDirectory, scenarioUuid },
+        emitter
+      )
+      return resolve(scenarioArtifact)
+    } catch (e) {
+      return reject(e)
+    }
+  })
+}
 
 const deployIntents = ({ scenarioUuid }, emitter, config) =>
   new Promise(async (resolve, reject) => {
@@ -24,34 +53,14 @@ const deployIntents = ({ scenarioUuid }, emitter, config) =>
     }
 
     const rootLevel = pathJs.dirname(rootPathRc)
-    const artifactDirectory = pathJs.join(rootLevel, '.bearer')
-    const intentsDirectory = pathJs.join(rootLevel, 'intents')
-
-    if (!fs.existsSync(artifactDirectory)) {
-      fs.mkdirSync(artifactDirectory)
-    }
-
-    const scenarioArtifact = pathJs.join(
-      artifactDirectory,
-      `${scenarioUuid}.zip`
-    )
-    const handler = pathJs.join(artifactDirectory, config.HandlerBase)
-    const output = fs.createWriteStream(scenarioArtifact)
 
     try {
-      emitter.emit('intents:installingDependencies')
-      await exec('yarn install', { cwd: intentsDirectory })
-
-      await buildArtifact(
-        output,
-        handler,
-        { path: intentsDirectory, scenarioUuid },
-        emitter
+      const scenarioArtifact = await buildIntents(
+        rootLevel,
+        scenarioUuid,
+        emitter,
+        config
       )
-
-      const authConfigFilePath = pathJs.join(intentsDirectory, AUTH_CONFIG_FILE)
-      await storeCredentials(authConfigFilePath, config, emitter)
-
       await pushScenario(
         scenarioArtifact,
         {
@@ -108,15 +117,16 @@ const deployScreens = ({ scenarioUuid }, emitter, config) =>
 
       emitter.emit('screen:upload:success')
       await invalidateCloudFront(emitter, config)
-      resolve()
+      return resolve()
     } catch (e) {
-      reject(e)
+      return reject(e)
     }
   })
 
 module.exports = {
   deployIntents,
   deployScreens,
+  buildIntents,
   deployScenario: ({ scenarioUuid }, emitter, config) =>
     new Promise(async (resolve, reject) => {
       try {

@@ -442,4 +442,20 @@ module.exports = emitter => {
     term.red(error)
     term('\n')
   })
+
+  emitter.on('start:localServer:start', ({ port }) => {
+    term.white('Bearer: ')
+    term.yellow('[local:intentServer] ')
+    term.yellow('Serving: ')
+    term(`http://127.0.0.1:${port}`)
+    term('\n')
+  })
+
+  emitter.on('start:localServer:endpoints', ({ endpoints }) => {
+    term.white('Bearer: ')
+    term.yellow('[local:intentServer] ')
+    term.yellow('paths: ')
+    term(endpoints.map(i => i.path).join(', '))
+    term('\n')
+  })
 }
