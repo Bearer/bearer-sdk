@@ -1,67 +1,11 @@
 const path = require('path')
 const fs = require('fs-extra')
 const copy = require('copy-template-dir')
-const unzip = require('unzip')
 const Case = require('case')
 const express = require('express')
+const startLocalDevelopmentServer = require('./startLocalDevelopmentServer')
 
 const { spawn, execSync } = require('child_process')
-
-async function startLocalDevelopmentServer(
-  rootLevel,
-  scenarioUuid,
-  emitter,
-  config
-) {
-  try {
-    const { buildIntents } = require(path.join(
-      __dirname,
-      '..',
-      'deployScenario'
-    ))
-    const intentsArtifact = await buildIntents(
-      rootLevel,
-      scenarioUuid,
-      emitter,
-      config
-    )
-
-    const app = express()
-    const buildDir = path.join(rootLevel, 'intents', '.build')
-    fs.ensureDirSync(buildDir)
-
-    await new Promise((resolve, reject) => {
-      fs
-        .createReadStream(intentsArtifact)
-        .pipe(unzip.Extract({ path: buildDir }))
-        .on('close', resolve)
-        .on('error', reject)
-    })
-    const lambdas = require(buildDir)
-
-    const { integration_uuid, intents } = require(path.join(
-      buildDir,
-      'bearer.config.json'
-    ))
-
-    intents.forEach(intent => {
-      const intentName = Object.keys(intent)[0]
-      const endpoint = `/api/v1/${integration_uuid}/${intentName}`
-      app.get(endpoint, (req, res) => {
-        lambdas[intentName](
-          { context: {}, queryStringParameters: req.query },
-          {},
-          (err, datum) => res.send(datum)
-        )
-      })
-      console.log('Local endpoint set')
-      console.log('http://localhost:3000' + endpoint)
-    })
-    app.listen(3000)
-  } catch (e) {
-    throw e
-  }
-}
 
 function createEvenIfItExists(target, sourcePath) {
   try {
@@ -197,6 +141,15 @@ const start = (emitter, config) => async ({ open, install }) => {
       () => ensureSetupAndConfigComponents(rootLevel)
     )
 
+    /* start local development server */
+    const { host, port } = await startLocalDevelopmentServer(
+      rootLevel,
+      scenarioUuid,
+      emitter,
+      config
+    )
+    const integrationHost = `http://${host}:${port}`
+
     /* Start bearer transpiler phase */
     const bearerTranspiler = spawn(
       'node',
@@ -205,14 +158,13 @@ const start = (emitter, config) => async ({ open, install }) => {
         cwd: screensDirectory,
         env: {
           ...process.env,
-          BEARER_SCENARIO_ID: scenarioUuid
+          BEARER_SCENARIO_ID: scenarioUuid,
+          BEARER_INTEGRATION_HOST: integrationHost
         },
         stdio: ['pipe', 'pipe', 'pipe', 'ipc']
       }
     )
 
-    /* start local development server */
-    startLocalDevelopmentServer(rootLevel, scenarioUuid, emitter, config)
     const BEARER = 'bearer-transpiler'
     bearerTranspiler.stdout.on('data', childProcessStdout(emitter, BEARER))
     bearerTranspiler.stderr.on('data', childProcessStderr(emitter, BEARER))
@@ -229,7 +181,8 @@ const start = (emitter, config) => async ({ open, install }) => {
           cwd: buildDirectory,
           env: {
             ...process.env,
-            BEARER_SCENARIO_ID: scenarioUuid
+            BEARER_SCENARIO_ID: scenarioUuid,
+            BEARER_INTEGRATION_HOST: integrationHost
           }
         })
 
