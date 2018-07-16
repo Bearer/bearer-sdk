@@ -5,8 +5,9 @@ export interface IBearerConfig {
 }
 
 export default class BearerConfig {
-  integrationHost: string = 'BEARER_INTEGRATION_HOST' ||
-  'https://int.staging.bearer.sh/'
+  integrationHost: string =
+    'BEARER_INTEGRATION_HOST' || 'https://int.staging.bearer.sh/'
+  authorizationHost: string = 'https://int.staging.bearer.sh/'
   integrationId: string = ''
   loadingComponent: string
 

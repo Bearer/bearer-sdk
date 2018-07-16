@@ -10,6 +10,7 @@ const LOCAL_INTENTS_DEV_CONFIGURATION = 'devIntents'
 const explorer = cosmiconfig(LOCAL_INTENTS_DEV_CONFIGURATION)
 
 const router = new Router({ prefix: '/api/v1/' })
+
 async function startLocalDevelopmentServer(
   rootLevel,
   scenarioUuid,
