@@ -15,15 +15,15 @@ const login = (emitter, config) => async ({ email }) => {
   emitter.emit('login:userFound', Username)
   try {
     const client = serviceClient(config.IntegrationServiceUrl)
-    const { Password } = await inquirer.prompt([
+    const { AccessToken } = await inquirer.prompt([
       {
-        message: `Please enter password:`,
+        message: `Please enter your access token:`,
         type: 'password',
-        name: 'Password'
+        name: 'AccessToken'
       }
     ])
 
-    const res = await client.login({ Username, Password })
+    const res = await client.login({ Username, AccessToken })
 
     let ExpiresAt
     switch (res.statusCode) {
