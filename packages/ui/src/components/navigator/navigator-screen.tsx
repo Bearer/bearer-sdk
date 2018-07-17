@@ -22,13 +22,15 @@ export class BearerNavigatorScreen {
   renderFunc: <T>(
     params: {
       next: (data: any) => void
-      prev: (data: any) => void
+      prev: () => void
+      complete: () => void
       data: T
     }
   ) => void
   @Prop() name: string
 
   @Event() stepCompleted: EventEmitter
+  @Event() scenarioCompleted: EventEmitter
   @Event() navigatorGoBack: EventEmitter
 
   @Method()
@@ -64,6 +66,10 @@ export class BearerNavigatorScreen {
     this.navigatorGoBack.emit()
   }
 
+  complete = () => {
+    this.scenarioCompleted.emit()
+  }
+
   render() {
     if (!this.visible) {
       return false
@@ -71,7 +77,12 @@ export class BearerNavigatorScreen {
     return (
       <div class="screen">
         {this.renderFunc ? (
-          this.renderFunc({ data: this.data, next: this.next, prev: this.prev })
+          this.renderFunc({
+            data: this.data,
+            next: this.next,
+            prev: this.prev,
+            complete: this.complete
+          })
         ) : (
           <slot />
         )}

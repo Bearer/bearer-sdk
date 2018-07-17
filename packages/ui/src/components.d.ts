@@ -839,7 +839,8 @@ declare global {
       'renderFunc': <T>(
     params: {
       next: (data: any) => void
-      prev: (data: any) => void
+      prev: () => void
+      complete: () => void
       data: T
     }
   ) => void;
@@ -870,11 +871,13 @@ declare global {
       'name'?: string;
       'navigationTitle'?: ((data: any) => string) | string;
       'onNavigatorGoBack'?: (event: CustomEvent) => void;
+      'onScenarioCompleted'?: (event: CustomEvent) => void;
       'onStepCompleted'?: (event: CustomEvent) => void;
       'renderFunc'?: <T>(
     params: {
       next: (data: any) => void
-      prev: (data: any) => void
+      prev: () => void
+      complete: () => void
       data: T
     }
   ) => void;
