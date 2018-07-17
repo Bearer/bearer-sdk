@@ -130,9 +130,10 @@ module.exports = {
   buildIntents,
   deployScenario: ({ scenarioUuid }, emitter, config) =>
     new Promise(async (resolve, reject) => {
+      let calculatedConfig = config
+
       try {
         const { ExpiresAt } = config.bearerConfig
-        let calculatedConfig = config
 
         if (ExpiresAt < Date.now()) {
           calculatedConfig = await refreshToken(config, emitter)
