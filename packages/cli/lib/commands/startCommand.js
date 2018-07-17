@@ -6,7 +6,6 @@ const chokidar = require('chokidar')
 const startLocalDevelopmentServer = require('./startLocalDevelopmentServer')
 
 const { spawn, execSync } = require('child_process')
-const integrationHost = `http://example.com`
 
 function createEvenIfItExists(target, sourcePath) {
   try {
@@ -188,6 +187,14 @@ const start = (emitter, config) => async ({ open, install, watcher }) => {
       watchMode: watcher
     })
 
+    /* start local development server */
+    const integrationHost = await startLocalDevelopmentServer(
+      rootLevel,
+      scenarioUuid,
+      emitter,
+      config
+    )
+
     ensureSetupAndConfigComponents(rootLevel)
 
     emitter.emit('start:watchers')
@@ -222,14 +229,6 @@ const start = (emitter, config) => async ({ open, install, watcher }) => {
     bearerTranspiler.on('close', childProcessClose(emitter, BEARER))
 
     if (watcher) {
-      /* start local development server */
-      // const { host, port } = await startLocalDevelopmentServer(
-      //   rootLevel,
-      //   scenarioUuid,
-      //   emitter,
-      //   config
-      // )
-
       bearerTranspiler.on('message', ({ event }) => {
         if (event === 'transpiler:initialized') {
           /* Start stencil */
