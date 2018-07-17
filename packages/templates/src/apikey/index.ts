@@ -18,8 +18,8 @@ export default {
   }
   `,
   RetrieveState: `
-  static action(_context: TContext, _params: any, state, callback) => {
-    callback({ items: state.items.map(({name}) => name) })
+  static action(_context: TContext, _params: any, state, callback) {
+    callback({ items: state.items.map(({ name }) => name) })
   }
   `,
   GetCollection: `
