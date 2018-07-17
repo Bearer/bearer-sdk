@@ -1,6 +1,6 @@
 {
   "name": "@bearer/templates",
-  "version": "0.16.2",
+  "version": "0.16.3",
   "description": "Bearer templates",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
