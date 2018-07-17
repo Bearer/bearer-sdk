@@ -85,7 +85,7 @@ async function startLocalDevelopmentServer(
           emitter.emit('start:localServer:endpoints', {
             endpoints: router.stack
           })
-          resolve({ host: 'localhost', port })
+          resolve(`https://localhost:${port}/`)
         })
       })
     } catch (e) {

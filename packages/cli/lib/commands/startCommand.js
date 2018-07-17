@@ -187,6 +187,14 @@ const start = (emitter, config) => async ({ open, install, watcher }) => {
       watchMode: watcher
     })
 
+    /* start local development server */
+    const integrationHost = await startLocalDevelopmentServer(
+      rootLevel,
+      scenarioUuid,
+      emitter,
+      config
+    )
+
     ensureSetupAndConfigComponents(rootLevel)
 
     emitter.emit('start:watchers')
@@ -210,7 +218,8 @@ const start = (emitter, config) => async ({ open, install, watcher }) => {
         cwd: screensDirectory,
         env: {
           ...process.env,
-          BEARER_SCENARIO_ID: scenarioUuid
+          BEARER_SCENARIO_ID: scenarioUuid,
+          BEARER_INTEGRATION_HOST: integrationHost
         },
         stdio: ['pipe', 'pipe', 'pipe', 'ipc']
       }
@@ -220,15 +229,6 @@ const start = (emitter, config) => async ({ open, install, watcher }) => {
     bearerTranspiler.on('close', childProcessClose(emitter, BEARER))
 
     if (watcher) {
-      /* start local development server */
-      const { host, port } = await startLocalDevelopmentServer(
-        rootLevel,
-        scenarioUuid,
-        emitter,
-        config
-      )
-      const integrationHost = `http://${host}:${port}`
-
       bearerTranspiler.on('message', ({ event }) => {
         if (event === 'transpiler:initialized') {
           /* Start stencil */
