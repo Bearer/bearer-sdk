@@ -17,7 +17,7 @@ export class BearerNavigatorScreen {
   @State() visible: boolean = false
   @State() data: any
 
-  @Prop() navigationTitle: any
+  @Prop() navigationTitle: ((data: any) => string) | string
   @Prop()
   renderFunc: <T>(
     params: {
@@ -44,10 +44,10 @@ export class BearerNavigatorScreen {
 
   @Method()
   getTitle() {
-    if (typeof this.navigationTitle === 'string') {
-      return this.navigationTitle
+    if (typeof this.navigationTitle === 'function') {
+      return this.navigationTitle(this.data)
     }
-    return this.navigationTitle(this.data)
+    return this.navigationTitle
   }
 
   @Listen('completeScreen')
