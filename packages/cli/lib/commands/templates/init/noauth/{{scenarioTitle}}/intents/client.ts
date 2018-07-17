@@ -8,9 +8,3 @@ export const CLIENT = axios.create({
     'User-Agent': 'Bearer'
   }
 })
-
-export function headersFor(token) {
-  return {
-    Authorization: `token ${token}`
-  }
-}
