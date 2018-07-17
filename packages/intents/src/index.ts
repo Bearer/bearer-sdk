@@ -63,7 +63,7 @@ export class SaveState extends BaseIntent {
               })
                 .then(data => {
                   console.log('[BEARER]', 'success', data)
-                  callback(null, response.data.Item)
+                  callback(null, result)
                 })
                 .catch(e => {
                   console.error('[BEARER]', 'error', e)
@@ -85,7 +85,7 @@ export class SaveState extends BaseIntent {
               })
                 .then(data => {
                   console.log('[BEARER]', 'success', data)
-                  callback(null, response.data.Item)
+                  callback(null, result)
                 })
                 .catch(e => {
                   console.error('[BEARER]', 'error', e)
@@ -113,7 +113,7 @@ export class RetrieveState extends BaseIntent {
               event.context,
               event.queryStringParameters,
               response.data.Item,
-              prs => callback(null, prs)
+              state => callback(null, state)
             )
           }
         })
