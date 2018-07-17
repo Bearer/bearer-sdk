@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const CLIENT = axios.create({
-  baseURL: 'https://swapi.co/api/',
+  baseURL: 'https://api.example.com/',
   timeout: 5000,
   headers: {
     Accept: 'application/json',
@@ -9,7 +9,7 @@ export const CLIENT = axios.create({
   }
 })
 
-export function headersFor(token) {
+export function authorizationHeaderWith(token) {
   return {
     Authorization: `token ${token}`
   }

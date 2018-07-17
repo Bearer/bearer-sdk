@@ -116,8 +116,8 @@ const choices = Object.keys(intents)
     value: intent
   }))
 
-function getActionExample(intent, authType) {
-  return templates[authType][intent]
+function getActionExample(intentType, authType) {
+  return templates[authType][intentType]
 }
 
 async function generateIntent({ emitter, rootPathRc, name }) {
@@ -134,7 +134,7 @@ async function generateIntent({ emitter, rootPathRc, name }) {
     'intents',
     'auth.config.json'
   ))
-  const actionExample = getActionExample(intents[intentType], authConfig.authType)
+  const actionExample = getActionExample(intentType, authConfig.authType)
   const vars = { intentName: name, intentType, actionExample }
   const inDir = path.join(__dirname, 'templates/generate/intent')
   const outDir = path.join(path.dirname(rootPathRc), 'intents')
