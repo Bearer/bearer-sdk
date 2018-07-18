@@ -72,7 +72,7 @@ function watchNonTSFiles(watchedPath, destPath) {
   })
 }
 
-function prepare(emitter, config, scenarioUuid) {
+function prepare(emitter, config) {
   return async (
     { install = true, watchMode = true } = { install: true, watchMode: true }
   ) => {
@@ -167,11 +167,11 @@ function transpileStep(
   scenarioUuid,
   integrationHost
 ) {
-  emitter.emit('start:prepare:transpileStep')
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    emitter.emit('start:prepare:transpileStep')
     const bearerTranspiler = spawn(
       'node',
-      [path.join(__dirname, '..', 'startTranspiler.js'), '--no-watcher'],
+      [path.join(__dirname, '..', 'startTranspiler.js')],
       {
         cwd: screensDirectory,
         env: {
@@ -183,8 +183,14 @@ function transpileStep(
       }
     )
 
-    bearerTranspiler.on('close', resolve)
-    bearerTranspiler.stderr.on('data', reject)
+    bearerTranspiler.on('close', (...args) => {
+      emitter.emit('start:prepare:transpileStep:close', args)
+      resolve(...args)
+    })
+    bearerTranspiler.stderr.on('data', (...args) => {
+      emitter.emit('start:prepare:transpileStep:command:error', args)
+      reject(...args)
+    })
     bearerTranspiler.on('message', ({ event }) => {
       if (event === 'transpiler:initialized') {
         emitter.emit('start:prepare:transpileStep:done')

@@ -95,6 +95,12 @@ const deployScreens = ({ scenarioUuid }, emitter, config) =>
         return false
       }
 
+      console.log(
+        emitter,
+        screensDirectory,
+        scenarioUuid,
+        config.IntegrationServiceHost
+      )
       await transpileStep(
         emitter,
         screensDirectory,
