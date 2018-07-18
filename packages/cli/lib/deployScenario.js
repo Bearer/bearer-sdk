@@ -86,39 +86,30 @@ const deployScreens = ({ scenarioUuid }, emitter, config) =>
     } = config
 
     try {
-      const { buildDirectory: screensDirectory } = await prepare(
-        emitter,
-        config
-      )()
-      if (!screensDirectory) {
+      const { buildDirectory } = await prepare(emitter, config)()
+      if (!buildDirectory) {
         process.exit(1)
         return false
       }
 
-      console.log(
-        emitter,
-        screensDirectory,
-        scenarioUuid,
-        config.IntegrationServiceHost
-      )
       await transpileStep(
         emitter,
-        screensDirectory,
+        pathJs.join(buildDirectory, '..'),
         scenarioUuid,
         config.IntegrationServiceHost
       )
 
       emitter.emit('screens:generateSetupComponent')
 
-      await exec('bearer generate --setup', { cwd: screensDirectory })
+      await exec('bearer generate --setup', { cwd: buildDirectory })
 
       emitter.emit('screens:generateConfigComponent')
-      await exec('bearer generate --config', { cwd: screensDirectory })
+      await exec('bearer generate --config', { cwd: buildDirectory })
 
       emitter.emit('screens:buildingDist')
       await exec('yarn build', {
-        cwd: screensDirectory,
-        pwd: screensDirectory,
+        cwd: buildDirectory,
+        pwd: buildDirectory,
         env: {
           BEARER_SCENARIO_ID: scenarioUuid,
           ...process.env,
@@ -127,7 +118,7 @@ const deployScreens = ({ scenarioUuid }, emitter, config) =>
       })
 
       emitter.emit('screens:pushingDist')
-      await pushScreens(screensDirectory, scenarioTitle, OrgId, emitter, config)
+      await pushScreens(buildDirectory, scenarioTitle, OrgId, emitter, config)
 
       emitter.emit('screen:upload:success')
       await invalidateCloudFront(emitter, config)
