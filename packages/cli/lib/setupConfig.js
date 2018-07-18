@@ -10,7 +10,7 @@ const scenarioConfig = rc('scenario')
 const bearerConfig = rc('bearer')
 const rootPathRc = findUp.sync('.scenariorc')
 
-let IntegrationServiceHost = 'https://int.staging.bearer.sh/'
+const IntegrationServiceHost = 'https://int.staging.bearer.sh/'
 
 let setup = {
   DeploymentUrl: 'https://developer.staging.bearer.sh/v1/',

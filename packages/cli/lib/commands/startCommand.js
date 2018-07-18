@@ -161,48 +161,6 @@ function prepare(emitter, config) {
   }
 }
 
-function transpileStep(
-  emitter,
-  screensDirectory,
-  scenarioUuid,
-  integrationHost
-) {
-  return new Promise(async (resolve, reject) => {
-    emitter.emit('start:prepare:transpileStep')
-    const bearerTranspiler = spawn(
-      'node',
-      [path.join(__dirname, '..', 'startTranspiler.js')],
-      {
-        cwd: screensDirectory,
-        env: {
-          ...process.env,
-          BEARER_SCENARIO_ID: scenarioUuid,
-          BEARER_INTEGRATION_HOST: integrationHost
-        },
-        stdio: ['pipe', 'pipe', 'pipe', 'ipc']
-      }
-    )
-
-    bearerTranspiler.on('close', (...args) => {
-      emitter.emit('start:prepare:transpileStep:close', args)
-      resolve(...args)
-    })
-    bearerTranspiler.stderr.on('data', (...args) => {
-      emitter.emit('start:prepare:transpileStep:command:error', args)
-      reject(...args)
-    })
-    bearerTranspiler.on('message', ({ event }) => {
-      if (event === 'transpiler:initialized') {
-        emitter.emit('start:prepare:transpileStep:done')
-        resolve()
-      } else {
-        emitter.emit('start:prepare:transpileStep:error')
-        reject(event)
-      }
-    })
-  })
-}
-
 const ensureSetupAndConfigComponents = rootLevel => {
   spawn('bearer', ['g', '--config'], {
     cwd: rootLevel
@@ -302,7 +260,6 @@ const start = (emitter, config) => async ({ open, install, watcher }) => {
 
 module.exports = {
   prepare,
-  transpileStep,
   start,
   useWith: (program, emitter, config) => {
     program

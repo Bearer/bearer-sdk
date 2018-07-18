@@ -1,8 +1,9 @@
+const { spawn } = require('child_process')
 const pathJs = require('path')
 const fs = require('fs')
 const util = require('util')
 const exec = util.promisify(require('child_process').exec)
-const { prepare, transpileStep } = require('./commands/startCommand')
+const { prepare } = require('./commands/startCommand')
 const buildArtifact = require('./buildArtifact')
 const pushScenario = require('./pushScenario')
 const pushScreens = require('./pushScreens')
@@ -40,6 +41,48 @@ function buildIntents(rootLevel, scenarioUuid, emitter, config) {
     } catch (e) {
       return reject(e)
     }
+  })
+}
+
+function transpileStep(
+  emitter,
+  screensDirectory,
+  scenarioUuid,
+  integrationHost
+) {
+  return new Promise(async (resolve, reject) => {
+    emitter.emit('start:prepare:transpileStep')
+    const bearerTranspiler = spawn(
+      'node',
+      [pathJs.join(__dirname, 'startTranspiler.js'), '--no-watcher'],
+      {
+        cwd: screensDirectory,
+        env: {
+          ...process.env,
+          BEARER_SCENARIO_ID: scenarioUuid,
+          BEARER_INTEGRATION_HOST: integrationHost
+        },
+        stdio: ['pipe', 'pipe', 'pipe', 'ipc']
+      }
+    )
+
+    bearerTranspiler.on('close', (...args) => {
+      emitter.emit('start:prepare:transpileStep:close', args)
+      resolve(...args)
+    })
+    bearerTranspiler.stderr.on('data', (...args) => {
+      emitter.emit('start:prepare:transpileStep:command:error', args)
+      reject(...args)
+    })
+    bearerTranspiler.on('message', ({ event }) => {
+      if (event === 'transpiler:initialized') {
+        emitter.emit('start:prepare:transpileStep:done')
+        resolve(bearerTranspiler)
+      } else {
+        emitter.emit('start:prepare:transpileStep:error')
+        reject(event)
+      }
+    })
   })
 }
 
