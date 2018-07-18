@@ -1,7 +1,7 @@
 class BearerContext {
-  private state: { [key: string]: any} = {}
+  private state: { [key: string]: any } = {}
   private subscribers: Array<any> = []
-  
+
   constructor() {
     console.log('[BEARER]', 'BearerContext init')
   }
@@ -35,7 +35,7 @@ class BearerContext {
     this.subscribers.filter(subscriber => subscriber === component)
   }
 
-  update = (field, value)=> {
+  update = (field, value) => {
     this.state[field] = value
     this.subscribers.map(component => {
       component.updateFromState(this.state)

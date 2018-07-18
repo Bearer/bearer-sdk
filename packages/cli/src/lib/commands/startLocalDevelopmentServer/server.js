@@ -7,9 +7,11 @@ const respond = require('koa-respond')
 const app = new Koa()
 app.use(respond())
 app.use(Logger())
-app.use(cors({
-  credentials: true,
-}))
+app.use(
+  cors({
+    credentials: true
+  })
+)
 app.use(
   BodyParser({
     enableTypes: ['json'],
