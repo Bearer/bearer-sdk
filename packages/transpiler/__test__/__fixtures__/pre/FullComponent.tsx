@@ -1,4 +1,4 @@
-import { Component, Intent, BearerFetch } from '@bearer/core'
+import { Component, Intent, BearerFetch, IntentType } from '@bearer/core'
 
 @Component({
   tag: 'list-repositories',
@@ -7,6 +7,10 @@ import { Component, Intent, BearerFetch } from '@bearer/core'
 })
 export class ListRepositories {
   @Intent('ListRepositories') fetcher: BearerFetch
+
+  @Intent('getPullRequest', IntentType.GetResource)
+  fetchResource: BearerFetch
+
   render() {
     return <bearer-scrollable fetcher={this.fetcher} />
   }
