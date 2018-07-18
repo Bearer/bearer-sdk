@@ -11,7 +11,7 @@ class Emitter {
       term.white('Bearer event: ')
       term.yellow(name)
       term(' ')
-      term.green(args)
+      term.green(JSON.stringify(args))
       term('\n')
     }
     this.emitter.emit(name, args)

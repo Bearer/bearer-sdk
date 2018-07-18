@@ -2,7 +2,7 @@ const pathJs = require('path')
 const fs = require('fs')
 const util = require('util')
 const exec = util.promisify(require('child_process').exec)
-const { prepare } = require('./commands/startCommand')
+const { prepare, transpileStep } = require('./commands/startCommand')
 const buildArtifact = require('./buildArtifact')
 const pushScenario = require('./pushScenario')
 const pushScreens = require('./pushScreens')
@@ -94,6 +94,13 @@ const deployScreens = ({ scenarioUuid }, emitter, config) =>
         process.exit(1)
         return false
       }
+
+      await transpileStep(
+        emitter,
+        screensDirectory,
+        scenarioUuid,
+        'https://int.bearer.sh/'
+      )
 
       emitter.emit('screens:generateSetupComponent')
 

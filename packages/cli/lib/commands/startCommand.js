@@ -72,7 +72,7 @@ function watchNonTSFiles(watchedPath, destPath) {
   })
 }
 
-function prepare(emitter, config) {
+function prepare(emitter, config, scenarioUuid) {
   return async (
     { install = true, watchMode = true } = { install: true, watchMode: true }
   ) => {
@@ -159,6 +159,42 @@ function prepare(emitter, config) {
       return {}
     }
   }
+}
+
+function transpileStep(
+  emitter,
+  screensDirectory,
+  scenarioUuid,
+  integrationHost
+) {
+  emitter.emit('start:prepare:transpileStep')
+  return new Promise((resolve, reject) => {
+    const bearerTranspiler = spawn(
+      'node',
+      [path.join(__dirname, '..', 'startTranspiler.js'), '--no-watcher'],
+      {
+        cwd: screensDirectory,
+        env: {
+          ...process.env,
+          BEARER_SCENARIO_ID: scenarioUuid,
+          BEARER_INTEGRATION_HOST: integrationHost
+        },
+        stdio: ['pipe', 'pipe', 'pipe', 'ipc']
+      }
+    )
+
+    bearerTranspiler.on('close', resolve)
+    bearerTranspiler.stderr.on('data', reject)
+    bearerTranspiler.on('message', ({ event }) => {
+      if (event === 'transpiler:initialized') {
+        emitter.emit('start:prepare:transpileStep:done')
+        resolve()
+      } else {
+        emitter.emit('start:prepare:transpileStep:error')
+        reject(event)
+      }
+    })
+  })
 }
 
 const ensureSetupAndConfigComponents = rootLevel => {
@@ -260,6 +296,7 @@ const start = (emitter, config) => async ({ open, install, watcher }) => {
 
 module.exports = {
   prepare,
+  transpileStep,
   start,
   useWith: (program, emitter, config) => {
     program
