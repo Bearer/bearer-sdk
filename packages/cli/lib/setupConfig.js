@@ -10,9 +10,12 @@ const scenarioConfig = rc('scenario')
 const bearerConfig = rc('bearer')
 const rootPathRc = findUp.sync('.scenariorc')
 
+let IntegrationServiceHost = 'https://int.staging.bearer.sh/'
+
 let setup = {
   DeploymentUrl: 'https://developer.staging.bearer.sh/v1/',
-  IntegrationServiceUrl: 'https://int.staging.bearer.sh/api/v1/',
+  IntegrationServiceHost,
+  IntegrationServiceUrl: `${IntegrationServiceHost}api/v1/`,
   BearerEnv: 'staging',
   DeveloperPortalAPIUrl: 'https://app.bearer.sh/graphql'
 }

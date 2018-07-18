@@ -99,7 +99,7 @@ const deployScreens = ({ scenarioUuid }, emitter, config) =>
         emitter,
         screensDirectory,
         scenarioUuid,
-        'https://int.bearer.sh/'
+        config.IntegrationServiceHost
       )
 
       emitter.emit('screens:generateSetupComponent')
