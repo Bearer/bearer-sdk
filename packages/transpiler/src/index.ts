@@ -36,7 +36,7 @@ export default class Transpiler {
     )
     this.rootFileNames = parsed.fileNames
     if (!this.rootFileNames.length) {
-      console.warn('[BEARER]', 'No file to trnaspile')
+      console.warn('[BEARER]', 'No file to transpile')
     }
   }
 
