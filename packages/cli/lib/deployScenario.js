@@ -1,3 +1,4 @@
+const { spawn } = require('child_process')
 const pathJs = require('path')
 const fs = require('fs')
 const util = require('util')
@@ -40,6 +41,48 @@ function buildIntents(rootLevel, scenarioUuid, emitter, config) {
     } catch (e) {
       return reject(e)
     }
+  })
+}
+
+function transpileStep(
+  emitter,
+  screensDirectory,
+  scenarioUuid,
+  integrationHost
+) {
+  return new Promise(async (resolve, reject) => {
+    emitter.emit('start:prepare:transpileStep')
+    const bearerTranspiler = spawn(
+      'node',
+      [pathJs.join(__dirname, 'startTranspiler.js'), '--no-watcher'],
+      {
+        cwd: screensDirectory,
+        env: {
+          ...process.env,
+          BEARER_SCENARIO_ID: scenarioUuid,
+          BEARER_INTEGRATION_HOST: integrationHost
+        },
+        stdio: ['pipe', 'pipe', 'pipe', 'ipc']
+      }
+    )
+
+    bearerTranspiler.on('close', (...args) => {
+      emitter.emit('start:prepare:transpileStep:close', args)
+      resolve(...args)
+    })
+    bearerTranspiler.stderr.on('data', (...args) => {
+      emitter.emit('start:prepare:transpileStep:command:error', args)
+      reject(...args)
+    })
+    bearerTranspiler.on('message', ({ event }) => {
+      if (event === 'transpiler:initialized') {
+        emitter.emit('start:prepare:transpileStep:done')
+        resolve(bearerTranspiler)
+      } else {
+        emitter.emit('start:prepare:transpileStep:error')
+        reject(event)
+      }
+    })
   })
 }
 
@@ -86,26 +129,30 @@ const deployScreens = ({ scenarioUuid }, emitter, config) =>
     } = config
 
     try {
-      const { buildDirectory: screensDirectory } = await prepare(
-        emitter,
-        config
-      )()
-      if (!screensDirectory) {
+      const { buildDirectory } = await prepare(emitter, config)()
+      if (!buildDirectory) {
         process.exit(1)
         return false
       }
 
+      await transpileStep(
+        emitter,
+        pathJs.join(buildDirectory, '..'),
+        scenarioUuid,
+        config.IntegrationServiceHost
+      )
+
       emitter.emit('screens:generateSetupComponent')
 
-      await exec('bearer generate --setup', { cwd: screensDirectory })
+      await exec('bearer generate --setup', { cwd: buildDirectory })
 
       emitter.emit('screens:generateConfigComponent')
-      await exec('bearer generate --config', { cwd: screensDirectory })
+      await exec('bearer generate --config', { cwd: buildDirectory })
 
       emitter.emit('screens:buildingDist')
       await exec('yarn build', {
-        cwd: screensDirectory,
-        pwd: screensDirectory,
+        cwd: buildDirectory,
+        pwd: buildDirectory,
         env: {
           BEARER_SCENARIO_ID: scenarioUuid,
           ...process.env,
@@ -114,7 +161,7 @@ const deployScreens = ({ scenarioUuid }, emitter, config) =>
       })
 
       emitter.emit('screens:pushingDist')
-      await pushScreens(screensDirectory, scenarioTitle, OrgId, emitter, config)
+      await pushScreens(buildDirectory, scenarioTitle, OrgId, emitter, config)
 
       emitter.emit('screen:upload:success')
       await invalidateCloudFront(emitter, config)
