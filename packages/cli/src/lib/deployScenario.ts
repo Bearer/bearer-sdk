@@ -4,13 +4,13 @@ import * as fs from 'fs'
 import { promisify } from 'util'
 
 import { prepare } from './commands/startCommand'
-import buildArtifact from './buildArtifact'
-import pushScenario from './pushScenario'
-import pushScreens from './pushScreens'
-import assembly from './assemblyScenario'
-import refreshToken from './refreshToken'
-import invalidateCloudFront from './invalidateCloudFront'
-import developerPortal from './developerPortal'
+import * as buildArtifact from './buildArtifact'
+import * as pushScenario from './pushScenario'
+import * as pushScreens from './pushScreens'
+import * as assembly from './assemblyScenario'
+import * as refreshToken from './refreshToken'
+import * as invalidateCloudFront from './invalidateCloudFront'
+import * as developerPortal from './developerPortal'
 
 const execPromise = promisify(exec)
 
@@ -76,6 +76,7 @@ export function deployIntents({ scenarioUuid }, emitter, config) {
       await assembly(scenarioUuid, emitter, config)
       resolve()
     } catch (e) {
+      emitter.emit('deployIntents:error', e)
       reject(e)
     }
   })
@@ -90,7 +91,10 @@ export function deployScreens({ scenarioUuid }, emitter, config) {
     } = config
 
     try {
-      const { buildDirectory } = await prepare(emitter, config)()
+      const { buildDirectory } = await prepare(emitter, config)({
+        install: true,
+        watchMode: null
+      })
       if (!buildDirectory) {
         process.exit(1)
         return false
@@ -113,7 +117,6 @@ export function deployScreens({ scenarioUuid }, emitter, config) {
       emitter.emit('screens:buildingDist')
       await execPromise('yarn build', {
         cwd: buildDirectory,
-        pwd: buildDirectory,
         env: {
           BEARER_SCENARIO_ID: scenarioUuid,
           ...process.env,
@@ -126,10 +129,11 @@ export function deployScreens({ scenarioUuid }, emitter, config) {
 
       emitter.emit('screen:upload:success')
       await invalidateCloudFront(emitter, config)
-      return resolve()
+      resolve()
     } catch (e) {
       emitter.emit('deployScenario:deployScreens:error', e)
-      return reject(e)
+      console.error(e)
+      reject(e)
     }
   })
 }
@@ -192,6 +196,7 @@ export function deployScenario({ scenarioUuid }, emitter, config) {
       await developerPortal(emitter, 'deployed', calculatedConfig)
       resolve()
     } catch (e) {
+      emitter.emit('deployScenario:error', e)
       await developerPortal(emitter, 'cancelled', calculatedConfig)
       reject(e)
     }

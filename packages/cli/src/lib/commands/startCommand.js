@@ -74,7 +74,10 @@ function watchNonTSFiles(watchedPath, destPath) {
 
 function prepare(emitter, config) {
   return async (
-    { install = true, watchMode = true } = { install: true, watchMode: true }
+    { install = true, watchMode = true } = {
+      install: true,
+      watchMode: true
+    }
   ) => {
     try {
       const {
@@ -116,15 +119,16 @@ function prepare(emitter, config) {
       const vars = {
         componentTagName: Case.kebab(scenarioTitle)
       }
-      const inDir = path.join(__dirname, 'templates/start/.build')
+      const inDir = path.join(__dirname, 'templates', 'start', '.build')
       const outDir = buildDirectory
 
       await new Promise((resolve, reject) => {
         copy(inDir, outDir, vars, (err, createdFiles) => {
           if (err) reject(err)
-          createdFiles.forEach(filePath =>
-            emitter.emit('start:prepare:copyFile', filePath)
-          )
+          createdFiles &&
+            createdFiles.forEach(filePath =>
+              emitter.emit('start:prepare:copyFile', filePath)
+            )
           resolve()
         })
       })
@@ -133,7 +137,6 @@ function prepare(emitter, config) {
         path.join(buildDirectory, 'global'),
         path.join(buildSrcDirectory, 'global')
       )
-
       // Link non TS files
       const watcher = await watchNonTSFiles(
         path.join(screensDirectory, 'src'),
@@ -156,7 +159,7 @@ function prepare(emitter, config) {
       }
     } catch (error) {
       emitter.emit('start:prepare:failed', { error })
-      return {}
+      throw error
     }
   }
 }
