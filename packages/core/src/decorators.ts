@@ -23,7 +23,7 @@ export interface IBearerStateDecoratorOptions {
 }
 
 export interface IBearerStateDecorator<T> {
-  (): T
+  (options?: IBearerStateDecoratorOptions): T
 }
 
 export const BearerState: IBearerStateDecorator<any> = (
