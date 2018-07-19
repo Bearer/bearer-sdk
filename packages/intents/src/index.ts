@@ -29,6 +29,7 @@ export class Intent {
 }
 
 export const STATE_CLIENT = axios.create({
+  baseURL: 'https://int.staging.bearer.sh',
   timeout: 5000,
   headers: {
     Accept: 'application/json',
@@ -37,6 +38,12 @@ export const STATE_CLIENT = axios.create({
 })
 
 class BaseIntent {
+  static get display(): string {
+    throw new Error(
+      'Extending class needs to implement `static intent(action)` method'
+    )
+  }
+
   static intent(
     action
   ): (event: any, context: any, callback: (...args: any[]) => any) => any {
@@ -46,7 +53,31 @@ class BaseIntent {
   }
 }
 
-export class SaveState extends BaseIntent {
+class GenericIntentBase extends BaseIntent {
+  static get isStateIntent(): boolean {
+    return false 
+  }
+
+  static get isGlobalIntent(): boolean {
+    return true
+  }
+}
+
+class StateIntentBase extends BaseIntent {
+  static get isStateIntent(): boolean {
+    return true 
+  }
+
+  static get isGlobalIntent(): boolean {
+    return false 
+  }
+}
+
+export class SaveState extends StateIntentBase {
+  static get display() {
+    return 'SaveState'
+  }
+
   static intent(action) {
     return (event, _context, callback) => {
       const { referenceId } = event.queryStringParameters
@@ -101,7 +132,11 @@ export class SaveState extends BaseIntent {
   }
 }
 
-export class RetrieveState extends BaseIntent {
+export class RetrieveState extends StateIntentBase {
+  static get display() {
+    return 'RetrieveState'
+  }
+
   static intent(action) {
     return (event, _context, callback) => {
       const { referenceId } = event.queryStringParameters
@@ -128,7 +163,11 @@ export class RetrieveState extends BaseIntent {
   }
 }
 
-export class GetCollection extends BaseIntent {
+export class GetCollection extends GenericIntentBase {
+  static get display() {
+    return 'GetCollection'
+  }
+
   static intent(action) {
     return (event, _context, callback) =>
       action(event.context, event.queryStringParameters, result => {
@@ -137,7 +176,11 @@ export class GetCollection extends BaseIntent {
   }
 }
 
-export class GetObject extends BaseIntent {
+export class GetObject extends GenericIntentBase {
+  static get display() {
+    return 'GetObject'
+  }
+
   static intent(action) {
     return (event, _context, callback) =>
       action(event.context, event.queryStringParameters, result => {

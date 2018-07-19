@@ -56,7 +56,7 @@ const generate = (emitter, { rootPathRc }) => async env => {
     return generateTemplates({ emitter, templateType: 'setup', rootPathRc })
   }
 
-  const { template, name } = await inquirer.prompt([
+  const { template } = await inquirer.prompt([
     {
       message: 'What do you want to generate',
       type: 'list',
@@ -71,15 +71,10 @@ const generate = (emitter, { rootPathRc }) => async env => {
           value: SCREEN
         }
       ]
-    },
-    {
-      message: 'Give it a name',
-      type: 'input',
-      name: 'name'
     }
   ])
 
-  const params = { emitter, rootPathRc, name }
+  const params = { emitter, rootPathRc }
 
   switch (template) {
     case INTENT:
@@ -92,7 +87,20 @@ const generate = (emitter, { rootPathRc }) => async env => {
   }
 }
 
-function generateScreen({ emitter, rootPathRc, name }) {
+async function askForName() {
+  const { name } = await inquirer.prompt([
+    {
+      message: 'Give it a name',
+      type: 'input',
+      name: 'name'
+    }
+  ])
+
+  return name
+}
+
+async function generateScreen({ emitter, rootPathRc }) {
+  const name = await askForName()
   const componentName = Case.pascal(name)
   const vars = {
     screenName: componentName,
@@ -109,26 +117,35 @@ function generateScreen({ emitter, rootPathRc, name }) {
   })
 }
 
-const choices = Object.keys(intents)
-  .filter(intent => typeof intents[intent].intent !== 'undefined')
-  .map(intent => ({
-    name: intent,
-    value: intent
-  }))
+const filteredChoices = (intents, propertyFlag) =>
+  Object.keys(intents)
+    .filter(intent => intents[intent][propertyFlag])
+    .map(intent => ({
+      name: intents[intent].display,
+      value: intent
+    }))
+    .sort((a, b) => a.name > b.name)
+
+const choices = [
+  ...filteredChoices(intents, 'isGlobalIntent'),
+  new inquirer.Separator(),
+  ...filteredChoices(intents, 'isStateIntent')
+]
 
 function getActionExample(intentType, authType) {
   return templates[authType][intentType]
 }
 
-async function generateIntent({ emitter, rootPathRc, name }) {
+async function generateIntent({ emitter, rootPathRc }) {
   const { intentType } = await inquirer.prompt([
     {
-      message: 'What type of intent do you wan to generate',
+      message: 'What type of intent do you want to generate',
       type: 'list',
       name: 'intentType',
       choices
     }
   ])
+  const name = await askForName()
   const authConfig = require(path.join(
     path.dirname(rootPathRc),
     'intents',
