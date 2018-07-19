@@ -22,13 +22,14 @@ import * as ts from 'typescript'
 
 import decorator from './decorator-helpers'
 import bearer from './bearer'
+import { Decorators } from './constants'
 
 type TransformerOptions = {
   verbose?: true
 }
 
 function injectContext(node: ts.ClassDeclaration): ts.Node {
-  const withContextProp = bearer.addBearerContextProp(node)
+  const withContextProp = bearer.ensureBearerContextInjected(node)
   const withSetupProp = bearer.addSetupIdProp(withContextProp)
   return bearer.addComponentDidLoad(withSetupProp)
 }
@@ -42,7 +43,7 @@ export default function ComponentTransformer({
         ts.isClassDeclaration(node) &&
         decorator.classDecoratedWithName(
           node as ts.ClassDeclaration,
-          'Component'
+          Decorators.Component
         )
       ) {
         return ts.visitEachChild(

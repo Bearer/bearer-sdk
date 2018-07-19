@@ -19,18 +19,19 @@ export {
  */
 
 export interface IBearerStateDecoratorOptions {
-  mappedPropperty?: string
+  statePropName?: string
 }
 
 export interface IBearerStateDecorator<T> {
-  (options?: IBearerStateDecoratorOptions): T
+  (): T
 }
 
+export const BearerState: IBearerStateDecorator<any> = (
+  options?: IBearerStateDecoratorOptions
+) => (target: any, key: string): void => {}
 /**
  *  Component Decorator
  */
-
-export declare const BearerState: IBearerStateDecorator<any>
 
 export enum BearerComponentRoleEnum {
   Display = 'display',
