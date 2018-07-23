@@ -34,7 +34,7 @@ describe('Intent decorator', () => {
 
     beforeEach(() => {
       fetch.resetMocks()
-      fetch.mockResponseOnce(JSON.stringify(collection))
+      fetch.mockResponseOnce(JSON.stringify({ data: collection }))
     })
 
     it('adds a method', () => {
@@ -47,7 +47,7 @@ describe('Intent decorator', () => {
       )
     })
 
-    it('uses GetResourceIntent', async () => {
+    it('uses GetCollectionIntent', async () => {
       const success = jest.fn()
 
       await decoratedInstance
@@ -56,7 +56,7 @@ describe('Intent decorator', () => {
         .catch(a => console.log(a))
 
       expect(fetch).toBeCalledWith(
-        'http://localhost:5555/api/v1/1234/getCollectionIntent?page=1&setupId=&configId=&integrationId=42',
+        'http://localhost:5555/api/v1/1234/getCollectionIntent?page=1&setupId=&integrationId=42',
         commonParams
       )
 
@@ -69,7 +69,7 @@ describe('Intent decorator', () => {
 
     beforeEach(() => {
       fetch.resetMocks()
-      fetch.mockResponseOnce(JSON.stringify(item))
+      fetch.mockResponseOnce(JSON.stringify({ data: item }))
     })
 
     it('adds a method', () => {
@@ -91,12 +91,12 @@ describe('Intent decorator', () => {
         .catch(a => console.log(a))
 
       expect(fetch).toBeCalledWith(
-        'http://localhost:5555/api/v1/1234/getResourceIntent?setupId=&configId=&integrationId=42',
+        'http://localhost:5555/api/v1/1234/getResourceIntent?setupId=&integrationId=42',
 
         commonParams
       )
 
-      expect(success).toBeCalledWith({ object: item })
+      expect(success).toBeCalledWith({ object: item, referenceId: undefined })
     })
   })
 })
