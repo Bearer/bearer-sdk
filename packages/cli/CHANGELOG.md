@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.22.2"></a>
+## [0.22.2](https://github.com/Bearer/bearer/compare/v0.22.1...v0.22.2) (2018-07-23)
+
+
+### Bug Fixes
+
+* **cli:** upgrade intents dependency ([#141](https://github.com/Bearer/bearer/issues/141)) ([0a575da](https://github.com/Bearer/bearer/commit/0a575da))
+
+
+
+
 <a name="0.21.1"></a>
 ## [0.21.1](https://github.com/Bearer/bearer/compare/v0.21.0...v0.21.1) (2018-07-23)
 
