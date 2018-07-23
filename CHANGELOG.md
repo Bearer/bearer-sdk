@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.21.1"></a>
+## [0.21.1](https://github.com/Bearer/bearer/compare/v0.21.0...v0.21.1) (2018-07-23)
+
+
+### Bug Fixes
+
+* **cli:** prevent cli to fail if used outside of a scenario ([#136](https://github.com/Bearer/bearer/issues/136)) ([09dab53](https://github.com/Bearer/bearer/commit/09dab53))
+
+
+
+
 <a name="0.21.0"></a>
 # [0.21.0](https://github.com/Bearer/bearer/compare/v0.20.2...v0.21.0) (2018-07-23)
 
