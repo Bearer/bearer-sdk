@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.21.0"></a>
+# [0.21.0](https://github.com/Bearer/bearer/compare/v0.20.2...v0.21.0) (2018-07-23)
+
+
+### Bug Fixes
+
+* **cli:** Fix package manager returning to early ([#123](https://github.com/Bearer/bearer/issues/123)) ([7e68dca](https://github.com/Bearer/bearer/commit/7e68dca))
+* **cli:** Update {{intentName}}.ts ([#132](https://github.com/Bearer/bearer/issues/132)) ([05effbb](https://github.com/Bearer/bearer/commit/05effbb))
+
+
+### Features
+
+* **cli:** Add basic auth in the init command ([#128](https://github.com/Bearer/bearer/issues/128)) ([95a2adc](https://github.com/Bearer/bearer/commit/95a2adc))
+
+
+
+
 <a name="0.20.2"></a>
 ## [0.20.2](https://github.com/Bearer/bearer/compare/v0.20.1...v0.20.2) (2018-07-20)
 
