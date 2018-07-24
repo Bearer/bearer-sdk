@@ -57,10 +57,8 @@ module.exports = (output, { path, scenarioUuid }, emitter) => {
           })
           archive.append(generateHandler(config), { name: HANDLER_NAME })
           await addFilesToArchive(archive, path)
-          console.log('[BEARER]', 'boom')
         })
         .then(() => {
-          console.log('[BEARER]', 'boom')
           archive.finalize()
         })
         .catch(error => {
