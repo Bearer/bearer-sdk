@@ -1,7 +1,6 @@
-import * as path from 'path'
 import * as getPort from 'get-port'
 import * as Router from 'koa-router'
-import * as unzip from 'unzip'
+import * as unzip from 'unzip-stream'
 import * as fs from 'fs-extra'
 import * as cosmiconfig from 'cosmiconfig'
 
@@ -21,7 +20,7 @@ function startLocalDevelopmentServer(scenarioUuid, emitter, config, locator: Loc
   return new Promise(async (resolve, reject) => {
     try {
       const { config: devIntentsContext = {} } = (await explorer.search(rootLevel)) || {}
-      const intentsArtifact = await buildIntents(rootLevel, scenarioUuid, emitter, config)
+      const intentsArtifact = await buildIntents(scenarioUuid, emitter, config, locator)
 
       fs.ensureDirSync(buildDir)
       await new Promise((resolve, reject) => {

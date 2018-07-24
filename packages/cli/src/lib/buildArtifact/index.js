@@ -14,65 +14,67 @@ const archive = archiver('zip', {
   zlib: { level: 9 }
 })
 
-module.exports = async (output, { path, scenarioUuid }, emitter) => {
-  try {
-    output.on('close', () => {
-      emitter.emit('buildArtifact:output:close', pathJs.resolve(output.path))
-    })
-
-    output.on('end', () => {
-      emitter.emit('buildArtifact:output:end')
-    })
-
-    archive.on('warning', err => {
-      if (err.code === 'ENOENT') {
-        emitter.emit('buildArtifact:archive:warning:ENOENT', err)
-      } else {
-        throw err
-      }
-    })
-
-    archive.pipe(output)
-
-    emitter.emit('buildArtifact:start', { scenarioUuid })
-    // generate javascript files
-    // copy package.json
-    // create config
-    // zip
-
-    const result = await transpileIntents(path)
-    console.log(result)
-
-    await prepareConfig(path, scenarioUuid)
-      .then(async config => {
-        emitter.emit('buildArtifact:configured', { intents: config.intents })
-
-        await attachConfig(archive, JSON.stringify(config, null, 2), {
-          name: CONFIG_FILE
-        })
-
-        archive.append(generateHandler(config), { name: HANDLER_NAME })
-        await addFilesToArchive(archive, path)
+module.exports = (output, { path, scenarioUuid }, emitter) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      output.on('close', () => {
+        emitter.emit('buildArtifact:output:close', pathJs.resolve(output.path))
       })
-      .then(() => {
-        archive.finalize()
-      })
-      .catch(console.error)
 
-    return new Promise((resolve, reject) => {
+      output.on('end', () => {
+        emitter.emit('buildArtifact:output:end')
+      })
+
       output.on('close', () => {
         resolve(archive)
       })
 
       archive.on('error', reject)
-    })
-  } catch (error) {
-    emitter.emit('buildArtifact:error', error)
-  }
+
+      archive.on('warning', err => {
+        if (err.code === 'ENOENT') {
+          emitter.emit('buildArtifact:archive:warning:ENOENT', err)
+        } else {
+          throw err
+        }
+      })
+
+      archive.pipe(output)
+
+      emitter.emit('buildArtifact:start', { scenarioUuid })
+      // generate javascript files
+      // copy package.json
+      // create config
+      // zip
+
+      await transpileIntents(path)
+
+      await prepareConfig(path, scenarioUuid)
+        .then(async config => {
+          emitter.emit('buildArtifact:configured', { intents: config.intents })
+          await attachConfig(archive, JSON.stringify(config, null, 2), {
+            name: CONFIG_FILE
+          })
+          archive.append(generateHandler(config), { name: HANDLER_NAME })
+          await addFilesToArchive(archive, path)
+          console.log('[BEARER]', 'boom')
+        })
+        .then(() => {
+          console.log('[BEARER]', 'boom')
+          archive.finalize()
+        })
+        .catch(error => {
+          emitter.emit('buildArtifact:failed', { error })
+        })
+    } catch (error) {
+      emitter.emit('buildArtifact:error', error)
+    }
+  })
 }
 
 function transpileIntents(path) {
   return new Promise((resolve, reject) => {
+    // Note: it works because we have client.ts present
     globby([`${path}/*.ts`])
       .then(files => {
         if (files.length) {

@@ -11,35 +11,43 @@ import * as assembly from './assemblyScenario'
 import * as refreshToken from './refreshToken'
 import * as invalidateCloudFront from './invalidateCloudFront'
 import * as developerPortal from './developerPortal'
+import LocationProvider from './locationProvider'
 
 const execPromise = promisify(exec)
 
-export function buildIntents(rootLevel, scenarioUuid, emitter, config) {
+export function buildIntents(scenarioUuid: string, emitter, config, locator: LocationProvider) {
   return new Promise(async (resolve, reject) => {
-    const artifactDirectory = pathJs.join(rootLevel, '.bearer')
-    const intentsDirectory = pathJs.join(rootLevel, 'intents')
+    const artifactDirectory = locator.intentsArtifactDir
+    const intentsDirectory = locator.intentsSrcDir
 
     if (!fs.existsSync(artifactDirectory)) {
       fs.mkdirSync(artifactDirectory)
     }
     try {
-      const scenarioArtifact = pathJs.join(artifactDirectory, `${scenarioUuid}.zip`)
-      const handler = pathJs.join(artifactDirectory, config.HandlerBase)
+      const scenarioArtifact = locator.intentsArtifactResourcePath(`${scenarioUuid}.zip`)
       const output = fs.createWriteStream(scenarioArtifact)
 
       emitter.emit('intents:installingDependencies')
+      // TODOs: use root node modules
       await execPromise('yarn install', { cwd: intentsDirectory })
 
-      await buildArtifact(output, handler, { path: intentsDirectory, scenarioUuid }, emitter)
-      return resolve(scenarioArtifact)
+      buildArtifact(output, { path: intentsDirectory, scenarioUuid }, emitter)
+        .then(() => {
+          emitter.emit('intents:buildIntents:succeeded')
+          resolve(scenarioArtifact)
+        })
+        .catch(error => {
+          emitter.emit('intents:buildIntents:failed', { error })
+          reject(error)
+        })
     } catch (e) {
-      return reject(e)
+      reject(e)
     }
   })
 }
 
-export function deployIntents({ scenarioUuid }, emitter, config) {
-  return new Promise(async (resolve, reject) => {
+export function deployIntents({ scenarioUuid }, emitter, config, locator: LocationProvider) {
+  new Promise(async (resolve, reject) => {
     const { rootPathRc } = config
 
     if (!rootPathRc) {
@@ -47,10 +55,8 @@ export function deployIntents({ scenarioUuid }, emitter, config) {
       process.exit(1)
     }
 
-    const rootLevel = pathJs.dirname(rootPathRc)
-
     try {
-      const scenarioArtifact = await buildIntents(rootLevel, scenarioUuid, emitter, config)
+      const scenarioArtifact = await buildIntents(scenarioUuid, emitter, config, locator)
       await pushScenario(
         scenarioArtifact,
         {
@@ -69,7 +75,7 @@ export function deployIntents({ scenarioUuid }, emitter, config) {
   })
 }
 
-export function deployScreens({ scenarioUuid }, emitter, config, locator) {
+export function deployScreens({ scenarioUuid }, emitter, config, locator: LocationProvider) {
   return new Promise(async (resolve, reject) => {
     const {
       scenarioConfig: { scenarioTitle },
@@ -176,7 +182,7 @@ export function deployScenario(
       }
       await developerPortal(emitter, 'predeploy', calculatedConfig)
       if (!noIntents) {
-        await deployIntents({ scenarioUuid }, emitter, calculatedConfig)
+        await deployIntents({ scenarioUuid }, emitter, calculatedConfig, locator)
       }
       if (!noScreens) {
         await deployScreens({ scenarioUuid }, emitter, calculatedConfig, locator)
