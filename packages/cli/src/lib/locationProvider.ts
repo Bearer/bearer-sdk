@@ -15,6 +15,7 @@ export default class LocationProvider {
   scenarioRootFile(filename: string): string {
     return path.join(this.scenarioRoot, filename)
   }
+
   // ~/screens
   get srcScreenDir(): string {
     return path.join(this.scenarioRoot, 'screens')
@@ -32,5 +33,25 @@ export default class LocationProvider {
   // ~/.build/src
   get buildScreenDir(): string {
     return path.join(this.buildDir, 'src')
+  }
+
+  get intentsSrcDir(): string {
+    return path.join(this.scenarioRoot, 'intents')
+  }
+
+  get intentsBuildDir(): string {
+    return path.join(this.intentsSrcDir, '.build')
+  }
+
+  intentsBuildResourcePath(resource: string): string {
+    return path.join(this.intentsBuildDir, resource)
+  }
+
+  get intentsArtifactDir(): string {
+    return path.join(this.scenarioRoot, '.bearer')
+  }
+
+  intentsArtifactResourcePath(resource: string): string {
+    return path.join(this.intentsArtifactDir, resource)
   }
 }

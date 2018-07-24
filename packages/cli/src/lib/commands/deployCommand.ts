@@ -1,13 +1,17 @@
-import { deployScenario } from '../deployScenario'
 import * as inquirer from 'inquirer'
 import * as fs from 'fs'
 import * as ini from 'ini'
 import * as Case from 'case'
 
+import { deployScenario, IDeployOptions } from '../deployScenario'
 import Locator from '../locationProvider'
 import { ScenarioConfig } from '../types'
 
-const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({ path = '.' }) => {
+const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({
+  path = '.',
+  screensOnly = false,
+  intentsOnly = false
+}) => {
   emitter.emit('deploy:started')
   const { BearerEnv } = config
 
@@ -21,20 +25,10 @@ const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({ p
   let { scenarioTitle } = mergedConfig
   const { OrgId } = mergedConfig
 
-  const inquireScenarioTitle = () => {
-    return inquirer.prompt([
-      {
-        message: 'Scenario title (e.g. attachPullRequest)?',
-        type: 'input',
-        name: 'scenarioTitle'
-      }
-    ])
-  }
   if (!scenarioTitle) {
     emitter.emit('scenarioTitle:missing')
     try {
-      const answers = await inquireScenarioTitle()
-      scenarioTitle = answers.scenarioTitle
+      scenarioTitle = await inquireScenarioTitle()
     } catch (e) {
       emitter.emit('scenarioTitle:creationFailed', e)
       process.exit(1)
@@ -53,8 +47,10 @@ const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({ p
 
   fs.writeFileSync(locator.scenarioRc, ini.stringify(scenarioConfigUpdate))
 
+  const deployOptions: IDeployOptions = { scenarioUuid, noScreens: intentsOnly, noIntents: screensOnly }
+
   try {
-    await deployScenario({ scenarioUuid }, emitter, config, locator)
+    await deployScenario(deployOptions, emitter, config, locator)
     const setupUrl = `https://demo.bearer.tech/?scenarioUuid=${scenarioUuid}&scenarioTagName=${scenarioTitle}&name=${scenarioTitle}&orgId=${OrgId}&stage=${BearerEnv}`
 
     emitter.emit('deploy:finished', {
@@ -68,15 +64,27 @@ const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({ p
     })
   }
 }
-module.exports = {
-  useWith: (program, emitter, config, locator) => {
-    program
-      .command('deploy')
-      .description(
-        `Build a scenario package.
-    $ bearer deploy
+
+export function useWith(program, emitter, config, locator): void {
+  program
+    .command('deploy')
+    .description(
+      `Build a scenario package.
+$ bearer deploy
 `
-      )
-      .action(deploy(emitter, config, locator))
-  }
+    )
+    .option('-s, --screens-only', 'Deploy screens only')
+    .option('-i, --intents-only', 'Deploy intents only')
+    .action(deploy(emitter, config, locator))
+}
+
+async function inquireScenarioTitle(): Promise<string> {
+  const answers = await inquirer.prompt([
+    {
+      message: 'Scenario title (e.g. attachPullRequest)?',
+      type: 'input',
+      name: 'scenarioTitle'
+    }
+  ])
+  return answers.scenarioTitle
 }
