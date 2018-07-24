@@ -73,8 +73,8 @@ export function useWith(program, emitter, config, locator): void {
 $ bearer deploy
 `
     )
-    .option('--screens-only', 'Deploy screens only')
-    .option('--intents-only', 'Deploy intents only')
+    .option('-s, --screens-only', 'Deploy screens only')
+    .option('-i, --intents-only', 'Deploy intents only')
     .action(deploy(emitter, config, locator))
 }
 
