@@ -68,15 +68,14 @@ const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({ p
     })
   }
 }
-module.exports = {
-  useWith: (program, emitter, config, locator) => {
-    program
-      .command('deploy')
-      .description(
-        `Build a scenario package.
-    $ bearer deploy
+
+export function useWith(program, emitter, config, locator): void {
+  program
+    .command('deploy')
+    .description(
+      `Build a scenario package.
+$ bearer deploy
 `
-      )
-      .action(deploy(emitter, config, locator))
-  }
+    )
+    .action(deploy(emitter, config, locator))
 }
