@@ -14,7 +14,7 @@ const archive = archiver('zip', {
   zlib: { level: 9 }
 })
 
-module.exports = async (output, handler, { path, scenarioUuid }, emitter) => {
+module.exports = async (output, { path, scenarioUuid }, emitter) => {
   try {
     output.on('close', () => {
       emitter.emit('buildArtifact:output:close', pathJs.resolve(output.path))
@@ -73,60 +73,68 @@ module.exports = async (output, handler, { path, scenarioUuid }, emitter) => {
 
 function transpileIntents(path) {
   return new Promise((resolve, reject) => {
-    globby([`${path}/*.ts`]).then(files => {
-      const entries = files.reduceRight(
-        (entriesAcc, file) => ({
-          ...entriesAcc,
-          [pathJs.basename(file).split('.')[0]]: file
-        }),
-        {}
-      )
-      webpack(
-        {
-          mode: 'production',
-          entry: entries,
-          module: {
-            rules: [
-              {
-                test: /\.tsx?$/,
-                loader: 'ts-loader',
-                exclude: /node_modules/,
-                options: {
-                  compilerOptions: {
-                    allowUnreachableCode: false,
-                    declaration: false,
-                    lib: ['es2017'],
-                    noUnusedLocals: false,
-                    noUnusedParameters: false,
-                    allowSyntheticDefaultImports: true,
-                    experimentalDecorators: true,
-                    moduleResolution: 'node',
-                    module: 'es6',
-                    target: 'es2017'
+    globby([`${path}/*.ts`])
+      .then(files => {
+        if (files.length) {
+          const entries = files.reduceRight(
+            (entriesAcc, file) => ({
+              ...entriesAcc,
+              [pathJs.basename(file).split('.')[0]]: file
+            }),
+            {}
+          )
+          webpack(
+            {
+              mode: 'production',
+              entry: entries,
+              module: {
+                rules: [
+                  {
+                    test: /\.tsx?$/,
+                    loader: 'ts-loader',
+                    exclude: /node_modules/,
+                    options: {
+                      compilerOptions: {
+                        allowUnreachableCode: false,
+                        declaration: false,
+                        lib: ['es2017'],
+                        noUnusedLocals: false,
+                        noUnusedParameters: false,
+                        allowSyntheticDefaultImports: true,
+                        experimentalDecorators: true,
+                        moduleResolution: 'node',
+                        module: 'es6',
+                        target: 'es2017'
+                      }
+                    }
                   }
-                }
+                ]
+              },
+              resolve: {
+                extensions: ['.tsx', '.ts', '.js']
+              },
+              target: 'node',
+              output: {
+                libraryTarget: 'commonjs2',
+                filename: '[name].js',
+                path: pathJs.join(pathJs.resolve(path), 'dist')
+              },
+              context: pathJs.resolve(path)
+            },
+            (err, stats) => {
+              if (err || stats.hasErrors()) {
+                reject(stats.toJson('verbose').errors)
+              } else {
+                resolve(true)
               }
-            ]
-          },
-          resolve: {
-            extensions: ['.tsx', '.ts', '.js']
-          },
-          target: 'node',
-          output: {
-            libraryTarget: 'commonjs2',
-            filename: '[name].js',
-            path: pathJs.join(pathJs.resolve(path), 'dist')
-          },
-          context: pathJs.resolve(path)
-        },
-        (err, stats) => {
-          if (err || stats.hasErrors()) {
-            reject(stats.toJson('verbose').errors)
-          } else {
-            resolve(true)
-          }
+            }
+          )
+        } else {
+          reject([{ error: 'No intents to process' }])
         }
-      )
-    })
+      })
+      .catch(error => {
+        reject([{ error }])
+      })
   })
 }
