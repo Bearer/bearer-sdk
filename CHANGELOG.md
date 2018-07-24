@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.23.1"></a>
+## [0.23.1](https://github.com/Bearer/bearer/compare/v0.23.0...v0.23.1) (2018-07-24)
+
+
+### Bug Fixes
+
+* **cli:** Prevents cli to hang on any command ([4ae6233](https://github.com/Bearer/bearer/commit/4ae6233))
+* **cli:** remove localStorage for now ([#144](https://github.com/Bearer/bearer/issues/144)) ([d7a074c](https://github.com/Bearer/bearer/commit/d7a074c))
+
+
+
+
 <a name="0.22.4"></a>
 ## [0.22.4](https://github.com/Bearer/bearer/compare/v0.22.2...v0.22.4) (2018-07-23)
 
