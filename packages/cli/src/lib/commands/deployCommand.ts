@@ -1,13 +1,17 @@
-import { deployScenario } from '../deployScenario'
 import * as inquirer from 'inquirer'
 import * as fs from 'fs'
 import * as ini from 'ini'
 import * as Case from 'case'
 
+import { deployScenario, IDeployOptions } from '../deployScenario'
 import Locator from '../locationProvider'
 import { ScenarioConfig } from '../types'
 
-const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({ path = '.' }) => {
+const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({
+  path = '.',
+  screensOnly = false,
+  intentsOnly = false
+}) => {
   emitter.emit('deploy:started')
   const { BearerEnv } = config
 
@@ -43,8 +47,10 @@ const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({ p
 
   fs.writeFileSync(locator.scenarioRc, ini.stringify(scenarioConfigUpdate))
 
+  const deployOptions: IDeployOptions = { scenarioUuid, noScreens: intentsOnly, noIntents: screensOnly }
+
   try {
-    await deployScenario({ scenarioUuid }, emitter, config, locator)
+    await deployScenario(deployOptions, emitter, config, locator)
     const setupUrl = `https://demo.bearer.tech/?scenarioUuid=${scenarioUuid}&scenarioTagName=${scenarioTitle}&name=${scenarioTitle}&orgId=${OrgId}&stage=${BearerEnv}`
 
     emitter.emit('deploy:finished', {
@@ -67,6 +73,8 @@ export function useWith(program, emitter, config, locator): void {
 $ bearer deploy
 `
     )
+    .option('--screens-only', 'Deploy screens only')
+    .option('--intents-only', 'Deploy intents only')
     .action(deploy(emitter, config, locator))
 }
 

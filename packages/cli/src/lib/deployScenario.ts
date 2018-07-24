@@ -153,7 +153,18 @@ function transpileStep(emitter, screensDirectory, scenarioUuid, integrationHost)
   })
 }
 
-export function deployScenario({ scenarioUuid }, emitter, config, locator) {
+export interface IDeployOptions {
+  scenarioUuid: string
+  noScreens?: boolean
+  noIntents?: boolean
+}
+
+export function deployScenario(
+  { scenarioUuid, noScreens = false, noIntents = false }: IDeployOptions,
+  emitter,
+  config,
+  locator
+) {
   return new Promise(async (resolve, reject) => {
     let calculatedConfig = config
 
@@ -164,8 +175,12 @@ export function deployScenario({ scenarioUuid }, emitter, config, locator) {
         calculatedConfig = await refreshToken(config, emitter)
       }
       await developerPortal(emitter, 'predeploy', calculatedConfig)
-      await deployIntents({ scenarioUuid }, emitter, calculatedConfig)
-      await deployScreens({ scenarioUuid }, emitter, calculatedConfig, locator)
+      if (!noIntents) {
+        await deployIntents({ scenarioUuid }, emitter, calculatedConfig)
+      }
+      if (!noScreens) {
+        await deployScreens({ scenarioUuid }, emitter, calculatedConfig, locator)
+      }
       await developerPortal(emitter, 'deployed', calculatedConfig)
       resolve()
     } catch (e) {
