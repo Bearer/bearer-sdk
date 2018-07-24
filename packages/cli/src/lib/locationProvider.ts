@@ -33,4 +33,12 @@ export default class LocationProvider {
   get buildScreenDir(): string {
     return path.join(this.buildDir, 'src')
   }
+
+  get intentsBuildDir(): string {
+    return path.join(this.scenarioRoot, 'intent', '.build')
+  }
+
+  intentsBuildResourcePath(resource: string): string {
+    return path.join(this.intentsBuildDir, resource)
+  }
 }

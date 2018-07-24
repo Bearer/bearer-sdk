@@ -141,7 +141,7 @@ export const start = (emitter, config, locator: Locator) => async ({ open, insta
 
     const { scenarioRoot, buildDir } = locator
     /* start local development server */
-    const integrationHost = await startLocalDevelopmentServer(scenarioRoot, scenarioUuid, emitter, config)
+    const integrationHost = await startLocalDevelopmentServer(scenarioUuid, emitter, config, locator)
 
     ensureSetupAndConfigComponents(buildDir)
 
