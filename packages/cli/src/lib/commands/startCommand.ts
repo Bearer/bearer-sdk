@@ -57,15 +57,15 @@ export function prepare(emitter, config, locator: Locator) {
       const {
         scenarioConfig: { scenarioTitle }
       } = config
-      const { buildDir, srcScreenDir, buildScreenDir, scenarioRoot } = locator
+      const { buildViewsSrcDir: buildDir, srcViewsDir, buildViewsDir, scenarioRoot } = locator
 
       // Create hidden folder
       emitter.emit('start:prepare:buildFolder')
       if (!fs.existsSync(buildDir)) {
         fs.mkdirSync(buildDir)
-        fs.mkdirSync(buildScreenDir)
+        fs.mkdirSync(buildViewsDir)
       }
-      fs.emptyDirSync(buildScreenDir)
+      fs.emptyDirSync(buildViewsDir)
 
       // Symlink node_modules
       emitter.emit('start:symlinkNodeModules')
@@ -91,9 +91,9 @@ export function prepare(emitter, config, locator: Locator) {
         })
       })
 
-      createEvenIfItExists(path.join(buildDir, 'global'), path.join(buildScreenDir, 'global'))
+      createEvenIfItExists(path.join(buildDir, 'global'), path.join(buildViewsDir, 'global'))
       // Link non TS files
-      const watcher = await watchNonTSFiles(srcScreenDir, buildScreenDir)
+      const watcher = await watchNonTSFiles(srcViewsDir, buildViewsDir)
 
       if (!watchMode) {
         watcher.close()
@@ -107,7 +107,7 @@ export function prepare(emitter, config, locator: Locator) {
       return {
         rootLevel: scenarioRoot,
         buildDirectory: buildDir,
-        screensDirectory: srcScreenDir
+        viewsDirectory: srcViewsDir
       }
     } catch (error) {
       emitter.emit('start:prepare:failed', { error })
@@ -139,16 +139,16 @@ export const start = (emitter, config, locator: Locator) => async ({ open, insta
       watchMode: watcher
     })
 
-    const { scenarioRoot, buildDir } = locator
+    const { scenarioRoot, buildViewsSrcDir } = locator
     /* start local development server */
     const integrationHost = await startLocalDevelopmentServer(scenarioUuid, emitter, config, locator)
 
-    ensureSetupAndConfigComponents(buildDir)
+    ensureSetupAndConfigComponents(buildViewsSrcDir)
 
     emitter.emit('start:watchers')
     if (watcher) {
       fs.watchFile(path.join(scenarioRoot, 'auth.config.json'), { persistent: true, interval: 250 }, () =>
-        ensureSetupAndConfigComponents(buildDir)
+        ensureSetupAndConfigComponents(buildViewsSrcDir)
       )
     }
 
@@ -180,7 +180,7 @@ export const start = (emitter, config, locator: Locator) => async ({ open, insta
             args.push('--no-open')
           }
           const stencil = spawn('yarn', args, {
-            cwd: buildDir,
+            cwd: buildViewsSrcDir,
             env: {
               ...process.env,
               BEARER_SCENARIO_ID: scenarioUuid,

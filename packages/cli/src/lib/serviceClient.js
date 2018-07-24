@@ -23,7 +23,7 @@ module.exports = url => {
     login: body => requestPromise(url, 'POST', 'login', body),
     refresh: body => requestPromise(url, 'POST', 'refresh_token', body),
     putItem: body => requestPromise(url, 'POST', 'items', body),
-    screensInvalidate: (token, body) =>
+    viewsInvalidate: (token, body) =>
       requestPromise(url, 'POST', 'screens-invalidate', body, {
         Authorization: token
       }),

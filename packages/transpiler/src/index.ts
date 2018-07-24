@@ -27,7 +27,7 @@ export default class Transpiler {
   private readonly ROOT_DIRECTORY
   private watchFiles = true
   private buildFolder = '.build'
-  private srcFolder = 'screens'
+  private srcFolder = 'views'
 
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
@@ -38,7 +38,7 @@ export default class Transpiler {
       throw new Error(config.error.messageText as string)
     }
 
-    const parsed = ts.parseJsonConfigFileContent(config, ts.sys, this.SCREENS_DIRECTORY)
+    const parsed = ts.parseJsonConfigFileContent(config, ts.sys, this.VIEWS_DIRECTORY)
     this.rootFileNames = parsed.fileNames
     if (!this.rootFileNames.length) {
       console.warn('[BEARER]', 'No file to transpile')
@@ -130,7 +130,7 @@ export default class Transpiler {
         PropBearerContextInjector({ verbose }),
         BearerStateInjector({ verbose }),
         BearerReferenceIdInjector({ verbose }),
-        dumpSourceCode(this.SCREENS_DIRECTORY, this.BUILD_SCR_DIRECTORY)({
+        dumpSourceCode(this.VIEWS_DIRECTORY, this.BUILD_SCR_DIRECTORY)({
           verbose: true
         })
       ],
@@ -174,7 +174,7 @@ export default class Transpiler {
     return path.join(this.BUILD_DIRECTORY, 'src')
   }
 
-  private get SCREENS_DIRECTORY(): string {
+  private get VIEWS_DIRECTORY(): string {
     return path.join(this.ROOT_DIRECTORY, this.srcFolder)
   }
 }

@@ -2,6 +2,7 @@ import { ScenarioConfig } from './types'
 import * as path from 'path'
 
 export default class LocationProvider {
+  bearerDir: string
   scenarioRoot: string
   scenarioRc: string
 
@@ -9,6 +10,7 @@ export default class LocationProvider {
     this.scenarioRc = this.config.scenarioConfig.config
     if (this.scenarioRc) {
       this.scenarioRoot = path.dirname(this.scenarioRc)
+      this.bearerDir = path.join(this.scenarioRoot, '.bearer')
     }
   }
 
@@ -16,31 +18,32 @@ export default class LocationProvider {
     return path.join(this.scenarioRoot, filename)
   }
 
-  // ~/screens
-  get srcScreenDir(): string {
-    return path.join(this.scenarioRoot, 'screens')
+  // ~/views
+  get srcViewsDir(): string {
+    return path.join(this.scenarioRoot, 'views')
   }
   // ~/intents
   get srcIntentDir(): string {
     return path.join(this.scenarioRoot, 'intents')
   }
 
-  // ~/.build/
-  get buildDir(): string {
-    return path.join(this.scenarioRoot, '.build')
+  // ~/.bearer/views
+  get buildViewsDir(): string {
+    return path.join(this.bearerDir, 'views')
   }
 
-  // ~/.build/src
-  get buildScreenDir(): string {
-    return path.join(this.buildDir, 'src')
+  // ~/.bearer/views/src
+  get buildViewsSrcDir(): string {
+    return path.join(this.buildViewsDir, 'src')
   }
 
   get intentsSrcDir(): string {
     return path.join(this.scenarioRoot, 'intents')
   }
 
+  // ~/.bearer/intents
   get intentsBuildDir(): string {
-    return path.join(this.intentsSrcDir, '.build')
+    return path.join(this.bearerDir, 'intents')
   }
 
   intentsBuildResourcePath(resource: string): string {
@@ -48,7 +51,7 @@ export default class LocationProvider {
   }
 
   get intentsArtifactDir(): string {
-    return path.join(this.scenarioRoot, '.bearer')
+    return path.join(this.bearerDir, 'artifacts')
   }
 
   intentsArtifactResourcePath(resource: string): string {

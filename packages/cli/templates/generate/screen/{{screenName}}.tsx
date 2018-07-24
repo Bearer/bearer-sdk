@@ -2,15 +2,15 @@ import { Component } from '@bearer/core'
 
 @Component({
   tag: '{{componentTagName}}',
-  styleUrl: '{{screenName}}.css',
+  styleUrl: '{{viewName}}.css',
   shadow: true
 })
-export class {{screenName}} {
+export class {{viewName}} {
   render() {
     return (
       <div class="root">
         <bearer-typography as="h2">
-          {{screenName}} Component
+          {{viewName}} Component
         </bearer-typography>
       </div>
     )
