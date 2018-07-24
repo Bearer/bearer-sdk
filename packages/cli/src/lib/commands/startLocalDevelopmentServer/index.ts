@@ -6,8 +6,7 @@ import * as unzip from 'unzip'
 import * as fs from 'fs-extra'
 import * as cosmiconfig from 'cosmiconfig'
 import Storage from './storage'
-
-
+import auth from './auth'
 
 function startLocalDevelopmentServer(rootLevel, scenarioUuid, emitter, config) {
   const LOCAL_DEV_CONFIGURATION = 'dev'
@@ -80,13 +79,15 @@ function startLocalDevelopmentServer(rootLevel, scenarioUuid, emitter, config) {
       const storage = Storage()
       server.use(storage.routes())
       server.use(storage.allowedMethods())
+      server.use(auth.routes())
+      server.use(auth.allowedMethods())
       server.use(router.routes())
       server.use(router.allowedMethods())
 
       server.listen(port, () => {
         emitter.emit('start:localServer:start', { port })
         emitter.emit('start:localServer:endpoints', {
-          endpoints: [...storage.stack, ...router.stack]
+          endpoints: [...storage.stack, ...auth.stack, ...router.stack]
         })
       })
 
