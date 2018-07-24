@@ -26,7 +26,7 @@ export default class Transpiler {
 
   private readonly ROOT_DIRECTORY
   private watchFiles = true
-  private buildFolder = '.build'
+  private buildFolder = '.bearer/views'
   private srcFolder = 'views'
 
   constructor(options?: Partial<TranpilerOptions>) {

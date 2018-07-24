@@ -14,7 +14,7 @@ export default class LocationProvider {
     }
   }
 
-  scenarioRootFile(filename: string): string {
+  scenarioRootResourcePath(filename: string): string {
     return path.join(this.scenarioRoot, filename)
   }
 
@@ -56,5 +56,9 @@ export default class LocationProvider {
 
   intentsArtifactResourcePath(resource: string): string {
     return path.join(this.intentsArtifactDir, resource)
+  }
+
+  viewsBuildResourcePath(resource: string): string {
+    return path.join(this.buildViewsDir, resource)
   }
 }
