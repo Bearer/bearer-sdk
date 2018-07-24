@@ -21,20 +21,10 @@ const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({ p
   let { scenarioTitle } = mergedConfig
   const { OrgId } = mergedConfig
 
-  const inquireScenarioTitle = () => {
-    return inquirer.prompt([
-      {
-        message: 'Scenario title (e.g. attachPullRequest)?',
-        type: 'input',
-        name: 'scenarioTitle'
-      }
-    ])
-  }
   if (!scenarioTitle) {
     emitter.emit('scenarioTitle:missing')
     try {
-      const answers = await inquireScenarioTitle()
-      scenarioTitle = answers.scenarioTitle
+      scenarioTitle = await inquireScenarioTitle()
     } catch (e) {
       emitter.emit('scenarioTitle:creationFailed', e)
       process.exit(1)
@@ -78,4 +68,15 @@ $ bearer deploy
 `
     )
     .action(deploy(emitter, config, locator))
+}
+
+async function inquireScenarioTitle(): Promise<string> {
+  const answers = await inquirer.prompt([
+    {
+      message: 'Scenario title (e.g. attachPullRequest)?',
+      type: 'input',
+      name: 'scenarioTitle'
+    }
+  ])
+  return answers.scenarioTitle
 }
