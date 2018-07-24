@@ -9,7 +9,9 @@ import Storage from './storage'
 
 function startLocalDevelopmentServer(rootLevel, scenarioUuid, emitter, config) {
   const LOCAL_DEV_CONFIGURATION = 'dev'
-  const explorer = cosmiconfig(LOCAL_DEV_CONFIGURATION)
+  const explorer = cosmiconfig(LOCAL_DEV_CONFIGURATION, {
+    searchPlaces: [`config.${LOCAL_DEV_CONFIGURATION}.js`]
+  })
   const router = new Router({ prefix: '/api/v1/' })
 
   return new Promise(async (resolve, reject) => {
