@@ -30,11 +30,6 @@ async function generateTemplates({
 
   const configKey = `${templateType}Screens`
 
-  const vars = {
-    scenarioTitle: Case.camel(scenarioTitle),
-    componentTagName: Case.kebab(scenarioTitle),
-    fields: authConfig[configKey] ? JSON.stringify(authConfig[configKey]) : '[]'
-  }
   const inDir = path.join(__dirname, `templates/generate/${templateType}`)
   const outDir = locator.buildScreenDir
 
@@ -42,12 +37,18 @@ async function generateTemplates({
     console.log('Deleted files and folders:\n', paths.join('\n'))
   })
 
-  copy(inDir, outDir, vars, (err, createdFiles) => {
-    if (err) throw err
-    createdFiles.forEach(filePath =>
-      emitter.emit('generateIntent:fileGenerated', filePath)
-    )
-  })
+  if (authConfig[configKey] && authConfig[configKey].length) {
+    const vars = {
+      scenarioTitle: Case.camel(scenarioTitle),
+      componentTagName: Case.kebab(scenarioTitle),
+      fields: JSON.stringify(authConfig[configKey])
+    }
+
+    copy(inDir, outDir, vars, (err, createdFiles) => {
+      if (err) throw err
+      createdFiles.forEach(filePath => emitter.emit('generateIntent:fileGenerated', filePath))
+    })
+  }
 }
 
 const generate = (emitter, {}, locator: Locator) => async env => {
@@ -116,13 +117,7 @@ async function askForName() {
   return name
 }
 
-async function generateScreen({
-  emitter,
-  locator
-}: {
-  locator: Locator
-  emitter: any
-}) {
+async function generateScreen({ emitter, locator }: { locator: Locator; emitter: any }) {
   const name = await askForName()
   const componentName = Case.pascal(name)
   const vars = {
@@ -134,9 +129,7 @@ async function generateScreen({
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
     if (err) throw err
-    createdFiles.forEach(filePath =>
-      emitter.emit('generateIntent:fileGenerated', filePath)
-    )
+    createdFiles.forEach(filePath => emitter.emit('generateScreen:fileGenerated', filePath))
   })
 }
 
@@ -159,13 +152,7 @@ function getActionExample(intentType, authType) {
   return templates[authType][intentType]
 }
 
-async function generateIntent({
-  emitter,
-  locator
-}: {
-  emitter: any
-  locator: Locator
-}) {
+async function generateIntent({ emitter, locator }: { emitter: any; locator: Locator }) {
   const { intentType } = await inquirer.prompt([
     {
       message: 'What type of intent do you want to generate',
@@ -177,15 +164,13 @@ async function generateIntent({
   const name = await askForName()
   const authConfig = require(locator.scenarioRootFile('auth.config.json'))
   const actionExample = getActionExample(intentType, authConfig.authType)
-  const vars = { intentName: name, intentType, actionExample }
+  const vars = { intentName: name, authType: authConfig.authType, intentType, actionExample }
   const inDir = path.join(__dirname, 'templates/generate/intent')
   const outDir = locator.srcIntentDir
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
     if (err) throw err
-    createdFiles.forEach(filePath =>
-      emitter.emit('generateIntent:fileGenerated', filePath)
-    )
+    createdFiles.forEach(filePath => emitter.emit('generateIntent:fileGenerated', filePath))
   })
 }
 
