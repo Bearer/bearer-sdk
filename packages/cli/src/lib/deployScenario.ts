@@ -93,7 +93,7 @@ export function deployViews({ scenarioUuid }, emitter, config, locator: Location
         return false
       }
 
-      await transpileStep(emitter, locator.srcViewsDir, scenarioUuid, config.IntegrationServiceHost)
+      await transpileStep(emitter, locator, scenarioUuid, config.IntegrationServiceHost)
 
       emitter.emit('views:generateSetupComponent')
 
@@ -126,11 +126,11 @@ export function deployViews({ scenarioUuid }, emitter, config, locator: Location
   })
 }
 
-function transpileStep(emitter, viewsDirectory, scenarioUuid, integrationHost) {
+function transpileStep(emitter, locator: LocationProvider, scenarioUuid, integrationHost) {
   return new Promise(async (resolve, reject) => {
     emitter.emit('start:prepare:transpileStep')
     const bearerTranspiler = spawn('node', [pathJs.join(__dirname, 'startTranspiler.js'), '--no-watcher'], {
-      cwd: viewsDirectory,
+      cwd: locator.scenarioRoot,
       env: {
         ...process.env,
         BEARER_SCENARIO_ID: scenarioUuid,
