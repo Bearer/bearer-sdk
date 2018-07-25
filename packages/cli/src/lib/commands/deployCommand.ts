@@ -9,7 +9,7 @@ import { ScenarioConfig } from '../types'
 
 const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({
   path = '.',
-  screensOnly = false,
+  viewsOnly = false,
   intentsOnly = false
 }) => {
   emitter.emit('deploy:started')
@@ -47,7 +47,7 @@ const deploy = (emitter, config: ScenarioConfig, locator: Locator) => async ({
 
   fs.writeFileSync(locator.scenarioRc, ini.stringify(scenarioConfigUpdate))
 
-  const deployOptions: IDeployOptions = { scenarioUuid, noScreens: intentsOnly, noIntents: screensOnly }
+  const deployOptions: IDeployOptions = { scenarioUuid, noViews: intentsOnly, noIntents: viewsOnly }
 
   try {
     await deployScenario(deployOptions, emitter, config, locator)
@@ -73,7 +73,7 @@ export function useWith(program, emitter, config, locator): void {
 $ bearer deploy
 `
     )
-    .option('-s, --screens-only', 'Deploy screens only')
+    .option('-v, --views-only', 'Deploy views only')
     .option('-i, --intents-only', 'Deploy intents only')
     .action(deploy(emitter, config, locator))
 }

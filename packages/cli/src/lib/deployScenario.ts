@@ -6,7 +6,7 @@ import { promisify } from 'util'
 import { prepare } from './commands/startCommand'
 import * as buildArtifact from './buildArtifact'
 import * as pushScenario from './pushScenario'
-import * as pushScreens from './pushScreens'
+import * as pushViews from './pushViews'
 import * as assembly from './assemblyScenario'
 import * as refreshToken from './refreshToken'
 import * as invalidateCloudFront from './invalidateCloudFront'
@@ -18,7 +18,7 @@ const execPromise = promisify(exec)
 export function buildIntents(scenarioUuid: string, emitter, config, locator: LocationProvider) {
   return new Promise(async (resolve, reject) => {
     const artifactDirectory = locator.intentsArtifactDir
-    const intentsDirectory = locator.intentsSrcDir
+    const intentsDirectory = locator.srcIntentsDir
 
     if (!fs.existsSync(artifactDirectory)) {
       fs.mkdirSync(artifactDirectory)
@@ -75,7 +75,7 @@ export function deployIntents({ scenarioUuid }, emitter, config, locator: Locati
   })
 }
 
-export function deployScreens({ scenarioUuid }, emitter, config, locator: LocationProvider) {
+export function deployViews({ scenarioUuid }, emitter, config, locator: LocationProvider) {
   return new Promise(async (resolve, reject) => {
     const {
       scenarioConfig: { scenarioTitle },
@@ -93,16 +93,16 @@ export function deployScreens({ scenarioUuid }, emitter, config, locator: Locati
         return false
       }
 
-      await transpileStep(emitter, pathJs.join(buildDirectory, '..'), scenarioUuid, config.IntegrationServiceHost)
+      await transpileStep(emitter, locator, scenarioUuid, config.IntegrationServiceHost)
 
-      emitter.emit('screens:generateSetupComponent')
+      emitter.emit('views:generateSetupComponent')
 
       await execPromise('bearer generate --setup', { cwd: buildDirectory })
 
-      emitter.emit('screens:generateConfigComponent')
+      emitter.emit('views:generateConfigComponent')
       await execPromise('bearer generate --config', { cwd: buildDirectory })
 
-      emitter.emit('screens:buildingDist')
+      emitter.emit('views:buildingDist')
       await execPromise('yarn build', {
         cwd: buildDirectory,
         env: {
@@ -112,25 +112,25 @@ export function deployScreens({ scenarioUuid }, emitter, config, locator: Locati
         }
       })
 
-      emitter.emit('screens:pushingDist')
-      await pushScreens(buildDirectory, scenarioTitle, OrgId, emitter, config)
+      emitter.emit('views:pushingDist')
+      await pushViews(buildDirectory, scenarioTitle, OrgId, emitter, config)
 
-      emitter.emit('screen:upload:success')
+      emitter.emit('view:upload:success')
       await invalidateCloudFront(emitter, config)
       resolve()
     } catch (e) {
-      emitter.emit('deployScenario:deployScreens:error', e)
+      emitter.emit('deployScenario:deployViews:error', e)
       console.error(e)
       reject(e)
     }
   })
 }
 
-function transpileStep(emitter, screensDirectory, scenarioUuid, integrationHost) {
+function transpileStep(emitter, locator: LocationProvider, scenarioUuid, integrationHost) {
   return new Promise(async (resolve, reject) => {
     emitter.emit('start:prepare:transpileStep')
     const bearerTranspiler = spawn('node', [pathJs.join(__dirname, 'startTranspiler.js'), '--no-watcher'], {
-      cwd: screensDirectory,
+      cwd: locator.scenarioRoot,
       env: {
         ...process.env,
         BEARER_SCENARIO_ID: scenarioUuid,
@@ -161,12 +161,12 @@ function transpileStep(emitter, screensDirectory, scenarioUuid, integrationHost)
 
 export interface IDeployOptions {
   scenarioUuid: string
-  noScreens?: boolean
+  noViews?: boolean
   noIntents?: boolean
 }
 
 export function deployScenario(
-  { scenarioUuid, noScreens = false, noIntents = false }: IDeployOptions,
+  { scenarioUuid, noViews = false, noIntents = false }: IDeployOptions,
   emitter,
   config,
   locator
@@ -184,8 +184,8 @@ export function deployScenario(
       if (!noIntents) {
         await deployIntents({ scenarioUuid }, emitter, calculatedConfig, locator)
       }
-      if (!noScreens) {
-        await deployScreens({ scenarioUuid }, emitter, calculatedConfig, locator)
+      if (!noViews) {
+        await deployViews({ scenarioUuid }, emitter, calculatedConfig, locator)
       }
       await developerPortal(emitter, 'deployed', calculatedConfig)
       resolve()

@@ -9,7 +9,7 @@ import * as rc from 'rc'
 import Locator from '../locationProvider'
 
 const INTENT = 'intent'
-const SCREEN = 'screen'
+const VIEW = 'view'
 enum TemplateTypes {
   config = 'config',
   setup = 'setup'
@@ -23,15 +23,15 @@ async function generateTemplates({
   templateType: TemplateTypes
   locator: Locator
 }) {
-  const authConfig = require(locator.scenarioRootFile('auth.config.json'))
+  const authConfig = require(locator.scenarioRootResourcePath('auth.config.json'))
 
   const scenarioConfig = rc('scenario')
   const { scenarioTitle } = scenarioConfig
 
-  const configKey = `${templateType}Screens`
+  const configKey = `${templateType}Views`
 
   const inDir = path.join(__dirname, `templates/generate/${templateType}`)
-  const outDir = locator.buildScreenDir
+  const outDir = locator.buildViewsComponentsDir
 
   await del(`${outDir}*${templateType}*.tsx`).then(paths => {
     console.log('Deleted files and folders:\n', paths.join('\n'))
@@ -85,8 +85,8 @@ const generate = (emitter, {}, locator: Locator) => async env => {
           value: INTENT
         },
         {
-          name: 'Screen',
-          value: SCREEN
+          name: 'View',
+          value: VIEW
         }
       ]
     }
@@ -98,8 +98,8 @@ const generate = (emitter, {}, locator: Locator) => async env => {
     case INTENT:
       generateIntent(params)
       break
-    case SCREEN:
-      await generateScreen(params)
+    case VIEW:
+      await generateView(params)
       break
     default:
   }
@@ -117,19 +117,19 @@ async function askForName() {
   return name
 }
 
-async function generateScreen({ emitter, locator }: { locator: Locator; emitter: any }) {
+async function generateView({ emitter, locator }: { locator: Locator; emitter: any }) {
   const name = await askForName()
   const componentName = Case.pascal(name)
   const vars = {
-    screenName: componentName,
+    viewName: componentName,
     componentTagName: Case.kebab(componentName)
   }
-  const inDir = path.join(__dirname, 'templates/generate/screen')
-  const outDir = path.join(locator.srcScreenDir, 'components')
+  const inDir = path.join(__dirname, 'templates/generate/view')
+  const outDir = path.join(locator.srcViewsDir, 'components')
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
     if (err) throw err
-    createdFiles.forEach(filePath => emitter.emit('generateScreen:fileGenerated', filePath))
+    createdFiles.forEach(filePath => emitter.emit('generateView:fileGenerated', filePath))
   })
 }
 
@@ -162,11 +162,11 @@ async function generateIntent({ emitter, locator }: { emitter: any; locator: Loc
     }
   ])
   const name = await askForName()
-  const authConfig = require(locator.scenarioRootFile('auth.config.json'))
+  const authConfig = require(locator.scenarioRootResourcePath('auth.config.json'))
   const actionExample = getActionExample(intentType, authConfig.authType)
   const vars = { intentName: name, authType: authConfig.authType, intentType, actionExample }
   const inDir = path.join(__dirname, 'templates/generate/intent')
-  const outDir = locator.srcIntentDir
+  const outDir = locator.srcIntentsDir
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
     if (err) throw err
@@ -179,7 +179,7 @@ export function useWith(program, emitter, config, locator): void {
     .command('generate')
     .alias('g')
     .description(
-      `Generate intent or screen.
+      `Generate intent or view.
     $ bearer generate
   `
     )
