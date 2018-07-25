@@ -8,14 +8,14 @@ import '@bearer/ui'
 
 @Component({
   tag: '{{componentTagName}}',
-  styleUrl: '{{scenarioTitle}}.css',
+  styleUrl: '{{componentName}}.css',
   shadow: true
 })
-export class {{scenarioTitle}}Action {
+export class {{componentName}}Action {
   render() {
     return (
       <div>
-        <bearer-navigator btnProps={ {content:"Scenario Name", kind:"primary"} } direction="right">
+        <bearer-navigator btnProps={{content:"Scenario Name", kind:"primary"}} direction="right">
           <bearer-navigator-auth-screen />
         </bearer-navigator>
       </div>
