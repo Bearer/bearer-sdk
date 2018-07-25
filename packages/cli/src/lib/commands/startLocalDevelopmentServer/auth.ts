@@ -17,10 +17,6 @@ router.get('v1/user/initialize', ctx => {
   ctx.body += '</script></body></html>'
 })
 
-router.get('v1/auth/callback', async ctx => {
-  console.log('callback')
-})
-
 router.get('v1/auth/:integration_uuid', async ctx => {
   ctx.body = `<html>
   <head>
