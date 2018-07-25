@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.0"></a>
+# [0.24.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.23.2...v0.24.0) (2018-07-25)
+
+
+### Bug Fixes
+
+* **ui:** get rid of conditional rendering within button popover ([b624c8b](https://github.com/ionic-team/stencil-component-starter/commit/b624c8b))
+
+
+### Features
+
+* **ui:** change default location ([9ea6cc2](https://github.com/ionic-team/stencil-component-starter/commit/9ea6cc2))
+
+
+
+
 <a name="0.22.4"></a>
 ## [0.22.4](https://github.com/ionic-team/stencil-component-starter/compare/v0.22.2...v0.22.4) (2018-07-23)
 

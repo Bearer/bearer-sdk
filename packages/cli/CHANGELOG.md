@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.0"></a>
+# [0.24.0](https://github.com/Bearer/bearer/compare/v0.23.2...v0.24.0) (2018-07-25)
+
+
+### Bug Fixes
+
+* adapt template screens ([c4d29f0](https://github.com/Bearer/bearer/commit/c4d29f0))
+* **cli:** buildartifact dist moved to .bearer ([#156](https://github.com/Bearer/bearer/issues/156)) ([fe16f2a](https://github.com/Bearer/bearer/commit/fe16f2a))
+* **cli:** file renaming was missing ([d9faf0c](https://github.com/Bearer/bearer/commit/d9faf0c))
+* **cli:** handle promise failures ([6d98d71](https://github.com/Bearer/bearer/commit/6d98d71))
+* **cli:** No intent issue ([62e6f9a](https://github.com/Bearer/bearer/commit/62e6f9a))
+* **cli:** rename screen folder to view ([9211568](https://github.com/Bearer/bearer/commit/9211568))
+* add space between brackets ([9c3f671](https://github.com/Bearer/bearer/commit/9c3f671))
+* clean build ([b638e71](https://github.com/Bearer/bearer/commit/b638e71))
+* remove useless bits ([af89ec9](https://github.com/Bearer/bearer/commit/af89ec9))
+
+
+### Features
+
+* **cli:** add bearer keep ([6eb8a2e](https://github.com/Bearer/bearer/commit/6eb8a2e))
+* **cli:** add options shortcut ([36344ec](https://github.com/Bearer/bearer/commit/36344ec))
+* **cli:** allow screens/intents deploy only ([98bdd6a](https://github.com/Bearer/bearer/commit/98bdd6a))
+* **cli:** let deploy use views ([0404f10](https://github.com/Bearer/bearer/commit/0404f10))
+* **cli:** make local deve working ([40c4705](https://github.com/Bearer/bearer/commit/40c4705))
+* **cli:** rename component template name to feature ([63c0374](https://github.com/Bearer/bearer/commit/63c0374))
+* **CLI:** Rename dev.config.js to config.dev.js ([ec04fca](https://github.com/Bearer/bearer/commit/ec04fca))
+* **generator:** Generate setup and config only when required ([#129](https://github.com/Bearer/bearer/issues/129)) ([7091652](https://github.com/Bearer/bearer/commit/7091652)), closes [#148](https://github.com/Bearer/bearer/issues/148)
+* add auth screen to oauth2 setup ([f93d5a9](https://github.com/Bearer/bearer/commit/f93d5a9))
+* **generator:** improve scenario name resilience ([#154](https://github.com/Bearer/bearer/issues/154)) ([c0099f6](https://github.com/Bearer/bearer/commit/c0099f6))
+* add callback to local auth ([9cf65b1](https://github.com/Bearer/bearer/commit/9cf65b1))
+* **generator:** Separate TContext per AuthType ([#152](https://github.com/Bearer/bearer/issues/152)) ([b194c23](https://github.com/Bearer/bearer/commit/b194c23))
+* rename screen to view ([57da6e5](https://github.com/Bearer/bearer/commit/57da6e5))
+
+
+
+
 <a name="0.23.2"></a>
 ## [0.23.2](https://github.com/Bearer/bearer/compare/v0.23.1...v0.23.2) (2018-07-24)
 

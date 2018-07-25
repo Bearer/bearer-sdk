@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.0"></a>
+# [0.24.0](https://github.com/BearerSH/bearer/compare/v0.23.2...v0.24.0) (2018-07-25)
+
+
+### Features
+
+* **generator:** Separate TContext per AuthType ([#152](https://github.com/BearerSH/bearer/issues/152)) ([b194c23](https://github.com/BearerSH/bearer/commit/b194c23))
+
+
+
+
 <a name="0.22.4"></a>
 ## [0.22.4](https://github.com/BearerSH/bearer/compare/v0.22.2...v0.22.4) (2018-07-23)
 
