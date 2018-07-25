@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.24.1"></a>
+## [0.24.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.24.0...v0.24.1) (2018-07-25)
+
+
+### Bug Fixes
+
+* **ui:** prevent unnecessary screen rendering ([cb25e0b](https://github.com/ionic-team/stencil-component-starter/commit/cb25e0b))
+
+
+
+
 <a name="0.24.0"></a>
 # [0.24.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.23.2...v0.24.0) (2018-07-25)
 
