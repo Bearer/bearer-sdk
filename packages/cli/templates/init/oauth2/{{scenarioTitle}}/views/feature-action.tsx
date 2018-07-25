@@ -15,7 +15,8 @@ export class {{componentName}}Action {
   render() {
     return (
       <div>
-        <bearer-navigator>
+        <bearer-navigator btnProps={ {content:"Scenario Name", kind:"primary"} } direction="right">
+          <bearer-navigator-auth-screen />
         </bearer-navigator>
       </div>
     )

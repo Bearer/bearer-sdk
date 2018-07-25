@@ -6,6 +6,7 @@ import * as cosmiconfig from 'cosmiconfig'
 
 import server = require('./server')
 import Storage from './storage'
+import auth from './auth'
 import { buildIntents } from '../../deployScenario'
 import LocationProvider from '../../locationProvider'
 
@@ -68,13 +69,15 @@ function startLocalDevelopmentServer(scenarioUuid, emitter, config, locator: Loc
       const storage = Storage()
       server.use(storage.routes())
       server.use(storage.allowedMethods())
+      server.use(auth.routes())
+      server.use(auth.allowedMethods())
       server.use(router.routes())
       server.use(router.allowedMethods())
 
       server.listen(port, () => {
         emitter.emit('start:localServer:start', { port })
         emitter.emit('start:localServer:endpoints', {
-          endpoints: [...storage.stack, ...router.stack]
+          endpoints: [...storage.stack, ...auth.stack, ...router.stack]
         })
       })
 

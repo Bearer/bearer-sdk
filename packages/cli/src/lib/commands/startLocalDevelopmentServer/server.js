@@ -3,10 +3,12 @@ const Logger = require('koa-logger')
 const cors = require('@koa/cors')
 const BodyParser = require('koa-bodyparser')
 const respond = require('koa-respond')
+// const cookie = require('koa-cookie')
 
 const app = new Koa()
 app.use(respond())
 app.use(Logger())
+// app.use(cookie())
 app.use(
   cors({
     credentials: true
