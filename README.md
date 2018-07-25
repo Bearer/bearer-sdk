@@ -90,7 +90,7 @@ bl start
 
 **Other packages**
 
-If you want to use these packages locally (in repositories not contained in this one)
+If you want to use these packages in a local environment (in repositories not contained in this one)
 
 _assuming we have a package named "@bearer/core"_
 
