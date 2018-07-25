@@ -2,6 +2,7 @@ import { ScenarioConfig } from './types'
 import * as path from 'path'
 
 export default class LocationProvider {
+  bearerDir: string
   scenarioRoot: string
   scenarioRc: string
 
@@ -9,46 +10,48 @@ export default class LocationProvider {
     this.scenarioRc = this.config.scenarioConfig.config
     if (this.scenarioRc) {
       this.scenarioRoot = path.dirname(this.scenarioRc)
+      this.bearerDir = path.join(this.scenarioRoot, '.bearer')
     }
   }
 
-  scenarioRootFile(filename: string): string {
+  scenarioRootResourcePath(filename: string): string {
     return path.join(this.scenarioRoot, filename)
   }
 
-  // ~/screens
-  get srcScreenDir(): string {
-    return path.join(this.scenarioRoot, 'screens')
+  // ~/views
+  get srcViewsDir(): string {
+    return path.join(this.scenarioRoot, 'views')
   }
   // ~/intents
-  get srcIntentDir(): string {
+  get srcIntentsDir(): string {
     return path.join(this.scenarioRoot, 'intents')
   }
 
-  // ~/.build/
-  get buildDir(): string {
-    return path.join(this.scenarioRoot, '.build')
+  buildViewsResourcePath(resource: string): string {
+    return path.join(this.buildViewsDir, resource)
   }
 
-  // ~/.build/src
-  get buildScreenDir(): string {
-    return path.join(this.buildDir, 'src')
+  // ~/.bearer/views
+  get buildViewsDir(): string {
+    return path.join(this.bearerDir, 'views')
   }
 
-  get intentsSrcDir(): string {
-    return path.join(this.scenarioRoot, 'intents')
+  // ~/.bearer/views/src
+  get buildViewsComponentsDir(): string {
+    return path.join(this.buildViewsDir, 'src')
   }
 
-  get intentsBuildDir(): string {
-    return path.join(this.intentsSrcDir, '.build')
+  // ~/.bearer/intents
+  get buildIntentsDir(): string {
+    return path.join(this.bearerDir, 'intents')
   }
 
-  intentsBuildResourcePath(resource: string): string {
-    return path.join(this.intentsBuildDir, resource)
+  buildIntentsResourcePath(resource: string): string {
+    return path.join(this.buildIntentsDir, resource)
   }
 
   get intentsArtifactDir(): string {
-    return path.join(this.scenarioRoot, '.bearer')
+    return path.join(this.bearerDir, 'artifacts')
   }
 
   intentsArtifactResourcePath(resource: string): string {

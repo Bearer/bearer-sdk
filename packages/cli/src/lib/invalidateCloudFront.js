@@ -17,7 +17,7 @@ module.exports = (
     const client = serviceClient(DeploymentUrl)
     try {
       const invalidationPath = `${OrgId}/${scenarioTitle}`
-      const res = await client.screensInvalidate(token, { invalidationPath })
+      const res = await client.viewsInvalidate(token, { invalidationPath })
 
       if (res.statusCode === 204) emitter.emit('invalidateCloudFront:success')
 

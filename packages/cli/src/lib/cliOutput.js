@@ -181,57 +181,57 @@ module.exports = emitter => {
     term('\n')
   })
 
-  emitter.on('screens:generateSetupComponent', () => {
+  emitter.on('views:generateSetupComponent', () => {
     term.white('Bearer: ')
     term.yellow('Generating setup component.')
     term('\n')
   })
 
-  emitter.on('screens:buildingDist', () => {
+  emitter.on('views:buildingDist', () => {
     term.white('Bearer: ')
     term.yellow('Building dist.')
     term('\n')
   })
 
-  emitter.on('screens:pushingDist', () => {
+  emitter.on('views:pushingDist', () => {
     term.white('Bearer: ')
     term.yellow('Pushing dist.')
     term('\n')
   })
 
-  emitter.on('screen:upload:start', () => {
+  emitter.on('view:upload:start', () => {
     term.white('Bearer: ')
-    term.yellow('Uploading screens...')
+    term.yellow('Uploading views...')
     term('\n')
   })
 
-  emitter.on('screen:upload:success', () => {
+  emitter.on('view:upload:success', () => {
     term.white('Bearer: ')
-    term.yellow('Screens uploaded successfully.')
+    term.yellow('Views uploaded successfully.')
     term('\n')
   })
 
-  emitter.on('screen:upload:error', e => {
+  emitter.on('view:upload:error', e => {
     term.white('Bearer: ')
-    term.red('ERROR: Screens upload failed.')
+    term.red('ERROR: Views upload failed.')
     term('\n')
     term(e.toString())
     term('\n')
   })
 
-  emitter.on('screen:fileUpload:error', e => {
+  emitter.on('view:fileUpload:error', e => {
     term.white('Bearer: ')
-    term.red('ERROR: Screen file upload failed.')
+    term.red('ERROR: View file upload failed.')
     term('\n')
     term(e.toString())
     term('\n')
   })
-  emitter.on('screen:fileUpload:success', distPath => {
+  emitter.on('view:fileUpload:success', distPath => {
     term(distPath)
     term('\n')
   })
 
-  emitter.on('screen:fileUpload:failure', distPath => {
+  emitter.on('view:fileUpload:failure', distPath => {
     term.white('Bearer: ')
     term.red("Couldn't upload a file")
     term('\n')
@@ -334,13 +334,13 @@ module.exports = emitter => {
 
   emitter.on('invalidateCloudFront:success', () => {
     term.white('Bearer: ')
-    term.yellow('Screen invalidation success.')
+    term.yellow('View invalidation success.')
     term('\n')
   })
 
   emitter.on('invalidateCloudFront:invalidationFailed', ({ message }) => {
     term.white('Bearer: ')
-    term.red("Couldn't invalidate screens cache.")
+    term.red("Couldn't invalidate views cache.")
     term('\n')
     term.white('Error: ')
     term.red(message)
@@ -349,7 +349,7 @@ module.exports = emitter => {
 
   emitter.on('invalidateCloudFront:error', ({ message }) => {
     term.white('Bearer: ')
-    term.red('There was an error while trying to invalidate screens cache.')
+    term.red('There was an error while trying to invalidate views cache.')
     term('\n')
     term.white('Error: ')
     term.red(message)
@@ -360,7 +360,7 @@ module.exports = emitter => {
 
   emitter.on('start:prepare:buildFolder', () => {
     term.white('Bearer: ')
-    term.yellow('Generating .build folder ')
+    term.yellow('Generating build folder ')
     term('\n')
   })
 
@@ -390,7 +390,7 @@ module.exports = emitter => {
 
   emitter.on('start:prepare:installingDependencies', () => {
     term.white('Bearer: ')
-    term.yellow('Installing screens dependencies.')
+    term.yellow('Installing views dependencies.')
     term('\n')
   })
 
@@ -453,7 +453,7 @@ module.exports = emitter => {
     term('\n')
   })
 
-  emitter.on('deployScenario:deployScreens:error', ({ message }) => {
+  emitter.on('deployScenario:deployViews:error', ({ message }) => {
     term.white('Bearer: ')
     term.red('An error occured')
     term('\n')
@@ -461,7 +461,7 @@ module.exports = emitter => {
     term.red(message)
     term('\n')
   })
-  emitter.on('deployScenario:deployScreens:error', e => {
+  emitter.on('deployScenario:deployViews:error', e => {
     term.white('Bearer: ')
     term.red('An error occured')
     term('\n')

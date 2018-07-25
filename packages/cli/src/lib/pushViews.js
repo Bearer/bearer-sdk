@@ -14,8 +14,8 @@ async function asyncForEach(array, callback) {
   }
 }
 
-const pushScreens = async (
-  screensDirectory,
+const pushViews = async (
+  viewsDirectory,
   scenarioTitle,
   OrgId,
   emitter,
@@ -30,18 +30,18 @@ const pushScreens = async (
 ) =>
   new Promise(async (resolve, reject) => {
     const configuration = {
-      distPath: path.join(screensDirectory, DIST_DIRECTORY),
-      wwwPath: path.join(screensDirectory, WWW_DIRECTORY)
+      distPath: path.join(viewsDirectory, DIST_DIRECTORY),
+      wwwPath: path.join(viewsDirectory, WWW_DIRECTORY)
     }
 
     const integrationsClient = serviceClient(DeploymentUrl)
     try {
-      emitter.emit('screen:upload:start')
+      emitter.emit('view:upload:start')
 
       const files = await globby([configuration.distPath, configuration.wwwPath])
 
       const paths = files.reduce((acc, filePath) => {
-        const relativePath = filePath.replace(screensDirectory + path.sep, '')
+        const relativePath = filePath.replace(viewsDirectory + path.sep, '')
         acc[`${OrgId}/${scenarioTitle}/${relativePath}`] = filePath
         return acc
       }, {})
@@ -57,15 +57,15 @@ const pushScreens = async (
             'Content-Type': mime.lookup(filePath)
           })
         } catch (e) {
-          emitter.emit('screen:fileUpload:error', e)
+          emitter.emit('view:fileUpload:error', e)
           reject(e)
         }
       })
       resolve('done')
     } catch (e) {
-      emitter.emit('screen:upload:error', e)
+      emitter.emit('view:upload:error', e)
       reject(e)
     }
   })
 
-module.exports = pushScreens
+module.exports = pushViews
