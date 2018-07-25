@@ -11,7 +11,7 @@ import LocationProvider from '../../locationProvider'
 
 function startLocalDevelopmentServer(scenarioUuid, emitter, config, locator: LocationProvider) {
   const rootLevel = locator.scenarioRoot
-  const buildDir = locator.intentsBuildDir
+  const buildDir = locator.buildIntentsDir
 
   const LOCAL_DEV_CONFIGURATION = 'dev'
   const explorer = cosmiconfig(LOCAL_DEV_CONFIGURATION, {
@@ -33,7 +33,7 @@ function startLocalDevelopmentServer(scenarioUuid, emitter, config, locator: Loc
       })
       const lambdas = require(buildDir)
 
-      const { integration_uuid, intents } = require(locator.intentsBuildResourcePath('bearer.config.json'))
+      const { integration_uuid, intents } = require(locator.buildIntentsResourcePath('bearer.config.json'))
 
       const port = await getPort({ port: 3000 })
       const bearerBaseURL = `http://localhost:${port}/`

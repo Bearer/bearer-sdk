@@ -31,7 +31,7 @@ async function generateTemplates({
   const configKey = `${templateType}Views`
 
   const inDir = path.join(__dirname, `templates/generate/${templateType}`)
-  const outDir = locator.buildViewsDir
+  const outDir = locator.buildViewsComponentsDir
 
   await del(`${outDir}*${templateType}*.tsx`).then(paths => {
     console.log('Deleted files and folders:\n', paths.join('\n'))
@@ -166,7 +166,7 @@ async function generateIntent({ emitter, locator }: { emitter: any; locator: Loc
   const actionExample = getActionExample(intentType, authConfig.authType)
   const vars = { intentName: name, authType: authConfig.authType, intentType, actionExample }
   const inDir = path.join(__dirname, 'templates/generate/intent')
-  const outDir = locator.srcIntentDir
+  const outDir = locator.srcIntentsDir
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
     if (err) throw err

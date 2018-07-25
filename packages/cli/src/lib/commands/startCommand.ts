@@ -58,7 +58,7 @@ export function prepare(emitter, config, locator: Locator) {
       const {
         scenarioConfig: { scenarioTitle }
       } = config
-      const { buildViewsDir, buildViewsSrcDir, srcViewsDir, scenarioRoot } = locator
+      const { buildViewsDir, buildViewsComponentsDir, srcViewsDir, scenarioRoot } = locator
 
       // Create hidden folder
       emitter.emit('start:prepare:buildFolder')
@@ -67,15 +67,15 @@ export function prepare(emitter, config, locator: Locator) {
       }
       fs.emptyDirSync(buildViewsDir)
 
-      if (!fs.existsSync(buildViewsSrcDir)) {
-        fs.mkdirpSync(buildViewsSrcDir)
+      if (!fs.existsSync(buildViewsComponentsDir)) {
+        fs.mkdirpSync(buildViewsComponentsDir)
       }
 
       // Symlink node_modules
       emitter.emit('start:symlinkNodeModules')
       createEvenIfItExists(
         locator.scenarioRootResourcePath('node_modules'),
-        locator.viewsBuildResourcePath('node_modules')
+        locator.buildViewsResourcePath('node_modules')
       )
 
       // symlink package.json
@@ -83,7 +83,7 @@ export function prepare(emitter, config, locator: Locator) {
 
       createEvenIfItExists(
         locator.scenarioRootResourcePath('package.json'),
-        locator.viewsBuildResourcePath('package.json')
+        locator.buildViewsResourcePath('package.json')
       )
 
       // Copy stencil.config.json
@@ -101,9 +101,12 @@ export function prepare(emitter, config, locator: Locator) {
         })
       })
 
-      createEvenIfItExists(locator.viewsBuildResourcePath('global'), path.join(locator.buildViewsSrcDir, 'global'))
+      createEvenIfItExists(
+        locator.buildViewsResourcePath('global'),
+        path.join(locator.buildViewsComponentsDir, 'global')
+      )
       // Link non TS files
-      const watcher = await watchNonTSFiles(srcViewsDir, buildViewsSrcDir)
+      const watcher = await watchNonTSFiles(srcViewsDir, buildViewsComponentsDir)
 
       if (!watchMode) {
         watcher.close()

@@ -23,8 +23,12 @@ export default class LocationProvider {
     return path.join(this.scenarioRoot, 'views')
   }
   // ~/intents
-  get srcIntentDir(): string {
+  get srcIntentsDir(): string {
     return path.join(this.scenarioRoot, 'intents')
+  }
+
+  buildViewsResourcePath(resource: string): string {
+    return path.join(this.buildViewsDir, resource)
   }
 
   // ~/.bearer/views
@@ -33,21 +37,17 @@ export default class LocationProvider {
   }
 
   // ~/.bearer/views/src
-  get buildViewsSrcDir(): string {
+  get buildViewsComponentsDir(): string {
     return path.join(this.buildViewsDir, 'src')
   }
 
-  get intentsSrcDir(): string {
-    return path.join(this.scenarioRoot, 'intents')
-  }
-
   // ~/.bearer/intents
-  get intentsBuildDir(): string {
+  get buildIntentsDir(): string {
     return path.join(this.bearerDir, 'intents')
   }
 
-  intentsBuildResourcePath(resource: string): string {
-    return path.join(this.intentsBuildDir, resource)
+  buildIntentsResourcePath(resource: string): string {
+    return path.join(this.buildIntentsDir, resource)
   }
 
   get intentsArtifactDir(): string {
@@ -56,9 +56,5 @@ export default class LocationProvider {
 
   intentsArtifactResourcePath(resource: string): string {
     return path.join(this.intentsArtifactDir, resource)
-  }
-
-  viewsBuildResourcePath(resource: string): string {
-    return path.join(this.buildViewsDir, resource)
   }
 }

@@ -18,7 +18,7 @@ const execPromise = promisify(exec)
 export function buildIntents(scenarioUuid: string, emitter, config, locator: LocationProvider) {
   return new Promise(async (resolve, reject) => {
     const artifactDirectory = locator.intentsArtifactDir
-    const intentsDirectory = locator.intentsSrcDir
+    const intentsDirectory = locator.srcIntentsDir
 
     if (!fs.existsSync(artifactDirectory)) {
       fs.mkdirSync(artifactDirectory)
