@@ -65,12 +65,20 @@ const generate = (emitter, {}, locator: Locator) => async env => {
     })
   }
 
-  if (env.blankView) {
+  if (env.blankView && typeof env.blankView === 'string') {
     return generateView({ emitter, locator, name: env.blankView, type: 'blank' })
   }
 
-  if (env.collectionView) {
+  if (env.blankView) {
+    return generateView({ emitter, locator, type: 'blank' })
+  }
+
+  if (env.collectionView && typeof env.collectionView === 'string') {
     return generateView({ emitter, locator, name: env.collectionView, type: 'collection' })
+  }
+
+  if (env.collectionView) {
+    return generateView({ emitter, locator, type: 'collection' })
   }
 
   const { template } = await inquirer.prompt([
@@ -129,6 +137,9 @@ async function generateView({
 }) {
   if (!name) {
     name = await askForName()
+  }
+
+  if (!type) {
     const typePrompt = await inquirer.prompt([
       {
         message: 'What type of view do you want to generate',
@@ -148,6 +159,7 @@ async function generateView({
     ])
     type = typePrompt.type
   }
+
   const componentName = Case.pascal(name)
   const vars = {
     viewName: componentName,
@@ -213,8 +225,8 @@ export function useWith(program, emitter, config, locator): void {
   `
     )
     // .option('-t, --type <intentType>', 'Intent type.')
-    .option('--blank-view <name>', 'generate blank view')
-    .option('--collection-view <name>', 'generate collection view')
+    .option('--blank-view [name]', 'generate blank view')
+    .option('--collection-view [name]', 'generate collection view')
     .option('--setup', 'generate setup file')
     .action(generate(emitter, config, locator))
 }

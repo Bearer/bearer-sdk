@@ -104,6 +104,13 @@ module.exports = emitter => {
     term.yellow(`Bootstrapped a file: ${path}`)
     term('\n')
   })
+
+  emitter.on('generateView:fileGenerated', path => {
+    term.white('Bearer: ')
+    term.yellow(`Bootstrapped a file: ${path}`)
+    term('\n')
+  })
+
   emitter.on('signUp:userCreated', email => {
     term.white('Bearer: ')
     term.yellow('User created: ')
