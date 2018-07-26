@@ -11,8 +11,7 @@ import Locator from '../locationProvider'
 const INTENT = 'intent'
 const VIEW = 'view'
 enum TemplateTypes {
-  setup = 'setup',
-  collectionComponent = 'collectionComponent'
+  setup = 'setup'
 }
 async function generateTemplates({
   emitter,
