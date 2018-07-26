@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/Bearer/bearer/compare/v0.24.1...v0.25.0) (2018-07-26)
+
+
+### Bug Fixes
+
+* remove lerna 3 option ([64312d3](https://github.com/Bearer/bearer/commit/64312d3))
+* remove useless console.log ([a40fffd](https://github.com/Bearer/bearer/commit/a40fffd))
+* remove useless enum item ([e5358be](https://github.com/Bearer/bearer/commit/e5358be))
+
+
+### Features
+
+* **ui:** complete prop on navigator ([8c39006](https://github.com/Bearer/bearer/commit/8c39006))
+* add new options to generate command ([ed9ec03](https://github.com/Bearer/bearer/commit/ed9ec03))
+* add optional name for generate command ([d4300e0](https://github.com/Bearer/bearer/commit/d4300e0))
+
+
+
+
 <a name="0.24.1"></a>
 ## [0.24.1](https://github.com/Bearer/bearer/compare/v0.24.0...v0.24.1) (2018-07-25)
 
