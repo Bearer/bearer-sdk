@@ -66,12 +66,10 @@ const generate = (emitter, {}, locator: Locator) => async env => {
   }
 
   if (env.blankView) {
-    console.log('blank view: ' + env.blankView)
     return generateView({ emitter, locator, name: env.blankView, type: 'blank' })
   }
 
   if (env.collectionView) {
-    console.log('collection view ' + env.collectionView)
     return generateView({ emitter, locator, name: env.collectionView, type: 'collection' })
   }
 
