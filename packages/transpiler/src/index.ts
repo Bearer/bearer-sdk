@@ -10,6 +10,7 @@ import PropBearerContextInjector from './transformers/prop-bearer-context-inject
 import PropImporter from './transformers/prop-importer'
 import BearerStateInjector from './transformers/bearer-state-injector'
 import BearerReferenceIdInjector from './transformers/reference-id-injector'
+import RootComponentTransformer from './transformers/root-component-transformer'
 
 export type TranpilerOptions = {
   ROOT_DIRECTORY?: string
@@ -123,6 +124,7 @@ export default class Transpiler {
     const verbose = true
     return {
       before: [
+        RootComponentTransformer({ verbose }),
         ReplaceIntentDecorators({ verbose }),
         BearerScenarioIdInjector({ verbose }),
         PropImporter({ verbose }),
