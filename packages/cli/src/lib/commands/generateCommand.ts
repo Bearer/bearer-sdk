@@ -65,6 +65,22 @@ const generate = (emitter, {}, locator: Locator) => async env => {
     })
   }
 
+  if (env.blankView && typeof env.blankView === 'string') {
+    return generateView({ emitter, locator, name: env.blankView, type: 'blank' })
+  }
+
+  if (env.blankView) {
+    return generateView({ emitter, locator, type: 'blank' })
+  }
+
+  if (env.collectionView && typeof env.collectionView === 'string') {
+    return generateView({ emitter, locator, name: env.collectionView, type: 'collection' })
+  }
+
+  if (env.collectionView) {
+    return generateView({ emitter, locator, type: 'collection' })
+  }
+
   const { template } = await inquirer.prompt([
     {
       message: 'What do you want to generate',
@@ -108,14 +124,48 @@ async function askForName() {
   return name.trim()
 }
 
-async function generateView({ emitter, locator }: { locator: Locator; emitter: any }) {
-  const name = await askForName()
+async function generateView({
+  emitter,
+  locator,
+  name,
+  type
+}: {
+  locator: Locator
+  emitter: any
+  name?: string
+  type?: string
+}) {
+  if (!name) {
+    name = await askForName()
+  }
+
+  if (!type) {
+    const typePrompt = await inquirer.prompt([
+      {
+        message: 'What type of view do you want to generate',
+        type: 'list',
+        name: 'type',
+        choices: [
+          {
+            name: 'Blank',
+            value: 'blank'
+          },
+          {
+            name: 'Collection',
+            value: 'collection'
+          }
+        ]
+      }
+    ])
+    type = typePrompt.type
+  }
+
   const componentName = Case.pascal(name)
   const vars = {
     viewName: componentName,
     componentTagName: Case.kebab(componentName)
   }
-  const inDir = path.join(__dirname, 'templates/generate/view')
+  const inDir = path.join(__dirname, 'templates/generate', type + 'View')
   const outDir = path.join(locator.srcViewsDir, 'components')
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
@@ -175,6 +225,8 @@ export function useWith(program, emitter, config, locator): void {
   `
     )
     // .option('-t, --type <intentType>', 'Intent type.')
+    .option('--blank-view [name]', 'generate blank view')
+    .option('--collection-view [name]', 'generate collection view')
     .option('--setup', 'generate setup file')
     .action(generate(emitter, config, locator))
 }
