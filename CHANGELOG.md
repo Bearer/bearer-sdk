@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.27.0"></a>
+# [0.27.0](https://github.com/Bearer/bearer/compare/v0.26.0...v0.27.0) (2018-07-27)
+
+
+### Bug Fixes
+
+* change terminology ([724a69d](https://github.com/Bearer/bearer/commit/724a69d))
+
+
+### Features
+
+* **cli:** add warning is missing or incorrect ([#167](https://github.com/Bearer/bearer/issues/167)) ([6af728c](https://github.com/Bearer/bearer/commit/6af728c))
+* **cli:** rename invoke to run ([#172](https://github.com/Bearer/bearer/issues/172)) ([3a440a6](https://github.com/Bearer/bearer/commit/3a440a6))
+
+
+
+
 <a name="0.26.0"></a>
 # [0.26.0](https://github.com/Bearer/bearer/compare/v0.25.1...v0.26.0) (2018-07-26)
 
