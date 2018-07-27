@@ -20,11 +20,7 @@
       if ((1 & r && (e = n(e)), 8 & r)) return e
       if (4 & r && 'object' == typeof e && e && e.__esModule) return e
       var o = Object.create(null)
-      if (
-        (n.r(o),
-        Object.defineProperty(o, 'default', { enumerable: !0, value: e }),
-        2 & r && 'string' != typeof e)
-      )
+      if ((n.r(o), Object.defineProperty(o, 'default', { enumerable: !0, value: e }), 2 & r && 'string' != typeof e))
         for (var t in e)
           n.d(
             o,
@@ -72,16 +68,12 @@
         return (
           console.log('[BEARER]', 'hasAuthoried?', e.data),
           {
-            authorized: i.Storage.hasAuthorized(
-              e.data.scenarioId,
-              e.data.integrationId
-            )
+            authorized: i.Storage.hasAuthorized(e.data.scenarioId, e.data.integrationId)
           }
         )
       }),
       o.on(t.Events.REVOKE, function(e) {
-        i.Storage.revoke(e.data.scenarioId, e.data.integrationId),
-          o.send(window.parent, t.Events.REVOKED, e.data)
+        i.Storage.revoke(e.data.scenarioId, e.data.integrationId), o.send(window.parent, t.Events.REVOKED, e.data)
       })
   },
   function(e, r, n) {
@@ -125,11 +117,7 @@
           n((n.s = './src/index.js'))
         )
       })({
-        './node_modules/cross-domain-safe-weakmap/src/index.js': function(
-          e,
-          r,
-          n
-        ) {
+        './node_modules/cross-domain-safe-weakmap/src/index.js': function(e, r, n) {
           'use strict'
           r.__esModule = !0
           var o = n('./node_modules/cross-domain-safe-weakmap/src/interface.js')
@@ -146,18 +134,12 @@
           var t = (function(e) {
             if (e && e.__esModule) return e
             var r = {}
-            if (null != e)
-              for (var n in e)
-                Object.prototype.hasOwnProperty.call(e, n) && (r[n] = e[n])
+            if (null != e) for (var n in e) Object.prototype.hasOwnProperty.call(e, n) && (r[n] = e[n])
             return (r.default = e), r
           })(o)
           r.default = t
         },
-        './node_modules/cross-domain-safe-weakmap/src/interface.js': function(
-          e,
-          r,
-          n
-        ) {
+        './node_modules/cross-domain-safe-weakmap/src/interface.js': function(e, r, n) {
           'use strict'
           r.__esModule = !0
           var o = n('./node_modules/cross-domain-safe-weakmap/src/weakmap.js')
@@ -168,11 +150,7 @@
             }
           })
         },
-        './node_modules/cross-domain-safe-weakmap/src/native.js': function(
-          e,
-          r,
-          n
-        ) {
+        './node_modules/cross-domain-safe-weakmap/src/native.js': function(e, r, n) {
           'use strict'
           ;(r.__esModule = !0),
             (r.hasNativeWeakMap = function() {
@@ -181,21 +159,13 @@
               try {
                 var e = new window.WeakMap(),
                   r = {}
-                return (
-                  window.Object.freeze(r),
-                  e.set(r, '__testvalue__'),
-                  '__testvalue__' === e.get(r)
-                )
+                return window.Object.freeze(r), e.set(r, '__testvalue__'), '__testvalue__' === e.get(r)
               } catch (e) {
                 return !1
               }
             })
         },
-        './node_modules/cross-domain-safe-weakmap/src/util.js': function(
-          e,
-          r,
-          n
-        ) {
+        './node_modules/cross-domain-safe-weakmap/src/util.js': function(e, r, n) {
           'use strict'
           ;(r.__esModule = !0),
             (r.safeIndexOf = function(e, r) {
@@ -207,11 +177,7 @@
             }),
             (r.noop = function() {})
         },
-        './node_modules/cross-domain-safe-weakmap/src/weakmap.js': function(
-          e,
-          r,
-          n
-        ) {
+        './node_modules/cross-domain-safe-weakmap/src/weakmap.js': function(e, r, n) {
           'use strict'
           ;(r.__esModule = !0), (r.CrossDomainSafeWeakMap = void 0)
           var o = n('./node_modules/cross-domain-utils/src/index.js'),
@@ -223,12 +189,10 @@
             function e() {
               if (
                 ((function(e, r) {
-                  if (!(e instanceof r))
-                    throw new TypeError('Cannot call a class as a function')
+                  if (!(e instanceof r)) throw new TypeError('Cannot call a class as a function')
                 })(this, e),
                 (a += 1),
-                (this.name =
-                  '__weakmap_' + ((1e9 * Math.random()) >>> 0) + '__' + a),
+                (this.name = '__weakmap_' + ((1e9 * Math.random()) >>> 0) + '__' + a),
                 (0, t.hasNativeWeakMap)())
               )
                 try {
@@ -238,11 +202,7 @@
             }
             return (
               (e.prototype._cleanupClosedWindows = function() {
-                for (
-                  var e = this.weakmap, r = this.keys, n = 0;
-                  n < r.length;
-                  n++
-                ) {
+                for (var e = this.weakmap, r = this.keys, n = 0; n < r.length; n++) {
                   var t = r[n]
                   if ((0, o.isWindow)(t) && (0, o.isWindowClosed)(t)) {
                     if (e)
@@ -274,9 +234,7 @@
                 if (this.isSafeToReadWrite(e)) {
                   var o = this.name,
                     t = e[o]
-                  t && t[0] === e
-                    ? (t[1] = r)
-                    : s(e, o, { value: [e, r], writable: !0 })
+                  t && t[0] === e ? (t[1] = r) : s(e, o, { value: [e, r], writable: !0 })
                 } else {
                   this._cleanupClosedWindows()
                   var a = this.keys,
@@ -336,10 +294,7 @@
                   var n = e[this.name]
                   return !(!n || n[0] !== e)
                 }
-                return (
-                  this._cleanupClosedWindows(),
-                  -1 !== (0, i.safeIndexOf)(this.keys, e)
-                )
+                return this._cleanupClosedWindows(), -1 !== (0, i.safeIndexOf)(this.keys, e)
               }),
               e
             )
@@ -387,10 +342,8 @@
           ;(r.__esModule = !0),
             (r.isFileProtocol = function() {
               return (
-                (arguments.length > 0 && void 0 !== arguments[0]
-                  ? arguments[0]
-                  : window
-                ).location.protocol === t.FILE_PROTOCOL
+                (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window).location.protocol ===
+                t.FILE_PROTOCOL
               )
             }),
             (r.isAboutProtocol = s),
@@ -422,10 +375,8 @@
             (r.linkFrameWindow = function(e) {
               if (
                 ((function() {
-                  for (var e = 0; e < E.length; e++)
-                    v(E[e]) && (E.splice(e, 1), y.splice(e, 1))
-                  for (var r = 0; r < y.length; r++)
-                    O(y[r]) && (E.splice(r, 1), y.splice(r, 1))
+                  for (var e = 0; e < E.length; e++) v(E[e]) && (E.splice(e, 1), y.splice(e, 1))
+                  for (var r = 0; r < y.length; r++) O(y[r]) && (E.splice(r, 1), y.splice(r, 1))
                 })(),
                 e && e.contentWindow)
               )
@@ -434,10 +385,7 @@
                 } catch (e) {}
             }),
             (r.getUserAgent = function(e) {
-              return (
-                (e = e || window).navigator.mockUserAgent ||
-                e.navigator.userAgent
-              )
+              return (e = e || window).navigator.mockUserAgent || e.navigator.userAgent
             }),
             (r.getFrameByName = b),
             (r.findChildFrameByName = T),
@@ -448,14 +396,7 @@
             (r.isParent = function(e, r) {
               var n = a(r)
               if (n) return n === e
-              for (
-                var o = _(e),
-                  t = Array.isArray(o),
-                  i = 0,
-                  o = t ? o : o[Symbol.iterator]();
-                ;
-
-              ) {
+              for (var o = _(e), t = Array.isArray(o), i = 0, o = t ? o : o[Symbol.iterator](); ; ) {
                 var s
                 if (t) {
                   if (i >= o.length) break
@@ -482,14 +423,7 @@
               if (n) return n === e
               if (r === e) return !1
               if (w(r) === r) return !1
-              for (
-                var o = _(e),
-                  t = Array.isArray(o),
-                  i = 0,
-                  o = t ? o : o[Symbol.iterator]();
-                ;
-
-              ) {
+              for (var o = _(e), t = Array.isArray(o), i = 0, o = t ? o : o[Symbol.iterator](); ; ) {
                 var s
                 if (t) {
                   if (i >= o.length) break
@@ -511,10 +445,7 @@
             (r.getDistanceFromTop = R),
             (r.getNthParent = C),
             (r.getNthParentFromTop = function(e) {
-              var r =
-                arguments.length > 1 && void 0 !== arguments[1]
-                  ? arguments[1]
-                  : 1
+              var r = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1
               return C(e, R(e) - r)
             }),
             (r.isSameTopWindow = function(e, r) {
@@ -564,14 +495,8 @@
                 : d()
             }),
             (r.onCloseWindow = function(e, r) {
-              var n =
-                  arguments.length > 2 && void 0 !== arguments[2]
-                    ? arguments[2]
-                    : 1e3,
-                o =
-                  arguments.length > 3 && void 0 !== arguments[3]
-                    ? arguments[3]
-                    : 1 / 0,
+              var n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 1e3,
+                o = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : 1 / 0,
                 t = void 0
               return (
                 (function i() {
@@ -592,8 +517,7 @@
                 if (e && e.message === i) return !0
               }
               try {
-                if ('[object Window]' === Object.prototype.toString.call(e))
-                  return !0
+                if ('[object Window]' === Object.prototype.toString.call(e)) return !0
               } catch (e) {
                 if (e && e.message === i) return !0
               }
@@ -639,10 +563,8 @@
             i = 'Call was rejected by callee.\r\n'
           function s() {
             return (
-              (arguments.length > 0 && void 0 !== arguments[0]
-                ? arguments[0]
-                : window
-              ).location.protocol === t.ABOUT_PROTOCOL
+              (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window).location.protocol ===
+              t.ABOUT_PROTOCOL
             )
           }
           function a(e) {
@@ -679,11 +601,7 @@
           }
           function d(e) {
             var r = l((e = e || window))
-            return r &&
-              e.mockDomain &&
-              0 === e.mockDomain.indexOf(t.MOCK_PROTOCOL)
-              ? e.mockDomain
-              : r
+            return r && e.mockDomain && 0 === e.mockDomain.indexOf(t.MOCK_PROTOCOL) ? e.mockDomain : r
           }
           function f(e) {
             try {
@@ -838,8 +756,7 @@
           var y = [],
             E = []
           function O(e) {
-            var r =
-              !(arguments.length > 1 && void 0 !== arguments[1]) || arguments[1]
+            var r = !(arguments.length > 1 && void 0 !== arguments[1]) || arguments[1]
             try {
               if (e === window) return !1
             } catch (e) {
@@ -969,29 +886,12 @@
             return !1
           }
           function R() {
-            for (
-              var e = 0,
-                r =
-                  arguments.length > 0 && void 0 !== arguments[0]
-                    ? arguments[0]
-                    : window;
-              r;
-
-            )
+            for (var e = 0, r = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window; r; )
               (r = a(r)) && (e += 1)
             return e
           }
           function C(e) {
-            for (
-              var r =
-                  arguments.length > 1 && void 0 !== arguments[1]
-                    ? arguments[1]
-                    : 1,
-                n = e,
-                o = 0;
-              o < r;
-              o++
-            ) {
+            for (var r = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1, n = e, o = 0; o < r; o++) {
               if (!n) return
               n = a(n)
             }
@@ -1007,10 +907,7 @@
                     return typeof e
                   }
                 : function(e) {
-                    return e &&
-                      'function' == typeof Symbol &&
-                      e.constructor === Symbol &&
-                      e !== Symbol.prototype
+                    return e && 'function' == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype
                       ? 'symbol'
                       : typeof e
                   }
@@ -1020,9 +917,7 @@
           try {
             o = o || Function('return this')() || (0, eval)('this')
           } catch (e) {
-            'object' ===
-              ('undefined' == typeof window ? 'undefined' : t(window)) &&
-              (o = window)
+            'object' === ('undefined' == typeof window ? 'undefined' : t(window)) && (o = window)
           }
           e.exports = o
         },
@@ -1035,12 +930,7 @@
                   setTimeout(function() {
                     throw e
                   }, 1)
-                for (
-                  var r = 0;
-                  r <
-                  (0, o.getGlobal)().possiblyUnhandledPromiseHandlers.length;
-                  r++
-                )
+                for (var r = 0; r < (0, o.getGlobal)().possiblyUnhandledPromiseHandlers.length; r++)
                   (0, o.getGlobal)().possiblyUnhandledPromiseHandlers[r](e)
               }
             }),
@@ -1050,10 +940,7 @@
                 {
                   cancel: function() {
                     ;(0, o.getGlobal)().possiblyUnhandledPromiseHandlers.splice(
-                      (0,
-                      o.getGlobal)().possiblyUnhandledPromiseHandlers.indexOf(
-                        e
-                      ),
+                      (0, o.getGlobal)().possiblyUnhandledPromiseHandlers.indexOf(e),
                       1
                     )
                   }
@@ -1077,8 +964,7 @@
                 return (
                   (n.flushPromises = n.flushPromises || []),
                   (n.activeCount = n.activeCount || 0),
-                  (n.possiblyUnhandledPromiseHandlers =
-                    n.possiblyUnhandledPromiseHandlers || []),
+                  (n.possiblyUnhandledPromiseHandlers = n.possiblyUnhandledPromiseHandlers || []),
                   (n.dispatchedErrors = n.dispatchedErrors || []),
                   n
                 )
@@ -1107,8 +993,7 @@
                 var n = this
                 if (
                   ((function(e, r) {
-                    if (!(e instanceof r))
-                      throw new TypeError('Cannot call a class as a function')
+                    if (!(e instanceof r)) throw new TypeError('Cannot call a class as a function')
                   })(this, e),
                   (this.resolved = !1),
                   (this.rejected = !1),
@@ -1139,40 +1024,23 @@
               return (
                 (e.prototype.resolve = function(e) {
                   if (this.resolved || this.rejected) return this
-                  if ((0, o.isPromise)(e))
-                    throw new Error(
-                      'Can not resolve promise with another promise'
-                    )
-                  return (
-                    (this.resolved = !0),
-                    (this.value = e),
-                    this.dispatch(),
-                    this
-                  )
+                  if ((0, o.isPromise)(e)) throw new Error('Can not resolve promise with another promise')
+                  return (this.resolved = !0), (this.value = e), this.dispatch(), this
                 }),
                 (e.prototype.reject = function(e) {
                   var r = this
                   if (this.resolved || this.rejected) return this
-                  if ((0, o.isPromise)(e))
-                    throw new Error(
-                      'Can not reject promise with another promise'
-                    )
+                  if ((0, o.isPromise)(e)) throw new Error('Can not reject promise with another promise')
                   if (!e) {
-                    var n =
-                      e && 'function' == typeof e.toString
-                        ? e.toString()
-                        : Object.prototype.toString.call(e)
-                    e = new Error(
-                      'Expected reject to be called with Error, got ' + n
-                    )
+                    var n = e && 'function' == typeof e.toString ? e.toString() : Object.prototype.toString.call(e)
+                    e = new Error('Expected reject to be called with Error, got ' + n)
                   }
                   return (
                     (this.rejected = !0),
                     (this.error = e),
                     this.errorHandled ||
                       setTimeout(function() {
-                        r.errorHandled ||
-                          (0, t.dispatchPossiblyUnhandledError)(e)
+                        r.errorHandled || (0, t.dispatchPossiblyUnhandledError)(e)
                       }, 1),
                     this.dispatch(),
                     this
@@ -1188,8 +1056,7 @@
                     s = this.rejected,
                     a = this.handlers
                   if (!n && (t || s)) {
-                    ;(this.dispatching = !0),
-                      ((0, i.getGlobal)().activeCount += 1)
+                    ;(this.dispatching = !0), ((0, i.getGlobal)().activeCount += 1)
                     for (
                       var c = function(n) {
                           var i = a[n],
@@ -1212,10 +1079,7 @@
                             }
                           }
                           d instanceof e && (d.resolved || d.rejected)
-                            ? (d.resolved
-                                ? l.resolve(d.value)
-                                : l.reject(d.error),
-                              (d.errorHandled = !0))
+                            ? (d.resolved ? l.resolve(d.value) : l.reject(d.error), (d.errorHandled = !0))
                             : (0, o.isPromise)(d)
                               ? d instanceof e && (d.resolved || d.rejected)
                                 ? d.resolved
@@ -1244,13 +1108,9 @@
                 }),
                 (e.prototype.then = function(r, n) {
                   if (r && 'function' != typeof r && !r.call)
-                    throw new Error(
-                      'Promise.then expected a function for success handler'
-                    )
+                    throw new Error('Promise.then expected a function for success handler')
                   if (n && 'function' != typeof n && !n.call)
-                    throw new Error(
-                      'Promise.then expected a function for error handler'
-                    )
+                    throw new Error('Promise.then expected a function for error handler')
                   var o = new e()
                   return (
                     this.handlers.push({
@@ -1284,19 +1144,14 @@
                   var n = this
                   if (this.resolved || this.rejected) return this
                   var o = setTimeout(function() {
-                    n.resolved ||
-                      n.rejected ||
-                      n.reject(
-                        r || new Error('Promise timed out after ' + e + 'ms')
-                      )
+                    n.resolved || n.rejected || n.reject(r || new Error('Promise timed out after ' + e + 'ms'))
                   }, e)
                   return this.then(function(e) {
                     return clearTimeout(o), e
                   })
                 }),
                 (e.prototype.toPromise = function() {
-                  if ('undefined' == typeof Promise)
-                    throw new TypeError('Could not find Promise')
+                  if ('undefined' == typeof Promise) throw new TypeError('Could not find Promise')
                   return Promise.resolve(this)
                 }),
                 (e.resolve = function(r) {
@@ -1320,10 +1175,8 @@
                     var s = function(s) {
                         var a = r[s]
                         if (a instanceof e) {
-                          if (a.resolved)
-                            return (i[s] = a.value), (t -= 1), 'continue'
-                        } else if (!(0, o.isPromise)(a))
-                          return (i[s] = a), (t -= 1), 'continue'
+                          if (a.resolved) return (i[s] = a.value), (t -= 1), 'continue'
+                        } else if (!(0, o.isPromise)(a)) return (i[s] = a), (t -= 1), 'continue'
                         e.resolve(a).then(
                           function(e) {
                             ;(i[s] = e), 0 == (t -= 1) && n.resolve(i)
@@ -1380,9 +1233,7 @@
                 (e.flush = function() {
                   var r = new e()
                   return (
-                    (0, i.getGlobal)().flushPromises.push(r),
-                    0 === (0, i.getGlobal)().activeCount && e.flushQueue(),
-                    r
+                    (0, i.getGlobal)().flushPromises.push(r), 0 === (0, i.getGlobal)().activeCount && e.flushQueue(), r
                   )
                 }),
                 (e.flushQueue = function() {
@@ -1414,29 +1265,13 @@
             (r.isPromise = function(e) {
               try {
                 if (!e) return !1
-                if ('undefined' != typeof Promise && e instanceof Promise)
-                  return !0
-                if (
-                  'undefined' != typeof window &&
-                  window.Window &&
-                  e instanceof window.Window
-                )
-                  return !1
-                if (
-                  'undefined' != typeof window &&
-                  window.constructor &&
-                  e instanceof window.constructor
-                )
-                  return !1
+                if ('undefined' != typeof Promise && e instanceof Promise) return !0
+                if ('undefined' != typeof window && window.Window && e instanceof window.Window) return !1
+                if ('undefined' != typeof window && window.constructor && e instanceof window.constructor) return !1
                 var r = {}.toString
                 if (r) {
                   var n = r.call(e)
-                  if (
-                    '[object Window]' === n ||
-                    '[object global]' === n ||
-                    '[object DOMWindow]' === n
-                  )
-                    return !1
+                  if ('[object Window]' === n || '[object global]' === n || '[object DOMWindow]' === n) return !1
                 }
                 if ('function' == typeof e.then) return !0
               } catch (e) {
@@ -1451,14 +1286,7 @@
             (r.cleanUpWindow = function(e) {
               var r = o.global.requestPromises.get(e)
               if (r)
-                for (
-                  var n = r,
-                    t = Array.isArray(n),
-                    i = 0,
-                    n = t ? n : n[Symbol.iterator]();
-                  ;
-
-                ) {
+                for (var n = r, t = Array.isArray(n), i = 0, n = t ? n : n[Symbol.iterator](); ; ) {
                   var s
                   if (t) {
                     if (i >= n.length) break
@@ -1470,8 +1298,7 @@
                   var a = s
                   a.reject(new Error('No response from window - cleaned up'))
                 }
-              o.global.popupWindowsByWin &&
-                o.global.popupWindowsByWin.delete(e),
+              o.global.popupWindowsByWin && o.global.popupWindowsByWin.delete(e),
                 o.global.remoteWindows && o.global.remoteWindows.delete(e),
                 o.global.requestPromises.delete(e),
                 o.global.methods.delete(e),
@@ -1486,14 +1313,11 @@
           var o,
             t = n('./src/conf/constants.js'),
             i = (r.CONFIG = {
-              ALLOW_POSTMESSAGE_POPUP:
-                !('__ALLOW_POSTMESSAGE_POPUP__' in window) ||
-                window.__ALLOW_POSTMESSAGE_POPUP__,
+              ALLOW_POSTMESSAGE_POPUP: !('__ALLOW_POSTMESSAGE_POPUP__' in window) || window.__ALLOW_POSTMESSAGE_POPUP__,
               LOG_LEVEL: 'info',
               BRIDGE_TIMEOUT: 5e3,
               CHILD_WINDOW_TIMEOUT: 5e3,
-              ACK_TIMEOUT:
-                -1 !== window.navigator.userAgent.match(/MSIE/i) ? 2e3 : 1e3,
+              ACK_TIMEOUT: -1 !== window.navigator.userAgent.match(/MSIE/i) ? 2e3 : 1e3,
               RES_TIMEOUT: -1,
               LOG_TO_PAGE: !1,
               ALLOWED_POST_MESSAGE_METHODS: ((o = {}),
@@ -1503,8 +1327,7 @@
               o),
               ALLOW_SAME_ORIGIN: !1
             })
-          0 === window.location.href.indexOf(t.CONSTANTS.FILE_PROTOCOL) &&
-            (i.ALLOW_POSTMESSAGE_POPUP = !0)
+          0 === window.location.href.indexOf(t.CONSTANTS.FILE_PROTOCOL) && (i.ALLOW_POSTMESSAGE_POPUP = !0)
         },
         './src/conf/constants.js': function(e, r, n) {
           'use strict'
@@ -1621,8 +1444,7 @@
           'use strict'
           ;(r.__esModule = !0),
             (r.resetListeners = function() {
-              ;(i.global.responseListeners = {}),
-                (i.global.requestListeners = {})
+              ;(i.global.responseListeners = {}), (i.global.requestListeners = {})
             }),
             (r.addResponseListener = function(e, r) {
               i.global.responseListeners[e] = r
@@ -1644,18 +1466,9 @@
               var t = r.name,
                 l = r.win,
                 d = r.domain
-              if (!t || 'string' != typeof t)
-                throw new Error('Name required to add request listener')
+              if (!t || 'string' != typeof t) throw new Error('Name required to add request listener')
               if (Array.isArray(l)) {
-                for (
-                  var f = [],
-                    m = l,
-                    p = Array.isArray(m),
-                    g = 0,
-                    m = p ? m : m[Symbol.iterator]();
-                  ;
-
-                ) {
+                for (var f = [], m = l, p = Array.isArray(m), g = 0, m = p ? m : m[Symbol.iterator](); ; ) {
                   var _
                   if (p) {
                     if (g >= m.length) break
@@ -1669,14 +1482,7 @@
                 }
                 return {
                   cancel: function() {
-                    for (
-                      var e = f,
-                        r = Array.isArray(e),
-                        n = 0,
-                        e = r ? e : e[Symbol.iterator]();
-                      ;
-
-                    ) {
+                    for (var e = f, r = Array.isArray(e), n = 0, e = r ? e : e[Symbol.iterator](); ; ) {
                       var o
                       if (r) {
                         if (n >= e.length) break
@@ -1692,15 +1498,7 @@
                 }
               }
               if (Array.isArray(d)) {
-                for (
-                  var w = [],
-                    S = d,
-                    v = Array.isArray(S),
-                    y = 0,
-                    S = v ? S : S[Symbol.iterator]();
-                  ;
-
-                ) {
+                for (var w = [], S = d, v = Array.isArray(S), y = 0, S = v ? S : S[Symbol.iterator](); ; ) {
                   var E
                   if (v) {
                     if (y >= S.length) break
@@ -1714,14 +1512,7 @@
                 }
                 return {
                   cancel: function() {
-                    for (
-                      var e = w,
-                        r = Array.isArray(e),
-                        n = 0,
-                        e = r ? e : e[Symbol.iterator]();
-                      ;
-
-                    ) {
+                    for (var e = w, r = Array.isArray(e), n = 0, e = r ? e : e[Symbol.iterator](); ; ) {
                       var o
                       if (r) {
                         if (n >= e.length) break
@@ -1738,8 +1529,7 @@
               }
               var b = u({ name: t, win: l, domain: d })
               if (
-                ((l && l !== a.CONSTANTS.WILDCARD) ||
-                  (l = i.global.WINDOW_WILDCARD),
+                ((l && l !== a.CONSTANTS.WILDCARD) || (l = i.global.WINDOW_WILDCARD),
                 (d = d || a.CONSTANTS.WILDCARD),
                 b)
               )
@@ -1750,9 +1540,7 @@
                         ' on domain ' +
                         d.toString() +
                         ' for ' +
-                        (l === i.global.WINDOW_WILDCARD
-                          ? 'wildcard'
-                          : 'specified') +
+                        (l === i.global.WINDOW_WILDCARD ? 'wildcard' : 'specified') +
                         ' window'
                     )
                   : l
@@ -1760,18 +1548,11 @@
                         'Request listener already exists for ' +
                           t +
                           ' for ' +
-                          (l === i.global.WINDOW_WILDCARD
-                            ? 'wildcard'
-                            : 'specified') +
+                          (l === i.global.WINDOW_WILDCARD ? 'wildcard' : 'specified') +
                           ' window'
                       )
                     : d
-                      ? new Error(
-                          'Request listener already exists for ' +
-                            t +
-                            ' on domain ' +
-                            d.toString()
-                        )
+                      ? new Error('Request listener already exists for ' + t + ' on domain ' + d.toString())
                       : new Error('Request listener already exists for ' + t)
               var T = i.global.requestListeners,
                 A = T[t]
@@ -1783,16 +1564,11 @@
                 R = void 0
               return (
                 (0, s.isRegex)(d)
-                  ? (N || ((N = []), (j[c] = N)),
-                    (R = { regex: d, listener: n }),
-                    N.push(R))
+                  ? (N || ((N = []), (j[c] = N)), (R = { regex: d, listener: n }), N.push(R))
                   : (j[P] = n),
                 {
                   cancel: function() {
-                    j &&
-                      (delete j[P],
-                      l && 0 === Object.keys(j).length && A.delete(l),
-                      R && N.splice(N.indexOf(R, 1)))
+                    j && (delete j[P], l && 0 === Object.keys(j).length && A.delete(l), R && N.splice(N.indexOf(R, 1)))
                   }
                 }
               )
@@ -1805,28 +1581,18 @@
             a = n('./src/conf/index.js')
           ;(i.global.responseListeners = i.global.responseListeners || {}),
             (i.global.requestListeners = i.global.requestListeners || {}),
-            (i.global.WINDOW_WILDCARD =
-              i.global.WINDOW_WILDCARD || new function() {}()),
-            (i.global.erroredResponseListeners =
-              i.global.erroredResponseListeners || {})
+            (i.global.WINDOW_WILDCARD = i.global.WINDOW_WILDCARD || new function() {}()),
+            (i.global.erroredResponseListeners = i.global.erroredResponseListeners || {})
           var c = '__domain_regex__'
           function u(e) {
             var r = e.name,
               n = e.win,
               o = e.domain
-            if (
-              (n === a.CONSTANTS.WILDCARD && (n = null),
-              o === a.CONSTANTS.WILDCARD && (o = null),
-              !r)
-            )
+            if ((n === a.CONSTANTS.WILDCARD && (n = null), o === a.CONSTANTS.WILDCARD && (o = null), !r))
               throw new Error('Name required to get request listener')
             var s = i.global.requestListeners[r]
             if (s)
-              for (
-                var u = [n, i.global.WINDOW_WILDCARD], l = 0;
-                l < u.length;
-                l++
-              ) {
+              for (var u = [n, i.global.WINDOW_WILDCARD], l = 0; l < u.length; l++) {
                 var d = u[l],
                   f = d && s.get(d)
                 if (f) {
@@ -1866,10 +1632,7 @@
                   return typeof e
                 }
               : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
+                  return e && 'function' == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype
                     ? 'symbol'
                     : typeof e
                 }
@@ -1884,8 +1647,7 @@
             a = n('./src/global.js'),
             c = n('./src/drivers/receive/types.js')
           function u(e) {
-            if (!window || window.closed)
-              throw new Error('Message recieved in closed window')
+            if (!window || window.closed) throw new Error('Message recieved in closed window')
             try {
               if (!e.source) return
             } catch (e) {
@@ -1925,8 +1687,7 @@
                 a.global.receivedMessages.push(u.id)
                 var l = void 0
                 ;(l =
-                  -1 !== i.POST_MESSAGE_NAMES_LIST.indexOf(u.name) ||
-                  u.type === i.CONSTANTS.POST_MESSAGE_TYPE.ACK
+                  -1 !== i.POST_MESSAGE_NAMES_LIST.indexOf(u.name) || u.type === i.CONSTANTS.POST_MESSAGE_TYPE.ACK
                     ? 'debug'
                     : 'error' === u.ack
                       ? 'error'
@@ -1943,15 +1704,9 @@
                     u
                   ]),
                   !(0, t.isWindowClosed)(r) || u.fireAndForget
-                    ? (u.data &&
-                        (u.data = (0, s.deserializeMethods)(r, n, u.data)),
+                    ? (u.data && (u.data = (0, s.deserializeMethods)(r, n, u.data)),
                       c.RECEIVE_MESSAGE_TYPES[u.type](r, n, u))
-                    : s.log.debug(
-                        'Source window is closed - can not send ' +
-                          u.type +
-                          ' ' +
-                          u.name
-                      )
+                    : s.log.debug('Source window is closed - can not send ' + u.type + ' ' + u.name)
               }
             }
           }
@@ -1968,8 +1723,7 @@
             }
             u(r)
           }
-          ;(a.global.receivedMessages = a.global.receivedMessages || []),
-            (a.global.receiveMessage = u)
+          ;(a.global.receivedMessages = a.global.receivedMessages || []), (a.global.receiveMessage = u)
         },
         './src/drivers/receive/types.js': function(e, r, n) {
           'use strict'
@@ -1980,8 +1734,7 @@
               function(e) {
                 for (var r = 1; r < arguments.length; r++) {
                   var n = arguments[r]
-                  for (var o in n)
-                    Object.prototype.hasOwnProperty.call(n, o) && (e[o] = n[o])
+                  for (var o in n) Object.prototype.hasOwnProperty.call(n, o) && (e[o] = n[o])
                 }
                 return e
               },
@@ -1991,9 +1744,7 @@
             c = n('./src/lib/index.js'),
             u = n('./src/drivers/send/index.js'),
             l = n('./src/drivers/listeners.js')
-          r.RECEIVE_MESSAGE_TYPES = (((o = {})[
-            a.CONSTANTS.POST_MESSAGE_TYPE.ACK
-          ] = function(e, r, n) {
+          r.RECEIVE_MESSAGE_TYPES = (((o = {})[a.CONSTANTS.POST_MESSAGE_TYPE.ACK] = function(e, r, n) {
             if (!(0, l.isResponseListenerErrored)(n.hash)) {
               var o = (0, l.getResponseListener)(n.hash)
               if (!o)
@@ -2009,12 +1760,7 @@
                     window.location.pathname
                 )
               if (!(0, s.matchDomain)(o.domain, r))
-                throw new Error(
-                  'Ack origin ' +
-                    r +
-                    ' does not match domain ' +
-                    o.domain.toString()
-                )
+                throw new Error('Ack origin ' + r + ' does not match domain ' + o.domain.toString())
               o.ack = !0
             }
           }),
@@ -2027,14 +1773,7 @@
             function d(o) {
               return n.fireAndForget || (0, s.isWindowClosed)(e)
                 ? i.ZalgoPromise.resolve()
-                : (0, u.sendMessage)(
-                    e,
-                    t(
-                      { target: n.originalSource, hash: n.hash, name: n.name },
-                      o
-                    ),
-                    r
-                  )
+                : (0, u.sendMessage)(e, t({ target: n.originalSource, hash: n.hash, name: n.name }, o), r)
             }
             return i.ZalgoPromise.all([
               d({ type: a.CONSTANTS.POST_MESSAGE_TYPE.ACK }),
@@ -2052,12 +1791,7 @@
                       window.location.pathname
                   )
                 if (!(0, s.matchDomain)(o.domain, r))
-                  throw new Error(
-                    'Request origin ' +
-                      r +
-                      ' does not match domain ' +
-                      o.domain.toString()
-                  )
+                  throw new Error('Request origin ' + r + ' does not match domain ' + o.domain.toString())
                 var t = n.data
                 return o.handler({ source: e, origin: r, data: t })
               }).then(
@@ -2103,15 +1837,9 @@
                 )
               if (!(0, s.matchDomain)(o.domain, r))
                 throw new Error(
-                  'Response origin ' +
-                    r +
-                    ' does not match domain ' +
-                    (0, s.stringifyDomainPattern)(o.domain)
+                  'Response origin ' + r + ' does not match domain ' + (0, s.stringifyDomainPattern)(o.domain)
                 )
-              if (
-                ((0, l.deleteResponseListener)(n.hash),
-                n.ack === a.CONSTANTS.POST_MESSAGE_ACK.ERROR)
-              ) {
+              if (((0, l.deleteResponseListener)(n.hash), n.ack === a.CONSTANTS.POST_MESSAGE_ACK.ERROR)) {
                 var t = new Error(n.error)
                 return n.code && (t.code = n.code), o.respond(t, null)
               }
@@ -2131,8 +1859,7 @@
             function(e) {
               for (var r = 1; r < arguments.length; r++) {
                 var n = arguments[r]
-                for (var o in n)
-                  Object.prototype.hasOwnProperty.call(n, o) && (e[o] = n[o])
+                for (var o in n) Object.prototype.hasOwnProperty.call(n, o) && (e[o] = n[o])
               }
               return e
             }
@@ -2140,10 +1867,7 @@
             return i.ZalgoPromise.try(function() {
               var u
               r = (function(e, r) {
-                var n =
-                    arguments.length > 2 && void 0 !== arguments[2]
-                      ? arguments[2]
-                      : {},
+                var n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {},
                   i = (0, a.uniqueID)(),
                   s = (0, a.getWindowType)(),
                   c = (0, t.getDomain)(window)
@@ -2159,8 +1883,7 @@
               var l = void 0
               if (
                 ((l =
-                  -1 !== s.POST_MESSAGE_NAMES_LIST.indexOf(r.name) ||
-                  r.type === s.CONSTANTS.POST_MESSAGE_TYPE.ACK
+                  -1 !== s.POST_MESSAGE_NAMES_LIST.indexOf(r.name) || r.type === s.CONSTANTS.POST_MESSAGE_TYPE.ACK
                     ? 'debug'
                     : 'error' === r.ack
                       ? 'error'
@@ -2182,40 +1905,22 @@
               if ((0, t.isWindowClosed)(e)) throw new Error('Window is closed')
               a.log.debug('Running send message strategies', r)
               var d = [],
-                f = (0, a.jsonStringify)(
-                  (((u = {})[s.CONSTANTS.WINDOW_PROPS.POSTROBOT] = r), u),
-                  null,
-                  2
+                f = (0, a.jsonStringify)((((u = {})[s.CONSTANTS.WINDOW_PROPS.POSTROBOT] = r), u), null, 2)
+              return i.ZalgoPromise.map(Object.keys(c.SEND_MESSAGE_STRATEGIES), function(r) {
+                return i.ZalgoPromise.try(function() {
+                  if (!s.CONFIG.ALLOWED_POST_MESSAGE_METHODS[r]) throw new Error('Strategy disallowed: ' + r)
+                  return c.SEND_MESSAGE_STRATEGIES[r](e, f, n)
+                }).then(
+                  function() {
+                    return d.push(r + ': success'), !0
+                  },
+                  function(e) {
+                    return d.push(r + ': ' + (0, a.stringifyError)(e) + '\n'), !1
+                  }
                 )
-              return i.ZalgoPromise.map(
-                Object.keys(c.SEND_MESSAGE_STRATEGIES),
-                function(r) {
-                  return i.ZalgoPromise.try(function() {
-                    if (!s.CONFIG.ALLOWED_POST_MESSAGE_METHODS[r])
-                      throw new Error('Strategy disallowed: ' + r)
-                    return c.SEND_MESSAGE_STRATEGIES[r](e, f, n)
-                  }).then(
-                    function() {
-                      return d.push(r + ': success'), !0
-                    },
-                    function(e) {
-                      return (
-                        d.push(r + ': ' + (0, a.stringifyError)(e) + '\n'), !1
-                      )
-                    }
-                  )
-                }
-              ).then(function(e) {
+              }).then(function(e) {
                 var n = e.some(Boolean),
-                  o =
-                    r.type +
-                    ' ' +
-                    r.name +
-                    ' ' +
-                    (n ? 'success' : 'error') +
-                    ':\n  - ' +
-                    d.join('\n  - ') +
-                    '\n'
+                  o = r.type + ' ' + r.name + ' ' + (n ? 'success' : 'error') + ':\n  - ' + d.join('\n  - ') + '\n'
                 if ((a.log.debug(o), !n)) throw new Error(o)
               })
             })
@@ -2233,27 +1938,17 @@
             t = n('./src/conf/index.js'),
             i = (n('./src/lib/index.js'), (r.SEND_MESSAGE_STRATEGIES = {}))
           i[t.CONSTANTS.SEND_STRATEGIES.POST_MESSAGE] = function(e, r, n) {
-            ;(Array.isArray(n)
-              ? n
-              : 'string' == typeof n
-                ? [n]
-                : [t.CONSTANTS.WILDCARD]
-            )
+            ;(Array.isArray(n) ? n : 'string' == typeof n ? [n] : [t.CONSTANTS.WILDCARD])
               .map(function(r) {
                 if (0 === r.indexOf(t.CONSTANTS.MOCK_PROTOCOL)) {
-                  if (window.location.protocol === t.CONSTANTS.FILE_PROTOCOL)
-                    return t.CONSTANTS.WILDCARD
+                  if (window.location.protocol === t.CONSTANTS.FILE_PROTOCOL) return t.CONSTANTS.WILDCARD
                   if (!(0, o.isActuallySameDomain)(e))
                     throw new Error(
-                      'Attempting to send messsage to mock domain ' +
-                        r +
-                        ', but window is actually cross-domain'
+                      'Attempting to send messsage to mock domain ' + r + ', but window is actually cross-domain'
                     )
                   return (0, o.getActualDomain)(e)
                 }
-                return 0 === r.indexOf(t.CONSTANTS.FILE_PROTOCOL)
-                  ? t.CONSTANTS.WILDCARD
-                  : r
+                return 0 === r.indexOf(t.CONSTANTS.FILE_PROTOCOL) ? t.CONSTANTS.WILDCARD : r
               })
               .forEach(function(n) {
                 return e.postMessage(r, n)
@@ -2265,8 +1960,7 @@
           ;(r.__esModule = !0), (r.global = void 0)
           var o = n('./src/conf/index.js')
           ;(r.global = window[o.CONSTANTS.WINDOW_PROPS.POSTROBOT] =
-            window[o.CONSTANTS.WINDOW_PROPS.POSTROBOT] ||
-            {}).registerSelf = function() {}
+            window[o.CONSTANTS.WINDOW_PROPS.POSTROBOT] || {}).registerSelf = function() {}
         },
         './src/index.js': function(e, r, n) {
           'use strict'
@@ -2285,17 +1979,14 @@
           var t = (function(e) {
             if (e && e.__esModule) return e
             var r = {}
-            if (null != e)
-              for (var n in e)
-                Object.prototype.hasOwnProperty.call(e, n) && (r[n] = e[n])
+            if (null != e) for (var n in e) Object.prototype.hasOwnProperty.call(e, n) && (r[n] = e[n])
             return (r.default = e), r
           })(o)
           r.default = t
         },
         './src/interface.js': function(e, r, n) {
           'use strict'
-          ;(r.__esModule = !0),
-            (r.bridge = r.Promise = r.cleanUpWindow = void 0)
+          ;(r.__esModule = !0), (r.bridge = r.Promise = r.cleanUpWindow = void 0)
           var o = n('./src/public/index.js')
           Object.keys(o).forEach(function(e) {
             'default' !== e &&
@@ -2327,9 +2018,7 @@
             c = n('./src/global.js')
           function u() {
             c.global.initialized ||
-              ((0, a.listenForMessages)(),
-              (0, s.initOnReady)(),
-              (0, s.listenForMethods)({ on: o.on, send: o.send })),
+              ((0, a.listenForMessages)(), (0, s.initOnReady)(), (0, s.listenForMethods)({ on: o.on, send: o.send })),
               (c.global.initialized = !0)
           }
           ;(r.bridge = null), u()
@@ -2391,10 +2080,7 @@
                     return typeof e
                   }
                 : function(e) {
-                    return e &&
-                      'function' == typeof Symbol &&
-                      e.constructor === Symbol &&
-                      e !== Symbol.prototype
+                    return e && 'function' == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype
                       ? 'symbol'
                       : typeof e
                   },
@@ -2409,12 +2095,7 @@
             }, Function.prototype.call)
           var a = (r.log = {
             clearLogs: function() {
-              if (
-                (window.console &&
-                  window.console.clear &&
-                  window.console.clear(),
-                t.CONFIG.LOG_TO_PAGE)
-              ) {
+              if ((window.console && window.console.clear && window.console.clear(), t.CONFIG.LOG_TO_PAGE)) {
                 var e = document.getElementById('postRobotLogs')
                 e && e.parentNode && e.parentNode.removeChild(e)
               }
@@ -2424,8 +2105,7 @@
                 var n = document.getElementById('postRobotLogs')
                 n ||
                   (((n = document.createElement('div')).id = 'postRobotLogs'),
-                  (n.style.cssText =
-                    'width: 800px; font-family: monospace; white-space: pre-wrap;'),
+                  (n.style.cssText = 'width: 800px; font-family: monospace; white-space: pre-wrap;'),
                   document.body && document.body.appendChild(n))
                 var o = document.createElement('div'),
                   t = new Date().toString().split(' ')[4],
@@ -2453,9 +2133,7 @@
                   debug: '#aaa'
                 }[e]
                 ;(o.style.cssText = 'margin-top: 10px; color: ' + c + ';'),
-                  n.childNodes.length
-                    ? n.insertBefore(o, n.childNodes[0])
-                    : n.appendChild(o)
+                  n.childNodes.length ? n.insertBefore(o, n.childNodes[0]) : n.appendChild(o)
               })
             },
             logLevel: function(e, r) {
@@ -2464,9 +2142,7 @@
                   var n = window.LOG_LEVEL || t.CONFIG.LOG_LEVEL
                   if ('disabled' === n || s.indexOf(e) < s.indexOf(n)) return
                   if (
-                    ((r = Array.prototype.slice.call(r)).unshift(
-                      '' + window.location.host + window.location.pathname
-                    ),
+                    ((r = Array.prototype.slice.call(r)).unshift('' + window.location.host + window.location.pathname),
                     r.unshift('::'),
                     r.unshift('' + (0, i.getWindowType)().toLowerCase()),
                     r.unshift('[post-robot]'),
@@ -2474,30 +2150,25 @@
                     !window.console)
                   )
                     return
-                  if ((window.console[e] || (e = 'log'), !window.console[e]))
-                    return
+                  if ((window.console[e] || (e = 'log'), !window.console[e])) return
                   window.console[e].apply(window.console, r)
                 } catch (e) {}
               }, 1)
             },
             debug: function() {
-              for (var e = arguments.length, r = Array(e), n = 0; n < e; n++)
-                r[n] = arguments[n]
+              for (var e = arguments.length, r = Array(e), n = 0; n < e; n++) r[n] = arguments[n]
               a.logLevel('debug', r)
             },
             info: function() {
-              for (var e = arguments.length, r = Array(e), n = 0; n < e; n++)
-                r[n] = arguments[n]
+              for (var e = arguments.length, r = Array(e), n = 0; n < e; n++) r[n] = arguments[n]
               a.logLevel('info', r)
             },
             warn: function() {
-              for (var e = arguments.length, r = Array(e), n = 0; n < e; n++)
-                r[n] = arguments[n]
+              for (var e = arguments.length, r = Array(e), n = 0; n < e; n++) r[n] = arguments[n]
               a.logLevel('warn', r)
             },
             error: function() {
-              for (var e = arguments.length, r = Array(e), n = 0; n < e; n++)
-                r[n] = arguments[n]
+              for (var e = arguments.length, r = Array(e), n = 0; n < e; n++) r[n] = arguments[n]
               a.logLevel('error', r)
             }
           })
@@ -2521,14 +2192,8 @@
                 })
             }),
             (r.onChildWindowReady = function(e) {
-              var r =
-                  arguments.length > 1 && void 0 !== arguments[1]
-                    ? arguments[1]
-                    : 5e3,
-                n =
-                  arguments.length > 2 && void 0 !== arguments[2]
-                    ? arguments[2]
-                    : 'Window',
+              var r = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 5e3,
+                n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 'Window',
                 o = a.global.readyPromises.get(e)
               return (
                 o ||
@@ -2536,9 +2201,7 @@
                 a.global.readyPromises.set(e, o),
                 -1 !== r &&
                   setTimeout(function() {
-                    return o.reject(
-                      new Error(n + ' did not load after ' + r + 'ms')
-                    )
+                    return o.reject(new Error(n + ' did not load after ' + r + 'ms'))
                   }, r),
                 o)
               )
@@ -2551,24 +2214,15 @@
             c = n('./src/lib/log.js'),
             u = n('./src/lib/util.js')
           function l(e) {
-            a.global.on(
-              s.CONSTANTS.POST_MESSAGE_NAMES.HELLO,
-              { domain: s.CONSTANTS.WILDCARD },
-              function(r) {
-                var n = r.source,
-                  o = r.origin
-                return e({ source: n, origin: o })
-              }
-            )
+            a.global.on(s.CONSTANTS.POST_MESSAGE_NAMES.HELLO, { domain: s.CONSTANTS.WILDCARD }, function(r) {
+              var n = r.source,
+                o = r.origin
+              return e({ source: n, origin: o })
+            })
           }
           function d(e) {
             return a.global
-              .send(
-                e,
-                s.CONSTANTS.POST_MESSAGE_NAMES.HELLO,
-                {},
-                { domain: s.CONSTANTS.WILDCARD, timeout: -1 }
-              )
+              .send(e, s.CONSTANTS.POST_MESSAGE_NAMES.HELLO, {}, { domain: s.CONSTANTS.WILDCARD, timeout: -1 })
               .then(function(e) {
                 return { origin: e.origin }
               })
@@ -2584,10 +2238,7 @@
                   return typeof e
                 }
               : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
+                  return e && 'function' == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype
                     ? 'symbol'
                     : typeof e
                 }
@@ -2620,8 +2271,7 @@
                       : s.ZalgoPromise.isPromise(n)
                         ? (function(e, r, n, o) {
                             return {
-                              __type__:
-                                a.CONSTANTS.SERIALIZATION_TYPES.ZALGO_PROMISE,
+                              __type__: a.CONSTANTS.SERIALIZATION_TYPES.ZALGO_PROMISE,
                               __then__: f(
                                 e,
                                 r,
@@ -2649,10 +2299,7 @@
             (r.deserializeRegex = h),
             (r.deserializeMethods = function(e, r, n) {
               return (0, u.replaceObject)({ obj: n }, function(n) {
-                if (
-                  'object' === (void 0 === n ? 'undefined' : o(n)) &&
-                  null !== n
-                )
+                if ('object' === (void 0 === n ? 'undefined' : o(n)) && null !== n)
                   return d(n, a.CONSTANTS.SERIALIZATION_TYPES.METHOD)
                     ? m(e, r, n)
                     : d(n, a.CONSTANTS.SERIALIZATION_TYPES.ERROR)
@@ -2674,11 +2321,7 @@
             u = n('./src/lib/util.js'),
             l = n('./src/lib/log.js')
           function d(e, r) {
-            return (
-              'object' === (void 0 === e ? 'undefined' : o(e)) &&
-              null !== e &&
-              e.__type__ === r
-            )
+            return 'object' === (void 0 === e ? 'undefined' : o(e)) && null !== e && e.__type__ === r
           }
           function f(e, r, n, o) {
             var t = (0, u.uniqueID)(),
@@ -2708,32 +2351,15 @@
                   .then(
                     function(e) {
                       var r = e.data
-                      return (
-                        l.log.debug(
-                          'Got foreign method result',
-                          n.__name__,
-                          r.result
-                        ),
-                        r.result
-                      )
+                      return l.log.debug('Got foreign method result', n.__name__, r.result), r.result
                     },
                     function(e) {
-                      throw (l.log.debug(
-                        'Got foreign method error',
-                        (0, u.stringifyError)(e)
-                      ),
-                      e)
+                      throw (l.log.debug('Got foreign method error', (0, u.stringifyError)(e)), e)
                     }
                   )
               )
             }
-            return (
-              (o.__name__ = n.__name__),
-              (o.__xdomain__ = !0),
-              (o.source = e),
-              (o.origin = r),
-              o
-            )
+            return (o.__name__ = n.__name__), (o.__xdomain__ = !0), (o.source = e), (o.origin = r), o
           }
           function p(e, r, n) {
             var o = new Error(n.__message__)
@@ -2756,41 +2382,25 @@
           }
           ;(c.global.methods = c.global.methods || new t.WeakMap()),
             (r.listenForMethods = (0, u.once)(function() {
-              c.global.on(
-                a.CONSTANTS.POST_MESSAGE_NAMES.METHOD,
-                { origin: a.CONSTANTS.WILDCARD },
-                function(e) {
-                  var r = e.source,
-                    n = e.origin,
-                    o = e.data,
-                    t = c.global.methods.get(r)
-                  if (!t)
-                    throw new Error(
-                      'Could not find any methods this window has privileges to call'
-                    )
-                  var a = t[o.id]
-                  if (!a)
-                    throw new Error('Could not find method with id: ' + o.id)
-                  if (!(0, i.matchDomain)(a.domain, n))
-                    throw new Error(
-                      'Method domain ' +
-                        a.domain +
-                        ' does not match origin ' +
-                        n
-                    )
-                  return (
-                    l.log.debug('Call local method', o.name, o.args),
-                    s.ZalgoPromise.try(function() {
-                      return a.method.apply(
-                        { source: r, origin: n, data: o },
-                        o.args
-                      )
-                    }).then(function(e) {
-                      return { result: e, id: o.id, name: o.name }
-                    })
-                  )
-                }
-              )
+              c.global.on(a.CONSTANTS.POST_MESSAGE_NAMES.METHOD, { origin: a.CONSTANTS.WILDCARD }, function(e) {
+                var r = e.source,
+                  n = e.origin,
+                  o = e.data,
+                  t = c.global.methods.get(r)
+                if (!t) throw new Error('Could not find any methods this window has privileges to call')
+                var a = t[o.id]
+                if (!a) throw new Error('Could not find method with id: ' + o.id)
+                if (!(0, i.matchDomain)(a.domain, n))
+                  throw new Error('Method domain ' + a.domain + ' does not match origin ' + n)
+                return (
+                  l.log.debug('Call local method', o.name, o.args),
+                  s.ZalgoPromise.try(function() {
+                    return a.method.apply({ source: r, origin: n, data: o }, o.args)
+                  }).then(function(e) {
+                    return { result: e, id: o.id, name: o.name }
+                  })
+                )
+              })
             }))
         },
         './src/lib/util.js': function(e, r, n) {
@@ -2802,22 +2412,15 @@
                   return typeof e
                 }
               : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
+                  return e && 'function' == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype
                     ? 'symbol'
                     : typeof e
                 }
           ;(r.stringifyError = function e(r) {
-            var n =
-              arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1
+            var n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1
             if (n >= 3) return 'stringifyError stack overflow'
             try {
-              if (!r)
-                return (
-                  '<unknown error: ' + Object.prototype.toString.call(r) + '>'
-                )
+              if (!r) return '<unknown error: ' + Object.prototype.toString.call(r) + '>'
               if ('string' == typeof r) return r
               if (r instanceof Error) {
                 var o = r && r.stack,
@@ -2826,9 +2429,7 @@
                 if (o) return o
                 if (t) return t
               }
-              return 'function' == typeof r.toString
-                ? r.toString()
-                : Object.prototype.toString.call(r)
+              return 'function' == typeof r.toString ? r.toString() : Object.prototype.toString.call(r)
             } catch (r) {
               return 'Error while stringifying error: ' + e(r, n + 1)
             }
@@ -2836,14 +2437,10 @@
             (r.noop = function() {}),
             (r.addEventListener = function(e, r, n) {
               return (
-                e.addEventListener
-                  ? e.addEventListener(r, n)
-                  : e.attachEvent('on' + r, n),
+                e.addEventListener ? e.addEventListener(r, n) : e.attachEvent('on' + r, n),
                 {
                   cancel: function() {
-                    e.removeEventListener
-                      ? e.removeEventListener(r, n)
-                      : e.detachEvent('on' + r, n)
+                    e.removeEventListener ? e.removeEventListener(r, n) : e.detachEvent('on' + r, n)
                   }
                 }
               )
@@ -2858,24 +2455,11 @@
             (r.eachObject = c),
             (r.each = u),
             (r.replaceObject = function e(r, n) {
-              var t =
-                arguments.length > 2 && void 0 !== arguments[2]
-                  ? arguments[2]
-                  : 1
-              if (t >= 100)
-                throw new Error(
-                  'Self-referential object passed, or object contained too many layers'
-                )
+              var t = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 1
+              if (t >= 100) throw new Error('Self-referential object passed, or object contained too many layers')
               var i = void 0
-              if (
-                'object' !== (void 0 === r ? 'undefined' : o(r)) ||
-                null === r ||
-                Array.isArray(r)
-              ) {
-                if (!Array.isArray(r))
-                  throw new TypeError(
-                    'Invalid type: ' + (void 0 === r ? 'undefined' : o(r))
-                  )
+              if ('object' !== (void 0 === r ? 'undefined' : o(r)) || null === r || Array.isArray(r)) {
+                if (!Array.isArray(r)) throw new TypeError('Invalid type: ' + (void 0 === r ? 'undefined' : o(r)))
                 i = []
               } else i = {}
               return (
@@ -2883,8 +2467,7 @@
                   var a = n(r, s)
                   void 0 !== a
                     ? (i[s] = a)
-                    : 'object' === (void 0 === r ? 'undefined' : o(r)) &&
-                      null !== r
+                    : 'object' === (void 0 === r ? 'undefined' : o(r)) && null !== r
                       ? (i[s] = e(r, n, t + 1))
                       : (i[s] = r)
                 }),
@@ -2919,16 +2502,12 @@
                 t = void 0
               try {
                 if (
-                  ('{}' !== JSON.stringify({}) &&
-                    ((o = Object.prototype.toJSON),
-                    delete Object.prototype.toJSON),
+                  ('{}' !== JSON.stringify({}) && ((o = Object.prototype.toJSON), delete Object.prototype.toJSON),
                   '{}' !== JSON.stringify({}))
                 )
                   throw new Error('Can not correctly serialize JSON objects')
                 if (
-                  ('[]' !== JSON.stringify([]) &&
-                    ((t = Array.prototype.toJSON),
-                    delete Array.prototype.toJSON),
+                  ('[]' !== JSON.stringify([]) && ((t = Array.prototype.toJSON), delete Array.prototype.toJSON),
                   '[]' !== JSON.stringify([]))
                 )
                   throw new Error('Can not correctly serialize JSON objects')
@@ -2937,8 +2516,7 @@
               }
               var i = JSON.stringify.call(this, e, r, n)
               try {
-                o && (Object.prototype.toJSON = o),
-                  t && (Array.prototype.toJSON = t)
+                o && (Object.prototype.toJSON = o), t && (Array.prototype.toJSON = t)
               } catch (e) {
                 throw new Error('Can not repair JSON.stringify: ' + e.message)
               }
@@ -2949,9 +2527,8 @@
             }),
             (r.needsGlobalMessagingForBrowser = function() {
               return (
-                !!(0, i.getUserAgent)(window).match(
-                  /MSIE|trident|edge\/12|edge\/13/i
-                ) || !s.CONFIG.ALLOW_POSTMESSAGE_POPUP
+                !!(0, i.getUserAgent)(window).match(/MSIE|trident|edge\/12|edge\/13/i) ||
+                !s.CONFIG.ALLOW_POSTMESSAGE_POPUP
               )
             })
           var t = n('./node_modules/cross-domain-safe-weakmap/src/index.js'),
@@ -2964,11 +2541,7 @@
             for (var n in e) e.hasOwnProperty(n) && r(e[n], n)
           }
           function u(e, r) {
-            Array.isArray(e)
-              ? a(e, r)
-              : 'object' === (void 0 === e ? 'undefined' : o(e)) &&
-                null !== e &&
-                c(e, r)
+            Array.isArray(e) ? a(e, r) : 'object' === (void 0 === e ? 'undefined' : o(e)) && null !== e && c(e, r)
           }
           ;(r.once = function(e) {
             if (!e) return e
@@ -2981,9 +2554,7 @@
               var r = new t.WeakMap()
               return function(n) {
                 var o = r.get(n)
-                return void 0 !== o
-                  ? o
-                  : (void 0 !== (o = e.call(this, n)) && r.set(n, o), o)
+                return void 0 !== o ? o : (void 0 !== (o = e.call(this, n)) && r.set(n, o), o)
               }
             })
         },
@@ -3001,10 +2572,7 @@
                   })
             }),
             (r.client = function() {
-              var e =
-                arguments.length > 0 && void 0 !== arguments[0]
-                  ? arguments[0]
-                  : {}
+              var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}
               if (!e.window) throw new Error('Expected options.window')
               var r = e.window
               return {
@@ -3030,15 +2598,11 @@
                 var l = document.getElementById(e.window)
                 if (!l)
                   throw new Error(
-                    'Expected options.window ' +
-                      Object.prototype.toString.call(e.window) +
-                      ' to be a valid element id'
+                    'Expected options.window ' + Object.prototype.toString.call(e.window) + ' to be a valid element id'
                   )
                 if ('iframe' !== l.tagName.toLowerCase())
                   throw new Error(
-                    'Expected options.window ' +
-                      Object.prototype.toString.call(e.window) +
-                      ' to be an iframe'
+                    'Expected options.window ' + Object.prototype.toString.call(e.window) + ' to be an iframe'
                   )
                 if (!l.contentWindow)
                   throw new Error(
@@ -3048,63 +2612,39 @@
               } else if (e.window instanceof HTMLIFrameElement) {
                 if ('iframe' !== e.window.tagName.toLowerCase())
                   throw new Error(
-                    'Expected options.window ' +
-                      Object.prototype.toString.call(e.window) +
-                      ' to be an iframe'
+                    'Expected options.window ' + Object.prototype.toString.call(e.window) + ' to be an iframe'
                   )
                 if (e.window && !e.window.contentWindow)
                   throw new Error(
                     'Iframe must have contentWindow.  Make sure it has a src attribute and is in the DOM.'
                   )
-                e.window &&
-                  e.window.contentWindow &&
-                  (n = e.window.contentWindow)
+                e.window && e.window.contentWindow && (n = e.window.contentWindow)
               } else n = e.window
-              if (!n)
-                throw new Error(
-                  'Expected options.window to be a window object, iframe, or iframe element id.'
-                )
+              if (!n) throw new Error('Expected options.window to be a window object, iframe, or iframe element id.')
               var d = n
               o = e.domain || s.CONSTANTS.WILDCARD
               var f = e.name + '_' + (0, c.uniqueID)()
-              if ((0, i.isWindowClosed)(d))
-                throw new Error('Target window is closed')
+              if ((0, i.isWindowClosed)(d)) throw new Error('Target window is closed')
               var m = !1,
                 p = u.global.requestPromises.get(d)
               p || ((p = []), u.global.requestPromises.set(d, p))
               var g = t.ZalgoPromise.try(function() {
                 if ((0, i.isAncestor)(window, d))
-                  return (0, c.onChildWindowReady)(
-                    d,
-                    e.timeout || s.CONFIG.CHILD_WINDOW_TIMEOUT
-                  )
+                  return (0, c.onChildWindowReady)(d, e.timeout || s.CONFIG.CHILD_WINDOW_TIMEOUT)
               })
                 .then(function() {
-                  var e = (arguments.length > 0 && void 0 !== arguments[0]
-                    ? arguments[0]
-                    : {}
-                  ).origin
+                  var e = (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}).origin
                   if ((0, c.isRegex)(o) && !e) return (0, c.sayHello)(d)
                 })
                 .then(function() {
-                  var n = (arguments.length > 0 && void 0 !== arguments[0]
-                    ? arguments[0]
-                    : {}
-                  ).origin
+                  var n = (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}).origin
                   if ((0, c.isRegex)(o)) {
                     if (!(0, i.matchDomain)(o, n))
-                      throw new Error(
-                        'Remote window domain ' +
-                          n +
-                          ' does not match regex: ' +
-                          o.toString()
-                      )
+                      throw new Error('Remote window domain ' + n + ' does not match regex: ' + o.toString())
                     o = n
                   }
                   if ('string' != typeof o && !Array.isArray(o))
-                    throw new TypeError(
-                      'Expected domain to be a string or array'
-                    )
+                    throw new TypeError('Expected domain to be a string or array')
                   var u = o
                   return new t.ZalgoPromise(function(n, o) {
                     var t = void 0
@@ -3115,8 +2655,7 @@
                           window: d,
                           domain: u,
                           respond: function(e, r) {
-                            e || ((m = !0), p.splice(p.indexOf(g, 1))),
-                              e ? o(e) : n(r)
+                            e || ((m = !0), p.splice(p.indexOf(g, 1))), e ? o(e) : n(r)
                           }
                         }),
                         (0, a.addResponseListener)(f, t)),
@@ -3141,21 +2680,9 @@
                       if (!m) {
                         if ((0, i.isWindowClosed)(d))
                           return t.ack
-                            ? o(
-                                new Error(
-                                  'Window closed for ' + r + ' before response'
-                                )
-                              )
-                            : o(
-                                new Error(
-                                  'Window closed for ' + r + ' before ack'
-                                )
-                              )
-                        if (
-                          ((c = Math.max(c - _, 0)),
-                          -1 !== l && (l = Math.max(l - _, 0)),
-                          t.ack)
-                        ) {
+                            ? o(new Error('Window closed for ' + r + ' before response'))
+                            : o(new Error('Window closed for ' + r + ' before ack'))
+                        if (((c = Math.max(c - _, 0)), -1 !== l && (l = Math.max(l - _, 0)), t.ack)) {
                           if (-1 === l) return
                           _ = Math.min(l, 2e3)
                         } else {
@@ -3191,8 +2718,7 @@
                 })
               return (
                 g.catch(function() {
-                  ;(0, a.markResponseListenerErrored)(f),
-                    (0, a.deleteResponseListener)(f)
+                  ;(0, a.markResponseListenerErrored)(f), (0, a.deleteResponseListener)(f)
                 }),
                 p.push(g),
                 g
@@ -3202,10 +2728,7 @@
           function d(e, r, n, o) {
             return ((o = o || {}).window = e), (o.name = r), (o.data = n), l(o)
           }
-          ;(u.global.requestPromises =
-            u.global.requestPromises || new o.WeakMap()),
-            (r.send = d),
-            (u.global.send = d)
+          ;(u.global.requestPromises = u.global.requestPromises || new o.WeakMap()), (r.send = d), (u.global.send = d)
         },
         './src/public/config.js': function(e, r, n) {
           'use strict'
@@ -3277,23 +2800,15 @@
                   return typeof e
                 }
               : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
+                  return e && 'function' == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype
                     ? 'symbol'
                     : typeof e
                 }
           ;(r.listen = l),
             (r.once = function(e) {
-              var r =
-                  arguments.length > 1 && void 0 !== arguments[1]
-                    ? arguments[1]
-                    : {},
+              var r = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {},
                 n = arguments[2]
-              'function' == typeof r && ((n = r), (r = {})),
-                (r = r || {}),
-                (n = n || r.handler)
+              'function' == typeof r && ((n = r), (r = {})), (r = r || {}), (n = n || r.handler)
               var o = r.errorHandler,
                 t = new i.ZalgoPromise(function(t, i) {
                   ;((r = r || {}).name = e),
@@ -3309,10 +2824,7 @@
               return (t.cancel = s.cancel), t
             }),
             (r.listener = function() {
-              var e =
-                arguments.length > 0 && void 0 !== arguments[0]
-                  ? arguments[0]
-                  : {}
+              var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}
               return {
                 on: function(r, n) {
                   return d(r, e, n)
@@ -3354,10 +2866,7 @@
                 n &&
                   'object' === (void 0 === n ? 'undefined' : o(n)) &&
                   (0, t.isWindowClosed)(n) &&
-                  (f.cancel(),
-                  u.handleError(
-                    new Error('Post message target window is closed')
-                  ))
+                  (f.cancel(), u.handleError(new Error('Post message target window is closed')))
               }, 50)
             return {
               cancel: function() {

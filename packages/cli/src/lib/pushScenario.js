@@ -3,24 +3,35 @@ const fs = require('fs')
 
 module.exports = (
   packagePath,
-  { Key },
   emitter,
   {
+    scenarioUuid,
     bearerConfig: {
       authorization: {
         AuthenticationResult: { IdToken: token }
       }
     },
-    DeploymentUrl
+    DeploymentUrl,
+    DeveloperPortalAPIUrl,
+    credentials
   }
 ) =>
   new Promise(async (resolve, reject) => {
-    emitter.emit('pushScenario:start', Key)
+    emitter.emit('pushScenario:start', scenarioUuid)
 
     try {
       const deploymentServiceClient = serviceClient(DeploymentUrl)
 
-      const res = await deploymentServiceClient.signedUrl(token, Key, 'intent')
+      const devPortalClient = serviceClient(DeveloperPortalAPIUrl)
+      const {
+        body: {
+          data: {
+            findUser: { token: devPortalToken }
+          }
+        }
+      } = await devPortalClient.getDevPortalToken(credentials)
+
+      const res = await deploymentServiceClient.signedUrl(token, scenarioUuid, 'intent')
 
       if (res.statusCode === 201) {
         const url = res.body

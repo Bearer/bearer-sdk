@@ -6,10 +6,6 @@ const fs = require('fs')
 const ini = require('ini')
 const path = require('path')
 
-const scenarioConfig = rc('scenario')
-const bearerConfig = rc('bearer')
-const rootPathRc = findUp.sync('.scenariorc')
-
 let setup = {
   DeploymentUrl: 'https://developer.staging.bearer.sh/v1/',
   IntegrationServiceHost: 'https://int.staging.bearer.sh/',
@@ -44,15 +40,46 @@ module.exports = () => {
   return {
     ...setup,
     HandlerBase: 'index.js',
-    bearerConfig,
-    scenarioConfig,
-    rootPathRc,
+    get orgId() {
+      return this.scenarioConfig.orgId
+    },
+    get bearerConfig() {
+      return rc('bearer')
+    },
+    get scenarioConfig() {
+      return rc('scenario')
+    },
+    get scenarioTitle() {
+      return this.scenarioConfig.scenarioTitle
+    },
+    get scenarioId() {
+      return this.scenarioConfig.scenarioId
+    },
+    get scenarioUuid() {
+      return `${this.orgId}-${this.scenarioId}`
+    },
+    get rootPathRc() {
+      return findUp.sync('.scenariorc')
+    },
+    get credentials() {
+      const { Username, infrastructurePassword } = this.bearerConfig
+      return { Username, infrastructurePassword }
+    },
     storeBearerConfig(config) {
-      const { OrgId, Username, ExpiresAt, authorization } = config
+      const { Username, ExpiresAt, authorization, infrastructurePassword = '' } = config
       fs.writeFileSync(
         this.bearerConfig.config || path.join(os.homedir(), '.bearerrc'),
-        ini.stringify({ OrgId, Username, ExpiresAt, authorization })
+        ini.stringify({
+          Username,
+          ExpiresAt,
+          authorization,
+          infrastructurePassword
+        })
       )
+    },
+    setScenarioConfig(config) {
+      const { scenarioTitle, orgId, scenarioId } = config
+      fs.writeFileSync(this.rootPathRc, ini.stringify({ scenarioTitle, orgId, scenarioId }))
     }
   }
 }
