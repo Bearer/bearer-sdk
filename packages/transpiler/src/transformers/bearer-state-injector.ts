@@ -2,7 +2,7 @@
  *
  */
 import * as ts from 'typescript'
-import { propDecoratedWithName, hasPropDecoratedWithName, hasDecoratorNamed } from './decorator-helpers'
+import { propDecoratedWithName, hasDecoratorNamed, hasPropDecoratedWithName } from './decorator-helpers'
 import { ensureWatchImported, ensureBearerContextInjected, ensureStateImported } from './bearer'
 import { Decorators, Component } from './constants'
 
@@ -181,7 +181,7 @@ function injectPropertyWatcher(
           ],
           undefined,
           undefined,
-          ts.createIdentifier('_notifyBearerStateHandler'),
+          ts.createIdentifier(`_notifyBearerStateHandler_${meta.componentPropName}`),
           undefined,
           undefined,
           [ts.createParameter(undefined, undefined, undefined, 'newValue', undefined, undefined, undefined)],
