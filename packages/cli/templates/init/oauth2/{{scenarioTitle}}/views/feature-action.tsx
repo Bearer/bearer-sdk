@@ -7,9 +7,8 @@ import { Component } from '@bearer/core'
 import '@bearer/ui'
 
 @Component({
-  tag: '{{componentTagName}}',
-  styleUrl: '{{componentName}}.css',
-  shadow: true
+  name: 'action',
+  action: '{{componentName}}'
 })
 export class {{componentName}}Action {
   render() {

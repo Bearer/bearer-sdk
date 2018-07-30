@@ -13,6 +13,11 @@ const COMPONENT = 'component'
 enum TemplateTypes {
   setup = 'setup'
 }
+enum Components {
+  BLANK = 'blank',
+  COLLECTION = 'collection',
+  ROOT = 'root'
+}
 async function generateTemplates({
   emitter,
   templateType,
@@ -151,11 +156,15 @@ async function generateComponent({
         choices: [
           {
             name: 'Blank',
-            value: 'blank'
+            value: Components.BLANK
           },
           {
             name: 'Collection',
-            value: 'collection'
+            value: Components.COLLECTION
+          },
+          {
+            name: 'Root',
+            value: Components.ROOT
           }
         ]
       }

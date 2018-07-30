@@ -67,7 +67,8 @@ Object {
   "postContent": "import { Component, Intent, BearerFetch, IntentType, BearerState, Prop, Watch, State } from '@bearer/core';
 @Component({
     tag: \\"attach-pull-request-action\\",
-    styleUrl: \\"attachPullRequestAction.css\\"
+    styleUrl: \\"attachPullRequestAction.css\\",
+    shadow: true
 })
 export class AttachPullRequest {
     private fetcher: BearerFetch;

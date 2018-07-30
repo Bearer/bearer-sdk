@@ -48,22 +48,16 @@ export default function RootComponentTransformer({ verbose }: TransformerOptions
             const fileName = Case.camel(tagComponent)
             return ts.updateDecorator(
               decorator,
-              ts.createCall(
-                ts.createIdentifier(Decorators.Component),
-                undefined,
-                [
-                  ts.createObjectLiteral(
-                    [
-                      ts.createPropertyAssignment('tag', ts.createStringLiteral(tagComponent)),
-                      ts.createPropertyAssignment('styleUrl', ts.createStringLiteral(fileName + '.css'))
-                    ],
-                    true
-                  )
-                ]
-                // undefined
-                // [ (ts.createPropertyAssignment('tag', ts.createStringLiteral('ff')) as ts.Expression) ]
-                // [(decorator.expression as ts.CallExpression).arguments[0]]
-              )
+              ts.createCall(ts.createIdentifier(Decorators.Component), undefined, [
+                ts.createObjectLiteral(
+                  [
+                    ts.createPropertyAssignment('tag', ts.createStringLiteral(tagComponent)),
+                    ts.createPropertyAssignment('styleUrl', ts.createStringLiteral(fileName + '.css')),
+                    ts.createPropertyAssignment('shadow', ts.createTrue())
+                  ],
+                  true
+                )
+              ])
             )
           }
           return decorator

@@ -7,9 +7,8 @@ import { Component } from '@bearer/core'
 import '@bearer/ui'
 
 @Component({
-  tag: '{{componentTagName}}-display',
-  styleUrl: '{{componentName}}.css',
-  shadow: true
+  name: 'display',
+  action: '{{componentName}}'
 })
 export class {{componentName}}Display {
   render() {
