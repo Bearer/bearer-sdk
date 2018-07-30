@@ -1,34 +1,9 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios'
+import axios, { AxiosInstance } from 'axios'
+import * as d from './declaration'
+export * from './declaration'
 
 import { sendSuccessMessage, sendErrorMessage } from './lambda'
-
-export type Toauth2Context = {
-  accessToken: string
-  bearerBaseURL: string
-  [key: string]: any
-}
-
-export type TnoAuthContext = {
-  bearerBaseURL: string
-  [key: string]: any
-}
-
-export type TbasicAuthContext = {
-  username: string
-  password: string
-  bearerBaseURL: string
-  [key: string]: any
-}
-
-export type TapiKeyContext = {
-  apiKey: string
-  bearerBaseURL: string
-  [key: string]: any
-}
-
-export type TStateData = AxiosResponse<{
-  Item: any
-}>
+import UserDataClient from './UserDataClient'
 
 export class Intent {
   static getCollection(callback, { collection, error }: { collection?: any; error?: any }) {
@@ -78,85 +53,46 @@ class StateIntentBase extends BaseIntent {
   }
 }
 
-const STATE_CLIENT: AxiosInstance = axios.create({
-  timeout: 3000,
-  headers: {
-    Accept: 'application/json',
-    'User-Agent': 'Bearer'
-  }
-})
+type ISaveStateIntentAction = {
+  (context: any, _params: any, body: any, state: any, callback: (state: any) => void): void
+}
 
 export class SaveState extends StateIntentBase {
   static get display() {
     return 'SaveState'
   }
 
-  static intent(action) {
-    return (event, _context, callback) => {
+  static intent(action: ISaveStateIntentAction) {
+    return (event, _context, lambdaCallback) => {
       const { referenceId } = event.queryStringParameters
-      console.log('EVENT CONTEXT', event.context)
-      STATE_CLIENT.defaults.baseURL = event.context.bearerBaseURL
+      const STATE_CLIENT = UserDataClient(event.context.bearerBaseURL)
       try {
-        STATE_CLIENT.request({
-          method: 'get',
-          url: `api/v1/items/${referenceId}`
-        }).then(response => {
-          console.log('[BEARER]', 'received', response.data)
-          const state = response.data.Item
-          console.log('STATE', state)
-          action(event.context, event.queryStringParameters, event.body, state, result => {
-            STATE_CLIENT.request({
-              method: 'put',
-              url: `api/v1/items/${referenceId}`,
-              data: {
-                ...result,
-                ReadAllowed: true
-              }
-            })
-              .then(data => {
-                console.log('[BEARER]', 'success', data)
-                callback(null, {
-                  meta: {
-                    referenceId: referenceId
-                  },
-                  data: {
-                    ...result
-                  }
-                })
-              })
-              .catch(e => {
-                console.error('[BEARER]', 'error', e)
-                callback(`Error : ${e}`)
-              })
-          })
-        })
-      } catch (e) {
-        console.log(e)
-        action(event.context, event.queryStringParameters, event.body, {}, result => {
-          STATE_CLIENT.request({
-            method: 'post',
-            url: `api/v1/items`,
-            data: {
-              ...result,
-              ReadAllowed: true
-            }
-          })
-            .then((response: TStateData) => {
-              console.log('[BEARER]', 'success', response.data)
-              callback(null, {
-                meta: {
-                  referenceId: response.data.Item.referenceId
-                },
-                data: {
-                  ...result
+        STATE_CLIENT.retrieveState(referenceId)
+          .then(savedState => {
+            const state = savedState ? savedState.Item : {}
+            try {
+              action(event.context, event.queryStringParameters, event.body, state, result => {
+                if (savedState) {
+                  STATE_CLIENT.updateState(referenceId, result)
+                    .then(() => {
+                      lambdaCallback(null, { meta: { referenceId }, data: { ...result } })
+                    })
+                    .catch(error => lambdaCallback(error.toString(), { error: error.toString() }))
+                } else {
+                  STATE_CLIENT.saveState(result)
+                    .then(data => {
+                      lambdaCallback(null, { meta: { referenceId: data.Item.referenceId }, data: { ...result } })
+                    })
+                    .catch(error => lambdaCallback(error.toString(), { error: error.toString() }))
                 }
               })
-            })
-            .catch(e => {
-              console.error('[BEARER]', 'error', e)
-              callback(`Error : ${e}`)
-            })
-        })
+            } catch (error) {
+              return lambdaCallback(error.toString(), { error: error.toString() })
+            }
+          })
+          .catch(error => lambdaCallback(error.toString(), { error: error.toString() }))
+      } catch (error) {
+        return lambdaCallback(error.toString(), { error: error.toString() })
       }
     }
   }
@@ -168,34 +104,27 @@ export class RetrieveState extends StateIntentBase {
   }
 
   static intent(action) {
-    return (event, context, callback) => {
+    return (event, _context, lambdaCallback) => {
       const { referenceId } = event.queryStringParameters
-      const baseURL = event.context.bearerBaseURL || STATE_CLIENT.defaults.baseURL
-
-      STATE_CLIENT.request({
-        method: 'get',
-        url: `/api/v1/items/${referenceId}`,
-        baseURL
-      })
-        .then(response => {
-          if (response.data.error) {
-            callback('No data found')
-          } else {
-            console.log('[BEARER]', 'data', response.data)
-            action(event.context, event.queryStringParameters, response.data.Item, state =>
-              callback(null, {
+      const STATE_CLIENT = UserDataClient(event.context.bearerBaseURL)
+      try {
+        STATE_CLIENT.retrieveState(referenceId).then(state => {
+          if (state) {
+            action(event.context, event.queryStringParameters, state.Item, preparedState => {
+              lambdaCallback(null, {
                 meta: {
-                  referenceId: response.data.Item.referenceId
+                  referenceId: state.Item.referenceId
                 },
-                data: state
+                data: preparedState
               })
-            )
+            })
+          } else {
+            lambdaCallback(null, { statusCode: 404, body: JSON.stringify({ error: 'No data found', referenceId }) })
           }
         })
-        .catch(e => {
-          callback('No data found')
-          console.log('[BEARER]', 'error', e)
-        })
+      } catch (error) {
+        lambdaCallback(error.toString(), { error: error.toString() })
+      }
     }
   }
 }
@@ -206,9 +135,9 @@ export class GetCollection extends GenericIntentBase {
   }
 
   static intent(action) {
-    return (event, _context, callback) =>
+    return (event, _context, lambdaCallback) =>
       action(event.context, event.queryStringParameters, result => {
-        Intent.getCollection(callback, result)
+        Intent.getCollection(lambdaCallback, result)
       })
   }
 }
@@ -219,9 +148,9 @@ export class GetObject extends GenericIntentBase {
   }
 
   static intent(action) {
-    return (event, _context, callback) =>
+    return (event, _context, lambdaCallback) =>
       action(event.context, event.queryStringParameters, result => {
-        Intent.getObject(callback, result)
+        Intent.getObject(lambdaCallback, result)
       })
   }
 }
