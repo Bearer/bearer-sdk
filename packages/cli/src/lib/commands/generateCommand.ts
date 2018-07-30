@@ -162,8 +162,9 @@ async function generateComponent({
             name: 'Collection',
             value: Components.COLLECTION
           },
+          new inquirer.Separator(),
           {
-            name: 'Root',
+            name: 'Root Group',
             value: Components.ROOT
           }
         ]
@@ -181,11 +182,12 @@ async function generateComponent({
   const vars = {
     fileName: componentName.charAt(0).toLocaleLowerCase() + componentName.slice(1),
     componentName: componentName,
-    componentTagName: Case.kebab(componentName)
+    componentTagName: Case.kebab(componentName),
+    groupName: componentName
   }
 
-  const inDir = path.join(__dirname, 'templates/generate', type + 'View')
-  const outDir = path.join(locator.srcViewsDir, 'components')
+  const inDir = path.join(__dirname, 'templates/generate', type + 'Component')
+  const outDir = type === Components.ROOT ? locator.srcViewsDir : path.join(locator.srcViewsDir, 'components')
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
     if (err) throw err
