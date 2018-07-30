@@ -8,13 +8,13 @@ import '@bearer/ui'
 
 @Component({
   name: 'display',
-  action: '{{componentName}}'
+  group: 'feature'
 })
-export class {{componentName}}Action {
+export class FeatureAction {
   render() {
     return (
       <div>
-        <bearer-navigator btnProps={ {content:"Scenario Name", kind:"primary"} } direction="right">
+        <bearer-navigator btnProps={ {content:"{{scenarioTitle}}", kind:"primary"} } direction="right">
           <bearer-navigator-auth-screen />
         </bearer-navigator>
       </div>

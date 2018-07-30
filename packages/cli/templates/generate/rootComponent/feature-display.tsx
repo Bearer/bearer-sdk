@@ -8,9 +8,9 @@ import '@bearer/ui'
 
 @Component({
   name: 'display',
-  group: 'feature'
+  action: '{{componentName}}'
 })
-export class FeatureDisplay {
+export class {{componentName}}Display {
   render() {
     return (null)
   }

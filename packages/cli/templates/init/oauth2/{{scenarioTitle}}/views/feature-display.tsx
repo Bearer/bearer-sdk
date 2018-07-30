@@ -3,14 +3,14 @@
   Its responsibility is to retrieve the scenario state from a previous action
   of a user.
 */
-import { RootComponent } from '@bearer/core'
+import { Component } from '@bearer/core'
 import '@bearer/ui'
 
-@RootComponent({
+@Component({
   name: 'display',
-  action: '{{componentName}}'
+  group: 'feature'
 })
-export class {{componentName}}Display {
+export class FeatureDisplay {
   render() {
     return (null)
   }
