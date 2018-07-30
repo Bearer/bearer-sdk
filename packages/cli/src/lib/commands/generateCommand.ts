@@ -77,19 +77,28 @@ const generate = (emitter, {}, locator: Locator) => async env => {
   }
 
   if (env.blankComponent && typeof env.blankComponent === 'string') {
-    return generateComponent({ emitter, locator, name: env.blankComponent, type: 'blank' })
+    return generateComponent({ emitter, locator, name: env.blankComponent, type: Components.BLANK })
   }
 
   if (env.blankComponent) {
-    return generateComponent({ emitter, locator, type: 'blank' })
+    return generateComponent({ emitter, locator, type: Components.BLANK })
   }
 
   if (env.collectionComponent && typeof env.collectionComponent === 'string') {
-    return generateComponent({ emitter, locator, name: env.collectionComponent, type: 'collection' })
+    return generateComponent({ emitter, locator, name: env.collectionComponent, type: Components.COLLECTION })
   }
 
   if (env.collectionComponent) {
-    return generateComponent({ emitter, locator, type: 'collection' })
+    return generateComponent({ emitter, locator, type: Components.COLLECTION })
+  }
+
+  if (env.rootGroup && typeof env.rootGroup === 'string') {
+    console.log('wokt')
+    return generateComponent({ emitter, locator, name: env.rootGroup, type: Components.ROOT })
+  }
+
+  if (env.rootGroup) {
+    return generateComponent({ emitter, locator, type: Components.ROOT })
   }
 
   const { template } = await inquirer.prompt([
@@ -248,6 +257,7 @@ export function useWith(program, emitter, config, locator): void {
     // .option('-t, --type <intentType>', 'Intent type.')
     .option('--blank-component [name]', 'generate blank component')
     .option('--collection-component [name]', 'generate collection component')
+    .option('--root-group [name]', 'generate root components group')
     .option('--setup', 'generate setup file')
     .action(generate(emitter, config, locator))
 }
