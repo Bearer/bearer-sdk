@@ -1,5 +1,6 @@
 export const Decorators = {
   Component: 'Component',
+  RootComponent: 'RootComponent',
   Prop: 'Prop',
   State: 'State',
   Watch: 'Watch',

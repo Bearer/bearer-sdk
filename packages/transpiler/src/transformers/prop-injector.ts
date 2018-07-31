@@ -5,7 +5,7 @@
  */
 import * as ts from 'typescript'
 
-import decorator from './decorator-helpers'
+import { hasDecoratorNamed } from './decorator-helpers'
 import bearer from './bearer'
 import { Decorators } from './constants'
 
@@ -24,10 +24,7 @@ export default function ComponentTransformer({ verbose }: TransformerOptions = {
 
   return transformContext => {
     function visit(node: ts.Node): ts.VisitResult<ts.Node> {
-      if (
-        ts.isClassDeclaration(node) &&
-        decorator.classDecoratedWithName(node as ts.ClassDeclaration, Decorators.Component)
-      ) {
+      if (ts.isClassDeclaration(node) && hasDecoratorNamed(node, Decorators.Component)) {
         return ts.visitEachChild(bearer.addBearerIdProp(node as ts.ClassDeclaration), visit, transformContext)
       }
       return ts.visitEachChild(node, visit, transformContext)

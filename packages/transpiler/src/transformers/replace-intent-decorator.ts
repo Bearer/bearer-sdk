@@ -15,7 +15,7 @@
  * }
  */
 import * as ts from 'typescript'
-import decorator from './decorator-helpers'
+import { hasDecoratorNamed } from './decorator-helpers'
 import { Decorators } from './constants'
 
 type TransformerOptions = {
@@ -87,7 +87,7 @@ export default function ComponentTransformer({ verbose }: TransformerOptions = {
     }
 
     function replaceIfIntentDecorated(node: ts.PropertyDeclaration, registeredIntents: Array<ts.PropertyDeclaration>) {
-      if (node.decorators && decorator.name(node.decorators[0] as ts.Decorator) === Decorators.Intent) {
+      if (hasDecoratorNamed(node, Decorators.Intent)) {
         registeredIntents.push(node)
         return ts.createProperty(
           /* decorators */ undefined,

@@ -13,6 +13,11 @@ const COMPONENT = 'component'
 enum TemplateTypes {
   setup = 'setup'
 }
+enum Components {
+  BLANK = 'blank',
+  COLLECTION = 'collection',
+  ROOT = 'root'
+}
 async function generateTemplates({
   emitter,
   templateType,
@@ -72,19 +77,27 @@ const generate = (emitter, {}, locator: Locator) => async env => {
   }
 
   if (env.blankComponent && typeof env.blankComponent === 'string') {
-    return generateComponent({ emitter, locator, name: env.blankComponent, type: 'blank' })
+    return generateComponent({ emitter, locator, name: env.blankComponent, type: Components.BLANK })
   }
 
   if (env.blankComponent) {
-    return generateComponent({ emitter, locator, type: 'blank' })
+    return generateComponent({ emitter, locator, type: Components.BLANK })
   }
 
   if (env.collectionComponent && typeof env.collectionComponent === 'string') {
-    return generateComponent({ emitter, locator, name: env.collectionComponent, type: 'collection' })
+    return generateComponent({ emitter, locator, name: env.collectionComponent, type: Components.COLLECTION })
   }
 
   if (env.collectionComponent) {
-    return generateComponent({ emitter, locator, type: 'collection' })
+    return generateComponent({ emitter, locator, type: Components.COLLECTION })
+  }
+
+  if (env.rootGroup && typeof env.rootGroup === 'string') {
+    return generateComponent({ emitter, locator, name: env.rootGroup, type: Components.ROOT })
+  }
+
+  if (env.rootGroup) {
+    return generateComponent({ emitter, locator, type: Components.ROOT })
   }
 
   const { template } = await inquirer.prompt([
@@ -151,11 +164,16 @@ async function generateComponent({
         choices: [
           {
             name: 'Blank',
-            value: 'blank'
+            value: Components.BLANK
           },
           {
             name: 'Collection',
-            value: 'collection'
+            value: Components.COLLECTION
+          },
+          new inquirer.Separator(),
+          {
+            name: 'Root Group',
+            value: Components.ROOT
           }
         ]
       }
@@ -172,11 +190,12 @@ async function generateComponent({
   const vars = {
     fileName: componentName.charAt(0).toLocaleLowerCase() + componentName.slice(1),
     componentName: componentName,
-    componentTagName: Case.kebab(componentName)
+    componentTagName: Case.kebab(componentName),
+    groupName: componentName
   }
 
-  const inDir = path.join(__dirname, 'templates/generate', type + 'View')
-  const outDir = path.join(locator.srcViewsDir, 'components')
+  const inDir = path.join(__dirname, 'templates/generate', `${type}Component`)
+  const outDir = type === Components.ROOT ? locator.srcViewsDir : path.join(locator.srcViewsDir, 'components')
 
   copy(inDir, outDir, vars, (err, createdFiles) => {
     if (err) throw err
@@ -237,6 +256,7 @@ export function useWith(program, emitter, config, locator): void {
     // .option('-t, --type <intentType>', 'Intent type.')
     .option('--blank-component [name]', 'generate blank component')
     .option('--collection-component [name]', 'generate collection component')
+    .option('--root-group [name]', 'generate root components group')
     .option('--setup', 'generate setup file')
     .action(generate(emitter, config, locator))
 }

@@ -14,6 +14,8 @@ export {
   FunctionalComponent
 } from '@stencil/core/dist/declarations'
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
 /**
  *  BearerState Decorator
  */
@@ -30,29 +32,36 @@ export const BearerState: IBearerStateDecorator<any> = (options?: IBearerStateDe
   target: any,
   key: string
 ): void => {}
+
 /**
  *  Component Decorator
  */
 
-export enum BearerComponentRoleEnum {
+export interface IBearerComponentDecorator<T> {
+  (options?: d.ComponentOptions): T
+}
+
+export declare const Component: IBearerComponentDecorator<any>
+
+/**
+ * RootComponent Decorator
+ */
+
+export enum BearerRootComponentRoleEnum {
   Display = 'display',
   Action = 'action'
 }
 
-export interface BearerComponentOptions {
-  bearer?: {
-    role: BearerComponentRoleEnum
-  }
-}
-export interface IBearerComponent {
-  BEARER_SCENARIO_ID: string
+export interface BearerRootComponentOptions extends Omit<d.ComponentOptions, 'tag'> {
+  group: string
+  name: 'display' | 'action'
 }
 
-export interface IBearerComponentDecorator<T> {
-  (options?: d.ComponentOptions & BearerComponentOptions): T & IBearerComponent
+export interface IBearerRootComponentDecorator<T> {
+  (options?: BearerRootComponentOptions): T
 }
 
-export declare const Component: IBearerComponentDecorator<any>
+export declare const RootComponent: IBearerRootComponentDecorator<any>
 
 /**
  * Build
