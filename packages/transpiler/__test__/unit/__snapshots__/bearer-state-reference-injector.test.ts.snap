@@ -61,20 +61,3 @@ class AddHTMLElementReference {
 ",
 }
 `;
-
-exports[`Bearer State Event Injector reuse previous declaration.1 match snapshot 1`] = `
-Object {
-  "file": "reuse-previous-declaration.1.tsx",
-  "postContent": "import { SaveStateIntent, BearerFetch, Element, Prop } from '@bearer/core';
-class AddHTMLElementReference {
-    @Element()
-    el: HTMLElement;
-    @SaveStateIntent()
-    fetcher: BearerFetch;
-    constructor() { }
-    @Prop()
-    referenceId: string;
-}
-",
-}
-`;
