@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.28.0"></a>
+# [0.28.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.27.4...v0.28.0) (2018-07-31)
+
+
+### Bug Fixes
+
+* **ui:** update typing form core update ([841318e](https://github.com/ionic-team/stencil-component-starter/commit/841318e))
+
+
+
+
 <a name="0.27.1"></a>
 ## [0.27.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.27.0...v0.27.1) (2018-07-27)
 
