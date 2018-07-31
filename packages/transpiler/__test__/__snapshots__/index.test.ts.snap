@@ -61,16 +61,36 @@ export class FullComponent {
 }
 `;
 
-exports[`Transpiler integration test RootComponent.tsx match expectation 1`] = `
+exports[`Transpiler integration test exportObject.ts match expectation 1`] = `
 Object {
-  "file": "RootComponent.tsx",
+  "file": "exportObject.ts",
+  "postContent": "class SpongeBobHelper {
+    private name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+export class PatrickHelper {
+    constructor() { }
+}
+export default {
+    spongeHelper: SpongeBobHelper,
+    patrickHelper: PatrickHelper
+};
+",
+}
+`;
+
+exports[`Transpiler integration test invalidRootComponent.tsx match expectation 1`] = `
+Object {
+  "file": "invalidRootComponent.tsx",
   "postContent": "import { Component, Intent, BearerFetch, IntentType, BearerState, Prop, Watch, State } from '@bearer/core';
 @Component({
     tag: \\"attach-pull-request-action\\",
-    styleUrl: \\"attachPullRequestAction.css\\",
+    styleUrl: \\"AttachPullRequest.css\\",
     shadow: true
 })
-export class AttachPullRequest {
+export class AttachPullRequestAction {
     private fetcher: BearerFetch;
     @RetrieveStateIntent()
     retrieve: BearerFetch;
@@ -105,26 +125,6 @@ export class AttachPullRequest {
     @Prop()
     referenceId: string;
 }
-",
-}
-`;
-
-exports[`Transpiler integration test exportObject.ts match expectation 1`] = `
-Object {
-  "file": "exportObject.ts",
-  "postContent": "class SpongeBobHelper {
-    private name: string;
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-export class PatrickHelper {
-    constructor() { }
-}
-export default {
-    spongeHelper: SpongeBobHelper,
-    patrickHelper: PatrickHelper
-};
 ",
 }
 `;
@@ -186,6 +186,54 @@ class OverridesDecorarotLess {
     componentDidLoad() { if (this.setupId) {
         this.bearerContext.setupId = this.setupId;
     } console.log('componentDidLoad'); }
+}
+",
+}
+`;
+
+exports[`Transpiler integration test rootComponent.tsx match expectation 1`] = `
+Object {
+  "file": "rootComponent.tsx",
+  "postContent": "import { Component, Intent, BearerFetch, IntentType, BearerState, Prop, Watch, State } from '@bearer/core';
+@Component({
+    tag: \\"attach-pull-request-action\\",
+    styleUrl: \\"AttachPullRequest.css\\",
+    shadow: true
+})
+export class AttachPullRequestAction {
+    private fetcher: BearerFetch;
+    @RetrieveStateIntent()
+    retrieve: BearerFetch;
+    @BearerState()
+    @State()
+    attachedPullRequests: Array<any>;
+    @BearerState({ statePropName: 'goats' })
+    @State()
+    ducks: Array<any>;
+    private fetchResource: BearerFetch;
+    render() {
+        return <bearer-scrollable fetcher={this.fetcher}/>;
+    }
+    constructor() { Intent('ListRepositories')(this, \\"fetcher\\"); Intent('getPullRequest', IntentType.GetResource)(this, \\"fetchResource\\"); }
+    get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
+    @Prop()
+    BEARER_ID: string;
+    @Prop({ \\"context\\": \\"bearer\\" })
+    bearerContext: any;
+    @Prop()
+    setupId: string;
+    componentDidLoad() { if (this.setupId) {
+        this.bearerContext.setupId = this.setupId;
+    } }
+    @Watch(\\"attachedPullRequests\\")
+    _notifyBearerStateHandler_attachedPullRequests(newValue) { this.bearerContext.update(\\"attachedPullRequests\\", newValue); }
+    @Watch(\\"ducks\\")
+    _notifyBearerStateHandler_ducks(newValue) { this.bearerContext.update('goats', newValue); }
+    componentWillLoad() { this.bearerContext.subscribe(this); }
+    componentDidUnload() { this.bearerContext.unsubscribe(this); }
+    bearerUpdateFromState = state => { this.attachedPullRequests = state[\\"attachedPullRequests\\"]; this.ducks = state['goats']; };
+    @Prop()
+    referenceId: string;
 }
 ",
 }

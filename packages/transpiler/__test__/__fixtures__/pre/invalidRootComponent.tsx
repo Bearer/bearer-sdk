@@ -1,7 +1,7 @@
 import { Component, Intent, BearerFetch, IntentType, BearerState } from '@bearer/core'
 
 @RootComponent({
-  group: 'AttachPullRequest',
+  group: 'attach-pull-request',
   name: 'action'
 })
 export class AttachPullRequestAction {

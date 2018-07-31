@@ -54,7 +54,6 @@ export enum BearerRootComponentRoleEnum {
 
 export interface BearerRootComponentOptions extends Omit<d.ComponentOptions, 'tag'> {
   group: string
-  // name: BearerRootComponentRoleEnum
   name: 'display' | 'action'
 }
 

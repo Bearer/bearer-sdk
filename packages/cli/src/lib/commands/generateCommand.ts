@@ -93,7 +93,6 @@ const generate = (emitter, {}, locator: Locator) => async env => {
   }
 
   if (env.rootGroup && typeof env.rootGroup === 'string') {
-    console.log('wokt')
     return generateComponent({ emitter, locator, name: env.rootGroup, type: Components.ROOT })
   }
 
@@ -195,7 +194,7 @@ async function generateComponent({
     groupName: componentName
   }
 
-  const inDir = path.join(__dirname, 'templates/generate', type + 'Component')
+  const inDir = path.join(__dirname, 'templates/generate', `${type}Component`)
   const outDir = type === Components.ROOT ? locator.srcViewsDir : path.join(locator.srcViewsDir, 'components')
 
   copy(inDir, outDir, vars, (err, createdFiles) => {

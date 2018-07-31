@@ -45,14 +45,14 @@ export default function RootComponentTransformer({ verbose }: TransformerOptions
               }
             })
             const tagComponent = [Case.kebab(group), name].join('-')
-            const fileName = Case.camel(tagComponent)
+            const cssFileName = Case.pascal(group)
             return ts.updateDecorator(
               decorator,
               ts.createCall(ts.createIdentifier(Decorators.Component), undefined, [
                 ts.createObjectLiteral(
                   [
                     ts.createPropertyAssignment('tag', ts.createStringLiteral(tagComponent)),
-                    ts.createPropertyAssignment('styleUrl', ts.createStringLiteral(fileName + '.css')),
+                    ts.createPropertyAssignment('styleUrl', ts.createStringLiteral(cssFileName + '.css')),
                     ts.createPropertyAssignment('shadow', ts.createTrue())
                   ],
                   true
