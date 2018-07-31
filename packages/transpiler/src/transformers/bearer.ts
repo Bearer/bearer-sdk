@@ -255,8 +255,18 @@ export function ensureStateImported(tsSourceFile: ts.SourceFile): ts.SourceFile 
   return ensureHasImportFromCore(tsSourceFile, Decorators.State)
 }
 
+export function ensureElementImported(tsSourceFile: ts.SourceFile): ts.SourceFile {
+  return ensureHasImportFromCore(tsSourceFile, Decorators.Element)
+}
+
 export function propDecorator() {
   return ts.createDecorator(ts.createCall(ts.createIdentifier(Decorators.Prop) as ts.Expression, undefined, undefined))
+}
+
+export function elementDecorator() {
+  return ts.createDecorator(
+    ts.createCall(ts.createIdentifier(Decorators.Element) as ts.Expression, undefined, undefined)
+  )
 }
 
 export default {

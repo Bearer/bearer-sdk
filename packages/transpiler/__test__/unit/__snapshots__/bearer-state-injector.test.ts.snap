@@ -10,7 +10,7 @@ Object {
 }
 `;
 
-exports[`Bearer State Injector do not rewatch propertyx match snapshot 1`] = `
+exports[`Bearer State Injector do not rewatch property match snapshot 1`] = `
 Object {
   "file": "do-not-rewatch-property.tsx",
   "postContent": "import { BearerState, Watch, State } from '@bearer/core';
@@ -36,7 +36,7 @@ class UpdateExistingPropertyWatcher {
 }
 `;
 
-exports[`Bearer State Injector does not re add component lifecycle methodsx match snapshot 1`] = `
+exports[`Bearer State Injector does not re add component lifecycle methods match snapshot 1`] = `
 Object {
   "file": "does-not-re-add-component-lifecycle-methods.tsx",
   "postContent": "import { BearerState, Watch, State } from '@bearer/core';
@@ -85,7 +85,7 @@ class AddDecoratorOnTranspile {
 }
 `;
 
-exports[`Bearer State Injector has bearer context presentx match snapshot 1`] = `
+exports[`Bearer State Injector has bearer context present match snapshot 1`] = `
 Object {
   "file": "has-bearer-context-present.tsx",
   "postContent": "import { BearerState, Prop } from '@bearer/core';

@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
-import { hasPropDecoratedWithName } from './decorator-helpers'
-import { ensurePropImported, propDecorator } from './bearer'
-import { Decorators } from './constants'
+import { hasPropDecoratedWithName, propDecoratedWithName } from './decorator-helpers'
+import { ensurePropImported, propDecorator, elementDecorator, ensureElementImported } from './bearer'
+import { Decorators, Types, Properties } from './constants'
 
 type TransformerOptions = {
   verbose?: true
@@ -18,13 +18,67 @@ export default function BearerReferenceIdInjector({ verbose }: TransformerOption
 
       function visit(node: ts.Node): ts.VisitResult<ts.Node> {
         if (ts.isClassDeclaration(node)) {
-          return injectBearerReferenceIdProp(node)
+          return injectHTMLElementPropery(injectBearerReferenceIdProp(node))
         }
         return ts.visitEachChild(node, visit, transformContext)
       }
-      return ts.visitEachChild(ensurePropImported(tsSourceFile), visit, transformContext)
+      return ts.visitEachChild(ensureElementImported(ensurePropImported(tsSourceFile)), visit, transformContext)
     }
   }
+}
+
+function injectHTMLElementPropery(tsClass: ts.ClassDeclaration): ts.ClassDeclaration {
+  if (hasPropDecoratedWithName(tsClass, Decorators.Element)) {
+    const existingProp = propDecoratedWithName(tsClass, Decorators.Element)[0]
+    const propertyName = existingProp.name['escapedText']
+
+    if (propertyName !== Properties.Element) {
+      return ts.updateClassDeclaration(
+        tsClass,
+        tsClass.decorators,
+        tsClass.modifiers,
+        tsClass.name,
+        tsClass.typeParameters,
+        tsClass.heritageClauses,
+        [
+          ...tsClass.members,
+          ts.createGetAccessor(
+            undefined, // decorators
+            undefined, // modifiers
+            Properties.Element, // name
+            undefined, // questionExclamationToken
+            ts.createTypeReferenceNode(Types.HTMLElement, undefined), // Type
+            ts.createBlock([
+              ts.createReturn(
+                ts.createPropertyAccess(ts.createThis(), propertyName) // initializer
+              )
+            ])
+          )
+        ]
+      )
+    }
+    return tsClass
+  }
+
+  return ts.updateClassDeclaration(
+    tsClass,
+    tsClass.decorators,
+    tsClass.modifiers,
+    tsClass.name,
+    tsClass.typeParameters,
+    tsClass.heritageClauses,
+    [
+      ...tsClass.members,
+      ts.createProperty(
+        [elementDecorator()],
+        undefined,
+        Properties.Element,
+        undefined,
+        ts.createTypeReferenceNode(Types.HTMLElement, undefined),
+        undefined
+      )
+    ]
+  )
 }
 
 function injectBearerReferenceIdProp(tsClass: ts.ClassDeclaration): ts.ClassDeclaration {
@@ -40,7 +94,7 @@ function injectBearerReferenceIdProp(tsClass: ts.ClassDeclaration): ts.ClassDecl
       ts.createProperty(
         [propDecorator()],
         undefined,
-        'referenceId',
+        Properties.ReferenceId,
         undefined,
         ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
         undefined
@@ -48,6 +102,7 @@ function injectBearerReferenceIdProp(tsClass: ts.ClassDeclaration): ts.ClassDecl
     ]
   )
 }
+
 function hasRetrieveOrSaveStateIntent(tsSourceFile: ts.SourceFile): boolean {
   return ts.forEachChild(
     tsSourceFile,
