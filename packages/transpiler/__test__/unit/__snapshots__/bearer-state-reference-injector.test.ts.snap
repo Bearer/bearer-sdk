@@ -3,13 +3,33 @@
 exports[`Bearer State Event Injector add html element reference match snapshot 1`] = `
 Object {
   "file": "add-html-element-reference.tsx",
-  "postContent": "import { SaveStateIntent, BearerFetch, Prop } from '@bearer/core';
+  "postContent": "import { SaveStateIntent, BearerFetch, Prop, Element } from '@bearer/core';
 class AddHTMLElementReference {
     @SaveStateIntent()
     fetcher: BearerFetch;
     constructor() { }
     @Prop()
     referenceId: string;
+    @Element()
+    el: HTMLElement;
+}
+",
+}
+`;
+
+exports[`Bearer State Event Injector alias previous declaration match snapshot 1`] = `
+Object {
+  "file": "alias-previous-declaration.tsx",
+  "postContent": "import { SaveStateIntent, BearerFetch, Element, Prop } from '@bearer/core';
+class AddHTMLElementReference {
+    @Element()
+    element: HTMLElement;
+    @SaveStateIntent()
+    fetcher: BearerFetch;
+    constructor() { }
+    @Prop()
+    referenceId: string;
+    get el(): HTMLElement { return this.element; }
 }
 ",
 }
@@ -28,6 +48,23 @@ Object {
 exports[`Bearer State Event Injector reuse previous declaration match snapshot 1`] = `
 Object {
   "file": "reuse-previous-declaration.tsx",
+  "postContent": "import { SaveStateIntent, BearerFetch, Element, Prop } from '@bearer/core';
+class AddHTMLElementReference {
+    @Element()
+    el: HTMLElement;
+    @SaveStateIntent()
+    fetcher: BearerFetch;
+    constructor() { }
+    @Prop()
+    referenceId: string;
+}
+",
+}
+`;
+
+exports[`Bearer State Event Injector reuse previous declaration.1 match snapshot 1`] = `
+Object {
+  "file": "reuse-previous-declaration.1.tsx",
   "postContent": "import { SaveStateIntent, BearerFetch, Element, Prop } from '@bearer/core';
 class AddHTMLElementReference {
     @Element()
