@@ -6,7 +6,7 @@ import { Component, Intent, BearerFetch } from '@bearer/core'
   shadow: true
 })
 export class {{componentName}} {
-  @Intent('{{componentName}}') fetcher: BearerFetch
+  @Intent('{{fileName}}') fetcher: BearerFetch
   render() {
     return <bearer-scrollable fetcher={this.fetcher} />
   }

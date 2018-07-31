@@ -187,8 +187,9 @@ async function generateComponent({
   }
 
   const componentName = Case.pascal(name)
+  const fileName = name.charAt(0) + Case.camel(name).substr(1)
   const vars = {
-    fileName: componentName,
+    fileName: fileName,
     componentName: componentName,
     componentTagName: Case.kebab(componentName),
     groupName: componentName
