@@ -62,9 +62,10 @@ workflows:
   btd:
     jobs:
       - build
-      - deploy_storybook:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+      # Disabling for the moment: feel free to re-enable it once it is fixed
+      # - deploy_storybook:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only: master
