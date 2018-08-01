@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.29.0"></a>
+# [0.29.0](https://github.com/Bearer/bearer/compare/v0.28.0...v0.29.0) (2018-08-01)
+
+
+### Bug Fixes
+
+* empty css is now using pascal case ([a996af9](https://github.com/Bearer/bearer/commit/a996af9))
+* remove old comments ([21834eb](https://github.com/Bearer/bearer/commit/21834eb))
+
+
+### Features
+
+* add generate root group ([f365675](https://github.com/Bearer/bearer/commit/f365675))
+* add root group option ([f099802](https://github.com/Bearer/bearer/commit/f099802))
+* **cli:** switch to dev portal ([#184](https://github.com/Bearer/bearer/issues/184)) ([506ac90](https://github.com/Bearer/bearer/commit/506ac90))
+
+
+
+
 <a name="0.28.0"></a>
 # [0.28.0](https://github.com/Bearer/bearer/compare/v0.27.4...v0.28.0) (2018-07-31)
 

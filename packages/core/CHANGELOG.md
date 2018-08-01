@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.29.0"></a>
+# [0.29.0](https://github.com/Bearer/bearer/compare/v0.28.0...v0.29.0) (2018-08-01)
+
+
+### Bug Fixes
+
+* remove old comments ([21834eb](https://github.com/Bearer/bearer/commit/21834eb))
+
+
+### Features
+
+* add root decorator ([0754737](https://github.com/Bearer/bearer/commit/0754737))
+
+
+
+
 <a name="0.28.0"></a>
 # [0.28.0](https://github.com/Bearer/bearer/compare/v0.27.4...v0.28.0) (2018-07-31)
 

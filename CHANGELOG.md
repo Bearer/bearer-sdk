@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.29.0"></a>
+# [0.29.0](https://github.com/Bearer/bearer/compare/v0.28.0...v0.29.0) (2018-08-01)
+
+
+### Bug Fixes
+
+* add .keep to pass tests ([e298811](https://github.com/Bearer/bearer/commit/e298811))
+* add snapshot ([bb0f1e2](https://github.com/Bearer/bearer/commit/bb0f1e2))
+* empty css is now using pascal case ([a996af9](https://github.com/Bearer/bearer/commit/a996af9))
+* remove old comments ([21834eb](https://github.com/Bearer/bearer/commit/21834eb))
+
+
+### Features
+
+* add generate root group ([f365675](https://github.com/Bearer/bearer/commit/f365675))
+* add root component transformer ([a710da2](https://github.com/Bearer/bearer/commit/a710da2))
+* add root decorator ([0754737](https://github.com/Bearer/bearer/commit/0754737))
+* add root group option ([f099802](https://github.com/Bearer/bearer/commit/f099802))
+* add skel root component transformer ([a9fd496](https://github.com/Bearer/bearer/commit/a9fd496))
+* **cli:** switch to dev portal ([#184](https://github.com/Bearer/bearer/issues/184)) ([506ac90](https://github.com/Bearer/bearer/commit/506ac90))
+* **transpiler:** inject el into component ([7f00a76](https://github.com/Bearer/bearer/commit/7f00a76))
+
+
+
+
 <a name="0.28.0"></a>
 # [0.28.0](https://github.com/Bearer/bearer/compare/v0.27.4...v0.28.0) (2018-07-31)
 
