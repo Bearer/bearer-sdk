@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.32.0"></a>
+# [0.32.0](https://github.com/BearerSH/bearer/compare/v0.31.0...v0.32.0) (2018-08-02)
+
+
+### Features
+
+* **core:** simplify decorator use ([#193](https://github.com/BearerSH/bearer/issues/193)) ([fa3facc](https://github.com/BearerSH/bearer/commit/fa3facc))
+
+
+
+
 <a name="0.27.3"></a>
 ## [0.27.3](https://github.com/BearerSH/bearer/compare/v0.27.2...v0.27.3) (2018-07-30)
 

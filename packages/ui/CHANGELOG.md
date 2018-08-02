@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.32.0"></a>
+# [0.32.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.31.0...v0.32.0) (2018-08-02)
+
+
+### Features
+
+* **core:** simplify decorator use ([#193](https://github.com/ionic-team/stencil-component-starter/issues/193)) ([fa3facc](https://github.com/ionic-team/stencil-component-starter/commit/fa3facc))
+
+
+
+
 <a name="0.30.0"></a>
 # [0.30.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.29.0...v0.30.0) (2018-08-01)
 

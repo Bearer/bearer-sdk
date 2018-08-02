@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.32.0"></a>
+# [0.32.0](https://github.com/Bearer/bearer/compare/v0.31.0...v0.32.0) (2018-08-02)
+
+
+### Bug Fixes
+
+* **transpiler:** update test suite ([7da4def](https://github.com/Bearer/bearer/commit/7da4def))
+
+
+### Features
+
+* **core:** simplify decorator use ([#193](https://github.com/Bearer/bearer/issues/193)) ([fa3facc](https://github.com/Bearer/bearer/commit/fa3facc))
+
+
+
+
 <a name="0.31.0"></a>
 # [0.31.0](https://github.com/Bearer/bearer/compare/v0.30.0...v0.31.0) (2018-08-01)
 
