@@ -18,6 +18,7 @@ export type TranpilerOptions = {
   watchFiles?: boolean
   buildFolder?: string
   srcFolder?: string
+  verbose?: boolean
 }
 
 export default class Transpiler {
@@ -30,6 +31,7 @@ export default class Transpiler {
   private watchFiles = true
   private buildFolder = '.bearer/views'
   private srcFolder = 'views'
+  private verbose = true
 
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
@@ -126,13 +128,13 @@ export default class Transpiler {
     return {
       before: [
         RootComponentTransformer({ verbose }),
+        BearerReferenceIdInjector({ verbose }),
         ReplaceIntentDecorators({ verbose }),
         BearerScenarioIdInjector({ verbose }),
         PropImporter({ verbose }),
         PropInjector({ verbose }),
         PropBearerContextInjector({ verbose }),
         BearerStateInjector({ verbose }),
-        BearerReferenceIdInjector({ verbose }),
         NavigatorScreenTransformer({ verbose }),
         ImportsImporter({ verbose }),
         dumpSourceCode(this.VIEWS_DIRECTORY, this.BUILD_SCR_DIRECTORY)({
@@ -147,7 +149,9 @@ export default class Transpiler {
     const output = this.service.getEmitOutput(fileName)
 
     if (!output.emitSkipped) {
-      console.log(`Emitting ${fileName}`)
+      if (this.verbose) {
+        console.log(`Emitting ${fileName}`)
+      }
     } else {
       console.log(`Emitting ${fileName} failed`)
       this.logErrors(fileName)
