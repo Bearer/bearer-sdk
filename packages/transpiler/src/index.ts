@@ -12,6 +12,9 @@ import BearerReferenceIdInjector from './transformers/reference-id-injector'
 import RootComponentTransformer from './transformers/root-component-transformer'
 import NavigatorScreenTransformer from './transformers/navigator-screen-transformer'
 import ImportsImporter from './transformers/imports-transformer'
+import { Metadata } from './types'
+import generateMetadataFile from './transformers/generate-metadata-file'
+import ParseMetadata from './transformers/parse-metadata'
 
 export type TranpilerOptions = {
   ROOT_DIRECTORY?: string
@@ -31,6 +34,8 @@ export default class Transpiler {
   private buildFolder = '.bearer/views'
   private srcFolder = 'views'
 
+  private metadata: Metadata
+
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
     this.ROOT_DIRECTORY = this.ROOT_DIRECTORY || process.cwd()
@@ -44,6 +49,10 @@ export default class Transpiler {
     this.rootFileNames = parsed.fileNames
     if (!this.rootFileNames.length) {
       console.warn('[BEARER]', 'No file to transpile')
+    }
+
+    this.metadata = {
+      components: []
     }
   }
 
@@ -125,6 +134,7 @@ export default class Transpiler {
     const verbose = true
     return {
       before: [
+        ParseMetadata({ verbose, metadata: this.metadata }),
         RootComponentTransformer({ verbose }),
         ReplaceIntentDecorators({ verbose }),
         BearerScenarioIdInjector({ verbose }),
@@ -137,7 +147,8 @@ export default class Transpiler {
         ImportsImporter({ verbose }),
         dumpSourceCode(this.VIEWS_DIRECTORY, this.BUILD_SCR_DIRECTORY)({
           verbose: true
-        })
+        }),
+        generateMetadataFile({ verbose: verbose, metadata: this.metadata, outDir: this.BUILD_SCR_DIRECTORY })
       ],
       after: []
     }

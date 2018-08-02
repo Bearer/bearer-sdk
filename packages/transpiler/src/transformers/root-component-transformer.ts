@@ -1,47 +1,19 @@
 import * as ts from 'typescript'
 import * as Case from 'case'
 import { Decorators } from './constants'
-import { hasDecoratorNamed, decoratorNamed } from './decorator-helpers'
-
-type TransformerOptions = {
-  verbose?: true
-}
+import { hasDecoratorNamed, decoratorNamed, getExpressionFromDecorator } from './decorator-helpers'
+import { TransformerOptions } from '../types'
 
 export default function RootComponentTransformer({  }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
   return _transformContext => {
     function visit(node: ts.Node): ts.Node {
       if (ts.isClassDeclaration(node) && hasDecoratorNamed(node, Decorators.RootComponent)) {
-        let group = ''
-        let name = ''
         const decorators = node.decorators.map(decorator => {
           if (decoratorNamed(decorator, Decorators.RootComponent)) {
-            const obj = (decorator.expression as ts.CallExpression).arguments[0] as ts.ObjectLiteralExpression
-            obj.properties.forEach(property => {
-              if (
-                property
-                  .getChildAt(0)
-                  .getFullText()
-                  .trim() === 'group'
-              ) {
-                group = property
-                  .getChildAt(2)
-                  .getFullText()
-                  .trim()
-                  .slice(1, -1)
-              }
-              if (
-                property
-                  .getChildAt(0)
-                  .getFullText()
-                  .trim() === 'name'
-              ) {
-                name = property
-                  .getChildAt(2)
-                  .getFullText()
-                  .trim()
-                  .slice(1, -1)
-              }
-            })
+            const nameExpression = getExpressionFromDecorator<ts.StringLiteral>(decorator, 'name')
+            const name = nameExpression ? nameExpression.text : ''
+            const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(decorator, 'group')
+            const group = groupExpression ? groupExpression.text : ''
             const tagComponent = [Case.kebab(group), name].join('-')
             const cssFileName = Case.pascal(group)
             return ts.updateDecorator(
