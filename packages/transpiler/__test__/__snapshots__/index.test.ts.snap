@@ -138,11 +138,11 @@ Object {
   "file": "invalidRootComponent.tsx",
   "postContent": "import { Intent, BearerFetch, IntentType, BearerState, Prop, Watch, State, Element, Component } from '@bearer/core';
 @Component({
-    tag: \\"attach-pull-request-action\\",
+    tag: \\"attach-pull-request-display\\",
     styleUrl: \\"AttachPullRequest.css\\",
     shadow: true
 })
-export class AttachPullRequestAction {
+export class AttachPullRequestDisplay {
     private fetcher: BearerFetch;
     @RetrieveStateIntent()
     retrieve: BearerFetch;

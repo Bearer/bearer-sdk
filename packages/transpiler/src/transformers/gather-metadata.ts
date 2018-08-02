@@ -4,7 +4,7 @@ import { TransformerOptions } from '../types'
 import { Decorators } from './constants'
 import { hasDecoratorNamed, getExpressionFromDecorator, getDecoratorNamed } from './decorator-helpers'
 
-export default function ParseMetadata({ metadata }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
+export default function GatherMetadata({ metadata }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
   return _transformContext => {
     function visit(node: ts.Node): ts.Node {
       // Found Component
@@ -12,9 +12,10 @@ export default function ParseMetadata({ metadata }: TransformerOptions = {}): ts
         const component = getDecoratorNamed(node, Decorators.Component)
         const tag = getExpressionFromDecorator<ts.StringLiteral>(component, 'tag')
         metadata.components.push({
+          classname: node.name.text,
           isRoot: false,
-          initialTagName: tag ? tag.text : '',
-          finalTagName: tag ? tag.text : ''
+          initialTagName: tag.text,
+          finalTagName: tag.text
         })
         return node
       }
@@ -28,9 +29,11 @@ export default function ParseMetadata({ metadata }: TransformerOptions = {}): ts
         const group = groupExpression ? groupExpression.text : ''
         const tag = [Case.kebab(group), name].join('-')
         metadata.components.push({
+          classname: node.name.text,
           isRoot: true,
           initialTagName: tag,
-          finalTagName: tag
+          finalTagName: tag,
+          group: group
         })
         return node
       }

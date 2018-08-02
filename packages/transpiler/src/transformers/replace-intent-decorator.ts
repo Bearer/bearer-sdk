@@ -1,26 +1,7 @@
-/*
- * From this:
- * class AComponent {
- *  @Intent('aName', IntentType.GetResource) fetcher: BearerFetch
- * }
- * 
- * to this:
- * 
- * class AComponent {
- *  private fetcher: BearerFetch
- * 
- *  constructor() {
- *    Intent('aName', IntentType.GetResource)(this, fetcher)
- *  }
- * }
- */
 import * as ts from 'typescript'
 import { hasDecoratorNamed } from './decorator-helpers'
 import { Decorators } from './constants'
-
-type TransformerOptions = {
-  verbose?: true
-}
+import { TransformerOptions } from '../types'
 
 function appendConstructor(node: ts.ClassDeclaration): ts.Node {
   if (classHasConstructor(node)) {

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import Transpiler from '../src/index'
+import Transpiler from '../src'
 
 export default args => {
   const transpiler = new Transpiler({

@@ -12,9 +12,9 @@ import BearerReferenceIdInjector from './transformers/reference-id-injector'
 import RootComponentTransformer from './transformers/root-component-transformer'
 import NavigatorScreenTransformer from './transformers/navigator-screen-transformer'
 import ImportsImporter from './transformers/imports-transformer'
-import { Metadata } from './types'
+import { Metadata, SourceCodeTransformerOptions } from './types'
 import generateMetadataFile from './transformers/generate-metadata-file'
-import ParseMetadata from './transformers/parse-metadata'
+import GatherMetadata from './transformers/gather-metadata'
 
 export type TranpilerOptions = {
   ROOT_DIRECTORY?: string
@@ -34,7 +34,9 @@ export default class Transpiler {
   private buildFolder = '.bearer/views'
   private srcFolder = 'views'
 
-  private metadata: Metadata
+  private metadata: Metadata = {
+    components: []
+  }
 
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
@@ -49,10 +51,6 @@ export default class Transpiler {
     this.rootFileNames = parsed.fileNames
     if (!this.rootFileNames.length) {
       console.warn('[BEARER]', 'No file to transpile')
-    }
-
-    this.metadata = {
-      components: []
     }
   }
 
@@ -134,19 +132,21 @@ export default class Transpiler {
     const verbose = true
     return {
       before: [
-        ParseMetadata({ verbose, metadata: this.metadata }),
-        RootComponentTransformer({ verbose }),
-        ReplaceIntentDecorators({ verbose }),
-        BearerScenarioIdInjector({ verbose }),
-        PropImporter({ verbose }),
-        PropInjector({ verbose }),
-        PropBearerContextInjector({ verbose }),
-        BearerStateInjector({ verbose }),
-        BearerReferenceIdInjector({ verbose }),
-        NavigatorScreenTransformer({ verbose }),
-        ImportsImporter({ verbose }),
-        dumpSourceCode(this.VIEWS_DIRECTORY, this.BUILD_SCR_DIRECTORY)({
-          verbose: true
+        GatherMetadata({ verbose, metadata: this.metadata }),
+        RootComponentTransformer({ verbose, metadata: this.metadata }),
+        ReplaceIntentDecorators({ verbose, metadata: this.metadata }),
+        BearerScenarioIdInjector({ verbose, metadata: this.metadata }),
+        PropImporter({ verbose, metadata: this.metadata }),
+        PropInjector({ verbose, metadata: this.metadata }),
+        PropBearerContextInjector({ verbose, metadata: this.metadata }),
+        BearerStateInjector({ verbose, metadata: this.metadata }),
+        BearerReferenceIdInjector({ verbose, metadata: this.metadata }),
+        NavigatorScreenTransformer({ verbose, metadata: this.metadata }),
+        ImportsImporter({ verbose, metadata: this.metadata }),
+        dumpSourceCode({
+          verbose: true,
+          srcDirectory: this.VIEWS_DIRECTORY,
+          buildDirectory: this.BUILD_SCR_DIRECTORY
         }),
         generateMetadataFile({ verbose: verbose, metadata: this.metadata, outDir: this.BUILD_SCR_DIRECTORY })
       ],
@@ -195,23 +195,19 @@ export default class Transpiler {
   }
 }
 
-type TransformerOptions = {
-  verbose?: true
-}
+function dumpSourceCode(
+  { srcDirectory, buildDirectory }: SourceCodeTransformerOptions = { srcDirectory, buildDirectory }
+): ts.TransformerFactory<ts.SourceFile> {
+  return _transformContext => {
+    return tsSourceFile => {
+      let outPath = tsSourceFile.fileName
+        .replace(srcDirectory, buildDirectory)
+        .replace(/js$/, 'ts')
+        .replace(/jsx$/, 'tsx')
+      fs.ensureFileSync(outPath)
+      fs.writeFileSync(outPath, getSourceCode(tsSourceFile))
 
-function dumpSourceCode(srcDirectory, buildDirectory) {
-  return function storeOutput({  }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
-    return _transformContext => {
-      return tsSourceFile => {
-        let outPath = tsSourceFile.fileName
-          .replace(srcDirectory, buildDirectory)
-          .replace(/js$/, 'ts')
-          .replace(/jsx$/, 'tsx')
-        fs.ensureFileSync(outPath)
-        fs.writeFileSync(outPath, getSourceCode(tsSourceFile))
-
-        return tsSourceFile
-      }
+      return tsSourceFile
     }
   }
 }

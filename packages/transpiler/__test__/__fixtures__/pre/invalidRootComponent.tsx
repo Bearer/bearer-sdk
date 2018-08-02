@@ -2,9 +2,9 @@ import { RootComponent, Intent, BearerFetch, IntentType, BearerState } from '@be
 
 @RootComponent({
   group: 'attach-pull-request',
-  name: 'action'
+  name: 'display'
 })
-export class AttachPullRequestAction {
+export class AttachPullRequestDisplay {
   @Intent('ListRepositories') fetcher: BearerFetch
   @RetrieveStateIntent() retrieve: BearerFetch
   @BearerState() attachedPullRequests: Array<any>
