@@ -6,6 +6,8 @@ import { propDecoratedWithName, hasDecoratorNamed, hasPropDecoratedWithName } fr
 import { ensureWatchImported, ensureBearerContextInjected, ensureStateImported } from './bearer'
 import { Decorators, Component } from '../constants'
 import { TransformerOptions } from '../types'
+import { ensureMethodExists } from '../helpers/guards-herlpers'
+import { updateMethodOfClass, prependToStatements } from '../helpers/method-updaters'
 
 /**
  * TODOS:
@@ -101,51 +103,30 @@ function injectStateUpdateLogic(
 /**
  * Add subscription methods to component lifecycle
  */
-function updateComponentLifecycle(classNode: ts.ClassDeclaration): ts.ClassDeclaration {
-  const componentWillLoad = ts.createCall(
-    ts.createPropertyAccess(ts.createThis(), `${Component.bearerContext}.subscribe`),
-    undefined,
-    [ts.createThis()]
+function updateComponentLifecycle(aClassNode: ts.ClassDeclaration): ts.ClassDeclaration {
+  const classNode = ensureMethodExists(
+    ensureMethodExists(aClassNode, Component.componentWillLoad),
+    Component.componentDidUnload
   )
 
-  const componentDidUnload = ts.createCall(
-    ts.createPropertyAccess(ts.createThis(), `${Component.bearerContext}.unsubscribe`),
-    undefined,
-    [ts.createThis()]
-  )
-
-  return ts.updateClassDeclaration(
-    classNode,
-    classNode.decorators,
-    classNode.modifiers,
-    classNode.name,
-    classNode.typeParameters,
-    classNode.heritageClauses,
-    [
-      ...classNode.members,
-      ts.createMethod(
-        undefined,
-        undefined,
-        undefined,
-        Component.componentWillLoad,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        ts.createBlock([ts.createStatement(componentWillLoad)])
-      ),
-      ts.createMethod(
-        undefined,
-        undefined,
-        undefined,
-        Component.componentDidUnload,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        ts.createBlock([ts.createStatement(componentDidUnload)])
+  const withSubscribe = updateMethodOfClass(classNode, Component.componentWillLoad, method =>
+    prependToStatements(method, [
+      ts.createStatement(
+        ts.createCall(ts.createPropertyAccess(ts.createThis(), `${Component.bearerContext}.subscribe`), undefined, [
+          ts.createThis()
+        ])
       )
-    ]
+    ])
+  )
+
+  return updateMethodOfClass(withSubscribe, Component.componentDidUnload, method =>
+    prependToStatements(method, [
+      ts.createStatement(
+        ts.createCall(ts.createPropertyAccess(ts.createThis(), `${Component.bearerContext}.unsubscribe`), undefined, [
+          ts.createThis()
+        ])
+      )
+    ])
   )
 }
 

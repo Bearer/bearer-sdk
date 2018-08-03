@@ -45,19 +45,13 @@ class UpdateExistingComponentLifecycleMethods {
     @State()
     pullRequests: Array<any> = [];
     // TODO: handle these use cases
-    componentWillLoad() {
-        console.log('componentWillLoad');
-    }
-    componentDidUnload() {
-        console.log('componentDidUnload');
-    }
+    componentWillLoad() { this.bearerContext.subscribe(this); console.log('componentWillLoad'); }
+    componentDidUnload() { this.bearerContext.unsubscribe(this); console.log('componentDidUnload'); }
     constructor() { }
     @Prop({ \\"context\\": \\"bearer\\" })
     bearerContext: any;
     @Watch(\\"pullRequests\\")
     _notifyBearerStateHandler_pullRequests(newValue) { this.bearerContext.update(\\"pullRequests\\", newValue); }
-    componentWillLoad() { this.bearerContext.subscribe(this); }
-    componentDidUnload() { this.bearerContext.unsubscribe(this); }
     bearerUpdateFromState = state => { this.pullRequests = state[\\"pullRequests\\"]; };
 }
 ",
