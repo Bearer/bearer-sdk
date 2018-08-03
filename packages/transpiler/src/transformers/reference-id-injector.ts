@@ -2,10 +2,7 @@ import * as ts from 'typescript'
 import { hasPropDecoratedWithName, propDecoratedWithName, decoratorNamed } from './decorator-helpers'
 import { ensurePropImported, propDecorator, elementDecorator, ensureElementImported } from './bearer'
 import { Decorators, Types, Properties } from './constants'
-
-type TransformerOptions = {
-  verbose?: true
-}
+import { TransformerOptions } from '../types'
 
 export default function BearerReferenceIdInjector({  }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
   return transformContext => {

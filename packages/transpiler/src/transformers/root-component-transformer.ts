@@ -2,54 +2,24 @@ import * as ts from 'typescript'
 import * as Case from 'case'
 import { Decorators } from './constants'
 import { hasDecoratorNamed, decoratorNamed } from './decorator-helpers'
+import { TransformerOptions } from '../types'
 
-type TransformerOptions = {
-  verbose?: true
-}
-
-export default function RootComponentTransformer({  }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
+export default function RootComponentTransformer({ metadata }: TransformerOptions = {}): ts.TransformerFactory<
+  ts.SourceFile
+> {
   return _transformContext => {
     function visit(node: ts.Node): ts.Node {
       if (ts.isClassDeclaration(node) && hasDecoratorNamed(node, Decorators.RootComponent)) {
-        let group = ''
-        let name = ''
         const decorators = node.decorators.map(decorator => {
           if (decoratorNamed(decorator, Decorators.RootComponent)) {
-            const obj = (decorator.expression as ts.CallExpression).arguments[0] as ts.ObjectLiteralExpression
-            obj.properties.forEach(property => {
-              if (
-                property
-                  .getChildAt(0)
-                  .getFullText()
-                  .trim() === 'group'
-              ) {
-                group = property
-                  .getChildAt(2)
-                  .getFullText()
-                  .trim()
-                  .slice(1, -1)
-              }
-              if (
-                property
-                  .getChildAt(0)
-                  .getFullText()
-                  .trim() === 'name'
-              ) {
-                name = property
-                  .getChildAt(2)
-                  .getFullText()
-                  .trim()
-                  .slice(1, -1)
-              }
-            })
-            const tagComponent = [Case.kebab(group), name].join('-')
-            const cssFileName = Case.pascal(group)
+            const metadatum = metadata.components.find(component => component.classname === node.name.text)
+            const cssFileName = Case.pascal(metadatum.group)
             return ts.updateDecorator(
               decorator,
               ts.createCall(ts.createIdentifier(Decorators.Component), undefined, [
                 ts.createObjectLiteral(
                   [
-                    ts.createPropertyAssignment('tag', ts.createStringLiteral(tagComponent)),
+                    ts.createPropertyAssignment('tag', ts.createStringLiteral(metadatum.initialTagName)),
                     ts.createPropertyAssignment('styleUrl', ts.createStringLiteral(cssFileName + '.css')),
                     ts.createPropertyAssignment('shadow', ts.createTrue())
                   ],

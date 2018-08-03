@@ -2,11 +2,10 @@
  * Rewrite navigator-screen if they do not use renderFunc
  */
 import * as ts from 'typescript'
+import { TransformerOptions } from '../types'
 
 const NAVIGATOR_SCREEN_TAG_NAME = 'bearer-navigator-screen'
-type TransformerOptions = {
-  verbose?: true
-}
+
 export default function PropImporter({  }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
   function moveSlotToRenderFuncProp(jsxNode: ts.JsxElement): ts.JsxSelfClosingElement {
     return ts.createJsxSelfClosingElement(

@@ -5,6 +5,7 @@ import * as ts from 'typescript'
 import { propDecoratedWithName, hasDecoratorNamed, hasPropDecoratedWithName } from './decorator-helpers'
 import { ensureWatchImported, ensureBearerContextInjected, ensureStateImported } from './bearer'
 import { Decorators, Component } from './constants'
+import { TransformerOptions } from '../types'
 
 /**
  * TODOS:
@@ -12,10 +13,6 @@ import { Decorators, Component } from './constants'
  *  * create or update method declarations componentWillLoad componentDidUnload
  *  * create or update watcher if one already exist
  */
-
-type TransformerOptions = {
-  verbose?: true
-}
 
 const state = ts.createIdentifier('state')
 

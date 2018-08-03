@@ -28,3 +28,41 @@ export function decoratorNamed(tsDecorator: ts.Decorator, name: string): boolean
     return ts.isCallExpression(node) && node.expression['escapedText'] === name
   })
 }
+
+export function getDecoratorProperties(tsDecorator: ts.Decorator, index: number = 0): ts.ObjectLiteralExpression {
+  if (!ts.isCallExpression(tsDecorator.expression)) {
+    return ts.createObjectLiteral([])
+  }
+  const expression = tsDecorator.expression
+  const argument = expression.arguments[index]
+
+  if (!ts.isObjectLiteralExpression(argument)) {
+    return ts.createObjectLiteral([])
+  }
+  return ts.createObjectLiteral(argument.properties)
+}
+
+export function getExpressionFromLiteralObject<T extends ts.Expression>(
+  tsLiteral: ts.ObjectLiteralExpression,
+  key: string
+): T {
+  const found: ts.PropertyAssignment = tsLiteral.properties.find(
+    property => property.name.getText().trim() === key
+  ) as ts.PropertyAssignment
+  if (found) {
+    return found.initializer as T
+  }
+  return null
+}
+
+export function getExpressionFromDecorator<T extends ts.Expression>(
+  tsDecorator: ts.Decorator,
+  key: string,
+  index: number = 0
+): T {
+  return getExpressionFromLiteralObject(getDecoratorProperties(tsDecorator, index), key)
+}
+
+export function getDecoratorNamed(tsClassNode: ts.ClassDeclaration, name: string): ts.Decorator | undefined {
+  return tsClassNode.decorators.find(decorator => decoratorNamed(decorator, name))
+}
