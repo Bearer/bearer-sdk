@@ -2,19 +2,13 @@
  *
  */
 import * as ts from 'typescript'
-import { propDecoratedWithName, hasDecoratorNamed, hasPropDecoratedWithName } from './decorator-helpers'
+import { propDecoratedWithName, hasDecoratorNamed, hasPropDecoratedWithName } from '../helpers/decorator-helpers'
 import { ensureWatchImported, ensureBearerContextInjected, ensureStateImported } from './bearer'
 import { Decorators, Component } from '../constants'
 import { TransformerOptions } from '../types'
 import { ensureMethodExists } from '../helpers/guards-herlpers'
 import { updateMethodOfClass, prependToStatements } from '../helpers/method-updaters'
-
-/**
- * TODOS:
- *  * add typing on newValue parameter of the watch handler
- *  * create or update method declarations componentWillLoad componentDidUnload
- *  * create or update watcher if one already exist
- */
+import { isWatcherOn } from '../helpers/stencil-helpers'
 
 const state = ts.createIdentifier('state')
 
@@ -130,6 +124,44 @@ function updateComponentLifecycle(aClassNode: ts.ClassDeclaration): ts.ClassDecl
   )
 }
 
+function createWatcher(meta: IDecoratedPropInformation): ts.MethodDeclaration {
+  return ts.createMethod(
+    [
+      ts.createDecorator(
+        ts.createCall(ts.createIdentifier(Decorators.Watch) as ts.Expression, undefined, [
+          ts.createLiteral(meta.componentPropName)
+        ])
+      )
+    ],
+    undefined,
+    undefined,
+    ts.createIdentifier(`_notifyBearerStateHandler_${meta.componentPropName}`),
+    undefined,
+    undefined,
+    [
+      ts.createParameter(
+        undefined,
+        undefined,
+        undefined,
+        'newValue',
+        undefined,
+        ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+        undefined
+      )
+    ],
+    undefined,
+    ts.createBlock([createUpdateStatement(meta.statePropName, 'newValue')])
+  )
+}
+
+function createUpdateStatement(stateName: string, parameterName: string): ts.Statement {
+  return ts.createStatement(
+    ts.createCall(ts.createPropertyAccess(ts.createThis(), `${Component.bearerContext}.update`), undefined, [
+      ts.createLiteral(stateName),
+      ts.createIdentifier(parameterName)
+    ])
+  )
+}
 /**
  * Add or update State Watcher
  */
@@ -137,6 +169,18 @@ function injectPropertyWatcher(
   classNode: ts.ClassDeclaration,
   propsDecoratedMeta: Array<IDecoratedPropInformation>
 ): ts.ClassDeclaration {
+  const members = propsDecoratedMeta.reduce((members, meta) => {
+    const predicate = node => ts.isMethodDeclaration(node) && isWatcherOn(node, meta.componentPropName)
+    const watcherHandler = members.find(predicate) as ts.MethodDeclaration
+    if (watcherHandler) {
+      const newValueParameterName = watcherHandler.parameters[0].name['escapedText']
+      return [
+        ...members.filter(node => !predicate(node)),
+        prependToStatements(watcherHandler, [createUpdateStatement(meta.componentPropName, newValueParameterName)])
+      ]
+    }
+    return ts.createNodeArray([...members, createWatcher(meta)])
+  }, classNode.members)
   return ts.updateClassDeclaration(
     classNode,
     classNode.decorators,
@@ -144,35 +188,7 @@ function injectPropertyWatcher(
     classNode.name,
     classNode.typeParameters,
     classNode.heritageClauses,
-    [
-      ...classNode.members,
-      ...propsDecoratedMeta.map(meta =>
-        ts.createMethod(
-          [
-            ts.createDecorator(
-              ts.createCall(ts.createIdentifier(Decorators.Watch) as ts.Expression, undefined, [
-                ts.createLiteral(meta.componentPropName)
-              ])
-            )
-          ],
-          undefined,
-          undefined,
-          ts.createIdentifier(`_notifyBearerStateHandler_${meta.componentPropName}`),
-          undefined,
-          undefined,
-          [ts.createParameter(undefined, undefined, undefined, 'newValue', undefined, undefined, undefined)],
-          undefined,
-          ts.createBlock([
-            ts.createStatement(
-              ts.createCall(ts.createPropertyAccess(ts.createThis(), `${Component.bearerContext}.update`), undefined, [
-                ts.createLiteral(meta.statePropName),
-                ts.createIdentifier('newValue')
-              ])
-            )
-          ])
-        )
-      )
-    ]
+    members
   )
 }
 /**
@@ -227,7 +243,7 @@ function hasBearerStateDecorator(sourceFile: ts.SourceFile): boolean {
   )
 }
 
-interface IDecoratedPropInformation {
+type IDecoratedPropInformation = {
   componentPropName: string
   statePropName: string
 }
