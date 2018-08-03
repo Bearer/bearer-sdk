@@ -135,7 +135,7 @@ class Bearer {
     this.allowIntegrationRequests(true)
   }
 
-  askAuthorizations({ scenarioId, setupId }) {
+  askAuthorizations({ scenarioId, setupId }): boolean {
     if (this.isSessionInitialized) {
       const AUTHORIZED_URL = `${Bearer.config.integrationHost}v1/auth/${scenarioId}?setupId=${setupId}`
       window.open(AUTHORIZED_URL, '', 'resizable,scrollbars,status,centerscreen=yes,width=500,height=600')
