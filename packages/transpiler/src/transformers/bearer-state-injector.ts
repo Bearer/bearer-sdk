@@ -6,7 +6,7 @@ import { propDecoratedWithName, hasDecoratorNamed, hasPropDecoratedWithName } fr
 import { ensureWatchImported, ensureBearerContextInjected, ensureStateImported } from './bearer'
 import { Decorators, Component } from '../constants'
 import { TransformerOptions } from '../types'
-import { ensureMethodExists } from '../helpers/guards-herlpers'
+import { ensureMethodExists } from '../helpers/guards-helpers'
 import { updateMethodOfClass, prependToStatements } from '../helpers/method-updaters'
 import { isWatcherOn } from '../helpers/stencil-helpers'
 
