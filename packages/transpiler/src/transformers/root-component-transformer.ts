@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import * as Case from 'case'
 import { Decorators } from '../constants'
-import { hasDecoratorNamed, decoratorNamed } from './decorator-helpers'
+import { hasDecoratorNamed, decoratorNamed } from '../helpers/decorator-helpers'
 import { TransformerOptions } from '../types'
 
 export default function RootComponentTransformer({ metadata }: TransformerOptions = {}): ts.TransformerFactory<

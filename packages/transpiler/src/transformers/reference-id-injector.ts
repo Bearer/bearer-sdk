@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { hasPropDecoratedWithName, propDecoratedWithName, decoratorNamed } from './decorator-helpers'
+import { hasPropDecoratedWithName, propDecoratedWithName, decoratorNamed } from '../helpers/decorator-helpers'
 import { ensurePropImported, propDecorator, elementDecorator, ensureElementImported } from './bearer'
 import { Decorators, Types, Properties } from '../constants'
 import { TransformerOptions } from '../types'
