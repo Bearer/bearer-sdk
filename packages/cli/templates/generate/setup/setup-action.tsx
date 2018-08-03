@@ -3,14 +3,14 @@
   This file has been generated automatically and should not be edited.
 */
 
-import { Component, State, Prop } from '@bearer/core'
+import { RootComponent, State, Prop } from '@bearer/core'
 import '@bearer/ui'
 
-@Component({
-  tag: '{{componentTagName}}-setup',
-  shadow: true
+@RootComponent({
+  group: 'setup',
+  name: 'action'
 })
-export class {{componentName}}Setup {
+export class SetupAction {
   @Prop() onSetupSuccess: (detail: any) => void = (_any: any) => {}
   @State() fields = {{fields}}
   @State() innerListener = `setup_success:BEARER_SCENARIO_ID`
