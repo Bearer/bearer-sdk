@@ -26,6 +26,9 @@ declare global {
 }
 
 import {
+  FWithAuthenticate,
+} from './components/Authorized/bearer-authorized';
+import {
   FieldSet,
 } from './components/Forms/Fieldset';
 import {
@@ -81,8 +84,8 @@ declare global {
   namespace StencilComponents {
     interface BearerAuthorized {
       'authenticate': () => void;
-      'renderAuthorized': () => void;
-      'renderUnauthorized': () => any;
+      'renderAuthorized': () => any;
+      'renderUnauthorized': FWithAuthenticate;
       'revoke': () => void;
     }
   }
@@ -106,8 +109,8 @@ declare global {
   }
   namespace JSXElements {
     export interface BearerAuthorizedAttributes extends HTMLAttributes {
-      'renderAuthorized'?: () => void;
-      'renderUnauthorized'?: () => any;
+      'renderAuthorized'?: () => any;
+      'renderUnauthorized'?: FWithAuthenticate;
     }
   }
 }
