@@ -20,7 +20,7 @@
   "include": [
     "views",
     "types/jsx.d.ts",
-    ".build/src/components.d.ts"
+    ".bearer/views/src/components.d.ts"
   ],
   "exclude": [
     "node_modules"
