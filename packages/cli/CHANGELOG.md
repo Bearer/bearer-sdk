@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.34.0"></a>
+# [0.34.0](https://github.com/Bearer/bearer/compare/v0.33.0...v0.34.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* preserve case for first letter ([ba13c81](https://github.com/Bearer/bearer/commit/ba13c81))
+* **cli:** outdated paths ([d8b79c8](https://github.com/Bearer/bearer/commit/d8b79c8))
+* **cli:** packagejson template ([5df1c5f](https://github.com/Bearer/bearer/commit/5df1c5f))
+* **cli:** remove unnecessary dependencies ([aa483ff](https://github.com/Bearer/bearer/commit/aa483ff))
+* **cli:** replace outdated path ([2550d84](https://github.com/Bearer/bearer/commit/2550d84))
+
+
+### Features
+
+* **cli:** add support for npm when yarn is not available ([78ed3fb](https://github.com/Bearer/bearer/commit/78ed3fb))
+
+
+
+
+
 <a name="0.33.0"></a>
 # [0.33.0](https://github.com/Bearer/bearer/compare/v0.32.0...v0.33.0) (2018-08-03)
 

@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.34.0"></a>
+# [0.34.0](https://github.com/Bearer/bearer/compare/v0.33.0...v0.34.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* preserve case for first letter ([ba13c81](https://github.com/Bearer/bearer/commit/ba13c81))
+* **cli:** outdated paths ([d8b79c8](https://github.com/Bearer/bearer/commit/d8b79c8))
+* **cli:** packagejson template ([5df1c5f](https://github.com/Bearer/bearer/commit/5df1c5f))
+* **cli:** remove unnecessary dependencies ([aa483ff](https://github.com/Bearer/bearer/commit/aa483ff))
+* **cli:** replace outdated path ([2550d84](https://github.com/Bearer/bearer/commit/2550d84))
+* **transpiler:** no unused method ([c6dc79a](https://github.com/Bearer/bearer/commit/c6dc79a))
+* **transpiler:** prevent double watcher transpilation ([a6f164c](https://github.com/Bearer/bearer/commit/a6f164c))
+* **transpiler:** state injector update properly lifecycle methods ([d12a2c1](https://github.com/Bearer/bearer/commit/d12a2c1))
+* **transpiler:** wrong filename ([1551a33](https://github.com/Bearer/bearer/commit/1551a33))
+
+
+### Features
+
+* **cli:** add support for npm when yarn is not available ([78ed3fb](https://github.com/Bearer/bearer/commit/78ed3fb))
+* **core:** add support for shadow in RootComponent ([#205](https://github.com/Bearer/bearer/issues/205)) ([4529771](https://github.com/Bearer/bearer/commit/4529771))
+
+
+
+
+
 <a name="0.33.0"></a>
 # [0.33.0](https://github.com/Bearer/bearer/compare/v0.32.0...v0.33.0) (2018-08-03)
 
