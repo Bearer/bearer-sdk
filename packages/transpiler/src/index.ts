@@ -40,10 +40,6 @@ export default class Transpiler {
     components: []
   }
 
-  private metadata: Metadata = {
-    components: []
-  }
-
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
     this.ROOT_DIRECTORY = this.ROOT_DIRECTORY || process.cwd()
