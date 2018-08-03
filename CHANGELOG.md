@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/Bearer/bearer/compare/v0.32.0...v0.33.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* **cli:** remove node-jq dependency ([57bc84f](https://github.com/Bearer/bearer/commit/57bc84f))
+* **core:** pass boolean to maybeInitializedSession promise ([76b1f67](https://github.com/Bearer/bearer/commit/76b1f67))
+* **transpiler:** remove stupid doublon ([dcbde6d](https://github.com/Bearer/bearer/commit/dcbde6d))
+* **ui:** prevent extra call when scenario is completed ([#196](https://github.com/Bearer/bearer/issues/196)) ([e1d5b8c](https://github.com/Bearer/bearer/commit/e1d5b8c))
+* **ui:** update index ([ce7f0bc](https://github.com/Bearer/bearer/commit/ce7f0bc))
+* jest upgrade ([25bdb02](https://github.com/Bearer/bearer/commit/25bdb02))
+
+
+### Features
+
+* **transpiler:** add metata parser ([6a066b2](https://github.com/Bearer/bearer/commit/6a066b2))
+* **transpiler:** add metata parser ([423ff50](https://github.com/Bearer/bearer/commit/423ff50))
+* **ui:** add disabled button prop ([#198](https://github.com/Bearer/bearer/issues/198)) ([765ef1d](https://github.com/Bearer/bearer/commit/765ef1d))
+* **ui:** introduce bearer-authorized component ([69d5aac](https://github.com/Bearer/bearer/commit/69d5aac))
+* **ui:** provide a way to authenticate people through a method ([5996faf](https://github.com/Bearer/bearer/commit/5996faf))
+
+
+
+
 <a name="0.32.0"></a>
 # [0.32.0](https://github.com/Bearer/bearer/compare/v0.31.0...v0.32.0) (2018-08-02)
 

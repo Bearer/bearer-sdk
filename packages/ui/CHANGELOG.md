@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.32.0...v0.33.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* **ui:** prevent extra call when scenario is completed ([#196](https://github.com/ionic-team/stencil-component-starter/issues/196)) ([e1d5b8c](https://github.com/ionic-team/stencil-component-starter/commit/e1d5b8c))
+* **ui:** update index ([ce7f0bc](https://github.com/ionic-team/stencil-component-starter/commit/ce7f0bc))
+
+
+### Features
+
+* **ui:** add disabled button prop ([#198](https://github.com/ionic-team/stencil-component-starter/issues/198)) ([765ef1d](https://github.com/ionic-team/stencil-component-starter/commit/765ef1d))
+* **ui:** introduce bearer-authorized component ([69d5aac](https://github.com/ionic-team/stencil-component-starter/commit/69d5aac))
+* **ui:** provide a way to authenticate people through a method ([5996faf](https://github.com/ionic-team/stencil-component-starter/commit/5996faf))
+
+
+
+
 <a name="0.32.0"></a>
 # [0.32.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.31.0...v0.32.0) (2018-08-02)
 

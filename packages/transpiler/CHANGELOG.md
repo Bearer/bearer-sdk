@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/Bearer/bearer/compare/v0.32.0...v0.33.0) (2018-08-03)
+
+
+### Bug Fixes
+
+* **transpiler:** apply changes ([c024cd3](https://github.com/Bearer/bearer/commit/c024cd3))
+* **transpiler:** remove stupid doublon ([dcbde6d](https://github.com/Bearer/bearer/commit/dcbde6d))
+
+
+### Features
+
+* **transpiler:** add metata parser ([6a066b2](https://github.com/Bearer/bearer/commit/6a066b2))
+* **transpiler:** add metata parser ([423ff50](https://github.com/Bearer/bearer/commit/423ff50))
+
+
+
+
 <a name="0.32.0"></a>
 # [0.32.0](https://github.com/Bearer/bearer/compare/v0.31.0...v0.32.0) (2018-08-02)
 
