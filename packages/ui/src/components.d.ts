@@ -26,6 +26,9 @@ declare global {
 }
 
 import {
+  FWithAuthenticate,
+} from './components/Authorized/bearer-authorized';
+import {
   FieldSet,
 } from './components/Forms/Fieldset';
 import {
@@ -71,6 +74,43 @@ declare global {
       'content'?: any;
       'kind'?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
       'onDismiss'?: () => void;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface BearerAuthorized {
+      'authenticate': () => void;
+      'renderAuthorized': () => any;
+      'renderUnauthorized': FWithAuthenticate;
+      'revoke': () => void;
+    }
+  }
+
+  interface HTMLBearerAuthorizedElement extends StencilComponents.BearerAuthorized, HTMLStencilElement {}
+
+  var HTMLBearerAuthorizedElement: {
+    prototype: HTMLBearerAuthorizedElement;
+    new (): HTMLBearerAuthorizedElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-authorized': HTMLBearerAuthorizedElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-authorized': HTMLBearerAuthorizedElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-authorized': JSXElements.BearerAuthorizedAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerAuthorizedAttributes extends HTMLAttributes {
+      'renderAuthorized'?: () => any;
+      'renderUnauthorized'?: FWithAuthenticate;
     }
   }
 }

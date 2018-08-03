@@ -1,21 +1,19 @@
-import { Component, Method, State, Event, EventEmitter, Element, Prop } from '@bearer/core'
-import Bearer from '@bearer/core'
+import { Component, Method, State, Event, EventEmitter, Element } from '@bearer/core'
+import WithAuthentication, { IAuthenticated, WithAuthenticationMethods } from '../../decorators/withAuthentication'
 
+@WithAuthentication()
 @Component({
   tag: 'bearer-navigator-auth-screen',
   styleUrl: 'NavigatorScreen.scss',
   shadow: true
 })
-export class BearerNavigatorAuthScreen {
+export class BearerNavigatorAuthScreen extends WithAuthenticationMethods implements IAuthenticated {
   @Element() el: HTMLStencilElement
 
-  @State() sessionInitialized: boolean = false
   @State() scenarioAuthorized: boolean = null
 
   @Event() scenarioAuthenticate: EventEmitter
   @Event() stepCompleted: EventEmitter
-  @Prop({ context: 'bearer' })
-  bearerContext: any
 
   @Method()
   willAppear() {
@@ -32,53 +30,12 @@ export class BearerNavigatorAuthScreen {
     return 'Authentication'
   }
 
-  get SCENARIO_ID() {
-    return 'BEARER_SCENARIO_ID'
+  onAuthorized = () => {
+    this.goNext()
   }
 
-  authenticate = () => {
-    Bearer.instance.askAuthorizations({
-      scenarioId: this.SCENARIO_ID,
-      setupId: this.bearerContext.setupId
-    })
-  }
-
-  private authorizedListener: any = null
-  private revokedListener: any = null
-
-  componentDidLoad() {
-    Bearer.instance.maybeInitialized.then(() => {
-      this.sessionInitialized = true
-      Bearer.instance
-        .hasAuthorized(this.SCENARIO_ID)
-        .then(() => {
-          console.log('[BEARER]', 'authorized')
-          this.goNext()
-        })
-        .catch(e => {
-          console.log('[BEARER]', 'unauthorized', e)
-          this.scenarioAuthorized = false
-        })
-
-      this.authorizedListener = Bearer.onAuthorized(this.SCENARIO_ID, () => {
-        this.goNext()
-      })
-
-      this.revokedListener = Bearer.onRevoked(this.SCENARIO_ID, () => {
-        this.scenarioAuthorized = false
-      })
-    })
-  }
-
-  componentDidUnload() {
-    if (this.authorizedListener) {
-      this.authorizedListener.remove()
-      this.authorizedListener = null
-    }
-    if (this.revokedListener) {
-      this.revokedListener.remove()
-      this.revokedListener = null
-    }
+  onRevoked = () => {
+    this.scenarioAuthorized = false
   }
 
   goNext() {
@@ -87,24 +44,32 @@ export class BearerNavigatorAuthScreen {
     this.scenarioAuthorized = true
   }
 
+  authenticate = () => {
+    this.el.shadowRoot.querySelector('#authorizer')['authenticate']()
+  }
+
   revoke = () => {
-    Bearer.instance.revokeAuthorization(this.SCENARIO_ID)
+    this.el.shadowRoot.querySelector('#authorizer')['revoke']()
   }
 
   render() {
     return (
       <bearer-navigator-screen id="screen" navigationTitle="Authentication" class="in">
-        {this.sessionInitialized &&
-          this.scenarioAuthorized !== null &&
-          (this.scenarioAuthorized ? (
-            <bearer-button kind="warning" onClick={this.revoke}>
-              Logout
-            </bearer-button>
-          ) : (
+        <bearer-authorized
+          id="authorizer"
+          renderUnauthorized={() => (
             <bearer-button kind="primary" onClick={this.authenticate}>
-              Login
+              {' '}
+              Login{' '}
             </bearer-button>
-          ))}
+          )}
+          renderAuthorized={() => (
+            <bearer-button kind="warning" onClick={this.revoke}>
+              {' '}
+              Logout{' '}
+            </bearer-button>
+          )}
+        />
       </bearer-navigator-screen>
     )
   }
