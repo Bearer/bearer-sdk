@@ -38,7 +38,7 @@ class Bearer {
 
   private iframe: HTMLIFrameElement
   private isSessionInitialized: boolean = false
-  private allowIntegrationRequests: () => void
+  private allowIntegrationRequests: (initialize: true) => void
   private _maybeInitialized: Promise<boolean>
 
   constructor(args) {
@@ -132,7 +132,7 @@ class Bearer {
   private sessionInitialized(_event) {
     console.log('[BEARER]', 'session initialized')
     this.isSessionInitialized = true
-    this.allowIntegrationRequests()
+    this.allowIntegrationRequests(true)
   }
 
   askAuthorizations({ scenarioId, setupId }) {
