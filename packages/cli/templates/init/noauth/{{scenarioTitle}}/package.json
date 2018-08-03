@@ -6,17 +6,6 @@
   "types": "dist/types/components.d.ts",
   "module": "dist/esm/index.js",
   "collection": "dist/collection/collection-manifest.json",
-  "files": [
-    "dist/"
-  ],
-  "scripts": {
-    "build": "stencil build",
-    "dev": "stencil build --dev --watch --serve",
-    "serve": "stencil-dev-server",
-    "start": "npm run dev",
-    "test": "jest --no-cache",
-    "test.watch": "jest --watch --no-cache"
-  },
   "dependencies": {
     "@bearer/core": "latest",
     "@bearer/intents": "latest",
@@ -25,8 +14,6 @@
   },
   "devDependencies": {
     "@bearer/bearer-cli": "latest",
-    "@stencil/dev-server": "latest",
-    "@stencil/utils": "latest",
     "@types/jest": "latest",
     "@types/node": "latest",
     "jest": "latest"
