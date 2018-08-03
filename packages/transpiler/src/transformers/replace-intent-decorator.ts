@@ -19,7 +19,7 @@
  */
 import * as ts from 'typescript'
 import { hasDecoratorNamed } from './decorator-helpers'
-import { Decorators } from './constants'
+import { Decorators } from '../constants'
 import { TransformerOptions } from '../types'
 
 function appendConstructor(node: ts.ClassDeclaration): ts.Node {

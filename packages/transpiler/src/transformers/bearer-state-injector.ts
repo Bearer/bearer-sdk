@@ -4,7 +4,7 @@
 import * as ts from 'typescript'
 import { propDecoratedWithName, hasDecoratorNamed, hasPropDecoratedWithName } from './decorator-helpers'
 import { ensureWatchImported, ensureBearerContextInjected, ensureStateImported } from './bearer'
-import { Decorators, Component } from './constants'
+import { Decorators, Component } from '../constants'
 import { TransformerOptions } from '../types'
 
 /**
