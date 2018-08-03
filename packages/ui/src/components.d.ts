@@ -79,6 +79,43 @@ declare global {
 declare global {
 
   namespace StencilComponents {
+    interface BearerAuthorized {
+      'authenticate': () => void;
+      'renderAuthorized': () => void;
+      'renderUnauthorized': () => any;
+      'revoke': () => void;
+    }
+  }
+
+  interface HTMLBearerAuthorizedElement extends StencilComponents.BearerAuthorized, HTMLStencilElement {}
+
+  var HTMLBearerAuthorizedElement: {
+    prototype: HTMLBearerAuthorizedElement;
+    new (): HTMLBearerAuthorizedElement;
+  };
+  interface HTMLElementTagNameMap {
+    'bearer-authorized': HTMLBearerAuthorizedElement;
+  }
+  interface ElementTagNameMap {
+    'bearer-authorized': HTMLBearerAuthorizedElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'bearer-authorized': JSXElements.BearerAuthorizedAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface BearerAuthorizedAttributes extends HTMLAttributes {
+      'renderAuthorized'?: () => void;
+      'renderUnauthorized'?: () => any;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface BearerBadge {
       'content': any;
       'kind': 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
