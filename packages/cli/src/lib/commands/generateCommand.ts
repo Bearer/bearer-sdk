@@ -36,7 +36,7 @@ async function generateTemplates({
     const configKey = `${templateType}Views`
 
     const inDir = path.join(__dirname, `templates/generate/${templateType}`)
-    const outDir = locator.buildViewsComponentsDir
+    const outDir = templateType === TemplateTypes.setup ? locator.buildTmpDir : locator.buildViewsComponentsDir
 
     await del(`${outDir}*${templateType}*.tsx`).then(paths => {
       console.log('Deleted files and folders:\n', paths.join('\n'))
