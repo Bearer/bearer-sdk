@@ -1,7 +1,6 @@
 import axios from 'axios'
 import * as querystring from 'querystring'
 import * as cosmiconfig from 'cosmiconfig'
-import * as jq from 'node-jq'
 
 const startLocalDevelopmentServer = require('./startLocalDevelopmentServer')
 
@@ -14,14 +13,8 @@ type IConfig = {
 }
 
 export const invoke = (emitter, config, locator: Locator) => async (intent, cmd) => {
-  const { path, format } = cmd
-  const {
-    scenarioUuid,
-    scenarioConfig: { scenarioTitle }
-  } = config
-  const DEFAULT_JQ_FORMAT = '.'
-  const jqFilter = format ? format : DEFAULT_JQ_FORMAT
-  const jqOptions = { input: 'string' }
+  const { path } = cmd
+  const { scenarioUuid } = config
 
   let fileData: IConfig = {}
   if (path) {
@@ -50,16 +43,8 @@ export const invoke = (emitter, config, locator: Locator) => async (intent, cmd)
       const { data } = await client.post(`${scenarioUuid}/${intent}`, querystring.stringify(body))
       intentData = data
     }
-    jq.run(jqFilter, JSON.stringify(intentData), jqOptions)
-      .then(output => {
-        console.log(output)
-        process.exit(0)
-      })
-      .catch(err => {
-        console.log(intentData)
-        console.log(err)
-        process.exit(1)
-      })
+    console.log(JSON.stringify(intentData, null, 2))
+    process.exit(0)
   } catch (e) {
     console.log(e)
     process.exit(1)
@@ -70,12 +55,10 @@ export function useWith(program, emitter, config, locator: Locator) {
   program
     .command('invoke <intent>')
     .option('-p, --path <path>')
-    .option('-f, --format <format>')
     .description(
       `invoke Intent locally.
   $ bearer invoke <IntentName>
   $ bearer invoke <IntentName> -p tests/intent.json
-  $ bearer invoke <IntentName> -f '.data[].name' ## JQ compatible format
 `
     )
     .action(invoke(emitter, config, locator))

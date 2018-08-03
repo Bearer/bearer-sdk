@@ -6,5 +6,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   automock: false,
   verbose: true,
+  testEnvironment: 'node',
+  testURL: 'http://localhost/',
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules']
 }
