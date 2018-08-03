@@ -5,6 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
+  <script>
+    window.BEARER_CONFIG = {
+      integrationHost: 'https://int.staging.bearer.sh/',
+      authorizationHost: 'https://int.staging.bearer.sh/',
+    }
+  </script>
   <script src="/build/bearer-ui.js"></script>
   <style>
     body {
@@ -16,14 +22,21 @@
       justify-content: center;
       flex-direction: column;
     }
-    body > div {
+
+    body>div {
       flex: 1;
-      min-height: 400px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
   </style>
 </head>
 
 <body>
+  <div>
+    <bearer-authorized></bearer-authorized>
+  </div>
   <div>
     <h1>Pagination</h1>
     <bearer-pagination>
@@ -36,38 +49,82 @@
     <bearer-pagination current-page="20" window="1" page-count="50"></bearer-pagination>
     <bearer-pagination current-page="2" page-count="5"></bearer-pagination>
   </div>
-  <div style="padding: 200px 0">
-    <bearer-button-popover direction="left" header="My scenario name" >
-      <span slot="buttonText">Attached at left</span>
-      <bearer-navigator>
-        <bearer-navigator-screen navigation-title="First Screen">
-          <div>Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br /></div>
+  <div style="padding: 100px 0">
+    <div>
 
-        </bearer-navigator-screen>
-        <bearer-navigator-screen>
-          2
-        </bearer-navigator-screen>
-        <bearer-navigator-screen>
-          3
-        </bearer-navigator-screen>
-      </bearer-navigator>
-    </bearer-button-popover>
+      <bearer-button-popover direction="left" header="My scenario name">
+        <span slot="buttonText">Attached at left</span>
+        <bearer-navigator>
+          <bearer-navigator-screen navigation-title="First Screen">
+            <div>Long story Short
+              <br />Long story Short
+              <br />Long story Short
+              <br />Long story Short
+              <br />Long story Short
+              <br />Long story Short
+              <br />Long story Short
+              <br />Long story Short
+              <br />Long story Short
+              <br />
+            </div>
 
-    <bearer-button-popover direction="top" header="My scenario name" button-text="Attach PR" >
-      <span slot="buttonText">Attach on top</span>
-      <div>Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br /></div>
-    </bearer-button-popover >
-    <bearer-button-popover direction="top" header="My scenario name" button-text="Attach PR" opened="false" >
-      <span slot="buttonText">Attach PR</span>
-      <div>Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br /></div>
-    </bearer-button-popover >
-    <bearer-button-popover direction="bottom" header="My scenario name" button-text="Attach PR" >
-      <span slot="buttonText">Attach PR</span>
-      <div>Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br />Long story Short <br /></div>
-    </bearer-button-popover >
-    <bearer-button-popover direction="right" header="My scenario name" button-text="Attach PR">
-      <span slot="buttonText">Attach PR</span>
-    </bearer-button-popover >
+          </bearer-navigator-screen>
+          <bearer-navigator-screen>
+            2
+          </bearer-navigator-screen>
+          <bearer-navigator-screen>
+            3
+          </bearer-navigator-screen>
+        </bearer-navigator>
+      </bearer-button-popover>
+
+      <bearer-button-popover direction="top" header="My scenario name" button-text="Attach PR">
+        <span slot="buttonText">Attach on top</span>
+        <div>Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />
+        </div>
+      </bearer-button-popover>
+      <bearer-button-popover direction="top" header="My scenario name" button-text="Attach PR" opened="false">
+        <span slot="buttonText">Attach PR</span>
+        <div>Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />
+        </div>
+      </bearer-button-popover>
+      <bearer-button-popover direction="bottom" header="My scenario name" button-text="Attach PR">
+        <span slot="buttonText">Attach PR</span>
+        <div>Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />Long story Short
+          <br />
+        </div>
+      </bearer-button-popover>
+      <bearer-button-popover direction="right" header="My scenario name" button-text="Attach PR">
+        <span slot="buttonText">Attach PR</span>
+      </bearer-button-popover>
+    </div>
   </div>
 </body>
+
 </html>
