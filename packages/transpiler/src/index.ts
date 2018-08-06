@@ -37,7 +37,8 @@ export default class Transpiler {
   private verbose = true
 
   private metadata: Metadata = {
-    components: []
+    components: [],
+    scenarioId: process.env.BEARER_SCENARIO_ID
   }
 
   constructor(options?: Partial<TranpilerOptions>) {

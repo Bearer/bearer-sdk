@@ -20,7 +20,7 @@ export default function RootComponentTransformer({ metadata }: TransformerOption
               ts.createCall(ts.createIdentifier(Decorators.Component), undefined, [
                 ts.createObjectLiteral(
                   [
-                    ts.createPropertyAssignment('tag', ts.createStringLiteral(metadatum.initialTagName)),
+                    ts.createPropertyAssignment('tag', ts.createStringLiteral(metadatum.finalTagName)),
                     ts.createPropertyAssignment('styleUrl', ts.createStringLiteral(cssFileName + '.css')),
                     ts.createPropertyAssignment('shadow', shadowExp || ts.createTrue())
                   ],
