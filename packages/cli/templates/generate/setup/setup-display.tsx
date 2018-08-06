@@ -15,6 +15,5 @@ export class SetupDisplay {
       <bearer-setup-display scenarioId="BEARER_SCENARIO_ID" />
     )
   }
-  @Prop() BEARER_ID: string;
 }
 
