@@ -7,6 +7,7 @@ import * as intents from '@bearer/intents'
 import * as templates from '@bearer/templates'
 import * as rc from 'rc'
 import Locator from '../locationProvider'
+import { generateSetup } from './generate'
 
 const INTENT = 'intent'
 const COMPONENT = 'component'
@@ -18,48 +19,6 @@ enum Components {
   COLLECTION = 'collection',
   ROOT = 'root'
 }
-async function generateTemplates({
-  emitter,
-  templateType,
-  locator
-}: {
-  emitter: any
-  templateType: TemplateTypes
-  locator: Locator
-}) {
-  try {
-    const authConfig = require(locator.authConfigPath)
-
-    const scenarioConfig = rc('scenario')
-    const { scenarioTitle } = scenarioConfig
-
-    const configKey = `${templateType}Views`
-
-    const inDir = path.join(__dirname, `templates/generate/${templateType}`)
-    const outDir = locator.buildViewsComponentsDir
-
-    await del(`${outDir}*${templateType}*.tsx`).then(paths => {
-      console.log('Deleted files and folders:\n', paths.join('\n'))
-    })
-
-    if (authConfig[configKey] && authConfig[configKey].length) {
-      const vars = {
-        componentName: Case.pascal(scenarioTitle),
-        componentTagName: Case.kebab(scenarioTitle),
-        fields: JSON.stringify(authConfig[configKey])
-      }
-
-      copy(inDir, outDir, vars, (err, createdFiles) => {
-        if (err) throw err
-        createdFiles.forEach(filePath => emitter.emit('generateTemplate:fileGenerated', filePath))
-      })
-    } else {
-      throw new Error('Configuration file is incorrect or missing')
-    }
-  } catch (error) {
-    emitter.emit('generateTemplate:error', error.toString())
-  }
-}
 
 const generate = (emitter, {}, locator: Locator) => async env => {
   const { scenarioRoot } = locator
@@ -69,11 +28,7 @@ const generate = (emitter, {}, locator: Locator) => async env => {
   }
 
   if (env.setup) {
-    return generateTemplates({
-      emitter,
-      templateType: TemplateTypes.setup,
-      locator
-    })
+    return generateSetup({ emitter, locator })
   }
 
   if (env.blankComponent && typeof env.blankComponent === 'string') {

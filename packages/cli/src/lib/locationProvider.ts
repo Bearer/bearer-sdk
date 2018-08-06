@@ -41,6 +41,11 @@ export default class LocationProvider {
     return path.join(this.buildViewsDir, 'src')
   }
 
+  // ~/.bearer/tmp
+  get buildTmpDir(): string {
+    return path.join(this.bearerDir, 'tmp')
+  }
+
   // ~/.bearer/intents
   get buildIntentsDir(): string {
     return path.join(this.bearerDir, 'intents')

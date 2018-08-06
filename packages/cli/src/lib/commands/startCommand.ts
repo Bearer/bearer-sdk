@@ -8,6 +8,7 @@ const startLocalDevelopmentServer = require('./startLocalDevelopmentServer')
 const { spawn, execSync } = require('child_process')
 
 import Locator from '../locationProvider'
+import { generateSetup } from './generate'
 
 function watchNonTSFiles(watchedPath, destPath): Promise<any> {
   return new Promise((resolve, _reject) => {
@@ -128,10 +129,8 @@ export function prepare(emitter, config, locator: Locator) {
   }
 }
 
-const ensureSetupComponents = rootLevel => {
-  spawn('bearer', ['g', '--setup'], {
-    cwd: rootLevel
-  })
+const ensureSetupComponents = (emitter, locator) => {
+  generateSetup({ emitter, locator })
 }
 
 export const start = (emitter, config, locator: Locator) => async ({ open, install, watcher }) => {
@@ -147,12 +146,12 @@ export const start = (emitter, config, locator: Locator) => async ({ open, insta
     /* start local development server */
     const integrationHost = await startLocalDevelopmentServer(scenarioUuid, emitter, config, locator)
 
-    ensureSetupComponents(buildViewsDir)
+    ensureSetupComponents(emitter, locator)
 
     emitter.emit('start:watchers')
     if (watcher) {
       fs.watchFile(locator.authConfigPath, { persistent: true, interval: 250 }, () =>
-        ensureSetupComponents(buildViewsDir)
+        ensureSetupComponents(emitter, locator)
       )
     }
 
