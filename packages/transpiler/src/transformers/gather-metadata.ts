@@ -11,11 +11,12 @@ export default function GatherMetadata({ metadata }: TransformerOptions = {}): t
       if (ts.isClassDeclaration(node) && hasDecoratorNamed(node, Decorators.Component)) {
         const component = getDecoratorNamed(node, Decorators.Component)
         const tag = getExpressionFromDecorator<ts.StringLiteral>(component, 'tag')
+        const finalTag = metadata.prefix ? [Case.kebab(metadata.prefix), tag].join('-') : tag.text
         metadata.components.push({
           classname: node.name.text,
           isRoot: false,
           initialTagName: tag.text,
-          finalTagName: tag.text
+          finalTagName: finalTag
         })
         return node
       }
@@ -28,7 +29,7 @@ export default function GatherMetadata({ metadata }: TransformerOptions = {}): t
         const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'group')
         const group = groupExpression ? groupExpression.text : ''
         const tag = [Case.kebab(group), name].join('-')
-        const finalTag = [Case.kebab(metadata.scenarioId), tag].join('-')
+        const finalTag = metadata.prefix ? [Case.kebab(metadata.prefix), tag].join('-') : tag
         metadata.components.push({
           classname: node.name.text,
           isRoot: true,

@@ -9,7 +9,7 @@ export type ComponentMetadata = {
 
 export type Metadata = {
   components: Array<ComponentMetadata>
-  scenarioId: string
+  prefix?: string
 }
 
 export type TransformerOptions = {

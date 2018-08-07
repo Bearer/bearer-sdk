@@ -1,5 +1,5 @@
 import { spawn, exec } from 'child_process'
-import * as pathJs from 'path'
+import * as path from 'path'
 import * as fs from 'fs'
 import { promisify } from 'util'
 
@@ -115,7 +115,8 @@ function transpileStep(emitter, locator: LocationProvider, config) {
   return new Promise(async (resolve, reject) => {
     const { scenarioUuid, integrationServiceHost } = config
     emitter.emit('start:prepare:transpileStep')
-    const bearerTranspiler = spawn('node', [pathJs.join(__dirname, 'startTranspiler.js'), '--no-watcher'], {
+    const options = ['--no-watcher']
+    const bearerTranspiler = spawn('node', [path.join(__dirname, 'startTranspiler.js')].concat(options), {
       cwd: locator.scenarioRoot,
       env: {
         ...process.env,
