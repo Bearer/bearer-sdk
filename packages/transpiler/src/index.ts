@@ -47,6 +47,10 @@ export default class Transpiler {
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
     this.ROOT_DIRECTORY = this.ROOT_DIRECTORY || process.cwd()
+
+    if (options.tagNamePrefix) {
+      this.metadata.prefix = options.tagNamePrefix
+    }
   }
 
   run() {
@@ -86,10 +90,6 @@ export default class Transpiler {
 
     if (config.error) {
       throw new Error(config.error.messageText as string)
-    }
-
-    if (options.tagNamePrefix) {
-      this.metadata.prefix = options.tagNamePrefix
     }
 
     const parsed = ts.parseJsonConfigFileContent(config, ts.sys, this.VIEWS_DIRECTORY)
