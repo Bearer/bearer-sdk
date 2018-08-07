@@ -4,7 +4,6 @@ export function TranspilerFactory(options: Partial<TranpilerOptions>): Transpile
   const defaults: TranpilerOptions = {
     verbose: false,
     watchFiles: false,
-    tagNamePrefix: 'kikoo-lol-files',
     buildFolder: '../../../.build/'
   }
 
