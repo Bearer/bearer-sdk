@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.35.0"></a>
+# [0.35.0](https://github.com/Bearer/bearer/compare/v0.34.2...v0.35.0) (2018-08-07)
+
+
+### Bug Fixes
+
+* **cli:** remove useless div ([e0c248a](https://github.com/Bearer/bearer/commit/e0c248a))
+* **cli:** use correct intent type name ([2d5ffa4](https://github.com/Bearer/bearer/commit/2d5ffa4))
+
+
+### Features
+
+* **cli:** add default empty setup.css ([f6c4e20](https://github.com/Bearer/bearer/commit/f6c4e20))
+* **cli:** clean up auth.config for oauth2 ([#207](https://github.com/Bearer/bearer/issues/207)) ([4b45e2e](https://github.com/Bearer/bearer/commit/4b45e2e))
+
+
+
+
+
 <a name="0.34.0"></a>
 # [0.34.0](https://github.com/Bearer/bearer/compare/v0.33.0...v0.34.0) (2018-08-03)
 
