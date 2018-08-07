@@ -12,6 +12,7 @@ import * as refreshToken from './refreshToken'
 import * as invalidateCloudFront from './invalidateCloudFront'
 import * as developerPortal from './developerPortal'
 import LocationProvider from './locationProvider'
+import { generateSetup } from './commands/generate'
 
 const execPromise = promisify(exec)
 
@@ -81,6 +82,8 @@ export function deployViews(emitter, config, locator: LocationProvider) {
         process.exit(1)
         return false
       }
+
+      generateSetup({ emitter, locator })
 
       await transpileStep(emitter, locator, config)
 
