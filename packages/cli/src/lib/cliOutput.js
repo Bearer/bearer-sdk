@@ -350,7 +350,6 @@ module.exports = emitter => {
     term.white(setupUrl)
     term('\n')
   })
-
   emitter.on('invalidateCloudFront:success', () => {
     term.white('Bearer: ')
     term.yellow('View invalidation success.')

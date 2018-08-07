@@ -115,8 +115,8 @@ function transpileStep(emitter, locator: LocationProvider, config) {
   return new Promise(async (resolve, reject) => {
     const { scenarioUuid, integrationServiceHost } = config
     emitter.emit('start:prepare:transpileStep')
-    const options = ['--no-watcher', `--prefix-tag ${scenarioUuid}`]
-    const bearerTranspiler = spawn('node', [path.join(__dirname, 'startTranspiler.js')].concat(options), {
+    const options = [path.join(__dirname, 'startTranspiler.js'), '--no-watcher', '--prefix-tag', scenarioUuid]
+    const bearerTranspiler = spawn('node', options, {
       cwd: locator.scenarioRoot,
       env: {
         ...process.env,
