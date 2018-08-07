@@ -11,12 +11,11 @@ export default function GatherMetadata({ metadata }: TransformerOptions = {}): t
       if (ts.isClassDeclaration(node) && hasDecoratorNamed(node, Decorators.Component)) {
         const component = getDecoratorNamed(node, Decorators.Component)
         const tag = getExpressionFromDecorator<ts.StringLiteral>(component, 'tag')
-        const finalTag = metadata.prefix ? [Case.kebab(metadata.prefix), tag].join('-') : tag.text
         metadata.components.push({
           classname: node.name.text,
           isRoot: false,
           initialTagName: tag.text,
-          finalTagName: finalTag
+          finalTagName: tag.text
         })
         return node
       }
