@@ -1,5 +1,5 @@
 import { spawn, exec } from 'child_process'
-import * as pathJs from 'path'
+import * as path from 'path'
 import * as fs from 'fs'
 import { promisify } from 'util'
 
@@ -12,6 +12,7 @@ import * as refreshToken from './refreshToken'
 import * as invalidateCloudFront from './invalidateCloudFront'
 import * as developerPortal from './developerPortal'
 import LocationProvider from './locationProvider'
+import { generateSetup } from './commands/generate'
 
 const execPromise = promisify(exec)
 
@@ -82,6 +83,8 @@ export function deployViews(emitter, config, locator: LocationProvider) {
         return false
       }
 
+      generateSetup({ emitter, locator })
+
       await transpileStep(emitter, locator, config)
 
       emitter.emit('views:generateSetupComponent')
@@ -115,7 +118,8 @@ function transpileStep(emitter, locator: LocationProvider, config) {
   return new Promise(async (resolve, reject) => {
     const { scenarioUuid, integrationServiceHost } = config
     emitter.emit('start:prepare:transpileStep')
-    const bearerTranspiler = spawn('node', [pathJs.join(__dirname, 'startTranspiler.js'), '--no-watcher'], {
+    const options = [path.join(__dirname, 'startTranspiler.js'), '--no-watcher', '--prefix-tag', scenarioUuid]
+    const bearerTranspiler = spawn('node', options, {
       cwd: locator.scenarioRoot,
       env: {
         ...process.env,

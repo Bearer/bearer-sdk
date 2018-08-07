@@ -22,6 +22,7 @@ export type TranpilerOptions = {
   buildFolder?: string
   srcFolder?: string
   verbose?: boolean
+  tagNamePrefix?: string
 }
 
 export default class Transpiler {
@@ -85,6 +86,10 @@ export default class Transpiler {
 
     if (config.error) {
       throw new Error(config.error.messageText as string)
+    }
+
+    if (options.tagNamePrefix) {
+      this.metadata.prefix = options.tagNamePrefix
     }
 
     const parsed = ts.parseJsonConfigFileContent(config, ts.sys, this.VIEWS_DIRECTORY)

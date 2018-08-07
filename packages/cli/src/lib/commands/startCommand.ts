@@ -156,9 +156,10 @@ export const start = (emitter, config, locator: Locator) => async ({ open, insta
 
     /* Start bearer transpiler phase */
     const BEARER = 'bearer-transpiler'
+    const options = [watcher ? null : '--no-watcher']
     const bearerTranspiler = spawn(
       'node',
-      [path.join(__dirname, '..', 'startTranspiler.js'), watcher ? null : '--no-watcher'].filter(el => el),
+      [path.join(__dirname, '..', 'startTranspiler.js'), options].filter(el => el),
       {
         cwd: scenarioRoot,
         env: {

@@ -3,6 +3,7 @@ import * as path from 'path'
 import * as del from 'del'
 import * as Case from 'case'
 import * as copy from 'copy-template-dir'
+import * as fs from 'fs'
 import Locator from '../../locationProvider'
 
 export async function generateSetup({
@@ -23,8 +24,8 @@ export async function generateSetup({
     const outDir = locator.srcViewsDir
 
     if (deleteSetup) {
-      await del(`${outDir}*setup*.tsx`).then(paths => {
-        console.log('Deleted files and folders:\n', paths.join('\n'))
+      await del(`${outDir}/setup*.tsx`).then(paths => {
+        paths.forEach(path => emitter.emit('generateTemplate:deleteFiles', path))
       })
     }
 
@@ -34,7 +35,6 @@ export async function generateSetup({
         componentTagName: Case.kebab(scenarioTitle),
         fields: JSON.stringify(authConfig[configKey])
       }
-
       copy(inDir, outDir, vars, (err, createdFiles) => {
         if (err) throw err
         createdFiles.forEach(filePath => emitter.emit('generateTemplate:fileGenerated', filePath))

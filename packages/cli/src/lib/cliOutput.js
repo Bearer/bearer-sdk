@@ -105,6 +105,12 @@ module.exports = emitter => {
     term('\n')
   })
 
+  emitter.on('generateTemplate:deleteFiles', file => {
+    term.white('Bearer: ')
+    term.yellow(`Deleted a file: ${file}`)
+    term('\n')
+  })
+
   emitter.on('generateTemplate:error', error => {
     term.white('Bearer: ')
     term.red(`Error while generating template: ${error}`)
@@ -344,7 +350,6 @@ module.exports = emitter => {
     term.white(setupUrl)
     term('\n')
   })
-
   emitter.on('invalidateCloudFront:success', () => {
     term.white('Bearer: ')
     term.yellow('View invalidation success.')
