@@ -111,6 +111,12 @@ module.exports = emitter => {
     term('\n')
   })
 
+  emitter.on('generateTemplate:skipped', configKey => {
+    term.white('Bearer: ')
+    term.red(`Skipped template generation: ${configKey} Not Found`)
+    term('\n')
+  })
+
   emitter.on('generateTemplate:error', error => {
     term.white('Bearer: ')
     term.red(`Error while generating template: ${error}`)
