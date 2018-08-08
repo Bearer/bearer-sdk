@@ -14,7 +14,6 @@ export class FeatureAction {
   render() {
     return (
       <bearer-navigator btnProps={ {content:"{{scenarioTitle}}", kind:"primary"} } direction="right">
-        <bearer-navigator-auth-screen />
       </bearer-navigator>
     )
   }
