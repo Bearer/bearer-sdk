@@ -139,7 +139,7 @@ Object {
   "postContent": "import { Intent, BearerFetch, IntentType, BearerState, Prop, Element, Watch, State, Component } from '@bearer/core';
 @Component({
     tag: \\"attach-pull-request-display\\",
-    styleUrl: \\"AttachPullRequest.css\\",
+    styleUrl: \\"attachPullRequest.css\\",
     shadow: false
 })
 export class AttachPullRequestDisplay {

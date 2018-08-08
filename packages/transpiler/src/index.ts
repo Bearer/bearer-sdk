@@ -49,7 +49,9 @@ export default class Transpiler {
     this.ROOT_DIRECTORY = this.ROOT_DIRECTORY || process.cwd()
 
     if (options.tagNamePrefix) {
-      this.metadata.prefix = options.tagNamePrefix
+      const [orgId, scenarioId] = options.tagNamePrefix.replace(/\-/, '|').split('|')
+      this.metadata.prefix = scenarioId
+      this.metadata.suffix = orgId
     }
   }
 

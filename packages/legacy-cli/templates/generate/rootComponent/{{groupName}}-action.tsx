@@ -3,12 +3,12 @@
 
 */
 
-import { Component } from '@bearer/core'
+import { RootComponent } from '@bearer/core'
 import '@bearer/ui'
 
-@Component({
+@RootComponent({
   name: 'action',
-  action: '{{groupName}}'
+  group: '{{groupName}}'
 })
 export class {{groupName}}Action {
   render() {
