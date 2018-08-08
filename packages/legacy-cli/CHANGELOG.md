@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.37.0"></a>
+# [0.37.0](https://github.com/Bearer/bearer/compare/v0.36.3...v0.37.0) (2018-08-08)
+
+
+### Bug Fixes
+
+* **cli:** remove bearer command reference ([d2e8f4b](https://github.com/Bearer/bearer/commit/d2e8f4b))
+* **cli:** remove old bearer binary ([#223](https://github.com/Bearer/bearer/issues/223)) ([746553b](https://github.com/Bearer/bearer/commit/746553b))
+* **transpiler:** fix tag starting with number ([682b651](https://github.com/Bearer/bearer/commit/682b651))
+
+
+
+
+
 <a name="0.36.3"></a>
 
 ## [0.36.3](https://github.com/Bearer/bearer/compare/v0.36.2...v0.36.3) (2018-08-07)
