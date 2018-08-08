@@ -122,7 +122,6 @@ export class RetrieveState extends StateIntentBase {
   }
 }
 
-const empty = '{}'
 export class FetchData extends GenericIntentBase {
   static get display(): string {
     return 'FetchData'
@@ -138,6 +137,12 @@ export class FetchData extends GenericIntentBase {
 }
 
 function bodyFromEvent(event: d.TLambdaEvent): any {
-  const { body = empty } = event
-  return JSON.parse(body || empty)
+  const { body } = event
+  if (!body) {
+    return {}
+  }
+  if (typeof body === 'string') {
+    return JSON.parse(body)
+  }
+  return body
 }

@@ -80,7 +80,7 @@ export type TStateData = AxiosResponse<{
 export type TLambdaEvent = {
   queryStringParameters: Record<string, any>
   context: Record<string, any> & TBearerLambdaContext
-  body?: string
+  body?: any
 }
 
 export type TLambdaCallback = {
