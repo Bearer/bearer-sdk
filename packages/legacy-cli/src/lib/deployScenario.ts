@@ -71,7 +71,7 @@ export function deployIntents(emitter, config, locator: LocationProvider) {
 
 export function deployViews(emitter, config, locator: LocationProvider) {
   return new Promise(async (resolve, reject) => {
-    const { orgId, scenarioUuid, scenarioId, BearerEnv } = config
+    const { orgId, scenarioUuid, scenarioId, CdnHost } = config
 
     try {
       const { buildDirectory } = await prepare(emitter, config, locator)({
@@ -97,7 +97,7 @@ export function deployViews(emitter, config, locator: LocationProvider) {
         env: {
           BEARER_SCENARIO_ID: scenarioUuid,
           ...process.env,
-          CDN_HOST: `https://static.${BearerEnv}.bearer.sh/${orgId}/${scenarioId}/dist/${scenarioId}/`
+          CDN_HOST: `${CdnHost}/${orgId}/${scenarioId}/dist/${scenarioId}/`
         }
       })
 

@@ -16,6 +16,7 @@ const configs: Record<BearerEnv, BaseConfig> = {
     IntegrationServiceUrl: 'https://int.dev.bearer.sh/api/v1/',
     DeveloperPortalAPIUrl: 'https://app.staging.bearer.sh/graphql',
     DeveloperPortalUrl: 'https://app.staging.bearer.sh/',
+    CdnHost: 'https://static.dev.bearer.sh',
     BearerEnv: 'dev'
   },
   staging: {
@@ -24,6 +25,7 @@ const configs: Record<BearerEnv, BaseConfig> = {
     IntegrationServiceUrl: 'https://int.staging.bearer.sh/api/v1/',
     DeveloperPortalAPIUrl: 'https://app.staging.bearer.sh/graphql',
     DeveloperPortalUrl: 'https://app.staging.bearer.sh/',
+    CdnHost: 'https://static.staging.bearer.sh',
     BearerEnv: 'staging'
   },
   production: {
@@ -32,6 +34,7 @@ const configs: Record<BearerEnv, BaseConfig> = {
     IntegrationServiceUrl: 'https://int.bearer.sh/api/v1/',
     DeveloperPortalAPIUrl: 'https://app.bearer.sh/graphql',
     DeveloperPortalUrl: 'https://app.bearer.sh/',
+    CdnHost: 'https://static.bearer.sh',
     BearerEnv: 'production'
   }
 }
