@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.41.4"></a>
+## [0.41.4](https://github.com/BearerSH/bearer/compare/v0.41.3...v0.41.4) (2018-08-08)
+
+
+### Bug Fixes
+
+* **intents:** it looks like lambda body is already an object ([72487e9](https://github.com/BearerSH/bearer/commit/72487e9))
+
+
+
+
+
 <a name="0.41.3"></a>
 ## [0.41.3](https://github.com/BearerSH/bearer/compare/v0.41.2...v0.41.3) (2018-08-08)
 
