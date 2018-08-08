@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.39.0"></a>
+# [0.39.0](https://github.com/Bearer/bearer/compare/v0.38.1...v0.39.0) (2018-08-08)
+
+
+### Bug Fixes
+
+* **core:** reject intent promise if error returned ([#233](https://github.com/Bearer/bearer/issues/233)) ([d1c36b9](https://github.com/Bearer/bearer/commit/d1c36b9))
+
+
+### Features
+
+* **core:** everything as post ([#234](https://github.com/Bearer/bearer/issues/234)) ([ae67130](https://github.com/Bearer/bearer/commit/ae67130))
+
+
+
+
+
 <a name="0.37.2"></a>
 ## [0.37.2](https://github.com/Bearer/bearer/compare/v0.37.0...v0.37.2) (2018-08-08)
 
