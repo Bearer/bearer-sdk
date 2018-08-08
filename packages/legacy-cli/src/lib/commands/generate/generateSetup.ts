@@ -40,7 +40,7 @@ export async function generateSetup({
         createdFiles.forEach(filePath => emitter.emit('generateTemplate:fileGenerated', filePath))
       })
     } else {
-      throw new Error('Configuration file is incorrect or missing')
+      emitter.emit('generateTemplate:skipped', configKey)
     }
   } catch (error) {
     emitter.emit('generateTemplate:error', error.toString())
