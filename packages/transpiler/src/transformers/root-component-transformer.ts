@@ -13,7 +13,7 @@ export default function RootComponentTransformer({ metadata }: TransformerOption
         const decorators = node.decorators.map(decorator => {
           if (decoratorNamed(decorator, Decorators.RootComponent)) {
             const metadatum = metadata.components.find(component => component.classname === node.name.text)
-            const cssFileName = Case.pascal(metadatum.group)
+            const cssFileName = metadatum.group.charAt(0) + Case.camel(metadatum.group).substr(1)
             const shadowExp = getExpressionFromDecorator<ts.BooleanLiteral>(decorator, 'shadow')
             return ts.updateDecorator(
               decorator,

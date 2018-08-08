@@ -28,7 +28,10 @@ export default function GatherMetadata({ metadata }: TransformerOptions = {}): t
         const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'group')
         const group = groupExpression ? groupExpression.text : ''
         const tag = [Case.kebab(group), name].join('-')
-        const finalTag = metadata.prefix ? [Case.kebab(metadata.prefix), tag].join('-') : tag
+        const finalTag =
+          metadata.prefix && metadata.suffix
+            ? [Case.kebab(metadata.prefix), tag, Case.kebab(metadata.suffix)].join('-')
+            : tag
         metadata.components.push({
           classname: node.name.text,
           isRoot: true,

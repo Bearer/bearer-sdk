@@ -10,6 +10,7 @@ export type ComponentMetadata = {
 export type Metadata = {
   components: Array<ComponentMetadata>
   prefix?: string
+  suffix?: string
 }
 
 export type TransformerOptions = {
