@@ -7,6 +7,7 @@ export type BaseConfig = {
   BearerEnv: string
   DeveloperPortalAPIUrl: string
   DeveloperPortalUrl: string
+  CdnHost: string
 }
 
 export type BearerConfig = {
