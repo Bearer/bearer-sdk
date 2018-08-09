@@ -21,6 +21,8 @@ export function buildIntents(emitter, config, locator: LocationProvider) {
     const artifactDirectory = locator.intentsArtifactDir
     const intentsDirectory = locator.srcIntentsDir
 
+    await fs.emptyDir(intentsDirectory)
+
     if (!fs.existsSync(artifactDirectory)) {
       fs.ensureDirSync(artifactDirectory)
     }
@@ -47,7 +49,7 @@ export function buildIntents(emitter, config, locator: LocationProvider) {
 }
 
 export function deployIntents(emitter, config, locator: LocationProvider) {
-  new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve, _reject) => {
     const { rootPathRc } = config
 
     if (!rootPathRc) {
@@ -63,7 +65,7 @@ export function deployIntents(emitter, config, locator: LocationProvider) {
       resolve()
     } catch (e) {
       emitter.emit('deployIntents:error', e)
-      reject(e)
+      resolve()
     }
   })
 }
@@ -71,6 +73,8 @@ export function deployIntents(emitter, config, locator: LocationProvider) {
 export function deployViews(emitter, config, locator: LocationProvider) {
   return new Promise(async (resolve, reject) => {
     const { orgId, scenarioUuid, scenarioId, CdnHost } = config
+
+    await fs.emptyDir(locator.buildViewsDir)
 
     try {
       const { buildDirectory } = await prepare(emitter, config, locator)({
@@ -88,6 +92,7 @@ export function deployViews(emitter, config, locator: LocationProvider) {
       await execPromise(`${config.command} build`, {
         cwd: buildDirectory,
         env: {
+          BEARER_SCENARIO_TAG_NAME: config.scenarioId,
           BEARER_SCENARIO_ID: scenarioUuid,
           BEARER_SCENARIO_TAG_NAME: scenarioId,
           BEARER_INTEGRATION_HOST: config.IntegrationServiceHost,
@@ -122,7 +127,8 @@ function transpileStep(emitter, locator: LocationProvider, config) {
         ...process.env,
         BEARER_SCENARIO_TAG_NAME: scenarioId,
         BEARER_SCENARIO_ID: scenarioUuid,
-        BEARER_INTEGRATION_HOST: integrationServiceHost
+        BEARER_INTEGRATION_HOST: integrationServiceHost,
+        BEARER_AUTHORIZATION_HOST: integrationServiceHost
       },
       stdio: ['pipe', 'pipe', 'pipe', 'ipc']
     })
