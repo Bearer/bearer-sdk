@@ -113,13 +113,14 @@ export function deployViews(emitter, config, locator: LocationProvider) {
 
 function transpileStep(emitter, locator: LocationProvider, config) {
   return new Promise(async (resolve, reject) => {
-    const { scenarioUuid, integrationServiceHost } = config
+    const { scenarioUuid, integrationServiceHost, scenarioId } = config
     emitter.emit('start:prepare:transpileStep')
     const options = [path.join(__dirname, 'startTranspiler.js'), '--no-watcher', '--prefix-tag', scenarioUuid]
     const bearerTranspiler = spawn('node', options, {
       cwd: locator.scenarioRoot,
       env: {
         ...process.env,
+        BEARER_SCENARIO_TAG_NAME: scenarioId,
         BEARER_SCENARIO_ID: scenarioUuid,
         BEARER_INTEGRATION_HOST: integrationServiceHost
       },
