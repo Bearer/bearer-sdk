@@ -232,6 +232,7 @@ declare global {
 
     interface BearerSetupDisplay {
       'scenarioId': string;
+      'setupId': string;
     }
 
     interface BearerSetup {
@@ -692,6 +693,7 @@ declare global {
 
     export interface BearerSetupDisplayAttributes extends HTMLAttributes {
       'scenarioId'?: string;
+      'setupId'?: string;
     }
 
     export interface BearerSetupAttributes extends HTMLAttributes {
