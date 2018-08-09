@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.41.9"></a>
+## [0.41.9](https://github.com/Bearer/bearer/compare/v0.41.8...v0.41.9) (2018-08-09)
+
+
+### Bug Fixes
+
+* **cli:** empty build dir instead of src one ([32f1016](https://github.com/Bearer/bearer/commit/32f1016))
+
+
+
+
+
 <a name="0.41.8"></a>
 ## [0.41.8](https://github.com/Bearer/bearer/compare/v0.41.7...v0.41.8) (2018-08-09)
 
