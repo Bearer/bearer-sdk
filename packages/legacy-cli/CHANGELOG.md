@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.41.5"></a>
+## [0.41.5](https://github.com/Bearer/bearer/compare/v0.41.4...v0.41.5) (2018-08-09)
+
+
+### Bug Fixes
+
+* **cli:** ensure .bearer dir exists ([793e19e](https://github.com/Bearer/bearer/commit/793e19e))
+* **cli:** pass tag name to stencil ([4e3d46f](https://github.com/Bearer/bearer/commit/4e3d46f))
+
+
+
+
+
 <a name="0.41.4"></a>
 ## [0.41.4](https://github.com/Bearer/bearer/compare/v0.41.3...v0.41.4) (2018-08-08)
 
