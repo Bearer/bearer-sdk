@@ -2,7 +2,7 @@
   The purpose of this component is to save scenario credentials.
 */
 
-import { RootComponent, Prop } from "@bearer/core";
+import { RootComponent } from "@bearer/core";
 import "@bearer/ui";
 
 @RootComponent({
@@ -12,7 +12,7 @@ import "@bearer/ui";
 export class SetupDisplay {
   render() {
     return (
-      <bearer-setup-display scenarioId="BEARER_SCENARIO_ID" />
+      <bearer-setup-display scenarioId="BEARER_SCENARIO_ID" setupId={this.setupId} />
     )
   }
 }

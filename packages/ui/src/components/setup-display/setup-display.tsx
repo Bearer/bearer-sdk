@@ -9,7 +9,7 @@ import Bearer from '@bearer/core'
 export class BearerSetupDisplay {
   @Prop() scenarioId = ''
   @State() isSetup: boolean = false
-  @State() setupId = ''
+  @Prop() setupId = ''
 
   componentDidLoad() {
     Bearer.emitter.addListener(`setup_success:${this.scenarioId}`, data => {
@@ -19,7 +19,7 @@ export class BearerSetupDisplay {
   }
 
   render() {
-    if (this.isSetup) {
+    if (this.isSetup || this.setupId) {
       return (
         <p>
           Scenario is currently setup with Setup ID:&nbsp;
