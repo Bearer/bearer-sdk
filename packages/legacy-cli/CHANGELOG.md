@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.41.8"></a>
+## [0.41.8](https://github.com/Bearer/bearer/compare/v0.41.7...v0.41.8) (2018-08-09)
+
+
+### Bug Fixes
+
+* **cli:** prevent cli to proceed if authentication failed ([b7f4f69](https://github.com/Bearer/bearer/commit/b7f4f69))
+* **cli:** remove duplicate identifier ([b2b92ae](https://github.com/Bearer/bearer/commit/b2b92ae))
+* **legacy-cli:** add setupId in template setup ([a0d52a5](https://github.com/Bearer/bearer/commit/a0d52a5))
+
+
+
+
+
 <a name="0.41.7"></a>
 ## [0.41.7](https://github.com/Bearer/bearer/compare/v0.41.6...v0.41.7) (2018-08-09)
 

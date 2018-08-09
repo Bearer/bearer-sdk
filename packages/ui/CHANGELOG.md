@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.41.8"></a>
+## [0.41.8](https://github.com/ionic-team/stencil-component-starter/compare/v0.41.7...v0.41.8) (2018-08-09)
+
+
+### Bug Fixes
+
+* **ui:** test setupId in render ([7d96e14](https://github.com/ionic-team/stencil-component-starter/commit/7d96e14))
+
+
+
+
+
 <a name="0.41.6"></a>
 ## [0.41.6](https://github.com/ionic-team/stencil-component-starter/compare/v0.41.5...v0.41.6) (2018-08-09)
 
