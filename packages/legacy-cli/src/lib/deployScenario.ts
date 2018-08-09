@@ -21,7 +21,7 @@ export function buildIntents(emitter, config, locator: LocationProvider) {
     const artifactDirectory = locator.intentsArtifactDir
     const intentsDirectory = locator.srcIntentsDir
 
-    await fs.emptyDir(intentsDirectory)
+    await fs.emptyDir(locator.buildIntentsDir)
 
     if (!fs.existsSync(artifactDirectory)) {
       fs.ensureDirSync(artifactDirectory)
