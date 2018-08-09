@@ -12,16 +12,24 @@ type TSetupPayload = {
   shadow: true
 })
 export class BearerSetup {
-  @Prop() fields: Array<any> | string = []
-  @Prop() referenceId: string
-  @Prop() scenarioId: string
+  @Prop()
+  fields: Array<any> | string = []
+  @Prop()
+  referenceId: string
+  @Prop()
+  scenarioId: string
 
-  @Element() element: HTMLElement
-  @Event() setupSuccess: EventEmitter
+  @Element()
+  element: HTMLElement
+  @Event()
+  setupSuccess: EventEmitter
 
-  @State() fieldSet: FieldSet
-  @State() error: boolean = false
-  @State() loading: boolean = false
+  @State()
+  fieldSet: FieldSet
+  @State()
+  error: boolean = false
+  @State()
+  loading: boolean = false
 
   handleSubmit = (e: any) => {
     e.preventDefault()
@@ -33,6 +41,7 @@ export class BearerSetup {
       .then((item: TSetupPayload) => {
         this.loading = false
         const referenceId = item.Item.referenceId
+        console.log('[BEARER]', 'setup_success', `setup_success:${this.scenarioId}`)
         Bearer.emitter.emit(`setup_success:${this.scenarioId}`, {
           referenceId
         })

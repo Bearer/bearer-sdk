@@ -47,12 +47,20 @@ export class BearerAuthorized extends WithAuthenticationMethods implements IAuth
 
   @Method()
   authenticate() {
-    this.authenticate.bind(this)()
+    console.log('[BEARER]', 'bearer-authorized', 'authenticate')
+    this.authenticatePromise()
+      .then(data => {
+        console.log('[BEARER]', 'bearer-authorized', 'authenticated', data)
+      })
+      .catch(error => {
+        console.log('[BEARER]', 'bearer-authenticated', 'error', error)
+      })
   }
 
   @Method()
   revoke() {
-    this.revoke.bind(this)()
+    console.log('[BEARER]', 'bearer-authorized', 'revoke')
+    this['revokeProto'].bind(this)()
   }
 
   authenticatePromise = (): Promise<boolean> => {
@@ -60,7 +68,7 @@ export class BearerAuthorized extends WithAuthenticationMethods implements IAuth
       this.pendingAuthorizationResolve = resolve
       this.pendingAuthorizationReject = reject
     })
-    this.authenticate()
+    this['authorizeProto'].bind(this)()
     return promise
   }
 

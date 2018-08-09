@@ -4,15 +4,26 @@ export default function AuthenticationListener() {
   return function(target) {
     const oldDidLoad = target.prototype.componentDidLoad
     target.prototype.componentDidLoad = function(this: IAuthenticatedLike) {
-      console.log('[BEARER]', 'componentDidLoad authentication', this)
+      console.log('[BEARER]', 'componentDidLoad authentication')
       Bearer.instance.maybeInitialized
         .then(() => {
-          this.authorizedListener = Bearer.onAuthorized(this.SCENARIO_ID, this.onAuthorized)
-          this.revokedListener = Bearer.onRevoked(this.SCENARIO_ID, this.onRevoked)
-
           if (this.onSessionInitialized) {
             this.onSessionInitialized()
           }
+
+          console.log(
+            '[BEARER]',
+            'componentDidLoad:maybeInitialized',
+            this.SCENARIO_ID,
+            this.onAuthorized,
+            this.onRevoked
+          )
+          this.authorizedListener = Bearer.onAuthorized(this.SCENARIO_ID, () => {
+            this.onAuthorized()
+          })
+          this.revokedListener = Bearer.onRevoked(this.SCENARIO_ID, () => {
+            this.onRevoked()
+          })
 
           Bearer.instance
             .hasAuthorized(this.SCENARIO_ID)
@@ -46,14 +57,14 @@ export default function AuthenticationListener() {
       componentDidUnload()
     }
 
-    target.prototype.revoke = function() {
+    target.prototype.SCENARIO_ID = 'BEARER_SCENARIO_ID'
+
+    target.prototype.revokeProto = function() {
       Bearer.instance.revokeAuthorization(this.SCENARIO_ID)
     }
 
-    target.prototype.SCENARIO_ID = 'BEARER_SCENARIO_ID'
-
-    target.prototype.authenticate = function() {
-      console.log('[BEARER]', 'this.bearerContext', this, this.bearerContext.setupId)
+    target.prototype.authorizeProto = function() {
+      console.log('[BEARER]', 'authenticate', this.SCENARIO_ID, this.bearerContext.setupId)
       Bearer.instance.askAuthorizations({
         scenarioId: this.SCENARIO_ID,
         setupId: this.bearerContext.setupId
