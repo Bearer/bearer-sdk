@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.41.6"></a>
+## [0.41.6](https://github.com/Bearer/bearer/compare/v0.41.5...v0.41.6) (2018-08-09)
+
+
+### Bug Fixes
+
+* **cli:** start was missing authorization host ([#248](https://github.com/Bearer/bearer/issues/248)) ([7b9edbf](https://github.com/Bearer/bearer/commit/7b9edbf))
+* **cli:** use localhost as a tag name on start ([c0e2d95](https://github.com/Bearer/bearer/commit/c0e2d95))
+
+
+
+
+
 <a name="0.41.5"></a>
 ## [0.41.5](https://github.com/Bearer/bearer/compare/v0.41.4...v0.41.5) (2018-08-09)
 
