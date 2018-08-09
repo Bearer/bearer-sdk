@@ -1,8 +1,11 @@
 import { Config } from '@stencil/core'
 const { plugins } = require('@bearer/core/dist/plugins')
 
+console.log("----- BEARER SCENARIO ID -----")
+console.log(process.env.BEARER_SCENARIO_TAG_NAME)
+console.log("----- BEARER SCENARIO ID -----")
 export const config: Config = {
-  namespace: '{{componentTagName}}',
+  namespace: process.env.BEARER_SCENARIO_TAG_NAME,
   outputTargets: [
     {
       type: 'dist'
