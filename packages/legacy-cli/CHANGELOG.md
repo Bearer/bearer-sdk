@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.41.7"></a>
+## [0.41.7](https://github.com/Bearer/bearer/compare/v0.41.6...v0.41.7) (2018-08-09)
+
+
+### Bug Fixes
+
+* **cli:** deploy with the correct namespace name ([a46b520](https://github.com/Bearer/bearer/commit/a46b520))
+* **cli:** fix path invalidation ([2ec99d0](https://github.com/Bearer/bearer/commit/2ec99d0))
+
+
+
+
+
 <a name="0.41.6"></a>
 ## [0.41.6](https://github.com/Bearer/bearer/compare/v0.41.5...v0.41.6) (2018-08-09)
 
