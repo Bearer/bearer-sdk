@@ -1,6 +1,6 @@
 import { spawn, exec } from 'child_process'
 import * as path from 'path'
-import * as fs from 'fs'
+import * as fs from 'fs-extra'
 import { promisify } from 'util'
 
 import { prepare } from './commands/startCommand'
@@ -23,7 +23,7 @@ export function buildIntents(emitter, config, locator: LocationProvider) {
     const intentsDirectory = locator.srcIntentsDir
 
     if (!fs.existsSync(artifactDirectory)) {
-      fs.mkdirSync(artifactDirectory)
+      fs.ensureDirSync(artifactDirectory)
     }
     try {
       emitter.emit('intents:installingDependencies')
