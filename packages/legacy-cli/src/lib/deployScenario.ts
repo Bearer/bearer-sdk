@@ -92,7 +92,6 @@ export function deployViews(emitter, config, locator: LocationProvider) {
       await execPromise(`${config.command} build`, {
         cwd: buildDirectory,
         env: {
-          BEARER_SCENARIO_TAG_NAME: config.scenarioId,
           BEARER_SCENARIO_ID: scenarioUuid,
           BEARER_SCENARIO_TAG_NAME: scenarioId,
           BEARER_INTEGRATION_HOST: config.IntegrationServiceHost,
