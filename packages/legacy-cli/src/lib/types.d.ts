@@ -46,5 +46,4 @@ export type Config = BaseConfig & {
   rootPathRc: string
   setScenarioConfig: (config: any) => void
   storeBearerConfig: (config: any) => void
-  credentials: any
 }

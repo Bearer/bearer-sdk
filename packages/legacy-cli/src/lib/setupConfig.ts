@@ -73,10 +73,6 @@ export default (): Config => {
     get rootPathRc(): string {
       return findUp.sync('.scenariorc')
     },
-    get credentials() {
-      const { Username, infrastructurePassword } = this.bearerConfig
-      return { Username, infrastructurePassword }
-    },
     setScenarioConfig(config: { scenarioTitle: string; orgId: string; scenarioId: string }) {
       const { scenarioTitle, orgId, scenarioId } = config
       fs.writeFileSync(this.rootPathRc, ini.stringify({ scenarioTitle, orgId, scenarioId }))

@@ -1,12 +1,24 @@
 const serviceClient = require('./serviceClient')
 
-module.exports = (emitter, event, { DeveloperPortalAPIUrl, orgId, scenarioId }) =>
+module.exports = (
+  emitter,
+  event,
+  {
+    DeploymentUrl,
+    orgId,
+    scenarioId,
+    bearerConfig: {
+      authorization: {
+        AuthenticationResult: { IdToken: token }
+      }
+    }
+  }
+) =>
   new Promise(async (resolve, reject) => {
-    const client = serviceClient(DeveloperPortalAPIUrl)
+    const client = serviceClient(DeploymentUrl)
     try {
-      const res = await client.deployScenario(event, orgId, scenarioId)
-
-      if (!res.body.errors) {
+      const res = await client.deployScenario(token, event, orgId, scenarioId)
+      if (res.statusCode === 204 || res.statusCode === 202 || res.statusCode === 200) {
         emitter.emit('developerPortalUpdate:success')
       } else {
         emitter.emit('developerPortalUpdate:failed', res.body.errors)
