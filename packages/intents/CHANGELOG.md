@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.48.4"></a>
+## [0.48.4](https://github.com/BearerSH/bearer/compare/v0.48.3...v0.48.4) (2018-08-10)
+
+**Note:** Version bump only for package @bearer/intents
+
+
+
+
+
 <a name="0.43.1"></a>
 
 ## [0.43.1](https://github.com/BearerSH/bearer/compare/v0.43.0...v0.43.1) (2018-08-10)
