@@ -5,6 +5,9 @@
   "repository": "git@github.com:Bearer/bearer.git",
   "author": "Radek Molenda <radek@bearer.com>",
   "license": "MIT",
+  "bin": {
+    "_bearer-cli": "./dist/bin/index.js"
+  },
   "engines": {
     "node": ">=8.11.0"
   },
