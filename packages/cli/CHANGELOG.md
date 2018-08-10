@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.42.0"></a>
+# [0.42.0](https://github.com/Bearer/bearer/compare/v0.41.9...v0.42.0) (2018-08-10)
+
+
+### Features
+
+* **cli:** add did you mean plugin ([68dfb25](https://github.com/Bearer/bearer/commit/68dfb25))
+* **cli:** bring autocomplete to cli ([518252a](https://github.com/Bearer/bearer/commit/518252a))
+
+
+
+
+
 <a name="0.41.9"></a>
 ## [0.41.9](https://github.com/Bearer/bearer/compare/v0.41.8...v0.41.9) (2018-08-09)
 
