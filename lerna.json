@@ -1,7 +1,11 @@
 {
   "lerna": "2.10.1",
   "npmClient": "yarn",
-  "npmClientArgs": ["--fronzen-lockfile"],
-  "packages": ["packages/*"],
-  "version": "0.42.3"
+  "npmClientArgs": [
+    "--fronzen-lockfile"
+  ],
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.43.0"
 }
