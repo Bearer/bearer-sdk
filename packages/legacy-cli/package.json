@@ -5,9 +5,7 @@
   "repository": "git@github.com:Bearer/bearer.git",
   "author": "Radek Molenda <radek@bearer.com>",
   "license": "MIT",
-  "bin": {
-    "_bearer-cli": "./dist/bin/index.js"
-  },
+  "typings": "dist/bin/index",
   "engines": {
     "node": ">=8.11.0"
   },
@@ -19,7 +17,7 @@
     "templates": "yarn cleanup && copyfiles -a \"./templates/**/*\" dist/src/lib/commands/",
     "cleanup": "rm -rf dist",
     "build": "yarn templates && tsc -p tsconfig.json",
-    "prepublish": "yarn build",
+    "prepare": "yarn build",
     "prepublishOnly": "yarn build",
     "test": "jest",
     "requirements-check": "node ./check-version.js"
@@ -35,6 +33,7 @@
     "aws-sdk": "^2.224.1",
     "axios": "^0.18.0",
     "case": "^1.5.5",
+    "commander": "^2.17.1",
     "copy-template-dir": "^1.4.0",
     "cosmiconfig": "^5.0.5",
     "del": "^3.0.0",
