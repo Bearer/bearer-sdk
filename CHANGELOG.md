@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.45.1"></a>
+## [0.45.1](https://github.com/Bearer/bearer/compare/v0.45.0...v0.45.1) (2018-08-10)
+
+
+### Bug Fixes
+
+* **cli:** rely on binary ([20b2c99](https://github.com/Bearer/bearer/commit/20b2c99))
+
+
+
+
 <a name="0.43.1"></a>
 
 ## [0.43.1](https://github.com/Bearer/bearer/compare/v0.43.0...v0.43.1) (2018-08-10)
