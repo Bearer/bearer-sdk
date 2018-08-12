@@ -1,4 +1,4 @@
-const request = require('request')
+import * as request from 'request'
 
 const requestPromise = (url, method, path, body, headers = {}) =>
   new Promise((resolve, reject) => {
@@ -31,35 +31,8 @@ module.exports = url => {
     signedUrls: (token, Keys, type) =>
       requestPromise(url, 'POST', 'signed-urls', { Keys, type }, { Authorization: token }),
     signedUrl: (token, Key, type) => requestPromise(url, 'POST', 'signed-url', { Key, type }, { Authorization: token }),
-    getDevPortalToken: ({ Username, infrastructurePassword }) =>
-      requestPromise(url, 'POST', '', {
-        query: `query FindUser {
-        findUser(email: "${Username}", infrastructurePassword: "${infrastructurePassword}") {
-          token
-        }
-      }
-      `
-      }),
-    deployScenario: (eventName, OrgId, scenarioTitle) =>
-      requestPromise(
-        url,
-        'POST',
-        '',
-        {
-          query: `mutation DeployScenario {
-            deployScenario(state: "${eventName}", organizationIdentifier: "${OrgId}", scenarioIdentifier: "${scenarioTitle}") {
-              errors {
-                field
-                messages
-              }
-              scenarioActivity {
-                state
-              }
-            }
-          }`
-        },
-        {}
-      ),
+    deployScenario: (token, eventName, OrgId, scenarioTitle) =>
+      requestPromise(url, 'POST', 'user-notifications', { eventName, OrgId, scenarioTitle }, { Authorization: token }),
     upload: (content, headers = {}) =>
       new Promise((resolve, reject) => {
         request(
