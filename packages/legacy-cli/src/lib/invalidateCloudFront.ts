@@ -1,4 +1,4 @@
-import * as serviceClient from './serviceClient'
+const serviceClient = require('./serviceClient')
 import { Config } from './types'
 
 export default (
