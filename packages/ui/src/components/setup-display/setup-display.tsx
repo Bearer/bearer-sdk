@@ -1,15 +1,16 @@
-import { Component, Prop, State } from '@bearer/core'
-
-import Bearer from '@bearer/core'
+import Bearer, { Component, Prop, State } from '@bearer/core'
 
 @Component({
   tag: 'bearer-setup-display',
   shadow: true
 })
 export class BearerSetupDisplay {
-  @Prop() scenarioId = ''
-  @State() isSetup: boolean = false
-  @Prop() setupId = ''
+  @Prop()
+  scenarioId = ''
+  @State()
+  isSetup: boolean = false
+  @Prop({ mutable: true })
+  setupId = ''
 
   componentDidLoad() {
     Bearer.emitter.addListener(`setup_success:${this.scenarioId}`, data => {
