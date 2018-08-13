@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.50.0"></a>
+# [0.50.0](https://github.com/Bearer/bearer/compare/v0.48.5...v0.50.0) (2018-08-13)
+
+
+### Bug Fixes
+
+* **cli:** remove cache to ensure shrinkwrap file is properly generated ([e318925](https://github.com/Bearer/bearer/commit/e318925))
+
+
+
+
 <a name="0.49.0"></a>
 # [0.49.0](https://github.com/Bearer/bearer/compare/v0.48.5...v0.49.0) (2018-08-12)
 

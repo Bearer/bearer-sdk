@@ -1,6 +1,6 @@
 {
   "name": "@bearer/bearer-cli",
-  "version": "0.49.0",
+  "version": "0.50.0",
   "main": "index.js",
   "repository": "git@github.com:Bearer/bearer.git",
   "author": "Radek Molenda <radek@bearer.com>",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@bearer/intents": "^0.48.4",
-    "@bearer/templates": "^0.48.4",
+    "@bearer/templates": "^0.50.0",
     "@bearer/transpiler": "^0.48.4",
     "@koa/cors": "^2.2.2",
     "amazon-cognito-identity-js": "^2.0.3",

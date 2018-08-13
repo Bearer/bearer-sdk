@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.50.0"></a>
+# [0.50.0](https://github.com/Bearer/bearer/compare/v0.48.5...v0.50.0) (2018-08-13)
+
+
+### Bug Fixes
+
+* **bearer:** include typescript to fix missing typescript issue ([342b0b5](https://github.com/Bearer/bearer/commit/342b0b5))
+* **cli:** fix serviceClient issue ([42b3c40](https://github.com/Bearer/bearer/commit/42b3c40))
+* **cli:** generate component fixes ([ce8a6d4](https://github.com/Bearer/bearer/commit/ce8a6d4))
+* **cli:** give button text a meaning ([1e5c78e](https://github.com/Bearer/bearer/commit/1e5c78e))
+* **cli:** give more meaning to template variable names ([d25d0b6](https://github.com/Bearer/bearer/commit/d25d0b6))
+* **cli:** intents variables generation ([1535f77](https://github.com/Bearer/bearer/commit/1535f77))
+* **cli:** remove cache to ensure shrinkwrap file is properly generated ([e318925](https://github.com/Bearer/bearer/commit/e318925))
+* **templates:** wrong callback call ([aa99089](https://github.com/Bearer/bearer/commit/aa99089))
+
+
+### Features
+
+* **cli:** proxy the notifications through package manager ([514e8aa](https://github.com/Bearer/bearer/commit/514e8aa))
+
+
+
+
 <a name="0.49.0"></a>
 # [0.49.0](https://github.com/Bearer/bearer/compare/v0.48.5...v0.49.0) (2018-08-12)
 
