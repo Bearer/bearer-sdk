@@ -9,6 +9,8 @@
 #   exit 1
 # fi
 
+ARG="${@:---conventional-commits --yes}"
+
 if [ ! -f ~/.npmrc ]; then
   echo "Missing ~/.npmrc file"
   exit 1
@@ -30,4 +32,5 @@ docker run -ti \
   -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
   -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
   -v ~/.npmrc:/root/.npmrc \
-  --rm bearer-publish-docker
+  --rm bearer-publish-docker \
+  $ARG

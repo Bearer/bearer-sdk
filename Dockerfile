@@ -18,4 +18,4 @@ RUN yarn install --frozen-lockfile
 RUN chmod +x /app/scripts/release-package.sh
 RUN git config --global user.email ${EMAIL}
 RUN git config --global user.name ${NAME}
-CMD ["/app/scripts/release-package.sh"]
+ENTRYPOINT ["/app/scripts/release-package.sh"]
