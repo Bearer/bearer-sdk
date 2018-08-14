@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.53.0"></a>
+# [0.53.0](https://github.com/BearerSH/bearer/compare/v0.52.0...v0.53.0) (2018-08-14)
+
+
+### Bug Fixes
+
+* **ui:** change LICENSE to MIT ([d90917d](https://github.com/BearerSH/bearer/commit/d90917d))
+
+
+### Features
+
+* **intents:** give access to dbclient ([#270](https://github.com/BearerSH/bearer/issues/270)) ([fbf284e](https://github.com/BearerSH/bearer/commit/fbf284e))
+
+
+
+
 <a name="0.48.4"></a>
 ## [0.48.4](https://github.com/BearerSH/bearer/compare/v0.48.3...v0.48.4) (2018-08-10)
 

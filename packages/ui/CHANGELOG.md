@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.53.0"></a>
+# [0.53.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.52.0...v0.53.0) (2018-08-14)
+
+
+### Bug Fixes
+
+* **ui:** change LICENSE to MIT ([d90917d](https://github.com/ionic-team/stencil-component-starter/commit/d90917d))
+
+
+
+
 <a name="0.51.0"></a>
 # [0.51.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.50.0...v0.51.0) (2018-08-13)
 

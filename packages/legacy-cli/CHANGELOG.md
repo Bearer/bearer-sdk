@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.53.0"></a>
+# [0.53.0](https://github.com/Bearer/bearer/compare/v0.52.0...v0.53.0) (2018-08-14)
+
+
+### Bug Fixes
+
+* **core:** change LICENSE field to MIT ([c133805](https://github.com/Bearer/bearer/commit/c133805))
+* **templates:** add navigator-auth-screen only when oauth2 ([#269](https://github.com/Bearer/bearer/issues/269)) ([785276c](https://github.com/Bearer/bearer/commit/785276c))
+
+
+### Features
+
+* **intents:** give access to dbclient ([#270](https://github.com/Bearer/bearer/issues/270)) ([fbf284e](https://github.com/Bearer/bearer/commit/fbf284e))
+
+
+
+
 <a name="0.51.0"></a>
 # [0.51.0](https://github.com/Bearer/bearer/compare/v0.50.0...v0.51.0) (2018-08-13)
 
