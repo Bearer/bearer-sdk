@@ -58,7 +58,7 @@
     "url": "git+https://github.com/ionic-team/stencil-component-starter.git"
   },
   "author": "Ionic Team",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ionic-team/stencil"
   },
