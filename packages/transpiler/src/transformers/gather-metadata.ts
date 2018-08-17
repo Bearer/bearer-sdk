@@ -1,10 +1,22 @@
-import * as ts from 'typescript'
 import * as Case from 'case'
-import { TransformerOptions } from '../types'
+import * as ts from 'typescript'
+
 import { Decorators } from '../constants'
-import { hasDecoratorNamed, getExpressionFromDecorator, getDecoratorNamed } from '../helpers/decorator-helpers'
+import { getDecoratorNamed, getExpressionFromDecorator, hasDecoratorNamed } from '../helpers/decorator-helpers'
+import { TransformerOptions } from '../types'
 
 export default function GatherMetadata({ metadata }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
+  function getTagNames(tagName: string): { initialTagName: string; finalTagName: string } {
+    const finalTag =
+      metadata.prefix && metadata.suffix
+        ? [Case.kebab(metadata.prefix), tagName, Case.kebab(metadata.suffix)].join('-')
+        : tagName
+    return {
+      initialTagName: tagName,
+      finalTagName: finalTag
+    }
+  }
+
   return _transformContext => {
     function visit(node: ts.Node): ts.Node {
       // Found Component
@@ -14,8 +26,7 @@ export default function GatherMetadata({ metadata }: TransformerOptions = {}): t
         metadata.components.push({
           classname: node.name.text,
           isRoot: false,
-          initialTagName: tag.text,
-          finalTagName: tag.text
+          ...getTagNames(tag.text)
         })
         return node
       }
@@ -28,16 +39,12 @@ export default function GatherMetadata({ metadata }: TransformerOptions = {}): t
         const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'group')
         const group = groupExpression ? groupExpression.text : ''
         const tag = [Case.kebab(group), name].join('-')
-        const finalTag =
-          metadata.prefix && metadata.suffix
-            ? [Case.kebab(metadata.prefix), tag, Case.kebab(metadata.suffix)].join('-')
-            : tag
+
         metadata.components.push({
           classname: node.name.text,
           isRoot: true,
-          initialTagName: tag,
-          finalTagName: finalTag,
-          group: group
+          ...getTagNames(tag),
+          group
         })
         return node
       }

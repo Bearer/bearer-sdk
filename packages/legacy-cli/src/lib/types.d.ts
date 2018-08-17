@@ -13,7 +13,7 @@ export type BaseConfig = {
 export type BearerConfig = {
   OrgId: string
   Username: string
-  ExpiresAt: string
+  ExpiresAt: number
   authorization: {
     AuthenticationResult: any
   }
