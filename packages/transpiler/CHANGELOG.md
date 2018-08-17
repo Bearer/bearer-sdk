@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.55.0"></a>
+# [0.55.0](https://github.com/Bearer/bearer/compare/v0.54.0...v0.55.0) (2018-08-17)
+
+
+### Features
+
+* **transpiler:** scope bearer components ([#279](https://github.com/Bearer/bearer/issues/279)) ([7b9453d](https://github.com/Bearer/bearer/commit/7b9453d))
+
+
+
+
 <a name="0.53.0"></a>
 # [0.53.0](https://github.com/Bearer/bearer/compare/v0.52.0...v0.53.0) (2018-08-14)
 
