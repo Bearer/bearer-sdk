@@ -101,8 +101,6 @@ export default class Transpiler {
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
 
-    console.log(options)
-
     this.ROOT_DIRECTORY = this.ROOT_DIRECTORY || process.cwd()
 
     if (options.tagNamePrefix) {

@@ -10,13 +10,13 @@ import {
   SpecComponent
 } from '../types'
 
-export const MANIFEST_FILE = 'manifest.js'
+export const MANIFEST_FILE = 'bearer-manifest.js'
 export const SPEC_FILE = 'spec.ts'
 
 const compilerOptions = { module: ts.ModuleKind.CommonJS }
 
 const content: (obj: any) => string = obj =>
-  `export const BEARER_MANIFEST = ${JSON.stringify(obj)}`
+  `var BEARER_MANIFEST = ${JSON.stringify(obj)}`
 
 const compileSpec: (srcDir: string) => CompileSpec = srcDir => {
   const spec = ts.transpileModule(
@@ -40,10 +40,10 @@ const previewRootComponentTags = (
   rootComponents: Array<RootComponent>
 ) =>
   components.map(({ initialTagName }) => {
-    const { finalTagName } = rootComponents.find(
+    const { finalTagName, group } = rootComponents.find(
       ({ initialTagName: tag }) => tag === initialTagName
-    ) || { finalTagName: null }
-    return finalTagName
+    ) || { finalTagName: null, group: null }
+    return { finalTagName, group }
   })
 
 const stringifyManifest: (manifest: any, srcDir: string) => string = (
