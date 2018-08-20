@@ -15,6 +15,7 @@ import BearerReferenceIdInjector from './transformers/reference-id-injector'
 import ReplaceIntentDecorators from './transformers/replace-intent-decorator'
 import RootComponentTransformer from './transformers/root-component-transformer'
 import BearerScenarioIdInjector from './transformers/scenario-id-accessor-injector'
+
 import { Metadata, SourceCodeTransformerOptions } from './types'
 import { getSourceCode } from './utils'
 
@@ -31,6 +32,7 @@ export type TranpilerOptions = {
 export default class Transpiler {
   get transformers(): ts.CustomTransformers {
     const verbose = true
+
     return {
       before: [
         GatherMetadata({ verbose, metadata: this.metadata }),
@@ -81,12 +83,14 @@ export default class Transpiler {
     components: []
   }
 
-  private compilerOptionsts: ts.CompilerOptions = {
+  private compilerOptions: ts.CompilerOptions = {
     module: ts.ModuleKind.CommonJS
   }
 
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
+
+    console.log(options)
 
     this.ROOT_DIRECTORY = this.ROOT_DIRECTORY || process.cwd()
 
@@ -155,7 +159,7 @@ export default class Transpiler {
         return ts.ScriptSnapshot.fromString(fs.readFileSync(fileName).toString())
       },
       getCurrentDirectory: () => process.cwd(),
-      getCompilationSettings: () => this.compilerOptionsts,
+      getCompilationSettings: () => this.compilerOptions,
       getDefaultLibFileName: options => ts.getDefaultLibFilePath(options),
       getCustomTransformers: () => this.transformers,
       fileExists: ts.sys.fileExists,
