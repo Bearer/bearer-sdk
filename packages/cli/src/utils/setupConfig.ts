@@ -48,6 +48,9 @@ export default (): Config => {
     ...setup,
     isYarnInstalled,
     command: isYarnInstalled ? 'yarn' : 'npm',
+    get isScenarioLocation(): boolean {
+      return this.rootPathRc !== null
+    },
     get bearerConfig(): BearerConfig {
       return rc('bearer')
     },
