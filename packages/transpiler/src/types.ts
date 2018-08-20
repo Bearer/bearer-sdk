@@ -20,9 +20,23 @@ export type TransformerOptions = {
 
 export type FileTransformerOptions = TransformerOptions & {
   outDir: string
+  srcDir?: string
 }
 
 export type SourceCodeTransformerOptions = TransformerOptions & {
   srcDirectory: string
   buildDirectory: string
 }
+
+export type SpecComponent = {
+  classname: string
+  isRoot: boolean
+  initialTagName: string
+  group: string
+}
+
+export type RootComponent = SpecComponent & {
+  finalTagName: string
+}
+
+export type CompileSpec = { components: Array<SpecComponent> }

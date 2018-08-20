@@ -7,8 +7,13 @@ import { FileTransformerOptions } from '../types'
 export default function generateMetadataFile(
   { metadata, outDir }: FileTransformerOptions = { outDir }
 ): ts.TransformerFactory<ts.SourceFile> {
+  console.log(metadata)
   if (metadata) {
-    fs.writeFileSync(path.join(outDir, 'metadata.json'), JSON.stringify(metadata), 'utf8')
+    fs.writeFileSync(
+      path.join(outDir, 'metadata.json'),
+      JSON.stringify(metadata),
+      'utf8'
+    )
   }
   return _transformContext => {
     return tsSourceFile => {
