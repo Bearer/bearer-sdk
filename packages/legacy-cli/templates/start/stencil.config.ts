@@ -5,7 +5,7 @@ export const config: Config = {
   namespace: process.env.BEARER_SCENARIO_TAG_NAME,
   copy: [
     {
-      src: 'bearer-manifest.js'
+      src: 'bearer-manifest.json'
     }
   ],
   outputTargets: [
