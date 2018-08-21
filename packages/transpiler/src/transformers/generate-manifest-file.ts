@@ -36,11 +36,11 @@ const previewRootComponentTags = (
   components: Array<SpecComponent>,
   rootComponents: Array<RootComponent>
 ) =>
-  components.map(({ initialTagName }) => {
+  components.map(({ initialTagName, label }) => {
     const { finalTagName, group } = rootComponents.find(
       ({ initialTagName: tag }) => tag === initialTagName
     ) || { finalTagName: null, group: null }
-    return { finalTagName, group }
+    return { finalTagName, group, label }
   })
 
 const stringifyManifest: (manifest: any, srcDir: string) => string = (
@@ -56,27 +56,20 @@ const stringifyManifest: (manifest: any, srcDir: string) => string = (
 
   const toBeExported = {
     manifest,
-    example: { previewRootComponents }
+    previewRootComponents
   }
 
-  return ts.transpileModule(JSON.stringify(toBeExported, null, 2), {
-    compilerOptions
-  }).outputText
+  return JSON.stringify(toBeExported, null, 2)
 }
 
 export default function generateManifestFile(
   { metadata, outDir, srcDir }: FileTransformerOptions = { outDir, srcDir }
-): ts.TransformerFactory<ts.SourceFile> {
+): void {
   if (metadata) {
     fs.writeFileSync(
       path.join(outDir, MANIFEST_FILE),
       stringifyManifest(metadata, srcDir),
       'utf8'
     )
-  }
-  return _transformContext => {
-    return tsSourceFile => {
-      return tsSourceFile
-    }
   }
 }

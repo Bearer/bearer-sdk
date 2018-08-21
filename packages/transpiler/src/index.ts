@@ -5,8 +5,6 @@ import * as ts from 'typescript'
 import BearerStateInjector from './transformers/bearer-state-injector'
 import ComponenttagNameScoping from './transformers/component-tag-name-scoping'
 import GatherMetadata from './transformers/gather-metadata'
-import generateManifestFile from './transformers/generate-manifest-file'
-import generateMetadataFile from './transformers/generate-metadata-file'
 import ImportsImporter from './transformers/imports-transformer'
 import NavigatorScreenTransformer from './transformers/navigator-screen-transformer'
 import PropBearerContextInjector from './transformers/prop-bearer-context-injector'
@@ -36,7 +34,12 @@ export default class Transpiler {
 
     return {
       before: [
-        GatherMetadata({ verbose, metadata: this.metadata }),
+        GatherMetadata({
+          verbose,
+          metadata: this.metadata,
+          outDir: this.BUILD_SRC_DIRECTORY,
+          srcDir: this.ROOT_DIRECTORY
+        }),
         RootComponentTransformer({ verbose, metadata: this.metadata }),
         BearerReferenceIdInjector({ verbose, metadata: this.metadata }),
         ReplaceIntentDecorators({ verbose, metadata: this.metadata }),
@@ -49,20 +52,9 @@ export default class Transpiler {
         ImportsImporter({ verbose, metadata: this.metadata }),
         ComponenttagNameScoping({ verbose, metadata: this.metadata }),
         dumpSourceCode({
-          verbose: true,
+          verbose,
           srcDirectory: this.VIEWS_DIRECTORY,
           buildDirectory: this.BUILD_SRC_DIRECTORY
-        }),
-        generateMetadataFile({
-          verbose,
-          metadata: this.metadata,
-          outDir: this.BUILD_SRC_DIRECTORY
-        }),
-        generateManifestFile({
-          verbose,
-          metadata: this.metadata,
-          outDir: this.BUILD_SRC_DIRECTORY,
-          srcDir: this.ROOT_DIRECTORY
         })
       ],
       after: []

@@ -33,6 +33,7 @@ export type SpecComponent = {
   isRoot: boolean
   initialTagName: string
   group: string
+  label: string
 }
 
 export type RootComponent = SpecComponent & {
