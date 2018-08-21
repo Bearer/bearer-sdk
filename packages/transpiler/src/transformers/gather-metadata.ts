@@ -14,7 +14,6 @@ import generateManifestFile from './generate-manifest-file'
 export default function GatherMetadata(
   { metadata, outDir, srcDir }: FileTransformerOptions = { outDir: null }
 ): ts.TransformerFactory<ts.SourceFile> {
-  console.log('GATHER METADATA START:', metadata.components)
   function getTagNames(
     tagName: string
   ): { initialTagName: string; finalTagName: string } {
