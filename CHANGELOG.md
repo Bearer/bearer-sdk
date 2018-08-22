@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.56.0"></a>
+# [0.56.0](https://github.com/Bearer/bearer/compare/v0.55.0...v0.56.0) (2018-08-22)
+
+
+### Bug Fixes
+
+* **cli:** allow env variable package version ([66bbdb3](https://github.com/Bearer/bearer/commit/66bbdb3))
+* **cli:** fix tslint formatting which was preventing iframe to load ([808ea32](https://github.com/Bearer/bearer/commit/808ea32))
+* **cli:** generate full manifest file ([6ac163e](https://github.com/Bearer/bearer/commit/6ac163e))
+* **cli:** make prettier work in all editors ([07816c2](https://github.com/Bearer/bearer/commit/07816c2))
+* **legacy-cli:** send scenario id to the deploy command ([#290](https://github.com/Bearer/bearer/issues/290)) ([7d04ee3](https://github.com/Bearer/bearer/commit/7d04ee3))
+* **transpiler:** fix missing suffix issue ([e40cfe6](https://github.com/Bearer/bearer/commit/e40cfe6))
+
+
+### Features
+
+* **cli:** add silent flag ([0f248f5](https://github.com/Bearer/bearer/commit/0f248f5))
+* **cli:** generate command rewrite ([#287](https://github.com/Bearer/bearer/issues/287)) ([2e91da7](https://github.com/Bearer/bearer/commit/2e91da7))
+* **cli:** generate the spec.ts in bearer new cmd ([521da58](https://github.com/Bearer/bearer/commit/521da58))
+* **cli:** link command rewrite ([#284](https://github.com/Bearer/bearer/issues/284)) ([40458ca](https://github.com/Bearer/bearer/commit/40458ca))
+* **transpiler:** generate manfiest.js file ([ed761d9](https://github.com/Bearer/bearer/commit/ed761d9))
+
+
+### Performance Improvements
+
+* **cli:** improve cli startup time ([#288](https://github.com/Bearer/bearer/issues/288)) ([156d565](https://github.com/Bearer/bearer/commit/156d565))
+
+
+
+
 <a name="0.55.0"></a>
 # [0.55.0](https://github.com/Bearer/bearer/compare/v0.54.0...v0.55.0) (2018-08-17)
 

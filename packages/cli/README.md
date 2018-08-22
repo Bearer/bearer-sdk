@@ -26,7 +26,7 @@ $ npm install -g @bearer/cli
 $ bearer COMMAND
 running command...
 $ bearer (-v|--version|version)
-@bearer/cli/0.55.0 linux-x64 node-v10.8.0
+@bearer/cli/0.56.0 linux-x64 node-v10.8.0
 $ bearer --help [COMMAND]
 USAGE
   $ bearer COMMAND
@@ -39,7 +39,9 @@ USAGE
 <!-- commands -->
 * [`bearer autocomplete [SHELL]`](#bearer-autocomplete-shell)
 * [`bearer deploy`](#bearer-deploy)
-* [`bearer generate [NAME]`](#bearer-generate-name)
+* [`bearer generate`](#bearer-generate)
+* [`bearer generate:component [NAME]`](#bearer-generatecomponent-name)
+* [`bearer generate:intent [NAME]`](#bearer-generateintent-name)
 * [`bearer help [COMMAND]`](#bearer-help-command)
 * [`bearer invoke INTENT_NAME`](#bearer-invoke-intent-name)
 * [`bearer link SCENARIO_IDENTIFIER`](#bearer-link-scenario-identifier)
@@ -85,25 +87,57 @@ OPTIONS
   -s, --views-only    Deploy views only
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/Bearer/bearer/blob/v0.55.0/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/deploy.ts)_
 
-## `bearer generate [NAME]`
+## `bearer generate`
 
-Generate scenario intents or components
+Generate Intent or Component
 
 ```
 USAGE
-  $ bearer generate [NAME]
+  $ bearer generate
 
 OPTIONS
-  -h, --help              show CLI help
-  --blank-component
-  --collection-component
-  --root-group
-  --setup
+  -h, --help   show CLI help
+  --path=path
+  --silent
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/Bearer/bearer/blob/v0.55.0/src/commands/generate.ts)_
+_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/generate/index.ts)_
+
+## `bearer generate:component [NAME]`
+
+Generate a Bearer component
+
+```
+USAGE
+  $ bearer generate:component [NAME]
+
+OPTIONS
+  -h, --help                        show CLI help
+  -t, --type=blank|collection|root
+  --path=path
+  --silent
+```
+
+_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/generate/component.ts)_
+
+## `bearer generate:intent [NAME]`
+
+Generate a Bearer Intent
+
+```
+USAGE
+  $ bearer generate:intent [NAME]
+
+OPTIONS
+  -h, --help                      show CLI help
+  -t, --type=fetch|save|retrieve
+  --path=path
+  --silent
+```
+
+_See code: [src/commands/generate/intent.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/generate/intent.ts)_
 
 ## `bearer help [COMMAND]`
 
@@ -135,7 +169,7 @@ OPTIONS
   -p, --path=path
 ```
 
-_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v0.55.0/src/commands/invoke.ts)_
+_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/invoke.ts)_
 
 ## `bearer link SCENARIO_IDENTIFIER`
 
@@ -146,10 +180,12 @@ USAGE
   $ bearer link SCENARIO_IDENTIFIER
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help   show CLI help
+  --path=path
+  --silent
 ```
 
-_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v0.55.0/src/commands/link.ts)_
+_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/link.ts)_
 
 ## `bearer login`
 
@@ -162,9 +198,11 @@ USAGE
 OPTIONS
   -e, --email=email
   -h, --help         show CLI help
+  --path=path
+  --silent
 ```
 
-_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v0.55.0/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/login.ts)_
 
 ## `bearer new [SCENARIONAME]`
 
@@ -175,11 +213,13 @@ USAGE
   $ bearer new [SCENARIONAME]
 
 OPTIONS
-  -a, --authType=oauth2|basicauth|apikey|noauth  Authorization type
-  -h, --help                                     show CLI help
+  -a, --authType=OAUTH2|BASIC|APIKEY|NONE  Authorization type
+  -h, --help                               show CLI help
+  --path=path
+  --silent
 ```
 
-_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v0.55.0/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/new.ts)_
 
 ## `bearer start`
 
@@ -195,7 +235,7 @@ OPTIONS
   --no-open
 ```
 
-_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.55.0/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.56.0/src/commands/start.ts)_
 
 ## `bearer update [CHANNEL]`
 

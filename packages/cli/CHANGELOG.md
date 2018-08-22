@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.56.0"></a>
+# [0.56.0](https://github.com/Bearer/bearer/compare/v0.55.0...v0.56.0) (2018-08-22)
+
+
+### Bug Fixes
+
+* **cli:** allow env variable package version ([66bbdb3](https://github.com/Bearer/bearer/commit/66bbdb3))
+* **cli:** generate full manifest file ([6ac163e](https://github.com/Bearer/bearer/commit/6ac163e))
+
+
+### Features
+
+* **cli:** add silent flag ([0f248f5](https://github.com/Bearer/bearer/commit/0f248f5))
+* **cli:** generate command rewrite ([#287](https://github.com/Bearer/bearer/issues/287)) ([2e91da7](https://github.com/Bearer/bearer/commit/2e91da7))
+* **cli:** generate the spec.ts in bearer new cmd ([521da58](https://github.com/Bearer/bearer/commit/521da58))
+* **cli:** link command rewrite ([#284](https://github.com/Bearer/bearer/issues/284)) ([40458ca](https://github.com/Bearer/bearer/commit/40458ca))
+
+
+### Performance Improvements
+
+* **cli:** improve cli startup time ([#288](https://github.com/Bearer/bearer/issues/288)) ([156d565](https://github.com/Bearer/bearer/commit/156d565))
+
+
+
+
 <a name="0.55.0"></a>
 # [0.55.0](https://github.com/Bearer/bearer/compare/v0.54.0...v0.55.0) (2018-08-17)
 
