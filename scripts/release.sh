@@ -9,7 +9,7 @@
 #   exit 1
 # fi
 
-ARG="${@:---conventional-commits --yes}"
+ARG="${@:---conventional-commits --npm-tag=next}"
 
 if [ ! -f ~/.npmrc ]; then
   echo "Missing ~/.npmrc file"
