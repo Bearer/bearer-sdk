@@ -5,7 +5,6 @@ import * as ts from 'typescript'
 import BearerStateInjector from './transformers/bearer-state-injector'
 import ComponenttagNameScoping from './transformers/component-tag-name-scoping'
 import GatherMetadata from './transformers/gather-metadata'
-import generateMetadataFile from './transformers/generate-metadata-file'
 import ImportsImporter from './transformers/imports-transformer'
 import NavigatorScreenTransformer from './transformers/navigator-screen-transformer'
 import PropBearerContextInjector from './transformers/prop-bearer-context-injector'
@@ -35,7 +34,12 @@ export default class Transpiler {
 
     return {
       before: [
-        GatherMetadata({ verbose, metadata: this.metadata }),
+        GatherMetadata({
+          verbose,
+          metadata: this.metadata,
+          outDir: this.BUILD_SRC_DIRECTORY,
+          srcDir: this.ROOT_DIRECTORY
+        }),
         RootComponentTransformer({ verbose, metadata: this.metadata }),
         BearerReferenceIdInjector({ verbose, metadata: this.metadata }),
         ReplaceIntentDecorators({ verbose, metadata: this.metadata }),
@@ -48,11 +52,10 @@ export default class Transpiler {
         ImportsImporter({ verbose, metadata: this.metadata }),
         ComponenttagNameScoping({ verbose, metadata: this.metadata }),
         dumpSourceCode({
-          verbose: true,
+          verbose,
           srcDirectory: this.VIEWS_DIRECTORY,
-          buildDirectory: this.BUILD_SCR_DIRECTORY
-        }),
-        generateMetadataFile({ verbose, metadata: this.metadata, outDir: this.BUILD_SCR_DIRECTORY })
+          buildDirectory: this.BUILD_SRC_DIRECTORY
+        })
       ],
       after: []
     }
@@ -62,7 +65,7 @@ export default class Transpiler {
     return path.join(this.ROOT_DIRECTORY, this.buildFolder)
   }
 
-  private get BUILD_SCR_DIRECTORY(): string {
+  private get BUILD_SRC_DIRECTORY(): string {
     return path.join(this.BUILD_DIRECTORY, 'src')
   }
 
@@ -89,8 +92,6 @@ export default class Transpiler {
 
   constructor(options?: Partial<TranpilerOptions>) {
     Object.assign(this, options)
-
-    console.log(options)
 
     this.ROOT_DIRECTORY = this.ROOT_DIRECTORY || process.cwd()
 
@@ -119,16 +120,20 @@ export default class Transpiler {
       this.emitFile(fileName)
       if (this.watchFiles) {
         // Add a watch on the file to handle next change
-        fs.watchFile(fileName, { persistent: true, interval: 250 }, (curr, prev) => {
-          // Check timestamp
-          if (+curr.mtime <= +prev.mtime) {
-            return
+        fs.watchFile(
+          fileName,
+          { persistent: true, interval: 250 },
+          (curr, prev) => {
+            // Check timestamp
+            if (+curr.mtime <= +prev.mtime) {
+              return
+            }
+            // Update the version to signal a change in the file
+            this.files[fileName].version++
+            // write the changes to disk
+            this.emitFile(fileName)
           }
-          // Update the version to signal a change in the file
-          this.files[fileName].version++
-          // write the changes to disk
-          this.emitFile(fileName)
-        })
+        )
       }
     })
   }
@@ -136,13 +141,20 @@ export default class Transpiler {
   refresh() {
     this.clearWatchers()
 
-    const config = ts.readConfigFile(path.join(this.BUILD_DIRECTORY, 'tsconfig.json'), ts.sys.readFile)
+    const config = ts.readConfigFile(
+      path.join(this.BUILD_DIRECTORY, 'tsconfig.json'),
+      ts.sys.readFile
+    )
 
     if (config.error) {
       throw new Error(config.error.messageText as string)
     }
 
-    const parsed = ts.parseJsonConfigFileContent(config, ts.sys, this.VIEWS_DIRECTORY)
+    const parsed = ts.parseJsonConfigFileContent(
+      config,
+      ts.sys,
+      this.VIEWS_DIRECTORY
+    )
     this.rootFileNames = parsed.fileNames
     if (!this.rootFileNames.length) {
       console.warn('[BEARER]', 'No file to transpile')
@@ -150,13 +162,16 @@ export default class Transpiler {
 
     const servicesHost: ts.LanguageServiceHost = {
       getScriptFileNames: () => this.rootFileNames,
-      getScriptVersion: fileName => this.files[fileName] && this.files[fileName].version.toString(),
+      getScriptVersion: fileName =>
+        this.files[fileName] && this.files[fileName].version.toString(),
       getScriptSnapshot: fileName => {
         if (!fs.existsSync(fileName)) {
           return null
         }
 
-        return ts.ScriptSnapshot.fromString(fs.readFileSync(fileName).toString())
+        return ts.ScriptSnapshot.fromString(
+          fs.readFileSync(fileName).toString()
+        )
       },
       getCurrentDirectory: () => process.cwd(),
       getCompilationSettings: () => this.compilerOptions,
@@ -167,7 +182,10 @@ export default class Transpiler {
       readDirectory: ts.sys.readDirectory
     }
     // Create the language service files
-    this.service = ts.createLanguageService(servicesHost, ts.createDocumentRegistry())
+    this.service = ts.createLanguageService(
+      servicesHost,
+      ts.createDocumentRegistry()
+    )
 
     this.emitFiles()
   }
@@ -208,10 +226,18 @@ export default class Transpiler {
       .concat(this.service.getSemanticDiagnostics(fileName))
 
     allDiagnostics.forEach(diagnostic => {
-      let message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n')
+      let message = ts.flattenDiagnosticMessageText(
+        diagnostic.messageText,
+        '\n'
+      )
       if (diagnostic.file) {
-        let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start!)
-        console.log(`  Error ${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`)
+        let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(
+          diagnostic.start!
+        )
+        console.log(
+          `  Error ${diagnostic.file.fileName} (${line + 1},${character +
+            1}): ${message}`
+        )
       } else {
         console.log(`  Error: ${message}`)
       }
@@ -227,7 +253,10 @@ export default class Transpiler {
 }
 
 function dumpSourceCode(
-  { srcDirectory, buildDirectory }: SourceCodeTransformerOptions = { srcDirectory, buildDirectory }
+  { srcDirectory, buildDirectory }: SourceCodeTransformerOptions = {
+    srcDirectory,
+    buildDirectory
+  }
 ): ts.TransformerFactory<ts.SourceFile> {
   return _transformContext => {
     return tsSourceFile => {
