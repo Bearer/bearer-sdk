@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.56.1"></a>
+## [0.56.1](https://github.com/Bearer/bearer/compare/v0.56.0...v0.56.1) (2018-08-22)
+
+
+### Bug Fixes
+
+* **cli:** generate setup fil if it does not exist ([aff55c1](https://github.com/Bearer/bearer/commit/aff55c1))
+
+
+
+
 <a name="0.56.0"></a>
 # [0.56.0](https://github.com/Bearer/bearer/compare/v0.55.0...v0.56.0) (2018-08-22)
 
