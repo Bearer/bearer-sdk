@@ -38,7 +38,7 @@ const configs: Record<BearerEnv, BaseConfig> = {
   }
 }
 
-export default (): Config => {
+export default (runPath: string = process.cwd()): Config => {
   const { BEARER_ENV = 'production' } = process.env
   const setup: BaseConfig = configs[BEARER_ENV as BearerEnv]
 
@@ -46,6 +46,7 @@ export default (): Config => {
 
   return {
     ...setup,
+    runPath,
     isYarnInstalled,
     command: isYarnInstalled ? 'yarn' : 'npm',
     get isScenarioLocation(): boolean {
@@ -55,7 +56,7 @@ export default (): Config => {
       return rc('bearer')
     },
     get scenarioConfig(): ScenarioConfig {
-      return rc('scenario')
+      return rc('scenario', { config: path.resolve(path.join(runPath, '.scenariorc')) })
     },
     get orgId(): string | undefined {
       return this.scenarioConfig.orgId
@@ -76,7 +77,7 @@ export default (): Config => {
       return Boolean(this.orgId) && Boolean(this.scenarioId)
     },
     get rootPathRc(): string | null {
-      return findUp.sync('.scenariorc')
+      return findUp.sync('.scenariorc', { cwd: runPath })
     },
     setScenarioConfig(config: { scenarioTitle: string; orgId: string; scenarioId: string }) {
       const { scenarioTitle, orgId, scenarioId } = config

@@ -1,9 +1,4 @@
-export const enum AuthType {
-  OAuth2 = 'oauth2',
-  Basic = 'basicauth',
-  ApiKey = 'apikey',
-  NoAuth = 'noauth'
-}
+import Authentication from '@bearer/types/lib/Authentications'
 
 export type BearerEnv = 'dev' | 'staging' | 'production'
 
@@ -42,6 +37,7 @@ export type ScenarioConfig = {
 }
 
 export type Config = BaseConfig & {
+  runPath: string
   isYarnInstalled: boolean
   isScenarioLocation: boolean
   command: 'yarn' | 'npm'
@@ -55,4 +51,9 @@ export type Config = BaseConfig & {
   hasScenarioLinked: boolean
   setScenarioConfig(config: any): void
   storeBearerConfig(config: any): void
+}
+
+export type AuthConfig = {
+  authType: Authentication
+  setupViews?: Array<any>
 }

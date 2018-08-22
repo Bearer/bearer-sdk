@@ -1,12 +1,12 @@
 import * as serviceClient from '@bearer/bearer-cli/dist/src/lib/serviceClient'
-import Command from '@oclif/command'
+import Command, { flags } from '@oclif/command'
 import * as Case from 'case'
 import cliUx from 'cli-ux'
 import * as colors from 'colors/safe'
 import * as copy from 'copy-template-dir'
 import * as inquirer from 'inquirer'
 
-import { Config } from './types'
+import { AuthConfig, Config } from './types'
 import Locator from './utils/locator'
 import setupConfig from './utils/setupConfig'
 
@@ -40,6 +40,8 @@ export default abstract class extends Command {
   }
 
   static flags = {
+    help: flags.help({ char: 'h' }),
+    path: flags.string({})
     // logLevel: flags.string({ options: ['error', 'warn', 'info', 'debug'], default: 'info' })
   }
 
@@ -52,8 +54,26 @@ export default abstract class extends Command {
   // protected logLevel: any
 
   async init() {
-    this.bearerConfig = setupConfig()
-    // const { flags } = this.parse(this.constructor as any)
-    // this.logLevel = flags.logLevel
+    const { flags } = this.parse(this.constructor as any)
+    const path = flags.path || undefined
+    this.bearerConfig = setupConfig(path)
+  }
+
+  get scenarioAuthConfig(): AuthConfig {
+    return require(this.locator.authConfigPath)
+  }
+
+  /**
+   * Interactivity helpers
+   */
+
+  protected async askForString(message: string): Promise<string> {
+    const { string } = await this.inquirer.prompt<{ string: string }>([
+      {
+        message: `${message}:`,
+        name: 'string'
+      }
+    ])
+    return string
   }
 }

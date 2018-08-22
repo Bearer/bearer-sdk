@@ -9,6 +9,9 @@
   "bugs": "https://github.com/Bearer/bearer/issues",
   "dependencies": {
     "@bearer/bearer-cli": "^0.55.0",
+    "@bearer/intents": "^0.55.0",
+    "@bearer/templates": "^0.53.1",
+    "@bearer/types": "^0.0.1",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-autocomplete": "^0.1.0",
@@ -23,6 +26,7 @@
     "copy-template-dir": "^1.4.0",
     "find-up": "^3.0.0",
     "fs": "^0.0.1-security",
+    "fs-extra": "^7.0.0",
     "ini": "^1.3.5",
     "inquirer": "^6.1.0",
     "listr": "^0.14.1",
