@@ -2,23 +2,26 @@ import { templates } from '@bearer/templates'
 import { Authentications } from '@bearer/types/lib/Authentications'
 import IntentType from '@bearer/types/lib/IntentTypes'
 import { flags } from '@oclif/command'
+import * as inquirer from 'inquirer'
 
 import BaseCommand from '../../BaseCommand'
 import { RequireScenarioFolder } from '../../utils/decorators'
 import { copyFiles } from '../../utils/helpers'
 
 const types = [
-  { name: 'fetch', value: IntentType.FetchData },
-  { name: 'save', value: IntentType.SaveState },
-  { name: 'retrieve', value: IntentType.RetrieveState }
+  { name: 'Fetch', value: IntentType.FetchData, cli: 'fetch' },
+  { name: 'Save State', value: IntentType.SaveState, cli: 'save' },
+  { name: 'Retrieve Sate', value: IntentType.RetrieveState, cli: 'retrieve' }
 ]
+
+const typeChoices = [types.slice(0, 1)[0], new inquirer.Separator(), ...types.slice(1)]
 
 export default class GenerateIntent extends BaseCommand {
   static description = 'Generate a Bearer Intent'
 
   static flags = {
     ...BaseCommand.flags,
-    type: flags.string({ char: 't', options: types.map(t => t.name) })
+    type: flags.string({ char: 't', options: types.map(t => t.cli) })
   }
 
   static args = [{ name: 'name' }]
@@ -26,7 +29,9 @@ export default class GenerateIntent extends BaseCommand {
   @RequireScenarioFolder()
   async run() {
     const { args, flags } = this.parse(GenerateIntent)
-    const type: IntentType = !flags.type ? await this.askForType() : types.find(t => t.name === flags.type)!.value
+    const type: IntentType = !flags.type
+      ? await this.askForType()
+      : types.find(t => (t as { cli: string }).cli === flags.type)!.value
     const name = args.name || (await this.askForName())
     const authType = this.scenarioAuthConfig.authType
     if (!templates[authType]) {
@@ -74,7 +79,7 @@ export default class GenerateIntent extends BaseCommand {
         message: 'Type:',
         type: 'list',
         name: 'type',
-        choices: types.map(type => ({ ...type, name: this.case.pascal(type.name) }))
+        choices: typeChoices
       }
     ])
     return type
