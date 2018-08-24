@@ -32,7 +32,9 @@ pipeline {
             steps {
                 container("node") {
                     ansiColor('xterm') {
-                        sh ".jenkins/build.sh"
+                        sh ".jenkins/prepare.sh"
+                        sh "yarn install --frozen-lockfile"
+                        sh "yarn run lerna bootstrap --froken-lockfile"
                      }
                 }
             }
