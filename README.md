@@ -1,6 +1,6 @@
 # Bearer
 
-[![CircleCI](https://circleci.com/gh/BearerSH/bearer.svg?style=svg&circle-token=a18705e56c8c60cb7a98cc08e1af5be001e4239a)](https://circleci.com/gh/BearerSH/bearer)
+[![Build Status](https://jenkins.bearer.tech/buildStatus/icon?job=Bearer/bearer/master)](https://jenkins.bearer.tech/job/Bearer/job/bearer/job/master/)
 
 This repository contains
 
