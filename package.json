@@ -1,5 +1,9 @@
 {
   "name": "bearer-master",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "lint-staged": {
     "*.{js,json,css,md,tsx,ts}": [
       "prettier --write",
@@ -13,9 +17,11 @@
   "scripts": {
     "upgrade-stencil": "(lerna clean --scope=@bearer/ui --scope=@bearer/core --yes) && (lerna exec --scope=@bearer/ui --scope=@bearer/core yarn install) && (lerna exec --scope=@bearer/ui --scope=@bearer/core yarn remove @stencil/core)  && (lerna add --exact @stencil/core --scope=@bearer/ui --scope=@bearer/core ) && lerna bootstrap",
     "lerna-publish": "lerna clean --yes && lerna bootstrap && lerna publish",
-    "lerna-publish-cicd": "lerna clean --yes && lerna bootstrap && lerna publish --yes",
-    "test": "lerna run test",
-    "cm": "git-cz"
+    "lerna-publish-cicd": "lerna clean --yes && lerna bootstrap && lerna publish --yes --conventional-commits",
+    "test": "lerna run test --stream",
+    "cm": "git-cz",
+    "bootstrap": "lerna bootstrap",
+    "prepare": "lerna run prepublish"
   },
   "license": "MIT",
   "husky": {
@@ -38,7 +44,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.13.0",
     "husky": "^1.0.0-rc.2",
-    "lerna": "^2.11.0",
+    "lerna": "^3.1.4",
     "lint-staged": "^7.2.0",
     "per-env": "^1.0.2",
     "prettier": "^1.14.0",
