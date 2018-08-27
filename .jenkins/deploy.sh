@@ -1,6 +1,6 @@
 #! /bin/bash
 
-ARG="---conventional-commits --npm-tag=$LERNA_TAG"
+ARG="--yes --npm-tag=$LERNA_TAG"
 
 if [ ! .npmrc ]; then
   echo "Missing .npmrc file"
@@ -13,4 +13,4 @@ if [ ! -f ~/.gitconfig ]; then
 fi
 
 echo "Starting publishing"
-yarn lerna-publish-cicd $ARG
+yarn lerna-publish $ARG
