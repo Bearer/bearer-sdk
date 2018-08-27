@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.58.5"></a>
+## [0.58.5](https://github.com/Bearer/bearer/compare/v0.57.3...v0.58.5) (2018-08-27)
+
+
+### Bug Fixes
+
+* make it consistent - force higher version ([10ff5c4](https://github.com/Bearer/bearer/commit/10ff5c4))
+
+
+
+
+
 <a name="0.57.3"></a>
 ## [0.57.3](https://github.com/Bearer/bearer/compare/v0.57.2...v0.57.3) (2018-08-27)
 
