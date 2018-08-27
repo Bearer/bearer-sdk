@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.57.0"></a>
+# [0.57.0](https://github.com/BearerSH/bearer/compare/v0.56.3...v0.57.0) (2018-08-27)
+
+
+### Bug Fixes
+
+* **cli:** add missing suffix to imports ([0494032](https://github.com/BearerSH/bearer/commit/0494032))
+
+
+
+
+
 <a name="0.56.0"></a>
 # [0.56.0](https://github.com/BearerSH/bearer/compare/v0.55.0...v0.56.0) (2018-08-22)
 

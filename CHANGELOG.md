@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.57.0"></a>
+# [0.57.0](https://github.com/Bearer/bearer/compare/v0.56.3...v0.57.0) (2018-08-27)
+
+
+### Bug Fixes
+
+* **cli:** add .scenariorc to the gitignore ([#301](https://github.com/Bearer/bearer/issues/301)) ([3551f9c](https://github.com/Bearer/bearer/commit/3551f9c))
+* **cli:** add missing suffix to imports ([0494032](https://github.com/Bearer/bearer/commit/0494032))
+* **cli:** be consistent ([d821628](https://github.com/Bearer/bearer/commit/d821628))
+
+
+### Features
+
+* **cli:** add jenkins integration ([bd8185c](https://github.com/Bearer/bearer/commit/bd8185c))
+* change RootComponent name to role ([61428aa](https://github.com/Bearer/bearer/commit/61428aa))
+
+
+
+
+
 <a name="0.56.3"></a>
 ## [0.56.3](https://github.com/Bearer/bearer/compare/v0.56.2...v0.56.3) (2018-08-23)
 
