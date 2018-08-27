@@ -2,7 +2,7 @@
 
 ARG="---conventional-commits --npm-tag=$LERNA_TAG"
 
-if [ ! -f ~/.npmrc ]; then
+if [ ! .npmrc ]; then
   echo "Missing .npmrc file"
   exit 1
 fi
