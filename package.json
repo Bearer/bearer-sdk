@@ -21,7 +21,7 @@
     "test": "lerna run test --stream",
     "cm": "git-cz",
     "bootstrap": "lerna bootstrap",
-    "prepare": "lerna run prepublish"
+    "prepare": "lerna run prepare"
   },
   "license": "MIT",
   "husky": {

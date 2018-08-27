@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest",
     "prepare": "tsc",
-    "prepublish": "rm -rf lib/ && tsc"
+    "prepare": "rm -rf lib/ && tsc"
   },
   "repository": {
     "type": "git",
