@@ -1,6 +1,6 @@
 {
   "name": "@bearer/templates",
-  "version": "0.57.1",
+  "version": "0.57.2",
   "description": "Bearer templates",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "url": "github:Bearer/bearer"
   },
   "dependencies": {
-    "@bearer/types": "^0.57.1",
+    "@bearer/types": "^0.57.2",
     "typescript": "^2.9.2"
   },
   "devDependencies": {

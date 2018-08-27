@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.57.2"></a>
+## [0.57.2](https://github.com/Bearer/bearer/compare/v0.57.1...v0.57.2) (2018-08-27)
+
+
+### Bug Fixes
+
+* .npmrc check ([f3773a2](https://github.com/Bearer/bearer/commit/f3773a2))
+
+
+
+
+
 <a name="0.57.0"></a>
 # [0.57.0](https://github.com/Bearer/bearer/compare/v0.56.3...v0.57.0) (2018-08-27)
 

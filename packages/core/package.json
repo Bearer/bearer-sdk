@@ -1,6 +1,6 @@
 {
   "name": "@bearer/core",
-  "version": "0.57.1",
+  "version": "0.57.2",
   "description": "Bearer Core",
   "main": "dist/main.js",
   "types": "dist/index.d.ts",
@@ -16,7 +16,6 @@
     "build:development": "yarn build:bundle -w",
     "build:production": "NODE_ENV=production yarn build:bundle ",
     "build:bundle": "rollup -c",
-    "prepare": "yarn build:production",
     "prepare": "yarn build:production",
     "prepublishOnly": "BUILD=distribution NODE_ENV=production yarn build:production",
     "test": "jest"
