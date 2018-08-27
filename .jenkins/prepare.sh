@@ -2,7 +2,6 @@
 
 echo "init dependencies"
 echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-ls -la  .
 
 mkdir -p ~/.ssh
 cat $JENKINS_PRIVATE_KEY >> ~/.ssh/id_rsa
