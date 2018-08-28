@@ -19,6 +19,7 @@
     "start": "sd concurrent \"npm run dev\" \"npm run storybook\"",
     "test": "jest --no-cache",
     "test.watch": "jest --watch --no-cache",
+    "prepare": "BUILD=distribution yarn build",
     "prepublishOnly": "BUILD=distribution yarn build",
     "publish:demo": "cd demo && yarn install && yarn publish:demo"
   },
