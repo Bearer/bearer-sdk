@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.58.7"></a>
+## [0.58.7](https://github.com/Bearer/bearer/compare/v0.58.6...v0.58.7) (2018-08-28)
+
+
+### Bug Fixes
+
+* **ui:** add prepare command ([02bcea6](https://github.com/Bearer/bearer/commit/02bcea6))
+* **ui:** build ui into dist folder ([0f613f3](https://github.com/Bearer/bearer/commit/0f613f3))
+
+
+
+
+
 <a name="0.58.6"></a>
 ## [0.58.6](https://github.com/Bearer/bearer/compare/v0.58.5...v0.58.6) (2018-08-28)
 
