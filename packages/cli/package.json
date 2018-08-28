@@ -1,14 +1,14 @@
 {
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "0.58.7",
+  "version": "0.58.8",
   "author": "Bearer Team",
   "bin": {
     "bearer": "./bin/run"
   },
   "bugs": "https://github.com/Bearer/bearer/issues",
   "dependencies": {
-    "@bearer/bearer-cli": "^0.58.7",
+    "@bearer/bearer-cli": "^0.58.8",
     "@bearer/intents": "^0.58.7",
     "@bearer/templates": "^0.58.7",
     "@bearer/types": "^0.58.7",

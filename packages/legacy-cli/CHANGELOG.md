@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.58.8"></a>
+## [0.58.8](https://github.com/Bearer/bearer/compare/v0.58.7...v0.58.8) (2018-08-28)
+
+
+### Bug Fixes
+
+* **transpiler:** forgotten path ([#311](https://github.com/Bearer/bearer/issues/311)) ([37bef59](https://github.com/Bearer/bearer/commit/37bef59))
+
+
+
+
+
 <a name="0.58.7"></a>
 ## [0.58.7](https://github.com/Bearer/bearer/compare/v0.58.6...v0.58.7) (2018-08-28)
 
