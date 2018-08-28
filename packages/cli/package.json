@@ -44,7 +44,6 @@
     "@types/listr": "^0.13.0",
     "@types/nock": "^9.3.0",
     "@types/node": "^10",
-    "@types/sinon": "^5.0.1",
     "globby": "^8",
     "jest": "^23.5.0",
     "nock": "^9.6.1",
@@ -81,6 +80,7 @@
   },
   "repository": "Bearer/bearer",
   "scripts": {
+    "clean": "rm -rf lib",
     "postpack": "rm -f oclif.manifest.json npm-shrinkwrap.json",
     "posttest": "tsc -p test --noEmit",
     "prepack": "rm -rf lib && tsc && oclif-dev manifest && oclif-dev readme",

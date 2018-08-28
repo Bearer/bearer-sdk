@@ -5,11 +5,12 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "/lib"
+    "lib/"
   ],
   "scripts": {
+    "clean": "rm -rf lib/",
     "test": "jest",
-    "prepare": "rm -rf lib/ && tsc"
+    "prepare": "rm -rf lib/ && NODE_ENV=production tsc"
   },
   "repository": {
     "type": "git",
