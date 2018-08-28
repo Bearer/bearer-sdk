@@ -53,6 +53,11 @@ declare global {
       'revoke': () => void;
     }
 
+    interface BearerBadge {
+      'content': any;
+      'kind': 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+    }
+
     interface BearerButton {
       'as': string;
       'content': any;
@@ -130,11 +135,6 @@ declare global {
 
     interface AuthConfig {
 
-    }
-
-    interface BearerBadge {
-      'content': any;
-      'kind': 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
     }
 
     interface BearerButtonPopover {
@@ -259,6 +259,14 @@ declare global {
     };
     
 
+    interface HTMLBearerBadgeElement extends StencilComponents.BearerBadge, HTMLStencilElement {}
+
+    var HTMLBearerBadgeElement: {
+      prototype: HTMLBearerBadgeElement;
+      new (): HTMLBearerBadgeElement;
+    };
+    
+
     interface HTMLBearerButtonElement extends StencilComponents.BearerButton, HTMLStencilElement {}
 
     var HTMLBearerButtonElement: {
@@ -336,14 +344,6 @@ declare global {
     var HTMLAuthConfigElement: {
       prototype: HTMLAuthConfigElement;
       new (): HTMLAuthConfigElement;
-    };
-    
-
-    interface HTMLBearerBadgeElement extends StencilComponents.BearerBadge, HTMLStencilElement {}
-
-    var HTMLBearerBadgeElement: {
-      prototype: HTMLBearerBadgeElement;
-      new (): HTMLBearerBadgeElement;
     };
     
 
@@ -464,6 +464,7 @@ declare global {
     export interface IntrinsicElements {
     'bearer-alert': JSXElements.BearerAlertAttributes;
     'bearer-authorized': JSXElements.BearerAuthorizedAttributes;
+    'bearer-badge': JSXElements.BearerBadgeAttributes;
     'bearer-button': JSXElements.BearerButtonAttributes;
     'bearer-checkbox': JSXElements.BearerCheckboxAttributes;
     'bearer-form': JSXElements.BearerFormAttributes;
@@ -474,7 +475,6 @@ declare global {
     'bearer-loading': JSXElements.BearerLoadingAttributes;
     'bearer-typography': JSXElements.BearerTypographyAttributes;
     'auth-config': JSXElements.AuthConfigAttributes;
-    'bearer-badge': JSXElements.BearerBadgeAttributes;
     'bearer-button-popover': JSXElements.BearerButtonPopoverAttributes;
     'bearer-config-display': JSXElements.BearerConfigDisplayAttributes;
     'bearer-config': JSXElements.BearerConfigAttributes;
@@ -503,6 +503,11 @@ declare global {
     export interface BearerAuthorizedAttributes extends HTMLAttributes {
       'renderAuthorized'?: () => any;
       'renderUnauthorized'?: FWithAuthenticate;
+    }
+
+    export interface BearerBadgeAttributes extends HTMLAttributes {
+      'content'?: any;
+      'kind'?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
     }
 
     export interface BearerButtonAttributes extends HTMLAttributes {
@@ -589,11 +594,6 @@ declare global {
 
     export interface AuthConfigAttributes extends HTMLAttributes {
       'onSubmit'?: (event: CustomEvent) => void;
-    }
-
-    export interface BearerBadgeAttributes extends HTMLAttributes {
-      'content'?: any;
-      'kind'?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
     }
 
     export interface BearerButtonPopoverAttributes extends HTMLAttributes {
@@ -707,6 +707,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'bearer-alert': HTMLBearerAlertElement
     'bearer-authorized': HTMLBearerAuthorizedElement
+    'bearer-badge': HTMLBearerBadgeElement
     'bearer-button': HTMLBearerButtonElement
     'bearer-checkbox': HTMLBearerCheckboxElement
     'bearer-form': HTMLBearerFormElement
@@ -717,7 +718,6 @@ declare global {
     'bearer-loading': HTMLBearerLoadingElement
     'bearer-typography': HTMLBearerTypographyElement
     'auth-config': HTMLAuthConfigElement
-    'bearer-badge': HTMLBearerBadgeElement
     'bearer-button-popover': HTMLBearerButtonPopoverElement
     'bearer-config-display': HTMLBearerConfigDisplayElement
     'bearer-config': HTMLBearerConfigElement
@@ -737,6 +737,7 @@ declare global {
   interface ElementTagNameMap {
     'bearer-alert': HTMLBearerAlertElement;
     'bearer-authorized': HTMLBearerAuthorizedElement;
+    'bearer-badge': HTMLBearerBadgeElement;
     'bearer-button': HTMLBearerButtonElement;
     'bearer-checkbox': HTMLBearerCheckboxElement;
     'bearer-form': HTMLBearerFormElement;
@@ -747,7 +748,6 @@ declare global {
     'bearer-loading': HTMLBearerLoadingElement;
     'bearer-typography': HTMLBearerTypographyElement;
     'auth-config': HTMLAuthConfigElement;
-    'bearer-badge': HTMLBearerBadgeElement;
     'bearer-button-popover': HTMLBearerButtonPopoverElement;
     'bearer-config-display': HTMLBearerConfigDisplayElement;
     'bearer-config': HTMLBearerConfigElement;

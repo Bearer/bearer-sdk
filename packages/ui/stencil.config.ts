@@ -19,7 +19,7 @@ export const config: Config = {
     })
   ],
   outputTargets: [
-    { type: 'dist' },
+    { type: 'dist', dir: 'lib' },
     {
       type: 'www'
     }
