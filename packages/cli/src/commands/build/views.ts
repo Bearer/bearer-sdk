@@ -68,7 +68,7 @@ export default class BuildViews extends BaseCommand {
     }
   }
 
-  transpile = async () => {
+  transpile = () => {
     const prefix = ['bearer', this.bearerConfig.scenarioId].join('-')
     const suffix = this.bearerConfig.orgId
     try {
@@ -76,7 +76,6 @@ export default class BuildViews extends BaseCommand {
     } catch (e) {
       this.error(e)
     }
-    await setTimeout(() => {}, 5000)
   }
 
   watchNonTsFiles = async (watchedPath: string, destPath: string): Promise<chokidar.FSWatcher> => {
