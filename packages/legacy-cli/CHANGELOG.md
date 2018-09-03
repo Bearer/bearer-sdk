@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.59.0"></a>
+# [0.59.0](https://github.com/Bearer/bearer/compare/v0.58.8...v0.59.0) (2018-09-03)
+
+
+### Features
+
+* **cli:** Build intents command ([#315](https://github.com/Bearer/bearer/issues/315)) ([95995e1](https://github.com/Bearer/bearer/commit/95995e1))
+* **cli:** Prepare command ([#312](https://github.com/Bearer/bearer/issues/312)) ([fde2dae](https://github.com/Bearer/bearer/commit/fde2dae))
+* **cli:** Push command ([#317](https://github.com/Bearer/bearer/issues/317)) ([84906e4](https://github.com/Bearer/bearer/commit/84906e4))
+
+
+
+
+
 <a name="0.58.8"></a>
 ## [0.58.8](https://github.com/Bearer/bearer/compare/v0.58.7...v0.58.8) (2018-08-28)
 
