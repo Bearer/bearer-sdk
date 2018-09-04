@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.59.1"></a>
+## [0.59.1](https://github.com/Bearer/bearer/compare/v0.59.0...v0.59.1) (2018-09-04)
+
+
+### Bug Fixes
+
+* **cli:** add missing tsconfig.json fil ([ab1d63e](https://github.com/Bearer/bearer/commit/ab1d63e))
+
+
+
+
+
 <a name="0.59.0"></a>
 # [0.59.0](https://github.com/Bearer/bearer/compare/v0.58.8...v0.59.0) (2018-09-03)
 
