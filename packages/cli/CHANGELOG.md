@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.60.0"></a>
+# [0.60.0](https://github.com/Bearer/bearer/compare/v0.59.1...v0.60.0) (2018-09-07)
+
+
+### Bug Fixes
+
+* **cli:** update stencil config to address www ([684a460](https://github.com/Bearer/bearer/commit/684a460))
+
+
+
+
+
 <a name="0.59.1"></a>
 ## [0.59.1](https://github.com/Bearer/bearer/compare/v0.59.0...v0.59.1) (2018-09-04)
 
