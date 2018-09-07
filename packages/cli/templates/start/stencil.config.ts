@@ -17,6 +17,7 @@ export const config: Config = {
       type: 'www',
       serviceWorker: null,
       resourcesUrl: process.env.CDN_HOST,
+      dir: process.env.WWW_BUILD_FOLDER || 'www'
     }
   ],
   plugins: [...plugins()],
