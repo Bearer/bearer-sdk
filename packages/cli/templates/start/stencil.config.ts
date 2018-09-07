@@ -10,14 +10,12 @@ export const config: Config = {
   ],
   outputTargets: [
     {
-      type: 'dist',
-      dir: process.env.DIST_BUILD_FOLDER || 'dist'
+      type: 'dist'
     },
     {
       type: 'www',
       serviceWorker: null,
-      resourcesUrl: process.env.CDN_HOST,
-      dir: process.env.WWW_BUILD_FOLDER || 'www'
+      resourcesUrl: process.env.CDN_HOST
     }
   ],
   plugins: [...plugins()],
