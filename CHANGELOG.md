@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.60.3"></a>
+## [0.60.3](https://github.com/Bearer/bearer/compare/v0.60.2...v0.60.3) (2018-09-11)
+
+
+### Bug Fixes
+
+* **cli:** make writeFile async ([#330](https://github.com/Bearer/bearer/issues/330)) ([b34ec08](https://github.com/Bearer/bearer/commit/b34ec08))
+
+
+
+
+
 <a name="0.60.2"></a>
 ## [0.60.2](https://github.com/Bearer/bearer/compare/v0.60.1...v0.60.2) (2018-09-07)
 
