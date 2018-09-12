@@ -26,7 +26,7 @@ $ npm install -g @bearer/cli
 $ bearer COMMAND
 running command...
 $ bearer (-v|--version|version)
-@bearer/cli/0.60.3 linux-x64 node-v10.6.0
+@bearer/cli/0.60.4 linux-x64 node-v10.6.0
 $ bearer --help [COMMAND]
 USAGE
   $ bearer COMMAND
@@ -48,7 +48,6 @@ USAGE
 * [`bearer new [SCENARIONAME]`](#bearer-new-scenarioname)
 * [`bearer push`](#bearer-push)
 * [`bearer start`](#bearer-start)
-* [`bearer update [CHANNEL]`](#bearer-update-channel)
 
 ## `bearer autocomplete [SHELL]`
 
@@ -87,7 +86,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/generate/index.ts)_
+_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/generate/index.ts)_
 
 ## `bearer generate:component [NAME]`
 
@@ -104,7 +103,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/generate/component.ts)_
+_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/generate/component.ts)_
 
 ## `bearer generate:intent [NAME]`
 
@@ -121,7 +120,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/generate/intent.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/generate/intent.ts)_
+_See code: [src/commands/generate/intent.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/generate/intent.ts)_
 
 ## `bearer help [COMMAND]`
 
@@ -153,7 +152,7 @@ OPTIONS
   -p, --path=path
 ```
 
-_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/invoke.ts)_
+_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/invoke.ts)_
 
 ## `bearer link SCENARIO_IDENTIFIER`
 
@@ -169,7 +168,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/link.ts)_
+_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/link.ts)_
 
 ## `bearer login`
 
@@ -186,7 +185,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/login.ts)_
 
 ## `bearer new [SCENARIONAME]`
 
@@ -203,11 +202,11 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/new.ts)_
 
 ## `bearer push`
 
-Zip scenario and upload it to S3
+Deploy Scenario to Bearer Platform
 
 ```
 USAGE
@@ -219,7 +218,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/push.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/push.ts)_
+_See code: [src/commands/push.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/push.ts)_
 
 ## `bearer start`
 
@@ -235,16 +234,5 @@ OPTIONS
   --no-open
 ```
 
-_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.60.3/src/commands/start.ts)_
-
-## `bearer update [CHANNEL]`
-
-update the bearer CLI
-
-```
-USAGE
-  $ bearer update [CHANNEL]
-```
-
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1.3.1/src/commands/update.ts)_
+_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.60.4/src/commands/start.ts)_
 <!-- commandsstop -->

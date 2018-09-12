@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.60.4"></a>
+## [0.60.4](https://github.com/Bearer/bearer/compare/v0.60.3...v0.60.4) (2018-09-12)
+
+
+### Bug Fixes
+
+* **cli:** update push message ([#331](https://github.com/Bearer/bearer/issues/331)) ([f2183dc](https://github.com/Bearer/bearer/commit/f2183dc))
+
+
+
+
+
 <a name="0.60.3"></a>
 ## [0.60.3](https://github.com/Bearer/bearer/compare/v0.60.2...v0.60.3) (2018-09-11)
 
