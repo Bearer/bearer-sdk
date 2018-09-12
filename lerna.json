@@ -4,7 +4,7 @@
   "packages": [
     "packages/*"
   ],
-  "version": "0.60.4",
+  "version": "0.60.5",
   "command": {
     "publish": {
       "ignoreChanges": [
@@ -13,5 +13,6 @@
         "**/test/**"
       ]
     }
-  }
+  },
+  "lerna": "2.11.0"
 }
