@@ -4,4 +4,3 @@ dist/
 www/
 .build/
 config.dev.js
-.scenariorc
