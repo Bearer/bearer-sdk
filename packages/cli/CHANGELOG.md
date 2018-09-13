@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.60.8"></a>
+## [0.60.8](https://github.com/Bearer/bearer/compare/v0.60.7...v0.60.8) (2018-09-13)
+
+
+### Bug Fixes
+
+* **cli:** remove double // ([#337](https://github.com/Bearer/bearer/issues/337)) ([5269184](https://github.com/Bearer/bearer/commit/5269184))
+
+
+
+
 <a name="0.60.7"></a>
 ## [0.60.7](https://github.com/Bearer/bearer/compare/v0.60.6...v0.60.7) (2018-09-13)
 
