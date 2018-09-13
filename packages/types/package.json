@@ -1,6 +1,6 @@
 {
   "name": "@bearer/types",
-  "version": "0.60.10",
+  "version": "0.60.11",
   "description": "Provide typing for Bearer packages",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
