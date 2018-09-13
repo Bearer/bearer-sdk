@@ -37,11 +37,11 @@ export default class Push extends BaseCommand {
       await new Listr(tasks).run()
       this.success(`🐻 Scenario successfully pushed.\n`)
       this.log(
-        `Your scenario will be available soon at this location: ` +
+        `Your Scenario will be available shortly here: ` +
         this.colors.bold(`${this.bearerConfig.DeveloperPortalUrl}scenarios/${this.bearerConfig.scenarioUuid}/preview`)
       )
       this.log(
-        `\nIn the mean time you can follow the deployment here: ` +
+        `\nIn the meantime you can follow the deployment here: ` +
         this.colors.bold(`${this.bearerConfig.DeveloperPortalUrl}scenarios/${this.bearerConfig.scenarioUuid}/logs`)
       )
     } catch (e) {
