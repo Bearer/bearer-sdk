@@ -1,6 +1,7 @@
 #! /bin/bash
 
 ARG="--yes --npm-tag=$LERNA_TAG"
+FORCE_ARG="--yes --npm-tag=$LERNA_TAG --force-publish *"
 
 if [ ! .npmrc ]; then
   echo "Missing .npmrc file"
@@ -13,10 +14,11 @@ if [ ! -f ~/.gitconfig ]; then
 fi
 
 echo "Starting publishing"
-echo "$FORCE"
+echo "current value of force $FORCE"
+
 if [ $FORCE ==  "true" ]; then
-  echo "The force is true"
+  echo "force publishing.."
+  yarn lerna-publish $FORCE_ARG
 else
-  # yarn lerna-publish $ARG
-  echo "The force is false"
+  yarn lerna-publish $ARG
 fi
