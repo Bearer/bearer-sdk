@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.60.13"></a>
+## [0.60.13](https://github.com/Bearer/bearer/compare/v0.60.12...v0.60.13) (2018-09-14)
+
+**Note:** Version bump only for package @bearer/types
+
+
+
+
+
 <a name="0.60.12"></a>
 ## [0.60.12](https://github.com/Bearer/bearer/compare/v0.60.11...v0.60.12) (2018-09-13)
 
