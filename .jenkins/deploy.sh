@@ -1,7 +1,7 @@
 #! /bin/bash
 
 ARG="--yes --npm-tag=$LERNA_TAG"
-FORCE_ARG="--yes --npm-tag=$LERNA_TAG --force-publish *"
+FORCE_ARG="--yes --npm-tag=$LERNA_TAG --force-publish"
 
 if [ ! .npmrc ]; then
   echo "Missing .npmrc file"
