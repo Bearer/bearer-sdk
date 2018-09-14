@@ -20,7 +20,7 @@ pipeline {
 
     parameters {
         string(defaultValue: '', description: 'TAG which will be used by lerna', name: 'LERNA_TAG')
-        booleanParam(defaultValue: false, description: 'Lerna force publish', name: 'force')
+        booleanParam(defaultValue: false, description: 'Lerna force publish', name: 'FORCE')
     }
 
     stages {
