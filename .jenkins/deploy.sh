@@ -13,9 +13,10 @@ if [ ! -f ~/.gitconfig ]; then
 fi
 
 echo "Starting publishing"
+echo "$FORCE"
 if [ $FORCE ==  "true"]; then 
   echo "The force is true"
 else
-  // yarn lerna-publish $ARG
+  # yarn lerna-publish $ARG
   echo "The force is false"
 fi
