@@ -14,7 +14,7 @@ fi
 
 echo "Starting publishing"
 echo "$FORCE"
-if [ $FORCE ==  "true"]; then 
+if [ $FORCE ==  "true" ]; then
   echo "The force is true"
 else
   # yarn lerna-publish $ARG
