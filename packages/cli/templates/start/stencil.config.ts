@@ -6,6 +6,9 @@ export const config: Config = {
   copy: [
     {
       src: 'bearer-manifest.json'
+    },
+    {
+      src: 'openapi.json'
     }
   ],
   outputTargets: [
