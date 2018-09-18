@@ -18,6 +18,7 @@ What's next?
 ,[90m    create: [39m[37mtest/.bearer/init/APIKEY/tsconfig.json[39m
 ,[90m    create: [39m[37mtest/.bearer/init/APIKEY/views/index.html[39m
 ,[90m    create: [39m[37mtest/.bearer/init/APIKEY/views/index.ts[39m
+,[90m    create: [39m[37mtest/.bearer/init/APIKEY/views/openapi.json[39m
 ,[?25h,[?25l,* read the bearer documentation at https://docs.bearer.sh
 
 ,* start your local development environement by running:
@@ -57,6 +58,7 @@ What's next?
 ,[90m    create: [39m[37mtest/.bearer/init/BASIC/tsconfig.json[39m
 ,[90m    create: [39m[37mtest/.bearer/init/BASIC/views/index.html[39m
 ,[90m    create: [39m[37mtest/.bearer/init/BASIC/views/index.ts[39m
+,[90m    create: [39m[37mtest/.bearer/init/BASIC/views/openapi.json[39m
 ,[?25h,[?25l,* read the bearer documentation at https://docs.bearer.sh
 
 ,* start your local development environement by running:
@@ -101,6 +103,7 @@ What's next?
 ,[90m    create: [39m[37mtest/.bearer/init/NONE/tsconfig.json[39m
 ,[90m    create: [39m[37mtest/.bearer/init/NONE/views/index.html[39m
 ,[90m    create: [39m[37mtest/.bearer/init/NONE/views/index.ts[39m
+,[90m    create: [39m[37mtest/.bearer/init/NONE/views/openapi.json[39m
 ,[?25h,[?25l,* read the bearer documentation at https://docs.bearer.sh
 
 ,* start your local development environement by running:
@@ -133,6 +136,7 @@ What's next?
 ,[90m    create: [39m[37mtest/.bearer/init/OAUTH2/tsconfig.json[39m
 ,[90m    create: [39m[37mtest/.bearer/init/OAUTH2/views/index.html[39m
 ,[90m    create: [39m[37mtest/.bearer/init/OAUTH2/views/index.ts[39m
+,[90m    create: [39m[37mtest/.bearer/init/OAUTH2/views/openapi.json[39m
 ,[?25h,[?25l,* read the bearer documentation at https://docs.bearer.sh
 
 ,* start your local development environement by running:
