@@ -38,7 +38,7 @@
             "description": "UNAUTHORIZED"
           }
         },
-        "summary": "Items options request",
+        "summary": "Items",
         "description": "",
         "parameters": [
           {
@@ -279,7 +279,8 @@
             "description": "",
             "required": true
           }
-        ]
+        ],
+        "summary": "listRepositories"
       }
     },
     "/10bc62-my-new-scenario/listPullRequests": {
