@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.61.0"></a>
+# [0.61.0](https://github.com/Bearer/bearer/compare/v0.60.13...v0.61.0) (2018-09-18)
+
+
+### Bug Fixes
+
+* add missing summary ([3d066cc](https://github.com/Bearer/bearer/commit/3d066cc))
+
+
+### Features
+
+* add static openapi.json file to the build ([4ffd55b](https://github.com/Bearer/bearer/commit/4ffd55b))
+
+
+
+
+
 <a name="0.60.13"></a>
 ## [0.60.13](https://github.com/Bearer/bearer/compare/v0.60.12...v0.60.13) (2018-09-14)
 
