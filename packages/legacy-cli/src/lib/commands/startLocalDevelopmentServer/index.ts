@@ -10,7 +10,7 @@ import { Config } from '../../types'
 
 import auth from './auth'
 import server = require('./server')
-import Storage from './storage'
+import Storage, { getRows } from './storage'
 
 function requireUncached(module) {
   delete require.cache[require.resolve(module)]
@@ -59,22 +59,33 @@ export default function startLocalDevelopmentServer(
         .on('add', refreshIntents)
         .on('change', refreshIntents)
 
+      const storage = Storage()
       const port = await getPort({ port: 3000 })
       // tslint:disable-next-line:no-http-string
       const bearerBaseURL = `http://localhost:${port}/`
       process.env.bearerBaseURL = bearerBaseURL
+
       router.all(
         `${config.scenarioUuid}/:intentName`,
-        (ctx, next) =>
-          new Promise((resolve, _reject) => {
+        async (ctx, next) =>
+          new Promise(async (resolve, _reject) => {
             try {
               const intent = requireUncached(`${distPath}/${ctx.params.intentName}`).default
+
+              // console.log(ctx.request.query)
+              let customContext = {}
+
+              if (ctx.request.query.channelId) {
+                customContext.channel = JSON.parse(await getRows(ctx.request.query.channelId))
+              }
+
               intent.intentType.intent(intent.action)(
                 {
                   context: {
                     ...devIntentsContext.global,
                     ...devIntentsContext[ctx.params.intentName],
-                    bearerBaseURL
+                    bearerBaseURL,
+                    ...customContext
                   },
                   queryStringParameters: ctx.query,
                   body: JSON.stringify(ctx.request.body)
@@ -92,7 +103,7 @@ export default function startLocalDevelopmentServer(
               } else {
                 ctx.intentDatum = { error: e.toString() }
               }
-              next()
+              await next()
               resolve()
             }
           }),
@@ -105,7 +116,6 @@ export default function startLocalDevelopmentServer(
         }
       )
 
-      const storage = Storage()
       if (logs) {
         server.use(Logger())
       }
