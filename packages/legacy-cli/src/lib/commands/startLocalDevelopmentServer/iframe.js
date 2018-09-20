@@ -66,7 +66,7 @@
       o.send(window.parent, t.Events.SESSION_INITIALIZED),
       o.on(t.Events.HAS_AUTHORIZED, function(e) {
         return (
-          console.log('[BEARER]', 'hasAuthoried?', e.data),
+          console.log('[BEARER]', 'hasAuthorized?', e.data),
           {
             authorized: i.Storage.hasAuthorized(e.data.scenarioId, e.data.integrationId)
           }

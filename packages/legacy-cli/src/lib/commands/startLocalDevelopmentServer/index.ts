@@ -11,6 +11,7 @@ import { Config } from '../../types'
 import auth from './auth'
 import server = require('./server')
 import Storage from './storage'
+import { loadUserDefinedData } from './utils'
 
 function requireUncached(module) {
   delete require.cache[require.resolve(module)]
@@ -59,22 +60,28 @@ export default function startLocalDevelopmentServer(
         .on('add', refreshIntents)
         .on('change', refreshIntents)
 
+      const storage = Storage()
       const port = await getPort({ port: 3000 })
       // tslint:disable-next-line:no-http-string
       const bearerBaseURL = `http://localhost:${port}/`
       process.env.bearerBaseURL = bearerBaseURL
+
       router.all(
         `${config.scenarioUuid}/:intentName`,
-        (ctx, next) =>
-          new Promise((resolve, _reject) => {
+        async (ctx, next) =>
+          new Promise(async (resolve, _reject) => {
             try {
               const intent = requireUncached(`${distPath}/${ctx.params.intentName}`).default
+
+              const userDefinedData = await loadUserDefinedData({ query: ctx.query })
+
               intent.intentType.intent(intent.action)(
                 {
                   context: {
                     ...devIntentsContext.global,
                     ...devIntentsContext[ctx.params.intentName],
-                    bearerBaseURL
+                    bearerBaseURL,
+                    ...userDefinedData
                   },
                   queryStringParameters: ctx.query,
                   body: JSON.stringify(ctx.request.body)
@@ -87,12 +94,13 @@ export default function startLocalDevelopmentServer(
                 }
               )
             } catch (e) {
+              console.log("ERROR: ", e)
               if (e.code === 'MODULE_NOT_FOUND') {
                 ctx.intentDatum = { error: `Intent '${ctx.params.intentName}' Not Found` }
               } else {
                 ctx.intentDatum = { error: e.toString() }
               }
-              next()
+              await next()
               resolve()
             }
           }),
@@ -105,7 +113,6 @@ export default function startLocalDevelopmentServer(
         }
       )
 
-      const storage = Storage()
       if (logs) {
         server.use(Logger())
       }

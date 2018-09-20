@@ -2,20 +2,32 @@ const Router = require('koa-router')
 import * as knex from 'knex'
 import * as uuidv1 from 'uuid/v1'
 
+const filename = process.env.BEARER_LOCAL_DATABASE || ':memory:'
+const debug = process.env.BEARER_DEBUG === '*'
+
+const db = knex({
+  dialect: 'sqlite3',
+  connection: {
+    filename
+  },
+  useNullAsDefault: true,
+  debug
+})
+
+export async function getRows(referenceId) {
+  const rows = await db
+    .table('records')
+    .select('data')
+    .where({ referenceId })
+    .limit(1)
+
+  const { data } = rows[0]
+
+  return data
+}
+
 export default () => {
   const router = new Router({ prefix: '/api/v1/' })
-
-  const filename = process.env.BEARER_LOCAL_DATABASE || ':memory:'
-  const debug = process.env.BEARER_DEBUG === '*'
-
-  const db = knex({
-    dialect: 'sqlite3',
-    connection: {
-      filename
-    },
-    useNullAsDefault: true,
-    debug
-  })
 
   db.schema
     .hasTable('records')
