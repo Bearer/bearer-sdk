@@ -10,7 +10,8 @@ import { Config } from '../../types'
 
 import auth from './auth'
 import server = require('./server')
-import Storage, { getRows } from './storage'
+import Storage from './storage'
+import { loadUserDefinedData } from './utils'
 
 function requireUncached(module) {
   delete require.cache[require.resolve(module)]
@@ -72,12 +73,7 @@ export default function startLocalDevelopmentServer(
             try {
               const intent = requireUncached(`${distPath}/${ctx.params.intentName}`).default
 
-              // console.log(ctx.request.query)
-              let customContext = {}
-
-              if (ctx.request.query.channelId) {
-                customContext.channel = JSON.parse(await getRows(ctx.request.query.channelId))
-              }
+              const userDefinedData = await loadUserDefinedData({ query: ctx.query })
 
               intent.intentType.intent(intent.action)(
                 {
@@ -85,7 +81,7 @@ export default function startLocalDevelopmentServer(
                     ...devIntentsContext.global,
                     ...devIntentsContext[ctx.params.intentName],
                     bearerBaseURL,
-                    ...customContext
+                    ...userDefinedData
                   },
                   queryStringParameters: ctx.query,
                   body: JSON.stringify(ctx.request.body)
@@ -98,6 +94,7 @@ export default function startLocalDevelopmentServer(
                 }
               )
             } catch (e) {
+              console.log("ERROR: ", e)
               if (e.code === 'MODULE_NOT_FOUND') {
                 ctx.intentDatum = { error: `Intent '${ctx.params.intentName}' Not Found` }
               } else {
