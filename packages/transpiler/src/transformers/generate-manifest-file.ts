@@ -40,7 +40,7 @@ const previewRootComponentTags = (
     const { finalTagName, group } = rootComponents.find(
       ({ initialTagName: tag }) => tag === initialTagName
     ) || { finalTagName: null, group: null }
-    return { finalTagName, group, label }
+    return { finalTagName, group, label, props: [{ type: "object", name: "bar" },{ type: "string", name: "foo" }] }
   })
 
 const stringifyManifest: (manifest: any, srcDir: string) => string = (
