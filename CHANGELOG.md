@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.62.0"></a>
+# [0.62.0](https://github.com/Bearer/bearer/compare/v0.61.0...v0.62.0) (2018-09-25)
+
+
+### Features
+
+* backport loading user defined data ([f8f4313](https://github.com/Bearer/bearer/commit/f8f4313))
+* hardcode props for root components ([d7814ba](https://github.com/Bearer/bearer/commit/d7814ba))
+
+
+
+
+
 <a name="0.61.0"></a>
 # [0.61.0](https://github.com/Bearer/bearer/compare/v0.60.13...v0.61.0) (2018-09-18)
 
