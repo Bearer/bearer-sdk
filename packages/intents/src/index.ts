@@ -55,8 +55,8 @@ export class SaveState extends StateIntentBase {
 
   static intent(action: d.ISaveStateIntentAction) {
     return (event: d.TLambdaEvent, _context: any, lambdaCallback: d.TLambdaCallback): void => {
-      const { referenceId, signature } = event.queryStringParameters
-      const dbClient = DBClient(signature)
+      const { referenceId } = event.queryStringParameters
+      const dbClient = DBClient(event.context.signature)
       try {
         dbClient
           .getData(referenceId)
@@ -105,9 +105,9 @@ export class RetrieveState extends StateIntentBase {
 
   static intent(action: d.IRetrieveStateIntentAction) {
     return (event: d.TLambdaEvent, _context: any, lambdaCallback: d.TLambdaCallback): void => {
-      const { referenceId, signature } = event.queryStringParameters
+      const { referenceId } = event.queryStringParameters
       try {
-        DBClient(signature)
+        DBClient(event.context.signature)
           .getData(referenceId)
           .then(state => {
             if (state) {
