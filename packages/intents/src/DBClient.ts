@@ -1,20 +1,20 @@
 import axios, { AxiosInstance } from 'axios'
-class FetchDataError extends Error {}
-class UpdateDataError extends Error {}
-class CreateDataError extends Error {}
+class FetchDataError extends Error { }
+class UpdateDataError extends Error { }
+class CreateDataError extends Error { }
 
 type TPersistedData = {
-  Item: { referenceId: string; [key: string]: any }
+  Item: { referenceId: string;[key: string]: any }
 }
 
 export class DBClient {
-  static instance() {
-    return new DBClient(process.env.bearerBaseURL)
+  static instance(signature) {
+    return new DBClient(process.env.bearerBaseURL, signature)
   }
 
   private client: AxiosInstance
 
-  constructor(private readonly baseURL: string) {
+  constructor(private readonly baseURL: string, private readonly signature: string) {
     console.log('[BEARER]', 'baseURL', baseURL)
     this.client = axios.create({
       baseURL,
@@ -31,7 +31,7 @@ export class DBClient {
       return Promise.resolve(null)
     }
     try {
-      const data = await this.client.get(`api/v1/items/${referenceId}`)
+      const data = await this.client.get(`api/v2/items/${referenceId}`, { params: { signature: this.signature } })
       return data.data
     } catch (error) {
       if (error.response && !(error.response.status === 404)) {
@@ -43,7 +43,7 @@ export class DBClient {
 
   async updateData(referenceId, data): Promise<TPersistedData> {
     try {
-      const response = await this.client.put(`api/v1/items/${referenceId}`, { ...data, ReadAllowed: true })
+      const response = await this.client.put(`api/v2/items/${referenceId}`, { ...data, ReadAllowed: true }, { params: { signature: this.signature } })
       return response.data
     } catch (error) {
       throw new UpdateDataError(`Error while updating data: ${error.toString()}`)
@@ -52,7 +52,7 @@ export class DBClient {
 
   async saveData(data): Promise<TPersistedData> {
     try {
-      const response = await this.client.post(`api/v1/items`, { ...data, ReadAllowed: true })
+      const response = await this.client.post(`api/v2/items`, { ...data, ReadAllowed: true }, { params: { signature: this.signature } })
       return response.data
     } catch (error) {
       throw new CreateDataError(`Error while creating data: ${error.toString()}`)
@@ -60,4 +60,4 @@ export class DBClient {
   }
 }
 
-export default (baseURL: string): DBClient => new DBClient(baseURL)
+export default (baseURL: string, signature: string): DBClient => new DBClient(baseURL, signature)

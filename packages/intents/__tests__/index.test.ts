@@ -38,7 +38,7 @@ describe('SaveState', () => {
       }
 
       function mockRetrieveSucces() {
-        expect(mockAxios.get).toHaveBeenCalledWith('api/v1/items/SPONGE_BOB')
+        expect(mockAxios.get).toHaveBeenCalledWith('api/v2/items/SPONGE_BOB', { params: { signature: undefined } })
         const responseObj = { data: { Item: savedData } }
         mockAxios.mockResponse(responseObj, mockAxios.lastReqGet())
       }
@@ -53,11 +53,11 @@ describe('SaveState', () => {
         SaveState.intent(action)(event, {}, lambdaCallback)
         mockRetrieveSucces()
         // expect(mockAxios.put).toHaveBeenCalled()
-        expect(mockAxios.put).toHaveBeenCalledWith('api/v1/items/SPONGE_BOB', {
+        expect(mockAxios.put).toHaveBeenCalledWith('api/v2/items/SPONGE_BOB', {
           //   ReadAllowed: true,
           //   ...savedData,
           //   pullRequests: []
-        })
+        }, { params: { signature: undefined } })
         mockAxios.mockResponse({}) // data is unused
 
         expect(lambdaCallback).toHaveBeenCalledWith(null, {
@@ -74,11 +74,11 @@ describe('SaveState', () => {
 
         mockRetrieveSucces()
 
-        expect(mockAxios.put).toHaveBeenCalledWith('api/v1/items/SPONGE_BOB', {
+        expect(mockAxios.put).toHaveBeenCalledWith('api/v2/items/SPONGE_BOB', {
           ReadAllowed: true,
           ...savedData,
           pullRequests: []
-        })
+        }, { params: { signature: undefined } })
         mockAxios.mockError({ status: 500 })
 
         expect(lambdaCallback).toHaveBeenCalledWith(expect.any(String), { error: 'Cannot update data' })
@@ -101,7 +101,7 @@ describe('SaveState', () => {
 
     describe('reference does not exist', () => {
       function mockRetrieveFailure() {
-        expect(mockAxios.get).toHaveBeenCalledWith('api/v1/items/SPONGE_BOB')
+        expect(mockAxios.get).toHaveBeenCalledWith('api/v2/items/SPONGE_BOB', { params: { signature: undefined } })
         const responseObj = { data: { Item: null }, status: 404 }
         mockAxios.mockError(responseObj)
       }
@@ -112,8 +112,8 @@ describe('SaveState', () => {
         SaveState.intent(action)(event, {}, lambdaCallback)
 
         // mockRetrieveFailure()
-        expect(mockAxios.get).toHaveBeenCalledWith('api/v1/items/SPONGE_BOB', mockAxios.lastReqGet())
-        expect(mockAxios.post).toHaveBeenCalledWith('api/v1/items', { ReadAllowed: true, pullRequests: [] })
+        expect(mockAxios.get).toHaveBeenCalledWith('api/v2/items/SPONGE_BOB', mockAxios.lastReqGet())
+        expect(mockAxios.post).toHaveBeenCalledWith('api/v2/items', { ReadAllowed: true, pullRequests: [] }, { params: { signature: undefined } })
 
         const responseObj = { data: { Item: null }, status: 404 }
         mockAxios.mockError(responseObj)
@@ -130,7 +130,7 @@ describe('SaveState', () => {
 
         mockRetrieveFailure()
 
-        expect(mockAxios.post).toHaveBeenCalledWith('api/v1/items', { ReadAllowed: true, pullRequests: [] })
+        expect(mockAxios.post).toHaveBeenCalledWith('api/v2/items', { ReadAllowed: true, pullRequests: [] }, { params: { signature: undefined } })
         const responseObj = {}
         mockAxios.mockError(responseObj)
         expect(lambdaCallback).toHaveBeenCalledWith(expect.any(String), { error: 'Cannot save data' })
@@ -154,7 +154,7 @@ describe('SaveState', () => {
         const lambdaCallback = jest.fn()
 
         SaveState.intent(action)(event, {}, lambdaCallback)
-        expect(mockAxios.get).toHaveBeenCalledWith('api/v1/items/SPONGE_BOB')
+        expect(mockAxios.get).toHaveBeenCalledWith('api/v2/items/SPONGE_BOB', { params: { signature: undefined } })
         const responseObj = { data: { Item: null }, status: 500 }
         mockAxios.mockError(responseObj)
 
@@ -190,7 +190,7 @@ describe('RetrieveState', () => {
       })
 
       RetrieveState.intent(action)(event, {}, lambdaCallback)
-      expect(mockAxios.get).toHaveBeenCalledWith('api/v1/items/SPONGE_BOB')
+      expect(mockAxios.get).toHaveBeenCalledWith('api/v2/items/SPONGE_BOB', { params: { signature: undefined } })
       mockAxios.mockResponse({ data: { Item: { title: 'Sponge bob', referenceId } } })
     })
 
@@ -204,7 +204,7 @@ describe('RetrieveState', () => {
       })
 
       RetrieveState.intent(action)(event, {}, lambdaCallback)
-      expect(mockAxios.get).toHaveBeenCalledWith('api/v1/items/SPONGE_BOB')
+      expect(mockAxios.get).toHaveBeenCalledWith('api/v2/items/SPONGE_BOB', { params: { signature: undefined } })
       mockAxios.mockError({ data: { Item: null }, status: 404 })
     })
   })
