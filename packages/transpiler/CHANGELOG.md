@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.64.1"></a>
+## [0.64.1](https://github.com/Bearer/bearer/compare/v0.64.0...v0.64.1) (2018-09-28)
+
+
+### Bug Fixes
+
+* **transpiler:** add base of work ([aeff483](https://github.com/Bearer/bearer/commit/aeff483))
+* **transpiler:** add scenarioId prop to auth-screen & bearer-authorized ([7606356](https://github.com/Bearer/bearer/commit/7606356))
+* **transpiler:** typo ([befff54](https://github.com/Bearer/bearer/commit/befff54))
+
+
+
+
+
 <a name="0.64.0"></a>
 # [0.64.0](https://github.com/Bearer/bearer/compare/v0.63.0...v0.64.0) (2018-09-28)
 

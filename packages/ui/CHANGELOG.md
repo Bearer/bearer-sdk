@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.64.1"></a>
+## [0.64.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.64.0...v0.64.1) (2018-09-28)
+
+
+### Bug Fixes
+
+* **ui:** handle newly injected prop ([5449468](https://github.com/ionic-team/stencil-component-starter/commit/5449468))
+
+
+
+
+
 <a name="0.64.0"></a>
 # [0.64.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.63.0...v0.64.0) (2018-09-28)
 
