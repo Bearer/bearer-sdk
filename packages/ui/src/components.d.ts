@@ -54,6 +54,19 @@ declare global {
       'revoke': (this: any) => void;
     }
 
+    interface BearerBadge {
+      'content': any;
+      'kind': 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+    }
+
+    interface BearerButton {
+      'as': string;
+      'content': any;
+      'disabled': boolean;
+      'kind': 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+      'size': 'md' | 'sm' | 'lg';
+    }
+
     interface BearerCheckbox {
       'buttons': Array<{ label: string; value: string; checked?: boolean }>;
       'controlName': string;
@@ -125,11 +138,6 @@ declare global {
 
     }
 
-    interface BearerBadge {
-      'content': any;
-      'kind': 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
-    }
-
     interface BearerButtonPopover {
       'arrow': boolean;
       'backNav': boolean;
@@ -138,14 +146,6 @@ declare global {
       'header': string;
       'opened': boolean;
       'toggle': (opened: boolean) => void;
-    }
-
-    interface BearerButton {
-      'as': string;
-      'content': any;
-      'disabled': boolean;
-      'kind': 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
-      'size': 'md' | 'sm' | 'lg';
     }
 
     interface BearerConfigDisplay {
@@ -260,6 +260,22 @@ declare global {
     };
     
 
+    interface HTMLBearerBadgeElement extends StencilComponents.BearerBadge, HTMLStencilElement {}
+
+    var HTMLBearerBadgeElement: {
+      prototype: HTMLBearerBadgeElement;
+      new (): HTMLBearerBadgeElement;
+    };
+    
+
+    interface HTMLBearerButtonElement extends StencilComponents.BearerButton, HTMLStencilElement {}
+
+    var HTMLBearerButtonElement: {
+      prototype: HTMLBearerButtonElement;
+      new (): HTMLBearerButtonElement;
+    };
+    
+
     interface HTMLBearerCheckboxElement extends StencilComponents.BearerCheckbox, HTMLStencilElement {}
 
     var HTMLBearerCheckboxElement: {
@@ -332,27 +348,11 @@ declare global {
     };
     
 
-    interface HTMLBearerBadgeElement extends StencilComponents.BearerBadge, HTMLStencilElement {}
-
-    var HTMLBearerBadgeElement: {
-      prototype: HTMLBearerBadgeElement;
-      new (): HTMLBearerBadgeElement;
-    };
-    
-
     interface HTMLBearerButtonPopoverElement extends StencilComponents.BearerButtonPopover, HTMLStencilElement {}
 
     var HTMLBearerButtonPopoverElement: {
       prototype: HTMLBearerButtonPopoverElement;
       new (): HTMLBearerButtonPopoverElement;
-    };
-    
-
-    interface HTMLBearerButtonElement extends StencilComponents.BearerButton, HTMLStencilElement {}
-
-    var HTMLBearerButtonElement: {
-      prototype: HTMLBearerButtonElement;
-      new (): HTMLBearerButtonElement;
     };
     
 
@@ -465,6 +465,8 @@ declare global {
     export interface IntrinsicElements {
     'bearer-alert': JSXElements.BearerAlertAttributes;
     'bearer-authorized': JSXElements.BearerAuthorizedAttributes;
+    'bearer-badge': JSXElements.BearerBadgeAttributes;
+    'bearer-button': JSXElements.BearerButtonAttributes;
     'bearer-checkbox': JSXElements.BearerCheckboxAttributes;
     'bearer-form': JSXElements.BearerFormAttributes;
     'bearer-input': JSXElements.BearerInputAttributes;
@@ -474,9 +476,7 @@ declare global {
     'bearer-loading': JSXElements.BearerLoadingAttributes;
     'bearer-typography': JSXElements.BearerTypographyAttributes;
     'auth-config': JSXElements.AuthConfigAttributes;
-    'bearer-badge': JSXElements.BearerBadgeAttributes;
     'bearer-button-popover': JSXElements.BearerButtonPopoverAttributes;
-    'bearer-button': JSXElements.BearerButtonAttributes;
     'bearer-config-display': JSXElements.BearerConfigDisplayAttributes;
     'bearer-config': JSXElements.BearerConfigAttributes;
     'bearer-dropdown-button': JSXElements.BearerDropdownButtonAttributes;
@@ -504,6 +504,19 @@ declare global {
     export interface BearerAuthorizedAttributes extends HTMLAttributes {
       'renderAuthorized'?: FWithRevoke;
       'renderUnauthorized'?: FWithAuthenticate;
+    }
+
+    export interface BearerBadgeAttributes extends HTMLAttributes {
+      'content'?: any;
+      'kind'?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+    }
+
+    export interface BearerButtonAttributes extends HTMLAttributes {
+      'as'?: string;
+      'content'?: any;
+      'disabled'?: boolean;
+      'kind'?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+      'size'?: 'md' | 'sm' | 'lg';
     }
 
     export interface BearerCheckboxAttributes extends HTMLAttributes {
@@ -584,11 +597,6 @@ declare global {
       'onSubmit'?: (event: CustomEvent) => void;
     }
 
-    export interface BearerBadgeAttributes extends HTMLAttributes {
-      'content'?: any;
-      'kind'?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
-    }
-
     export interface BearerButtonPopoverAttributes extends HTMLAttributes {
       'arrow'?: boolean;
       'backNav'?: boolean;
@@ -597,14 +605,6 @@ declare global {
       'header'?: string;
       'onVisibilityChange'?: (event: CustomEvent) => void;
       'opened'?: boolean;
-    }
-
-    export interface BearerButtonAttributes extends HTMLAttributes {
-      'as'?: string;
-      'content'?: any;
-      'disabled'?: boolean;
-      'kind'?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
-      'size'?: 'md' | 'sm' | 'lg';
     }
 
     export interface BearerConfigDisplayAttributes extends HTMLAttributes {
@@ -708,6 +708,8 @@ declare global {
   interface HTMLElementTagNameMap {
     'bearer-alert': HTMLBearerAlertElement
     'bearer-authorized': HTMLBearerAuthorizedElement
+    'bearer-badge': HTMLBearerBadgeElement
+    'bearer-button': HTMLBearerButtonElement
     'bearer-checkbox': HTMLBearerCheckboxElement
     'bearer-form': HTMLBearerFormElement
     'bearer-input': HTMLBearerInputElement
@@ -717,9 +719,7 @@ declare global {
     'bearer-loading': HTMLBearerLoadingElement
     'bearer-typography': HTMLBearerTypographyElement
     'auth-config': HTMLAuthConfigElement
-    'bearer-badge': HTMLBearerBadgeElement
     'bearer-button-popover': HTMLBearerButtonPopoverElement
-    'bearer-button': HTMLBearerButtonElement
     'bearer-config-display': HTMLBearerConfigDisplayElement
     'bearer-config': HTMLBearerConfigElement
     'bearer-dropdown-button': HTMLBearerDropdownButtonElement
@@ -738,6 +738,8 @@ declare global {
   interface ElementTagNameMap {
     'bearer-alert': HTMLBearerAlertElement;
     'bearer-authorized': HTMLBearerAuthorizedElement;
+    'bearer-badge': HTMLBearerBadgeElement;
+    'bearer-button': HTMLBearerButtonElement;
     'bearer-checkbox': HTMLBearerCheckboxElement;
     'bearer-form': HTMLBearerFormElement;
     'bearer-input': HTMLBearerInputElement;
@@ -747,9 +749,7 @@ declare global {
     'bearer-loading': HTMLBearerLoadingElement;
     'bearer-typography': HTMLBearerTypographyElement;
     'auth-config': HTMLAuthConfigElement;
-    'bearer-badge': HTMLBearerBadgeElement;
     'bearer-button-popover': HTMLBearerButtonPopoverElement;
-    'bearer-button': HTMLBearerButtonElement;
     'bearer-config-display': HTMLBearerConfigDisplayElement;
     'bearer-config': HTMLBearerConfigElement;
     'bearer-dropdown-button': HTMLBearerDropdownButtonElement;
