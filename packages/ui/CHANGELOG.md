@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.64.0"></a>
+# [0.64.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.63.0...v0.64.0) (2018-09-28)
+
+
+### Bug Fixes
+
+* **ui:** add missing components ([94680b2](https://github.com/ionic-team/stencil-component-starter/commit/94680b2))
+
+
+
+
+
 <a name="0.63.0"></a>
 # [0.63.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.62.1...v0.63.0) (2018-09-26)
 
