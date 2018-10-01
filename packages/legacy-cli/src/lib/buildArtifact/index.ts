@@ -106,6 +106,7 @@ export function transpileIntents(entriesPath: string, distPath: string): Promise
                     loader: 'ts-loader',
                     exclude: /node_modules/,
                     options: {
+                      onlyCompileBundledFiles: true,
                       compilerOptions: {
                         allowUnreachableCode: false,
                         declaration: false,
