@@ -36,7 +36,7 @@ pipeline {
         }
         stage("Build") {
             steps {
-                container("node") {
+                container("bearercli") {
                     ansiColor('xterm') {
                         sh ".jenkins/prepare.sh"
                         sh "yarn install --frozen-lockfile"
@@ -46,7 +46,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                container("node") {
+                container("bearercli") {
                     ansiColor('xterm') {
                         sh ".jenkins/test.sh"
                     }
@@ -60,7 +60,7 @@ pipeline {
             }
 
             steps {
-                container("node") {
+                container("bearercli") {
                     ansiColor('xterm') {
                         sh(".jenkins/deploy.sh")
                     }
