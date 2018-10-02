@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.65.0"></a>
+# [0.65.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.64.1...v0.65.0) (2018-10-02)
+
+
+### Bug Fixes
+
+* **ui:** return to first screen when popover is closed ([dab9cef](https://github.com/ionic-team/stencil-component-starter/commit/dab9cef))
+
+
+
+
 <a name="0.64.1"></a>
 ## [0.64.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.64.0...v0.64.1) (2018-09-28)
 
