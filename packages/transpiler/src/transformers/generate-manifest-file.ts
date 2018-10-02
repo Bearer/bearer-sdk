@@ -36,11 +36,15 @@ const previewRootComponentTags = (
   components: Array<SpecComponent>,
   rootComponents: Array<RootComponent>
 ) =>
-  components.map(({ initialTagName, label }) => {
+  components.map((component) => {
+    const { initialTagName, label } = component
+    const input = component.input
+    const output = component.output
+
     const { finalTagName, group } = rootComponents.find(
       ({ initialTagName: tag }) => tag === initialTagName
     ) || { finalTagName: null, group: null }
-    return { finalTagName, group, label, props: [{ type: "object", name: "bar" },{ type: "string", name: "foo" }] }
+    return { finalTagName, group, label, input, output }
   })
 
 const stringifyManifest: (manifest: any, srcDir: string) => string = (

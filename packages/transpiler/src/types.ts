@@ -33,7 +33,9 @@ export type SpecComponent = {
   isRoot: boolean
   initialTagName: string
   group: string
-  label: string
+  label: string,
+  input: any,
+  output: any
 }
 
 export type RootComponent = SpecComponent & {
