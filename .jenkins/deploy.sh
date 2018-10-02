@@ -18,6 +18,7 @@ echo "current value of force $FORCE"
 
 git status
 git --no-pager diff
+git --no-pager log -1 --format="%H"
 
 if [ $FORCE ==  "true" ]; then
   echo "force publishing.."
