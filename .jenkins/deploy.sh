@@ -16,6 +16,7 @@ fi
 echo "Starting publishing"
 echo "current value of force $FORCE"
 
+git status
 if [ $FORCE ==  "true" ]; then
   echo "force publishing.."
   yarn lerna-publish $FORCE_ARG
