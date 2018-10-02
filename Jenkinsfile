@@ -1,7 +1,12 @@
+def label() {
+    def value = "bearercli-${UUID.randomUUID().toString()}"
+    return value
+}
+
 pipeline {
     agent {
         kubernetes {
-        label 'node'
+        label label()
         defaultContainer 'jnlp'
         yamlFile '.jenkins/node.yml'
         }
