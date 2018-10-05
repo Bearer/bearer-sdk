@@ -1,29 +1,15 @@
 import * as Case from 'case'
 import * as ts from 'typescript'
 
-import { Decorators } from '../constants'
-import {
-  getDecoratorNamed,
-  getExpressionFromDecorator,
-  hasDecoratorNamed
-} from '../helpers/decorator-helpers'
-import { FileTransformerOptions } from '../types'
+import { Component, Decorators } from '../constants'
+import { getDecoratorNamed, getExpressionFromDecorator, hasDecoratorNamed } from '../helpers/decorator-helpers'
+import { TransformerOptions } from '../types'
 
-import generateManifestFile from './generate-manifest-file'
-
-export default function GatherMetadata(
-  { metadata, outDir, srcDir }: FileTransformerOptions = { outDir: null }
-): ts.TransformerFactory<ts.SourceFile> {
-  function getTagNames(
-    tagName: string
-  ): { initialTagName: string; finalTagName: string } {
+export default function GatherMetadata({ metadata }: TransformerOptions): ts.TransformerFactory<ts.SourceFile> {
+  function getTagNames(tagName: string): { initialTagName: string; finalTagName: string } {
     const finalTag =
       metadata.prefix && metadata.suffix
-        ? [
-            Case.kebab(metadata.prefix),
-            tagName,
-            Case.kebab(metadata.suffix)
-          ].join('-')
+        ? [Case.kebab(metadata.prefix), tagName, Case.kebab(metadata.suffix)].join('-')
         : tagName
     return {
       initialTagName: tagName,
@@ -31,56 +17,59 @@ export default function GatherMetadata(
     }
   }
 
-  return _transformContext => {
-    function visit(node: ts.Node): ts.Node {
-      // Found Component
-      if (
-        ts.isClassDeclaration(node) &&
-        hasDecoratorNamed(node, Decorators.Component)
-      ) {
+  function propAsInput(tsProp: ts.PropertyDeclaration) {
+    return {
+      name: (tsProp.name as ts.Identifier).escapedText,
+      type: tsProp.type.kind === ts.SyntaxKind.NumberKeyword ? 'number' : 'string',
+      default: (tsProp.initializer as ts.Expression).getText()
+    }
+  }
+
+  function collectInputs(tsClass: ts.ClassDeclaration): Array<any> {
+    return tsClass.members
+      .filter(member => ts.isPropertyDeclaration(member) && hasDecoratorNamed(member, Decorators.Prop))
+      .map(propAsInput)
+      .filter(prop => prop.name !== Component.bearerContext)
+  }
+
+  function collectOutputs(_tsClass: ts.ClassDeclaration): Array<any> {
+    return []
+  }
+
+  function visit(node: ts.Node): ts.Node {
+    // Found Component
+    if (ts.isClassDeclaration(node)) {
+      if (hasDecoratorNamed(node, Decorators.Component)) {
         const component = getDecoratorNamed(node, Decorators.Component)
-        const tag = getExpressionFromDecorator<ts.StringLiteral>(
-          component,
-          'tag'
-        )
-        metadata.components.push({
+        const tag = getExpressionFromDecorator<ts.StringLiteral>(component, 'tag')
+        metadata.registerComponent({
           classname: node.name.text,
           isRoot: false,
           ...getTagNames(tag.text)
         })
-        return node
       }
-
       // Found RootComponent
-      if (
-        ts.isClassDeclaration(node) &&
-        hasDecoratorNamed(node, Decorators.RootComponent)
-      ) {
+      else if (hasDecoratorNamed(node, Decorators.RootComponent)) {
         const component = getDecoratorNamed(node, Decorators.RootComponent)
-        const nameExpression = getExpressionFromDecorator<ts.StringLiteral>(
-          component,
-          'role'
-        )
+        const nameExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'role')
         const name = nameExpression ? nameExpression.text : ''
-        const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(
-          component,
-          'group'
-        )
+        const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'group')
         const group = groupExpression ? groupExpression.text : ''
         const tag = [Case.kebab(group), name].join('-')
-
-        metadata.components.push({
+        metadata.registerComponent({
           classname: node.name.text,
           isRoot: true,
           ...getTagNames(tag),
-          group
+          group,
+          inputs: collectInputs(node),
+          outputs: collectOutputs(node)
         })
-
-        generateManifestFile({ metadata, outDir, srcDir })
-        return node
       }
-      return node
     }
+    return node
+  }
+
+  return _transformContext => {
     return tsSourceFile => {
       return ts.visitEachChild(tsSourceFile, visit, _transformContext)
     }

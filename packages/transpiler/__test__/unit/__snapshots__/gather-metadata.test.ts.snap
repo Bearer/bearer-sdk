@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GaterMetadata transformer a simple root component has empty input and output 1`] = `
+Metadata {
+  "components": Array [
+    Object {
+      "classname": "FeatDisplayRootComponent",
+      "finalTagName": "feat-display",
+      "group": "feat",
+      "initialTagName": "feat-display",
+      "inputs": Array [],
+      "isRoot": true,
+      "outputs": Array [],
+    },
+  ],
+  "prefix": null,
+  "registerComponent": [Function],
+  "suffix": null,
+}
+`;
+
+exports[`GaterMetadata transformer a simple root component has input and output matching props 1`] = `
+Metadata {
+  "components": Array [
+    Object {
+      "classname": "FeatDisplayRootComponent",
+      "finalTagName": "complex-feature-display",
+      "group": "complex-feature",
+      "initialTagName": "complex-feature-display",
+      "inputs": Array [
+        Object {
+          "default": "'ok'",
+          "name": "aStringProp",
+          "type": "string",
+        },
+        Object {
+          "default": "5",
+          "name": "aNumberProp",
+          "type": "number",
+        },
+      ],
+      "isRoot": true,
+      "outputs": Array [],
+    },
+  ],
+  "prefix": null,
+  "registerComponent": [Function],
+  "suffix": null,
+}
+`;
