@@ -13,6 +13,7 @@ const settings: TJS.PartialArgs = {
 import BearerAuthorizedRequiredProp from './transformers/bearer-authorized-scenario-id-prop-injector'
 import BearerStateInjector from './transformers/bearer-state-injector'
 import ComponenttagNameScoping from './transformers/component-tag-name-scoping'
+import EventNameScoping from './transformers/event-name-scoping'
 import GatherMetadata from './transformers/gather-metadata'
 import ImportsImporter from './transformers/imports-transformer'
 import NavigatorScreenTransformer from './transformers/navigator-screen-transformer'
@@ -60,6 +61,7 @@ export default class Transpiler {
         NavigatorScreenTransformer({ verbose, metadata: this.metadata }),
         ImportsImporter({ verbose, metadata: this.metadata }),
         BearerAuthorizedRequiredProp({ verbose }),
+        EventNameScoping({ metadata: this.metadata }),
         ComponenttagNameScoping({ verbose, metadata: this.metadata }),
         dumpSourceCode({
           verbose,

@@ -3,7 +3,12 @@ import * as ts from 'typescript'
 import { JsonSchemaGenerator } from 'typescript-json-schema'
 
 import { Component, Decorators } from '../constants'
-import { getDecoratorNamed, getExpressionFromDecorator, hasDecoratorNamed } from '../helpers/decorator-helpers'
+import {
+  decoratorNamed,
+  getDecoratorNamed,
+  getExpressionFromDecorator,
+  hasDecoratorNamed
+} from '../helpers/decorator-helpers'
 import { TComponentInputDefinition, TComponentOutputDefinition, TOuputFormat, TransformerOptions } from '../types'
 
 const UNSPECIFIED = 'unspecified'
@@ -42,9 +47,24 @@ export default function GatherMetadata({
     return {}
   }
 
+  // retrieven event name from call arguments or take prop name
   function eventAsOutput(tsProp: ts.PropertyDeclaration): TComponentOutputDefinition {
+    const decorator = tsProp.decorators.find(deco => decoratorNamed(deco, Decorators.Event))
+      .expression as ts.CallExpression
+    let name: string = (tsProp.name as ts.Identifier).escapedText.toString()
+
+    if (decorator.arguments.length) {
+      const objectLiteral: ts.ObjectLiteralExpression = decorator.arguments[0] as ts.ObjectLiteralExpression
+      if (objectLiteral) {
+        const prop = objectLiteral.properties.find(prop => prop.name.getText() === 'eventName') as ts.PropertyAssignment
+        name = (prop.initializer as ts.StringLiteral)
+          .getText()
+          .replace(/^[^a-zA-Z0-9]{1}/, '')
+          .replace(/[^a-zA-Z0-9]{1}$/, '') // removes single and double quotes
+      }
+    }
     return {
-      name: (tsProp.name as ts.Identifier).escapedText.toString(),
+      name,
       payloadFormat: propInitializerAsJson(tsProp.type as ts.TypeReferenceNode)
     }
   }
@@ -73,41 +93,42 @@ export default function GatherMetadata({
     }
   }
 
-  function visit(node: ts.Node): ts.Node {
-    // Found Component
-    if (ts.isClassDeclaration(node)) {
-      if (hasDecoratorNamed(node, Decorators.Component)) {
-        const component = getDecoratorNamed(node, Decorators.Component)
-        const tag = getExpressionFromDecorator<ts.StringLiteral>(component, 'tag')
-        metadata.registerComponent({
-          classname: node.name.text,
-          isRoot: false,
-          ...getTagNames(tag.text)
-        })
-      }
-      // Found RootComponent
-      else if (hasDecoratorNamed(node, Decorators.RootComponent)) {
-        const component = getDecoratorNamed(node, Decorators.RootComponent)
-        const nameExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'role')
-        const name = nameExpression ? nameExpression.text : ''
-        const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'group')
-        const group = groupExpression ? groupExpression.text : ''
-        const tag = [Case.kebab(group), name].join('-')
-        metadata.registerComponent({
-          classname: node.name.text,
-          isRoot: true,
-          ...getTagNames(tag),
-          group,
-          inputs: collectInputs(node),
-          outputs: collectOutputs(node)
-        })
-      }
-    }
-    return node
-  }
-
   return _transformContext => {
     return tsSourceFile => {
+      function visit(node: ts.Node): ts.Node {
+        // Found Component
+        if (ts.isClassDeclaration(node)) {
+          if (hasDecoratorNamed(node, Decorators.Component)) {
+            const component = getDecoratorNamed(node, Decorators.Component)
+            const tag = getExpressionFromDecorator<ts.StringLiteral>(component, 'tag')
+            metadata.registerComponent({
+              fileName: tsSourceFile.fileName,
+              classname: node.name.text,
+              isRoot: false,
+              ...getTagNames(tag.text)
+            })
+          }
+          // Found RootComponent
+          else if (hasDecoratorNamed(node, Decorators.RootComponent)) {
+            const component = getDecoratorNamed(node, Decorators.RootComponent)
+            const nameExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'role')
+            const name = nameExpression ? nameExpression.text : ''
+            const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'group')
+            const group = groupExpression ? groupExpression.text : ''
+            const tag = [Case.kebab(group), name].join('-')
+            metadata.registerComponent({
+              fileName: tsSourceFile.fileName,
+              classname: node.name.text,
+              isRoot: true,
+              ...getTagNames(tag),
+              group,
+              inputs: collectInputs(node),
+              outputs: collectOutputs(node)
+            })
+          }
+        }
+        return node
+      }
       return ts.visitEachChild(tsSourceFile, visit, _transformContext)
     }
   }

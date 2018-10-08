@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Scope Event Names event name scoping component match snapshot 1`] = `
+Object {
+  "file": "event-name-scoping-component.ts",
+  "postContent": "import { Event, EventEmitter, Listen, Prop, Component } from '@bearer/core';
+@Component({
+    tag: \\"complex-feature-display\\",
+    styleUrl: \\"complexFeature.css\\",
+    shadow: true
+})
+export class FeatDisplayRootComponent {
+    @Event({ eventName: \\"bearer:SPONGE_BOB:complex-feature:mustBeScopedEvent\\" })
+    mustBeScopedEvent: EventEmitter;
+    @Event({ eventName: \\"bearer:SPONGE_BOB:complex-feature:mustBeScopedEvent\\" })
+    mustBeScopedEvent: EventEmitter;
+    @Listen('config:saved')
+    eventHandler() { }
+    @Listen('body:click')
+    clickHandler() { }
+    constructor() { }
+    get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
+    @Prop({ \\"context\\": \\"bearer\\" })
+    bearerContext: any;
+    @Prop()
+    setupId: string;
+    componentDidLoad() { if (this.setupId) {
+        this.bearerContext.setupId = this.setupId;
+    } }
+}
+",
+}
+`;
+
+exports[`Scope Event Names simple component match snapshot 1`] = `
+Object {
+  "file": "simple-component.ts",
+  "postContent": "import { Component, Event, EventEmitter, Listen, Prop } from '@bearer/core';
+@Component({
+    tag: 'event'
+})
+export class SimpleComponent {
+    @Event({ eventName: \\"bearer:SPONGE_BOB:no-group:mustBeScopedEvent\\" })
+    mustBeScopedEvent: EventEmitter;
+    @Listen('config:saved')
+    eventHandler() { }
+    @Listen('body:click')
+    clickHandler() { }
+    constructor() { }
+    get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
+    @Prop({ \\"context\\": \\"bearer\\" })
+    bearerContext: any;
+    @Prop()
+    setupId: string;
+    componentDidLoad() { if (this.setupId) {
+        this.bearerContext.setupId = this.setupId;
+    } }
+}
+",
+}
+`;
