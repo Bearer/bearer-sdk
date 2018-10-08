@@ -2,7 +2,7 @@ import * as Case from 'case'
 import * as ts from 'typescript'
 import { JsonSchemaGenerator } from 'typescript-json-schema'
 
-import { Component, Decorators } from '../constants'
+import { Component, Decorators, Properties } from '../constants'
 import {
   decoratorNamed,
   getDecoratorNamed,
@@ -56,11 +56,10 @@ export default function GatherMetadata({
     if (decorator.arguments.length) {
       const objectLiteral: ts.ObjectLiteralExpression = decorator.arguments[0] as ts.ObjectLiteralExpression
       if (objectLiteral) {
-        const prop = objectLiteral.properties.find(prop => prop.name.getText() === 'eventName') as ts.PropertyAssignment
-        name = (prop.initializer as ts.StringLiteral)
-          .getText()
-          .replace(/^[^a-zA-Z0-9]{1}/, '')
-          .replace(/[^a-zA-Z0-9]{1}$/, '') // removes single and double quotes
+        const prop = objectLiteral.properties.find(
+          prop => prop.name.getText() === Properties.eventName
+        ) as ts.PropertyAssignment
+        name = (prop.initializer as ts.StringLiteral).text.toString()
       }
     }
     return {

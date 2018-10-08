@@ -15,6 +15,7 @@ export const Decorators = {
   State: 'State',
   Watch: 'Watch',
   Event: 'Event',
+  Listen: 'Listen',
   BearerState: 'BearerState',
   Intent: 'Intent',
   RetrieveStateIntent: 'RetrieveStateIntent',
@@ -35,9 +36,12 @@ export const Types = {
 
 export const Properties = {
   ReferenceId: 'referenceId',
-  Element: 'el'
+  Element: 'el',
+  eventName: 'eventName'
 }
 
 export const Env = {
   BEARER_SCENARIO_ID: 'BEARER_SCENARIO_ID'
 }
+
+export const BEARER = 'bearer'

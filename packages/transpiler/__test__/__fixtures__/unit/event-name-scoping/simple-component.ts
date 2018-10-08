@@ -10,6 +10,10 @@ export class SimpleComponent {
   @Listen('config:saved')
   eventHandler() {}
 
+  @Listen('eventFromChildren')
+  eventFromChildrenHandler() {}
+
+  // prevent Alice to listen on anything else than her scenario's events
   @Listen('body:click')
   clickHandler() {}
 }
