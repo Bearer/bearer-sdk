@@ -57,7 +57,9 @@ export default class New extends BaseCommand {
               return true
             } catch (e) {
               this.error(e)
+              return null
             }
+            return true
           }
         },
         {

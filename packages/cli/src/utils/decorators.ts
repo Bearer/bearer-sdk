@@ -3,10 +3,11 @@ import Command from '../BaseCommand'
 type Constructor<T> = new (...args: any[]) => T;
 type TCommand = InstanceType<Constructor<Command>>
 
+
 export function RequireScenarioFolder() {
-  return function (_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+  return function(_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
     let originalMethod = descriptor.value
-    descriptor.value = async function (this: TCommand) {
+    descriptor.value = async function(this: TCommand) {
       if (this.bearerConfig.isScenarioLocation) {
         await originalMethod.apply(this, arguments)
       } else {
@@ -18,9 +19,9 @@ export function RequireScenarioFolder() {
 }
 
 export function RequireLinkedScenario() {
-  return function (_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+  return function(_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
     let originalMethod = descriptor.value
-    descriptor.value = async function (this: TCommand) {
+    descriptor.value = async function(this: TCommand) {
       if (this.bearerConfig.hasScenarioLinked) {
         await originalMethod.apply(this, arguments)
       } else {
@@ -35,17 +36,18 @@ export function RequireLinkedScenario() {
 }
 
 export function ensureFreshToken() {
-  return function (_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+  return function(_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
     let originalMethod = descriptor.value
-    descriptor.value = async function (this: TCommand) {
+    descriptor.value = async function(this: TCommand) {
       const { authorization, ExpiresAt } = this.bearerConfig.bearerConfig
 
       if (authorization && authorization.AuthenticationResult) {
         try {
           if (ExpiresAt < Date.now()) {
             this.ux.action.start('Refreshing token')
-            await refreshMyToken(this)
+            const tokenRefresh = await refreshMyToken(this)
             this.ux.action.stop()
+            return tokenRefresh
           }
         } catch (error) {
           this.ux.action.stop(`Failed`)
@@ -54,11 +56,13 @@ export function ensureFreshToken() {
         // TS is complaining with TS2445, commenting out this for now
         // this.debug('Running original method')
         await originalMethod.apply(this, arguments)
+        return descriptor
       } else {
         const error =
           this.colors.bold('⚠️ It looks like you are not logged in\n') +
           this.colors.yellow(this.colors.italic('Please run: bearer login'))
         this.error(error)
+        return descriptor
       }
     }
     return descriptor

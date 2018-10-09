@@ -1,7 +1,5 @@
 import { flags } from '@oclif/command'
 import { spawn } from 'child_process'
-import * as fs from 'fs-extra'
-import * as path from 'path'
 
 import BaseCommand from '../../BaseCommand'
 import { ScenarioBuildEnv } from '../../types'
@@ -32,7 +30,7 @@ export default class PackViews extends BaseCommand {
 
   @RequireScenarioFolder()
   async run() {
-    const { flags, args } = this.parse(PackViews)
+    const { flags } = this.parse(PackViews)
 
     const config = this.bearerConfig
     const env: ScenarioBuildEnv = {
