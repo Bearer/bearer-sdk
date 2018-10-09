@@ -27,7 +27,7 @@ export async function getRows(referenceId) {
 }
 
 export default () => {
-  const router = new Router({ prefix: '/api/v1/' })
+  const router = new Router({ prefix: '/api/' })
 
   db.schema
     .hasTable('records')
@@ -48,7 +48,7 @@ export default () => {
       })
     )
 
-  router.get('items/:referenceId', async ctx => {
+  const getItem = async ctx => {
     const referenceId = ctx.params.referenceId
 
     try {
@@ -64,16 +64,17 @@ export default () => {
     } catch (e) {
       ctx.notFound(e)
     }
-  })
-  router.delete('items/:referenceId', async (ctx, _next) => {
+  }
+
+  const deleteItem = async (ctx, _next) => {
     const referenceId = ctx.params.referenceId
     return db
       .table('records')
       .where({ referenceId })
       .delete()
-  })
+  }
 
-  router.put('items/:referenceId', async (ctx, _next) => {
+  const putItem = async (ctx, _next) => {
     const referenceId = ctx.params.referenceId
 
     console.log(ctx.request)
@@ -90,9 +91,9 @@ export default () => {
           ctx.badRequest(e)
         }
       })
-  })
+  }
 
-  router.post('items', async (ctx, _next) => {
+  const postItem = async (ctx, _next) => {
     const referenceId = uuidv1()
 
     console.log(ctx.request.body)
@@ -102,6 +103,18 @@ export default () => {
     } catch (e) {
       ctx.badRequest(e)
     }
-  })
+  }
+  router.get('v1/items/:referenceId', getItem)
+  router.get('v2/items/:referenceId', getItem)
+
+  router.delete('v1/items/:referenceId', deleteItem)
+  router.delete('v2/items/:referenceId', deleteItem)
+
+  router.put('v1/items/:referenceId', putItem)
+  router.put('v2/items/:referenceId', putItem)
+
+  router.post('v1/items', postItem)
+  router.post('v2/items', postItem)
+
   return router
 }
