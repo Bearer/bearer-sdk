@@ -7,6 +7,7 @@ import * as webpack from 'webpack'
 import BaseCommand from '../../BaseCommand'
 import installDependencies from '../../tasks/installDependencies'
 import { RequireScenarioFolder } from '../../utils/decorators'
+import GenerateApiDocumenation from '../generate/apiDocumentation'
 
 const skipInstall = 'skip-install'
 
@@ -30,6 +31,12 @@ export default class BuildIntents extends BaseCommand {
         task: async (ctx: any, _task: any) => {
           ctx.files = await this.transpile(this.locator.srcIntentsDir, this.locator.buildIntentsResourcePath('dist'))
         }
+      },
+      {
+        title: 'Generate openapi.json',
+        task: async (_ctx: any, _task: any) => {
+          await GenerateApiDocumenation.run(['--silent'])
+        }
       }
     ]
     if (!flags[skipInstall]) {
@@ -38,7 +45,7 @@ export default class BuildIntents extends BaseCommand {
 
     try {
       const ctx = await new Listr(tasks).run()
-      this.debug('Tranpiled :\n', ctx.files.join('\n  * '))
+      this.debug('Transpiled :\n', ctx.files.join('\n  * '))
       this.success('Built intents')
     } catch (e) {
       this.error(e)
