@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.66.0"></a>
+# [0.66.0](https://github.com/Bearer/bearer/compare/v0.65.1...v0.66.0) (2018-10-09)
+
+
+### Bug Fixes
+
+* **cli:** add trailing slash to the baseURL for axios/oauth2 ([#354](https://github.com/Bearer/bearer/issues/354)) ([c81c481](https://github.com/Bearer/bearer/commit/c81c481))
+* **cli:** default value instead of default option ([#353](https://github.com/Bearer/bearer/issues/353)) ([680c4f5](https://github.com/Bearer/bearer/commit/680c4f5))
+* **cli:** disable Stencil cache ([a7b7afa](https://github.com/Bearer/bearer/commit/a7b7afa))
+* **cli:** file were not re-transpiled anymore ([585f9e9](https://github.com/Bearer/bearer/commit/585f9e9))
+* **transpiler:** inject correct event name within output ([#359](https://github.com/Bearer/bearer/issues/359)) ([f370cde](https://github.com/Bearer/bearer/commit/f370cde))
+
+
+### Features
+
+* **cli:** inject Input to manifest file from props declaration ([#355](https://github.com/Bearer/bearer/issues/355)) ([b5d66c8](https://github.com/Bearer/bearer/commit/b5d66c8))
+* **transpiler:** Event name refactoring ([#357](https://github.com/Bearer/bearer/issues/357)) ([3a0d011](https://github.com/Bearer/bearer/commit/3a0d011))
+* **transpiler:** listen event refactoring ([#358](https://github.com/Bearer/bearer/issues/358)) ([b5294a8](https://github.com/Bearer/bearer/commit/b5294a8))
+* **transpiler:** Output component api to manifest ([#356](https://github.com/Bearer/bearer/issues/356)) ([0363b5e](https://github.com/Bearer/bearer/commit/0363b5e))
+
+
+
+
+
 <a name="0.65.1"></a>
 ## [0.65.1](https://github.com/Bearer/bearer/compare/v0.65.0...v0.65.1) (2018-10-03)
 

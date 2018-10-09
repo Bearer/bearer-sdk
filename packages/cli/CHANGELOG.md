@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.66.0"></a>
+# [0.66.0](https://github.com/Bearer/bearer/compare/v0.65.1...v0.66.0) (2018-10-09)
+
+
+### Bug Fixes
+
+* **cli:** add trailing slash to the baseURL for axios/oauth2 ([#354](https://github.com/Bearer/bearer/issues/354)) ([c81c481](https://github.com/Bearer/bearer/commit/c81c481))
+* **cli:** disable Stencil cache ([a7b7afa](https://github.com/Bearer/bearer/commit/a7b7afa))
+
+
+
+
+
 <a name="0.65.1"></a>
 ## [0.65.1](https://github.com/Bearer/bearer/compare/v0.65.0...v0.65.1) (2018-10-03)
 
