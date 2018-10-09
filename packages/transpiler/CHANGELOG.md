@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.66.1"></a>
+## [0.66.1](https://github.com/Bearer/bearer/compare/v0.66.0...v0.66.1) (2018-10-09)
+
+
+### Bug Fixes
+
+* **transpiler:** do not fail if no initiliazer is given ([#360](https://github.com/Bearer/bearer/issues/360)) ([dfb25d5](https://github.com/Bearer/bearer/commit/dfb25d5))
+
+
+
+
+
 <a name="0.66.0"></a>
 # [0.66.0](https://github.com/Bearer/bearer/compare/v0.65.1...v0.66.0) (2018-10-09)
 
