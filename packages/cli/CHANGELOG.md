@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.67.3"></a>
+## [0.67.3](https://github.com/Bearer/bearer/compare/v0.67.2...v0.67.3) (2018-10-10)
+
+
+### Bug Fixes
+
+* **cli:** fix refresh token regression ([#366](https://github.com/Bearer/bearer/issues/366)) ([d59effd](https://github.com/Bearer/bearer/commit/d59effd))
+
+
+
+
+
 <a name="0.67.2"></a>
 ## [0.67.2](https://github.com/Bearer/bearer/compare/v0.67.1...v0.67.2) (2018-10-10)
 

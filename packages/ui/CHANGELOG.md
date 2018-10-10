@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.67.3"></a>
+## [0.67.3](https://github.com/ionic-team/stencil-component-starter/compare/v0.67.2...v0.67.3) (2018-10-10)
+
+**Note:** Version bump only for package @bearer/ui
+
+
+
+
+
 <a name="0.67.1"></a>
 ## [0.67.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.67.0...v0.67.1) (2018-10-10)
 
