@@ -19,14 +19,14 @@ export default class GenerateApiDocumentation extends BaseCommand {
   @RequireScenarioFolder()
   async run() {
     try {
-      const { srcIntentsDir, buildViewsDir } = this.locator
+      const { srcIntentsDir, buildViewsComponentsDir } = this.locator
 
       const { scenarioTitle, scenarioUuid } = this.bearerConfig
       const spec = await new OpenApiSpecGenerator(srcIntentsDir, { scenarioTitle, scenarioUuid }).build()
 
-      fs.ensureDirSync(buildViewsDir)
+      fs.ensureDirSync(buildViewsComponentsDir)
 
-      const OpenApiSpecPath = path.join(buildViewsDir, OPEN_API_SPEC)
+      const OpenApiSpecPath = path.join(buildViewsComponentsDir, OPEN_API_SPEC)
       const fileExists = fs.existsSync(OpenApiSpecPath)
       await fs.writeJSON(OpenApiSpecPath, spec)
       const action = fileExists ? "updated" : "generated"
