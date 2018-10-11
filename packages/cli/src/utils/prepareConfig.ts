@@ -1,7 +1,7 @@
-import { getPropertyValue, IntentCodeProcessor, isIntentClass } from '@bearer/cli/src/utils/generators'
-
 import * as fs from 'fs-extra'
 import * as ts from 'typescript'
+
+import { getPropertyValue, IntentCodeProcessor, isIntentClass } from './generators'
 
 type TConfig = {
   intents: Array<{ [key: string]: string }>
@@ -18,18 +18,15 @@ export default (
   _nodeModulesPath: string,
   intentsDir: string
 ): Promise<TConfig> => {
-
   const intents: Array<any> = []
 
   const transformer = (context: ts.TransformationContext) => {
     function visit(tsNode: ts.Node) {
       if (isIntentClass(tsNode)) {
         const intentName = getPropertyValue(tsNode as ts.ClassDeclaration, INTENT_NAME_IDENTIFIER)
-        intents.push(
-          {
-            [intentName]: `index.${intentName}`
-          }
-        )
+        intents.push({
+          [intentName]: `index.${intentName}`
+        })
       }
       return tsNode
     }

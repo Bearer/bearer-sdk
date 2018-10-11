@@ -1,10 +1,10 @@
-import prepareConfig from '@bearer/bearer-cli/src/lib/buildArtifact/prepareConfig'
 import * as archiver from 'archiver'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 
 import BaseCommand from '../../BaseCommand'
 import { RequireScenarioFolder } from '../../utils/decorators'
+import prepareConfig from '../../utils/prepareConfig'
 
 const CONFIG_FILE = 'bearer.config.json'
 const HANDLER_NAME = 'index.js'
@@ -100,7 +100,13 @@ module.exports[${intent}.intentName] = ${intent}.intentType.intent(${intent}.act
   // TODO: rewrite this using TS AST
   async retrieveIntents(): Promise<Array<TIntentConfig>> {
     try {
-      const config = await prepareConfig(this.locator.authConfigPath, "", this.bearerConfig.scenarioUuid, "", this.locator.srcIntentsDir)
+      const config = await prepareConfig(
+        this.locator.authConfigPath,
+        '',
+        this.bearerConfig.scenarioUuid,
+        '',
+        this.locator.srcIntentsDir
+      )
       return config.intents
     } catch (e) {
       throw e
