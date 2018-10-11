@@ -1,6 +1,6 @@
 {
   "name": "@bearer/intents",
-  "version": "0.67.3",
+  "version": "0.67.5",
   "description": "Bearer Intents",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

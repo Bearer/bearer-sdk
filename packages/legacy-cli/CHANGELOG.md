@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.67.5"></a>
+## [0.67.5](https://github.com/Bearer/bearer/compare/v0.67.4...v0.67.5) (2018-10-11)
+
+
+### Bug Fixes
+
+* **cli:** move prepareCOnfig to cli ([6486356](https://github.com/Bearer/bearer/commit/6486356))
+
+
+
+
+
 <a name="0.67.4"></a>
 ## [0.67.4](https://github.com/Bearer/bearer/compare/v0.67.3...v0.67.4) (2018-10-11)
 
