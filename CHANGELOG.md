@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.70.0"></a>
+# [0.70.0](https://github.com/Bearer/bearer/compare/v0.69.0...v0.70.0) (2018-10-18)
+
+
+### Features
+
+* **create-bearer:** init repo and make sure we can use npm init bearer ([70db666](https://github.com/Bearer/bearer/commit/70db666))
+
+
+
+
+
 <a name="0.69.0"></a>
 # [0.69.0](https://github.com/Bearer/bearer/compare/v0.68.1...v0.69.0) (2018-10-17)
 
