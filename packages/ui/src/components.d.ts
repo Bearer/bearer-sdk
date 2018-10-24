@@ -225,7 +225,7 @@ declare global {
     }
 
     interface BearerScrollable {
-      'fetcher': ({ page: number }) => Promise<TFetchBearerData>;
+      'fetcher': (params: { page: number} ) => Promise<TFetchBearerData>;
       'perPage': number;
       'renderCollection': TCollectionRenderer;
       'renderFetching': () => any;
@@ -689,7 +689,7 @@ declare global {
     }
 
     export interface BearerScrollableAttributes extends HTMLAttributes {
-      'fetcher'?: ({ page: number }) => Promise<TFetchBearerData>;
+      'fetcher'?: (params: { page: number} ) => Promise<TFetchBearerData>;
       'perPage'?: number;
       'renderCollection'?: TCollectionRenderer;
       'renderFetching'?: () => any;
