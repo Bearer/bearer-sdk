@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.71.0"></a>
+# [0.71.0](https://github.com/Bearer/bearer/compare/v0.70.3...v0.71.0) (2018-10-24)
+
+
+### Bug Fixes
+
+* **ui:** add missin component definition ([6f61f1f](https://github.com/Bearer/bearer/commit/6f61f1f))
+
+
+### Features
+
+* **core:** allow log level customization ([fef36dc](https://github.com/Bearer/bearer/commit/fef36dc))
+* **core:** remove log statements ([feba2f1](https://github.com/Bearer/bearer/commit/feba2f1))
+* **ui:** change log to debug ([f3c3464](https://github.com/Bearer/bearer/commit/f3c3464))
+* **ui:** remove log statement ([3540dff](https://github.com/Bearer/bearer/commit/3540dff))
+
+
+
+
+
 <a name="0.70.3"></a>
 ## [0.70.3](https://github.com/Bearer/bearer/compare/v0.70.2...v0.70.3) (2018-10-22)
 

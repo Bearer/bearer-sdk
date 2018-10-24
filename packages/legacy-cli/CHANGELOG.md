@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.71.0"></a>
+# [0.71.0](https://github.com/Bearer/bearer/compare/v0.70.3...v0.71.0) (2018-10-24)
+
+
+### Features
+
+* **ui:** change log to debug ([f3c3464](https://github.com/Bearer/bearer/commit/f3c3464))
+
+
+
+
+
 <a name="0.70.2"></a>
 ## [0.70.2](https://github.com/Bearer/bearer/compare/v0.70.1...v0.70.2) (2018-10-18)
 
