@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.71.1"></a>
+## [0.71.1](https://github.com/Bearer/bearer/compare/v0.71.0...v0.71.1) (2018-10-26)
+
+
+### Bug Fixes
+
+* **slack-skin:** create first btn-light styles ([f0870f3](https://github.com/Bearer/bearer/commit/f0870f3))
+* **transpiler:** use global instead of no-group ([6ef6133](https://github.com/Bearer/bearer/commit/6ef6133))
+
+
+### Performance Improvements
+
+* **transpiler:** prevent processing if declaration file ([dbc801b](https://github.com/Bearer/bearer/commit/dbc801b))
+
+
+
+
+
 <a name="0.71.0"></a>
 # [0.71.0](https://github.com/Bearer/bearer/compare/v0.70.3...v0.71.0) (2018-10-24)
 
