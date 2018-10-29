@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.71.2"></a>
+## [0.71.2](https://github.com/ionic-team/stencil-component-starter/compare/v0.71.1...v0.71.2) (2018-10-29)
+
+
+### Bug Fixes
+
+* **ui:** Slack: add outline button prop, match style to LP ([65b4c3f](https://github.com/ionic-team/stencil-component-starter/commit/65b4c3f))
+* **ui:** slack: set border color to gray ([1fbbd35](https://github.com/ionic-team/stencil-component-starter/commit/1fbbd35))
+
+
+
+
+
 <a name="0.71.1"></a>
 ## [0.71.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.71.0...v0.71.1) (2018-10-26)
 
