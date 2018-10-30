@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.71.3"></a>
+## [0.71.3](https://github.com/Bearer/bearer/compare/v0.71.2...v0.71.3) (2018-10-30)
+
+
+### Bug Fixes
+
+* **slack-skin:** slack: add success and error state ([#386](https://github.com/Bearer/bearer/issues/386)) ([0f98c58](https://github.com/Bearer/bearer/commit/0f98c58))
+
+
+
+
+
 <a name="0.71.2"></a>
 ## [0.71.2](https://github.com/Bearer/bearer/compare/v0.71.1...v0.71.2) (2018-10-29)
 
