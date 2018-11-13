@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.72.0"></a>
+# [0.72.0](https://github.com/Bearer/bearer/compare/v0.71.4...v0.72.0) (2018-11-13)
+
+
+### Bug Fixes
+
+* **cli:** add soft option to generate open api ([dffe0ef](https://github.com/Bearer/bearer/commit/dffe0ef))
+* **core:** resolve authorize per scenarioId ([e06834d](https://github.com/Bearer/bearer/commit/e06834d))
+
+
+### Features
+
+* **transpiler:** input decorator ([#383](https://github.com/Bearer/bearer/issues/383)) ([e1fac50](https://github.com/Bearer/bearer/commit/e1fac50))
+
+
+
+
+
 <a name="0.71.4"></a>
 ## [0.71.4](https://github.com/Bearer/bearer/compare/v0.71.3...v0.71.4) (2018-11-09)
 
