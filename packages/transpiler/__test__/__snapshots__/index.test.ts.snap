@@ -3,7 +3,7 @@
 exports[`Transpiler integration test FullComponent.tsx match expectation 1`] = `
 Object {
   "file": "FullComponent.tsx",
-  "postContent": "import { BearerFetch, BearerState, Component, Intent, IntentType, Prop, Element, Watch, State } from '@bearer/core';
+  "postContent": "import { BearerFetch, BearerRef, BearerState, Component, Intent, IntentType, Listen, State, Watch, Prop, Element } from '@bearer/core';
 @Component({
     tag: 'full-component'
 })
@@ -37,11 +37,48 @@ export class FullComponent {
         {this.screenRenderer()}
       </bearer-navigator>);
     }
+    @State()
+    farmer: BearerRef<any>;
+    @Prop({ \\"mutable\\": true })
+    farmerRefId: string;
+    @Listen(\\"bearer|SPONGE_BOB|farmer|saved\\")
+    farmerRefIdChanged(event) { this.farmerRefId = event.detail.referenceId; }
+    _loadFarmer = () => {
+        this.fetcherGetFarmer().then(({ data }: {
+            data: BearerRef<any>;
+        }) => { this.farmer = data; });
+    };
+    private fetcherGetFarmer;
+    @Watch(\\"farmerRefId\\")
+    _watchFarmer(newValueName: string) { if (newValueName) {
+        this._loadFarmer();
+    } }
+    @State()
+    goat: BearerRef<any>;
+    @Prop({ \\"mutable\\": true })
+    goatRefId: string;
+    @Listen(\\"bearer|SPONGE_BOB|goat|saved\\")
+    goatRefIdChanged(event) { this.goatRefId = event.detail.referenceId; }
+    _loadGoat = () => {
+        this.fetcherGetGoat().then(({ data }: {
+            data: BearerRef<any>;
+        }) => { this.goat = data; });
+    };
+    private fetcherGetGoat;
+    @Watch(\\"goatRefId\\")
+    _watchGoat(newValueName: string) { if (newValueName) {
+        this._loadGoat();
+    } }
     @Prop()
     referenceId: string;
     @Element()
     el: HTMLElement;
-    constructor() { Intent('ListRepositories')(this, \\"fetcher\\"); Intent('getPullRequest', IntentType.FetchData)(this, \\"fetchResource\\"); }
+    constructor() {
+        Intent('ListRepositories')(this, \\"fetcher\\");
+        Intent('getPullRequest', IntentType.FetchData)(this, \\"fetchResource\\");
+        Intent(\\"getFarmer\\")(this, \\"fetcherGetFarmer\\");
+        Intent(\\"getGoat\\")(this, \\"fetcherGetGoat\\");
+    }
     get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
     @Prop({ \\"context\\": \\"bearer\\" })
     bearerContext: any;
@@ -91,7 +128,10 @@ export class AttachPullRequestAction {
     referenceId: string;
     @Element()
     el: HTMLElement;
-    constructor() { Intent('ListRepositories')(this, \\"fetcher\\"); Intent('getPullRequest', IntentType.FetchData)(this, \\"fetchResource\\"); }
+    constructor() {
+        Intent('ListRepositories')(this, \\"fetcher\\");
+        Intent('getPullRequest', IntentType.FetchData)(this, \\"fetchResource\\");
+    }
     get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
     @Prop({ \\"context\\": \\"bearer\\" })
     bearerContext: any;
@@ -122,7 +162,8 @@ Object {
     }
 }
 export class PatrickHelper {
-    constructor() { }
+    constructor() {
+    }
 }
 export default {
     spongeHelper: SpongeBobHelper,
@@ -159,7 +200,10 @@ export class AttachPullRequestDisplay {
     referenceId: string;
     @Element()
     el: HTMLElement;
-    constructor() { Intent('ListRepositories')(this, \\"fetcher\\"); Intent('getPullRequest', IntentType.FetchData)(this, \\"fetchResource\\"); }
+    constructor() {
+        Intent('ListRepositories')(this, \\"fetcher\\");
+        Intent('getPullRequest', IntentType.FetchData)(this, \\"fetchResource\\");
+    }
     get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
     @Prop({ \\"context\\": \\"bearer\\" })
     bearerContext: any;
@@ -190,7 +234,10 @@ Object {
 class OverridesDecorarotFull {
     private fetcher: BearerFetch;
     private memberFetcher: BearerFetch;
-    constructor() { Intent('collectionIntent')(this, \\"fetcher\\"); Intent('collectionIntent', IntentType.FetchData)(this, \\"memberFetcher\\"); }
+    constructor() {
+        Intent('collectionIntent')(this, \\"fetcher\\");
+        Intent('collectionIntent', IntentType.FetchData)(this, \\"memberFetcher\\");
+    }
     componentWillLoad() {
         console.log('componentWillLoad');
     }
@@ -218,7 +265,8 @@ Object {
     tag: 'overrides-decorator-less'
 })
 class OverridesDecorarotLess {
-    constructor() { }
+    constructor() {
+    }
     componentWillLoad() {
         console.log('componentWillLoad');
     }
