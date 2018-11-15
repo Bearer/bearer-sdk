@@ -3,7 +3,7 @@
 exports[`Transpiler integration test FullComponent.tsx match expectation 1`] = `
 Object {
   "file": "FullComponent.tsx",
-  "postContent": "import { BearerFetch, BearerRef, BearerState, Component, Intent, IntentType, Listen, State, Watch, Prop, Element } from '@bearer/core';
+  "postContent": "import { BearerFetch, BearerRef, BearerState, Component, Intent, IntentType, Listen, State, Watch, Prop, EventEmitter, Event, Element } from '@bearer/core';
 @Component({
     tag: 'full-component'
 })
@@ -41,34 +41,78 @@ export class FullComponent {
     farmer: BearerRef<any>;
     @Prop({ \\"mutable\\": true })
     farmerRefId: string;
-    @Listen(\\"bearer|SPONGE_BOB|farmer|saved\\")
-    farmerRefIdChanged(event) { this.farmerRefId = event.detail.referenceId; }
+    @Listen(\\"bearer|SPONGE_BOB|string|farmerSaved\\")
+    farmerRefIdChanged(event) {
+        this.farmerRefId = event.detail.referenceId;
+    }
     _loadFarmer = () => {
         this.fetcherGetFarmer().then(({ data }: {
             data: BearerRef<any>;
-        }) => { this.farmer = data; });
+        }) => {
+            this.farmer = data;
+        });
     };
     private fetcherGetFarmer;
     @Watch(\\"farmerRefId\\")
-    _watchFarmer(newValueName: string) { if (newValueName) {
-        this._loadFarmer();
-    } }
+    _watchFarmer(newValueName: string) {
+        if (newValueName) {
+            this._loadFarmer();
+        }
+    }
     @State()
     goat: BearerRef<any>;
     @Prop({ \\"mutable\\": true })
     goatRefId: string;
-    @Listen(\\"bearer|SPONGE_BOB|goat|saved\\")
-    goatRefIdChanged(event) { this.goatRefId = event.detail.referenceId; }
+    @Listen(\\"bearer|SPONGE_BOB|string|goatSaved\\")
+    goatRefIdChanged(event) {
+        this.goatRefId = event.detail.referenceId;
+    }
     _loadGoat = () => {
         this.fetcherGetGoat().then(({ data }: {
             data: BearerRef<any>;
-        }) => { this.goat = data; });
+        }) => {
+            this.goat = data;
+        });
     };
     private fetcherGetGoat;
     @Watch(\\"goatRefId\\")
-    _watchGoat(newValueName: string) { if (newValueName) {
-        this._loadGoat();
-    } }
+    _watchGoat(newValueName: string) {
+        if (newValueName) {
+            this._loadGoat();
+        }
+    }
+    private saveFeedPanda: BearerFetch<BearerRef<any>>;
+    @Event({ eventName: \\"bearer|SPONGE_BOB|global|feedPandaSaved\\" })
+    feedPandaSaved: EventEmitter<any>;
+    @State()
+    feedPanda: BearerRef<any>;
+    @Watch(\\"feedPanda\\")
+    feedPandaSavedWatcher(newValue) {
+        if (newValue) {
+            this.saveFeedPanda({ body: { feedPanda: newValue } }).then(({ referenceId, data }) => {
+                this.feedPandaSaved.emit({ referenceId, feedPanda: data || this.feedPanda });
+            });
+        }
+        else {
+            this.feedPandaSaved.emit({ feedPanda: newValue });
+        }
+    }
+    private saveFeedPanda: BearerFetch<BearerRef<any>>;
+    @Event({ eventName: \\"bearer|SPONGE_BOB|global|feedPandaSaved\\" })
+    feedPandaSaved: EventEmitter<any>;
+    @State()
+    feedPanda: BearerRef<any>;
+    @Watch(\\"feedPanda\\")
+    feedPandaSavedWatcher(newValue) {
+        if (newValue) {
+            this.saveFeedPanda({ body: { feedPanda: newValue } }).then(({ referenceId, data }) => {
+                this.feedPandaSaved.emit({ referenceId, feedPanda: data || this.feedPanda });
+            });
+        }
+        else {
+            this.feedPandaSaved.emit({ feedPanda: newValue });
+        }
+    }
     @Prop()
     referenceId: string;
     @Element()
@@ -78,22 +122,37 @@ export class FullComponent {
         Intent('getPullRequest', IntentType.FetchData)(this, \\"fetchResource\\");
         Intent(\\"getFarmer\\")(this, \\"fetcherGetFarmer\\");
         Intent(\\"getGoat\\")(this, \\"fetcherGetGoat\\");
+        Intent(\\"saveFeedPanda\\")(this, \\"saveFeedPanda\\");
+        Intent(\\"saveFeedPanda\\")(this, \\"saveFeedPanda\\");
     }
     get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
     @Prop({ \\"context\\": \\"bearer\\" })
     bearerContext: any;
     @Prop()
     setupId: string;
-    componentDidLoad() { if (this.setupId) {
-        this.bearerContext.setupId = this.setupId;
-    } }
+    componentDidLoad() {
+        if (this.setupId) {
+            this.bearerContext.setupId = this.setupId;
+        }
+    }
     @Watch(\\"attachedPullRequests\\")
-    _notifyBearerStateHandler_attachedPullRequests(newValue: any) { this.bearerContext.update(\\"attachedPullRequests\\", newValue); }
+    _notifyBearerStateHandler_attachedPullRequests(newValue: any) {
+        this.bearerContext.update(\\"attachedPullRequests\\", newValue);
+    }
     @Watch(\\"ducks\\")
-    _notifyBearerStateHandler_ducks(newValue: any) { this.bearerContext.update(\\"goats\\", newValue); }
-    componentWillLoad() { this.bearerContext.subscribe(this); }
-    componentDidUnload() { this.bearerContext.unsubscribe(this); }
-    bearerUpdateFromState = state => { this.attachedPullRequests = state[\\"attachedPullRequests\\"]; this.ducks = state[\\"goats\\"]; };
+    _notifyBearerStateHandler_ducks(newValue: any) {
+        this.bearerContext.update(\\"goats\\", newValue);
+    }
+    componentWillLoad() {
+        this.bearerContext.subscribe(this);
+    }
+    componentDidUnload() {
+        this.bearerContext.unsubscribe(this);
+    }
+    bearerUpdateFromState = state => {
+        this.attachedPullRequests = state[\\"attachedPullRequests\\"];
+        this.ducks = state[\\"goats\\"];
+    };
 }
 ",
 }
@@ -137,16 +196,29 @@ export class AttachPullRequestAction {
     bearerContext: any;
     @Prop()
     setupId: string;
-    componentDidLoad() { if (this.setupId) {
-        this.bearerContext.setupId = this.setupId;
-    } }
+    componentDidLoad() {
+        if (this.setupId) {
+            this.bearerContext.setupId = this.setupId;
+        }
+    }
     @Watch(\\"attachedPullRequests\\")
-    _notifyBearerStateHandler_attachedPullRequests(newValue: any) { this.bearerContext.update(\\"attachedPullRequests\\", newValue); }
+    _notifyBearerStateHandler_attachedPullRequests(newValue: any) {
+        this.bearerContext.update(\\"attachedPullRequests\\", newValue);
+    }
     @Watch(\\"ducks\\")
-    _notifyBearerStateHandler_ducks(newValue: any) { this.bearerContext.update(\\"goats\\", newValue); }
-    componentWillLoad() { this.bearerContext.subscribe(this); }
-    componentDidUnload() { this.bearerContext.unsubscribe(this); }
-    bearerUpdateFromState = state => { this.attachedPullRequests = state[\\"attachedPullRequests\\"]; this.ducks = state[\\"goats\\"]; };
+    _notifyBearerStateHandler_ducks(newValue: any) {
+        this.bearerContext.update(\\"goats\\", newValue);
+    }
+    componentWillLoad() {
+        this.bearerContext.subscribe(this);
+    }
+    componentDidUnload() {
+        this.bearerContext.unsubscribe(this);
+    }
+    bearerUpdateFromState = state => {
+        this.attachedPullRequests = state[\\"attachedPullRequests\\"];
+        this.ducks = state[\\"goats\\"];
+    };
 }
 ",
 }
@@ -209,16 +281,29 @@ export class AttachPullRequestDisplay {
     bearerContext: any;
     @Prop()
     setupId: string;
-    componentDidLoad() { if (this.setupId) {
-        this.bearerContext.setupId = this.setupId;
-    } }
+    componentDidLoad() {
+        if (this.setupId) {
+            this.bearerContext.setupId = this.setupId;
+        }
+    }
     @Watch(\\"attachedPullRequests\\")
-    _notifyBearerStateHandler_attachedPullRequests(newValue: any) { this.bearerContext.update(\\"attachedPullRequests\\", newValue); }
+    _notifyBearerStateHandler_attachedPullRequests(newValue: any) {
+        this.bearerContext.update(\\"attachedPullRequests\\", newValue);
+    }
     @Watch(\\"ducks\\")
-    _notifyBearerStateHandler_ducks(newValue: any) { this.bearerContext.update(\\"goats\\", newValue); }
-    componentWillLoad() { this.bearerContext.subscribe(this); }
-    componentDidUnload() { this.bearerContext.unsubscribe(this); }
-    bearerUpdateFromState = state => { this.attachedPullRequests = state[\\"attachedPullRequests\\"]; this.ducks = state[\\"goats\\"]; };
+    _notifyBearerStateHandler_ducks(newValue: any) {
+        this.bearerContext.update(\\"goats\\", newValue);
+    }
+    componentWillLoad() {
+        this.bearerContext.subscribe(this);
+    }
+    componentDidUnload() {
+        this.bearerContext.unsubscribe(this);
+    }
+    bearerUpdateFromState = state => {
+        this.attachedPullRequests = state[\\"attachedPullRequests\\"];
+        this.ducks = state[\\"goats\\"];
+    };
 }
 ",
 }
@@ -249,9 +334,12 @@ class OverridesDecorarotFull {
     bearerContext: any;
     @Prop()
     setupId: string;
-    componentDidLoad() { if (this.setupId) {
-        this.bearerContext.setupId = this.setupId;
-    } console.log('componentDidLoad'); }
+    componentDidLoad() {
+        if (this.setupId) {
+            this.bearerContext.setupId = this.setupId;
+        }
+        console.log('componentDidLoad');
+    }
 }
 ",
 }
@@ -278,9 +366,12 @@ class OverridesDecorarotLess {
     bearerContext: any;
     @Prop()
     setupId: string;
-    componentDidLoad() { if (this.setupId) {
-        this.bearerContext.setupId = this.setupId;
-    } console.log('componentDidLoad'); }
+    componentDidLoad() {
+        if (this.setupId) {
+            this.bearerContext.setupId = this.setupId;
+        }
+        console.log('componentDidLoad');
+    }
 }
 ",
 }

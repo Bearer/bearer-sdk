@@ -8,13 +8,8 @@ import { hasDecoratorNamed } from '../helpers/decorator-helpers'
 import { getNodeName } from '../helpers/node-helpers'
 import { TransformerOptions } from '../types'
 
-import {
-  ensureIntentImported,
-  ensureListenImported,
-  ensurePropImported,
-  ensureStateImported,
-  ensureWatchImported
-} from './bearer'
+import { ensureImportsFromCore } from './bearer'
+import { outputEventName } from './output-decorator'
 
 export default function InputDecorator(_options: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
   return _transformContext => {
@@ -28,13 +23,14 @@ export default function InputDecorator(_options: TransformerOptions = {}): ts.Tr
       if (!inputsMeta.length) {
         return tsSourceFile
       }
-      const sourceFileWithImports = [
-        ensureListenImported,
-        ensureStateImported,
-        ensureIntentImported,
-        ensureWatchImported,
-        ensurePropImported
-      ].reduce((sourceFile, importer) => importer(sourceFile), tsSourceFile)
+
+      const sourceFileWithImports = ensureImportsFromCore(tsSourceFile, [
+        Decorators.Listen,
+        Decorators.State,
+        Decorators.Intent,
+        Decorators.Watch,
+        Decorators.Prop
+      ])
 
       return ts.visitEachChild(sourceFileWithImports, replaceInputVisitor(inputsMeta), _transformContext)
     }
@@ -50,7 +46,7 @@ export default function InputDecorator(_options: TransformerOptions = {}): ts.Tr
             propDeclarationName: name,
             scope: 'string', // TODO: retrieve from options
             propName: `${name}RefId`, // TODO: retrieve from options
-            eventName: `${name}:saved`, // TODO: retrieve from options
+            eventName: outputEventName(name), // TODO: retrieve from options
             intentName: `get${capitalizedName}`, // TODO: retrieve from options
             intentMethodName: `fetcherGet${capitalizedName}`, // TODO: retrieve from options
             autoUpdate: true, // TODO: retrieve from options
@@ -98,11 +94,6 @@ export default function InputDecorator(_options: TransformerOptions = {}): ts.Tr
 
     function replaceInputVisitor(inputsMeta: Array<InputMeta>): (tsNode: ts.Node) => ts.VisitResult<ts.Node> {
       return (tsNode: ts.Node) => {
-        // remove input usage
-        if (ts.isPropertyDeclaration(tsNode) && hasDecoratorNamed(tsNode, Decorators.Input)) {
-          return null
-        }
-
         if (ts.isClassDeclaration(tsNode)) {
           return ts.visitEachChild(
             injectInputStatements(tsNode, inputsMeta),
@@ -149,7 +140,9 @@ function createEventListener(meta: InputMeta) {
   return ts.createMethod(
     [
       ts.createDecorator(
-        ts.createCall(ts.createIdentifier(Decorators.Listen), undefined, [ts.createLiteral(meta.eventName)])
+        ts.createCall(ts.createIdentifier(Decorators.Listen), undefined, [
+          ts.createLiteral(`${meta.scope}|${meta.eventName}`)
+        ])
       )
     ],
     undefined,
@@ -159,15 +152,18 @@ function createEventListener(meta: InputMeta) {
     undefined,
     [ts.createParameter(undefined, undefined, undefined, ts.createIdentifier('event'), undefined, undefined)],
     undefined,
-    ts.createBlock([
-      ts.createStatement(
-        ts.createBinary(
-          ts.createPropertyAccess(ts.createThis(), meta.propName),
-          ts.SyntaxKind.EqualsToken,
-          ts.createIdentifier('event.detail.referenceId')
+    ts.createBlock(
+      [
+        ts.createStatement(
+          ts.createBinary(
+            ts.createPropertyAccess(ts.createThis(), meta.propName),
+            ts.SyntaxKind.EqualsToken,
+            ts.createIdentifier('event.detail.referenceId')
+          )
         )
-      )
-    ])
+      ],
+      true
+    )
   )
 }
 
@@ -195,15 +191,18 @@ function createLoadResourceMethod(meta: InputMeta) {
     ],
     undefined,
     undefined,
-    ts.createBlock([
-      ts.createStatement(
-        ts.createBinary(
-          ts.createPropertyAccess(ts.createThis(), meta.propDeclarationName),
-          ts.SyntaxKind.EqualsToken,
-          ts.createIdentifier('data')
+    ts.createBlock(
+      [
+        ts.createStatement(
+          ts.createBinary(
+            ts.createPropertyAccess(ts.createThis(), meta.propDeclarationName),
+            ts.SyntaxKind.EqualsToken,
+            ts.createIdentifier('data')
+          )
         )
-      )
-    ])
+      ],
+      true
+    )
   )
   const promiseHandler = ts.createCall(ts.createPropertyAccess(intentCall, 'then'), undefined, [udapteState])
   return ts.createProperty(
@@ -263,16 +262,22 @@ function createRefIdWatcher(meta: InputMeta) {
       )
     ],
     undefined,
-    ts.createBlock([
-      ts.createIf(
-        ts.createIdentifier(newValueName),
-        ts.createBlock([
-          ts.createStatement(
-            ts.createCall(ts.createPropertyAccess(ts.createThis(), meta.loadMethodName), undefined, undefined)
+    ts.createBlock(
+      [
+        ts.createIf(
+          ts.createIdentifier(newValueName),
+          ts.createBlock(
+            [
+              ts.createStatement(
+                ts.createCall(ts.createPropertyAccess(ts.createThis(), meta.loadMethodName), undefined, undefined)
+              )
+            ],
+            true
           )
-        ])
-      )
-    ])
+        )
+      ],
+      true
+    )
   )
 }
 

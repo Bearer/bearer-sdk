@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Output decorator units complete options match snapshot 1`] = `
+Object {
+  "file": "complete-options.tsx",
+  "postContent": "import { BearerRef, Component, BearerFetch, EventEmitter, Event, Intent, State, Watch, Prop } from '@bearer/core';
+type Farmer = {
+    id: string;
+    name: string;
+};
+@Component({
+    tag: \\"no-options-action\\",
+    styleUrl: \\"noOptions.css\\",
+    shadow: true
+})
+class NoOptionsComponent {
+    private saveFarmer: BearerFetch<BearerRef<Farmer>
+    // // generate this
+    // @Event() farmerSaved: EventEmitter<Farmer>
+    // @State() farmer: BearerRef<Farmer>
+    // @Intent('setFarmer') setFarmer: BearerFetch<Farmer>
+    // @Watch('farmer')
+    // farmerchangeHandler(newValue: BearerRef<Farmer>) {
+    //   if (newValue) {
+    //     this.setFarmer().then(({ data, referenceId }) => {
+    //       this.farmerSaved.emit({ referenceId, farmer: data }) // farmer
+    //     })
+    //   } else {
+    //     this.farmerSaved.emit({ farmer: newValue })
+    //   }
+    // }
+    >;
+    @Event({ eventName: \\"bearer|SPONGE_BOB|no-options|farmerSaved\\" })
+    farmerSaved: EventEmitter<any>;
+    @State()
+    farmer: BearerRef<Farmer>;
+    @Watch(\\"farmer\\")
+    farmerSavedWatcher(newValue) {
+        if (newValue) {
+            this.saveFarmer({ body: { farmer: newValue } }).then(({ referenceId, data }) => {
+                this.farmerSaved.emit({ referenceId, farmer: data || this.farmer });
+            });
+        }
+        else {
+            this.farmerSaved.emit({ farmer: newValue });
+        }
+    }
+    private saveFarmerAndPanda: BearerFetch<BearerRef<Farmer>>;
+    @Event({ eventName: \\"bearer|SPONGE_BOB|no-options|farmerAndPandaSaved\\" })
+    farmerAndPandaSaved: EventEmitter<any>;
+    @State()
+    farmerAndPanda: BearerRef<Farmer> = {};
+    @Watch(\\"farmerAndPanda\\")
+    farmerAndPandaSavedWatcher(newValue) {
+        if (newValue) {
+            this.saveFarmerAndPanda({ body: { farmerAndPanda: newValue } }).then(({ referenceId, data }) => {
+                this.farmerAndPandaSaved.emit({ referenceId, farmerAndPanda: data || this.farmerAndPanda });
+            });
+        }
+        else {
+            this.farmerAndPandaSaved.emit({ farmerAndPanda: newValue });
+        }
+    }
+    constructor() {
+        Intent(\\"saveFarmer\\")(this, \\"saveFarmer\\");
+        Intent(\\"saveFarmerAndPanda\\")(this, \\"saveFarmerAndPanda\\");
+    }
+    get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
+    @Prop({ \\"context\\": \\"bearer\\" })
+    bearerContext: any;
+    @Prop()
+    setupId: string;
+    componentDidLoad() {
+        if (this.setupId) {
+            this.bearerContext.setupId = this.setupId;
+        }
+    }
+}
+",
+}
+`;
