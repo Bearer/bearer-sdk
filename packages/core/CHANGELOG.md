@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.72.1"></a>
+## [0.72.1](https://github.com/Bearer/bearer/compare/v0.72.0...v0.72.1) (2018-11-15)
+
+
+### Bug Fixes
+
+* **core:** build issue ([#392](https://github.com/Bearer/bearer/issues/392)) ([66166e2](https://github.com/Bearer/bearer/commit/66166e2))
+
+
+
+
+
 <a name="0.72.0"></a>
 # [0.72.0](https://github.com/Bearer/bearer/compare/v0.71.4...v0.72.0) (2018-11-13)
 
