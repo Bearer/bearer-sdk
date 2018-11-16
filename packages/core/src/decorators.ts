@@ -1,3 +1,4 @@
+import { TInputDecorator, TOutputDecorator } from '@bearer/types/lib/input-output-decorators'
 import * as d from '@stencil/core/dist/declarations/index'
 
 export * from './decorators/Intent'
@@ -58,29 +59,12 @@ export declare const RootComponent: IBearerRootComponentDecorator<any>
 /**
  * Input Decorator
  */
-type TInputDecoratorOptions = {
-  scope?: string
-  propName?: string
-  eventName?: string
-  intentName?: string
-  autoUpdate?: boolean
-}
-
-type TInputDecorator = (options?: TInputDecoratorOptions) => (target: any, key: string) => void
 
 export declare const Input: TInputDecorator
 
 /**
  * Output Decorator
  */
-type TOutputDecoratorOptions = {
-  intentName?: string
-  eventName?: string
-  propertyWatchedName?: string
-  referenceKeyName?: string
-}
-
-type TOutputDecorator = (options?: TOutputDecoratorOptions) => (target: any, key: string) => void
 
 export declare const Output: TOutputDecorator
 

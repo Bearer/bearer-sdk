@@ -66,6 +66,34 @@ export function getExpressionFromDecorator<T extends ts.Expression>(
   return getExpressionFromLiteralObject(getDecoratorProperties(tsDecorator, index), key)
 }
 
-export function getDecoratorNamed(tsClassNode: ts.ClassDeclaration, name: string): ts.Decorator | undefined {
-  return tsClassNode.decorators.find(decorator => decoratorNamed(decorator, name))
+export function getDecoratorNamed(
+  tsDecoratedNode: { decorators?: ts.NodeArray<ts.Decorator> },
+  name: string
+): ts.Decorator | undefined {
+  if (tsDecoratedNode.decorators) {
+    return tsDecoratedNode.decorators.find(decorator => decoratorNamed(decorator, name))
+  }
+}
+
+export function extractStringOptions<T>(objectLitteral: ts.ObjectLiteralExpression, keys: Array<keyof T>): Partial<T> {
+  const values: Partial<T> = {}
+  keys.map(value => {
+    const optionValue = getExpressionFromLiteralObject<ts.StringLiteral>(objectLitteral, value as string)
+    if (optionValue) {
+      values[value as string] = optionValue && optionValue.text
+    }
+  })
+  return values
+}
+
+export function extractBooleanOptions<T>(objectLitteral: ts.ObjectLiteralExpression, keys: Array<keyof T>): Partial<T> {
+  const values: Partial<T> = {}
+  keys.map(value => {
+    const optionValue = getExpressionFromLiteralObject<ts.BooleanLiteral>(objectLitteral, value as string)
+    if (optionValue) {
+      values[value as string] = optionValue && optionValue.kind === ts.SyntaxKind.TrueKeyword
+    }
+  })
+
+  return values
 }
