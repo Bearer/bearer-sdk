@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.74.0"></a>
+# [0.74.0](https://github.com/Bearer/bearer/compare/v0.73.2...v0.74.0) (2018-12-01)
+
+
+### Bug Fixes
+
+* **transpiler:** [CORE-135] - output event typing ([#402](https://github.com/Bearer/bearer/issues/402)) ([01e3134](https://github.com/Bearer/bearer/commit/01e3134))
+
+
+
+
+
 <a name="0.73.2"></a>
 ## [0.73.2](https://github.com/Bearer/bearer/compare/v0.73.1...v0.73.2) (2018-11-23)
 
