@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.74.2"></a>
+## [0.74.2](https://github.com/Bearer/bearer/compare/v0.74.1...v0.74.2) (2018-12-04)
+
+
+### Bug Fixes
+
+* **transpiler:** Core 150 event emitter issue ([#404](https://github.com/Bearer/bearer/issues/404)) ([5265573](https://github.com/Bearer/bearer/commit/5265573))
+
+
+
+
+
 <a name="0.74.1"></a>
 ## [0.74.1](https://github.com/Bearer/bearer/compare/v0.74.0...v0.74.1) (2018-12-03)
 
