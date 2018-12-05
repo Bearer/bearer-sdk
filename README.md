@@ -104,7 +104,7 @@ If you want to use these packages in a local environment (in repositories not co
 _assuming we have a package named "@bearer/core"_
 
 ```bash
-lerna run yarn link --scope='@bearer/core'
+lerna exec yarn link --scope='@bearer/core'
 
 // somewhere else on you computer inside a scenario, for example
 
