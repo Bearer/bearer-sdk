@@ -343,6 +343,7 @@ function _loadName(name: string): string {
 function _watchName(name: string): string {
   return `_watch${capitalize(name)}`
 }
+
 type InputMeta = TInputDecoratorOptions & {
   propDeclarationName: string
   typeIdentifier?: ts.TypeNode
