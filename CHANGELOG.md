@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.74.5"></a>
+## [0.74.5](https://github.com/Bearer/bearer/compare/v0.74.4...v0.74.5) (2018-12-07)
+
+
+### Bug Fixes
+
+* **cli:** get correct configuration back ([#412](https://github.com/Bearer/bearer/issues/412)) ([984145a](https://github.com/Bearer/bearer/commit/984145a))
+
+
+
+
+
 <a name="0.74.4"></a>
 ## [0.74.4](https://github.com/Bearer/bearer/compare/v0.74.3...v0.74.4) (2018-12-07)
 

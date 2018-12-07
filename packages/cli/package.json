@@ -1,7 +1,7 @@
 {
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "0.74.4",
+  "version": "0.74.5",
   "author": "Bearer Team",
   "bin": {
     "bearer": "./bin/run"
