@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.74.6"></a>
+## [0.74.6](https://github.com/Bearer/bearer/compare/v0.74.5...v0.74.6) (2018-12-07)
+
+**Note:** Version bump only for package @bearer/templates
+
+
+
+
+
 <a name="0.74.0"></a>
 # [0.74.0](https://github.com/Bearer/bearer/compare/v0.73.2...v0.74.0) (2018-12-01)
 

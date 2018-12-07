@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.74.6"></a>
+## [0.74.6](https://github.com/Bearer/bearer/compare/v0.74.5...v0.74.6) (2018-12-07)
+
+
+### Bug Fixes
+
+* **cli:** log body with a json style ([#413](https://github.com/Bearer/bearer/issues/413)) ([e78ee4b](https://github.com/Bearer/bearer/commit/e78ee4b))
+* don't create new refId when it's present in request ([#414](https://github.com/Bearer/bearer/issues/414)) ([4cb09da](https://github.com/Bearer/bearer/commit/4cb09da))
+
+
+
+
+
 <a name="0.74.5"></a>
 ## [0.74.5](https://github.com/Bearer/bearer/compare/v0.74.4...v0.74.5) (2018-12-07)
 
