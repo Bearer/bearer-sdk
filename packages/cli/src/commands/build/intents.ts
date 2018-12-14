@@ -4,10 +4,10 @@ import * as Listr from 'listr'
 import * as path from 'path'
 import * as webpack from 'webpack'
 
-import BaseCommand from '../../BaseCommand'
-import installDependencies from '../../tasks/installDependencies'
+import BaseCommand from '../../base-command'
+import installDependencies from '../../tasks/install-dependencies'
 import { RequireScenarioFolder } from '../../utils/decorators'
-import GenerateApiDocumenation from '../generate/apiDocumentation'
+import GenerateApiDocumenation from '../generate/api-documentation'
 
 const skipInstall = 'skip-install'
 

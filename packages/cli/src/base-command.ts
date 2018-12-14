@@ -8,8 +8,8 @@ import * as inquirer from 'inquirer'
 
 import { AuthConfig, Config } from './types'
 import Locator from './utils/locator'
-import scenarioClientFactory, { ScenarioClient } from './utils/scenarioClient'
-import setupConfig from './utils/setupConfig'
+import scenarioClientFactory, { ScenarioClient } from './utils/scenario-client'
+import setupConfig from './utils/setup-config'
 
 export default abstract class extends Command {
   get locator() {
@@ -56,7 +56,7 @@ export default abstract class extends Command {
   }
 
   bearerConfig!: Config
-  silent: boolean = false
+  silent = false
 
   success(message: string) {
     this.log(this.colors.green(message))
