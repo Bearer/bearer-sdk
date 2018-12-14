@@ -1,6 +1,6 @@
 {
   "name": "create-bearer",
-  "version": "0.77.0",
+  "version": "0.78.0",
   "description": "Quickly create a new Bearer scenario",
   "main": "lib/index.js",
   "repository": "http://github.com/bearer/bearer/packages/create-bearer",
