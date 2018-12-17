@@ -1,6 +1,6 @@
 {
   "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
-  "rule": {
+  "rules": {
     "no-unused-variable": [true, { "ignore-pattern": "^_" }],
     "no-unused-imports": true,
     "semicolon": [true, "never"],
