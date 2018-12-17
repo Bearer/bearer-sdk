@@ -9,14 +9,10 @@
   "author": "Bearer team <engineer@bearer.sh>",
   "homepage": "https://github.com/Bearer/bearer#readme",
   "license": "MIT",
-  "main": "./src/logger.js",
-  "browser": "./src/browser.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
+  "main": "lib/logger.js",
   "files": [
-    "lib"
+    "/lib",
+    "/oclif.manifest.json"
   ],
   "repository": {
     "type": "git",
