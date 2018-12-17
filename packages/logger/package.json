@@ -23,6 +23,7 @@
     "start": "tsc --watch",
     "build": "tsc -p tsconfig.json",
     "clean": "rm -rf lib",
+    "prepare": "yarn build",
     "prepack": "yarn clean && yarn build",
     "test:ci": "jest --coverage"
   },
@@ -44,5 +45,6 @@
   },
   "dependencies": {
     "debug": "^4.1.0"
-  }
+  },
+  "types": "lib/logger.d.ts"
 }
