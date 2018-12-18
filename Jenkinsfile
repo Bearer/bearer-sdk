@@ -20,7 +20,7 @@ pipeline {
 
     options {
         skipDefaultCheckout true
-        buildDiscarder(logRotator(numToKeepStr: '5'))
+        buildDiscarder(logRotator(numToKeepStr: '50'))
     }
 
     parameters {
