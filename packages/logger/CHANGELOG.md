@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.81.4"></a>
+## [0.81.4](https://github.com/Bearer/bearer/compare/v0.81.3...v0.81.4) (2018-12-18)
+
+**Note:** Version bump only for package @bearer/logger
+
+
+
+
+
 <a name="0.81.2"></a>
 ## [0.81.2](https://github.com/Bearer/bearer/compare/v0.81.1...v0.81.2) (2018-12-17)
 
