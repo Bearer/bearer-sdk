@@ -6,11 +6,22 @@ import * as ts from 'typescript'
 
 import { Decorators, Properties } from '../constants'
 import { extractBooleanOptions, extractStringOptions, getDecoratorNamed } from '../helpers/decorator-helpers'
+import {
+  addAutoLoad,
+  createFetcher,
+  createLoadDataCall,
+  createLoadResourceMethod,
+} from '../helpers/generator-helpers'
+import {
+  loadName as _loadName,
+  retrieveFetcherName,
+  retrieveIntentName
+} from '../helpers/name-helpers'
 import { getNodeName } from '../helpers/node-helpers'
 import { capitalize } from '../helpers/string'
-import { TransformerOptions } from '../types'
+import { InputMeta, TransformerOptions } from '../types'
 
-import { createOrUpdateComponentDidLoad, ensureImportsFromCore } from './bearer'
+import { ensureImportsFromCore } from './bearer'
 import { outputEventName, refIdName } from './output-decorator'
 
 export default function InputDecorator({ metadata }: TransformerOptions = {}): ts.TransformerFactory<ts.SourceFile> {
@@ -77,14 +88,14 @@ export default function InputDecorator({ metadata }: TransformerOptions = {}): t
       return !callArgs
         ? {}
         : {
-            ...extractStringOptions<TInputDecoratorOptions>(callArgs, [
-              'group',
-              'eventName',
-              'intentName',
-              'propertyReferenceIdName'
-            ]),
-            ...extractBooleanOptions<TInputDecoratorOptions>(callArgs, ['autoLoad'])
-          }
+          ...extractStringOptions<TInputDecoratorOptions>(callArgs, [
+            'group',
+            'eventName',
+            'intentName',
+            'propertyReferenceIdName'
+          ]),
+          ...extractBooleanOptions<TInputDecoratorOptions>(callArgs, ['autoLoad'])
+        }
     }
 
     function injectInputStatements(tsClass: ts.ClassDeclaration, inputsMeta: Array<InputMeta>): ts.ClassDeclaration {
@@ -118,21 +129,6 @@ export default function InputDecorator({ metadata }: TransformerOptions = {}): t
         classNode.heritageClauses,
         newMembers
       )
-    }
-
-    function addAutoLoad(tsClass: ts.ClassDeclaration, meta: InputMeta): ts.ClassDeclaration {
-      if (meta.autoLoad) {
-        return createOrUpdateComponentDidLoad(tsClass, block =>
-          ts.updateBlock(block, [
-            ...block.statements,
-            ts.createIf(
-              ts.createPropertyAccess(ts.createThis(), meta.propertyReferenceIdName),
-              ts.createBlock([createLoadDataCall(meta)])
-            )
-          ])
-        )
-      }
-      return tsClass
     }
 
     function replaceInputVisitor(inputsMeta: Array<InputMeta>): (tsNode: ts.Node) => ts.VisitResult<ts.Node> {
@@ -215,85 +211,6 @@ function createEventListener(meta: InputMeta) {
   )
 }
 
-function createLoadResourceMethod(meta: InputMeta) {
-  const intentCall = ts.createCall(ts.createPropertyAccess(ts.createThis(), meta.intentMethodName), undefined, [
-    ts.createObjectLiteral([
-      ts.createPropertyAssignment(
-        meta.intentReferenceIdKeyName,
-        ts.createPropertyAccess(ts.createThis(), meta.propertyReferenceIdName)
-      )
-    ])
-  ])
-  const udapteState = ts.createArrowFunction(
-    undefined,
-    undefined,
-    [
-      ts.createParameter(
-        undefined,
-        undefined,
-        undefined,
-        ts.createObjectBindingPattern([ts.createBindingElement(undefined, undefined, 'data')]),
-        undefined,
-        ts.createTypeLiteralNode([
-          ts.createPropertySignature(undefined, 'data', undefined, meta.typeIdentifier, undefined)
-        ]),
-        undefined
-      )
-    ],
-    undefined,
-    undefined,
-    ts.createBlock(
-      [
-        ts.createStatement(
-          ts.createBinary(
-            ts.createPropertyAccess(ts.createThis(), meta.propDeclarationName),
-            ts.SyntaxKind.EqualsToken,
-            ts.createIdentifier('data')
-          )
-        )
-      ],
-      true
-    )
-  )
-  const promiseHandler = ts.createCall(ts.createPropertyAccess(intentCall, 'then'), undefined, [udapteState])
-  return ts.createProperty(
-    undefined,
-    undefined,
-    meta.loadMethodName,
-    undefined,
-    undefined,
-    ts.createArrowFunction(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      ts.createBlock([ts.createStatement(promiseHandler)], true)
-    )
-  )
-}
-
-function createFetcher(meta: InputMeta) {
-  return ts.createProperty(
-    [
-      ts.createDecorator(
-        ts.createCall(ts.createIdentifier(Decorators.Intent), undefined, [ts.createLiteral(meta.intentName)])
-      )
-    ],
-    undefined,
-    meta.intentMethodName,
-    undefined,
-    undefined,
-    undefined
-  )
-}
-
-function createLoadDataCall(meta: InputMeta) {
-  return ts.createStatement(
-    ts.createCall(ts.createPropertyAccess(ts.createThis(), meta.loadMethodName), undefined, undefined)
-  )
-}
-
 function createRefIdWatcher(meta: InputMeta) {
   const newValueName = 'newValueName'
   return ts.createMethod(
@@ -328,27 +245,6 @@ function createRefIdWatcher(meta: InputMeta) {
   )
 }
 
-export function retrieveIntentName(name: string): string {
-  return `retrieve${capitalize(name)}`
-}
-
-function retrieveFetcherName(name: string): string {
-  return `fetcherRetrieve${capitalize(name)}`
-}
-
-function _loadName(name: string): string {
-  return `_load${capitalize(name)}`
-}
-
 function _watchName(name: string): string {
   return `_watch${capitalize(name)}`
-}
-
-type InputMeta = TInputDecoratorOptions & {
-  propDeclarationName: string
-  typeIdentifier?: ts.TypeNode
-  intializer?: ts.Expression
-  loadMethodName: string
-  intentMethodName: string
-  watcherName: string
 }

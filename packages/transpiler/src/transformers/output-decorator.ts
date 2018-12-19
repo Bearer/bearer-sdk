@@ -5,10 +5,21 @@ import { TOutputDecoratorOptions } from '@bearer/types/lib/input-output-decorato
 import * as ts from 'typescript'
 
 import { Decorators, Properties, Types } from '../constants'
-import { extractStringOptions, getDecoratorNamed } from '../helpers/decorator-helpers'
+import { extractBooleanOptions, extractStringOptions, getDecoratorNamed } from '../helpers/decorator-helpers'
+import {
+  addAutoLoad,
+  createFetcher,
+  createLoadResourceMethod,
+} from '../helpers/generator-helpers'
+import {
+  initialName,
+  retrieveFetcherName,
+  retrieveIntentName,
+  loadName
+} from '../helpers/name-helpers'
 import { getNodeName } from '../helpers/node-helpers'
 import { capitalize } from '../helpers/string'
-import { TransformerOptions } from '../types'
+import { TCreateLoadResourceMethod, TransformerOptions } from '../types'
 
 import { ensureImportsFromCore } from './bearer'
 
@@ -51,24 +62,32 @@ export default function OutputDecorator(_options: TransformerOptions = {}): ts.T
             const callArgs = (decorator.expression as ts.CallExpression).arguments[0] as ts.ObjectLiteralExpression
             const options = !callArgs
               ? {}
-              : extractStringOptions<TOutputDecoratorOptions>(callArgs, [
+              : {
+                ...extractStringOptions<TOutputDecoratorOptions>(callArgs, [
                   'eventName',
                   'intentName',
                   'intentPropertyName',
                   'propertyWatchedName',
                   'referenceKeyName'
-                ])
+                ]),
+
+                ...extractBooleanOptions<TOutputDecoratorOptions>(callArgs, ['autoLoad'])
+              }
             outputs.push({
               eventName: outputEventName(name),
               intentName: saveIntentName(name),
+              intentMethodName: retrieveFetcherName(name),
               intentPropertyName: name,
               propDeclarationName: name,
               propDeclarationNameRefId: refIdName(name),
+              loadMethodName: loadName(name),
               intentReferenceIdKeyName: Properties.ReferenceId,
               typeIdentifier: tsNode.type,
               initializer: tsNode.initializer,
               referenceKeyName: Properties.ReferenceId,
               propertyWatchedName: name,
+              propertyReferenceIdName: refIdName(name),
+              autoLoad: true,
               ...options
             })
           }
@@ -91,19 +110,26 @@ export default function OutputDecorator(_options: TransformerOptions = {}): ts.T
     }
   }
 }
+
 function injectOuputStatements(tsClass: ts.ClassDeclaration, outputsMeta: Array<OutputMeta>): ts.ClassDeclaration {
+  const classNode = outputsMeta.reduce((classDeclaration, meta) => addAutoLoad(classDeclaration, meta), tsClass)
   const newMembers = outputsMeta.reduce(
     (members, meta) => {
-      const inputMembers = [
+      const outputMembers = [
         createIntent(meta),
         createEvent(meta),
-        createState(meta),
+        ...createStates(meta),
         createProp(meta),
-        ...createWatchers(meta)
+        ...createWatchers(meta),
+        createInitialFetcher(meta),
+        createLoadResourceMethod({
+          ...(meta as TCreateLoadResourceMethod),
+          propDeclarationName: initialName(meta.propDeclarationName)
+        })
       ]
-      return members.concat(inputMembers)
+      return members.concat(outputMembers)
     },
-    [...tsClass.members]
+    [...classNode.members]
   )
 
   return ts.updateClassDeclaration(
@@ -165,12 +191,21 @@ function createProp(meta: OutputMeta): ts.PropertyDeclaration {
   )
 }
 
-function createState(meta: OutputMeta): ts.PropertyDeclaration {
-  // @State() propDeclarationName: Type = initiailizer
+function createStates(meta: OutputMeta): ts.PropertyDeclaration[] {
+  return [
+    // @State() propDeclarationNameInitial: Type = initiailizer
+    createGenericState(meta, initialName),
+    // @State() propDeclarationName: Type = initiailizer
+    createGenericState(meta)
+  ]
+}
+
+function createGenericState(meta: OutputMeta, nameTransformation = (x: string) => x): ts.PropertyDeclaration {
+  // @State() propDeclarationName[suffix]: Type = initiailizer
   return ts.createProperty(
     [ts.createDecorator(ts.createCall(ts.createIdentifier(Decorators.State), undefined, []))],
     undefined,
-    meta.propDeclarationName,
+    nameTransformation(meta.propDeclarationName),
     undefined,
     meta.typeIdentifier,
     meta.initializer
@@ -194,7 +229,16 @@ function createWatchers(meta: OutputMeta): ts.MethodDeclaration[] {
       undefined,
       [ts.createParameter(undefined, undefined, undefined, newValue, undefined, undefined, undefined)], // parameters
       undefined,
-      ts.createBlock([ts.createStatement(createIntentCall(meta))], true)
+      ts.createBlock([
+        ts.createStatement(createIntentCall(meta)),
+        ts.createStatement(
+          ts.createBinary(
+            ts.createPropertyAccess(ts.createThis(), initialName(meta.propDeclarationName)),
+            ts.SyntaxKind.EqualsToken,
+            ts.createNull()
+          )
+        )
+      ], true)
     )
   ]
 }
@@ -312,9 +356,21 @@ export function outputEventName(prefix: string, suffix?: string): string {
   return `${prefix}${capitalize(_suffix)}`
 }
 
+function createInitialFetcher(meta) {
+  const metaForInitial = {
+    intentName: retrieveIntentName(meta.propDeclarationName)
+  }
+  return createFetcher({ ...meta, ...metaForInitial })
+}
+
 type OutputMeta = TOutputDecoratorOptions & {
   propDeclarationName: string
   propDeclarationNameRefId: string
+  intentMethodName: string
+  intentName: string
+  loadMethodName: string
   initializer: ts.Expression
   typeIdentifier?: ts.TypeNode
+  propertyReferenceIdName: string
+  autoLoad?: true | false
 }

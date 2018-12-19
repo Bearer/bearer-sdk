@@ -33,6 +33,8 @@ class NoOptionsComponent {
     @Event({ eventName: \\"bearer-SPONGE_BOB-no-options-farmerSaved\\" })
     farmerSaved: EventEmitter;
     @State()
+    farmerInitial: BearerRef<Farmer>;
+    @State()
     farmer: BearerRef<Farmer>;
     @Prop({ \\"mutable\\": true })
     farmerRefId: string;
@@ -42,10 +44,21 @@ class NoOptionsComponent {
             this.farmerSaved.emit({ referenceId, farmer: data || this.farmer });
             this.farmerRefId = referenceId;
         });
+        this.farmerInitial = null;
     }
+    private fetcherRetrieveFarmer;
+    _loadFarmer = () => {
+        this.fetcherRetrieveFarmer({ referenceId: this.farmerRefId }).then(({ data }: {
+            data: BearerRef<Farmer>;
+        }) => {
+            this.farmerInitial = data;
+        });
+    };
     private milkWithAbottle: BearerFetch<BearerRef<Farmer>>;
     @Event({ eventName: \\"bearer-SPONGE_BOB-no-options-milked\\" })
     milked: EventEmitter;
+    @State()
+    farmerAndPandaInitial: BearerRef<Farmer> = {};
     @State()
     farmerAndPanda: BearerRef<Farmer> = {};
     @Prop({ \\"mutable\\": true })
@@ -56,10 +69,21 @@ class NoOptionsComponent {
             this.milked.emit({ aPandaKey, farmerAndPanda: data || this.farmerAndPanda });
             this.farmerAndPandaRefId = aPandaKey;
         });
+        this.farmerAndPandaInitial = null;
     }
+    private fetcherRetrieveFarmerAndPanda;
+    _loadFarmerAndPanda = () => {
+        this.fetcherRetrieveFarmerAndPanda({ referenceId: this.farmerAndPandaRefId }).then(({ data }: {
+            data: BearerRef<Farmer>;
+        }) => {
+            this.farmerAndPandaInitial = data;
+        });
+    };
     constructor() {
         Intent(\\"saveFarmer\\")(this, \\"saveFarmer\\");
+        Intent(\\"retrieveFarmer\\")(this, \\"fetcherRetrieveFarmer\\");
         Intent(\\"milkWithAbottle\\")(this, \\"milkWithAbottle\\");
+        Intent(\\"retrieveFarmerAndPanda\\")(this, \\"fetcherRetrieveFarmerAndPanda\\");
     }
     get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
     @Prop({ \\"context\\": \\"bearer\\" })
@@ -69,6 +93,9 @@ class NoOptionsComponent {
     componentDidLoad() {
         if (this.setupId) {
             this.bearerContext.setupId = this.setupId;
+        }
+        if (this.farmerRefId) {
+            this._loadFarmer();
         }
     }
     @Event({ eventName: \\"no-options-action-prop-set\\", bubbles: true, cancelable: true })

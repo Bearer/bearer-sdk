@@ -476,6 +476,8 @@ export class AttachPullRequestAction {
     @Event({ eventName: \\"bearer-SPONGE_BOB-AttachPullRequest-feedPandaSaved\\" })
     feedPandaSaved: EventEmitter;
     @State()
+    feedPandaInitial: BearerRef<Panda>;
+    @State()
     feedPanda: BearerRef<Panda>;
     @Prop({ \\"mutable\\": true })
     feedPandaRefId: string;
@@ -485,12 +487,25 @@ export class AttachPullRequestAction {
             this.feedPandaSaved.emit({ referenceId, feedPanda: data || this.feedPanda });
             this.feedPandaRefId = referenceId;
         });
+        this.feedPandaInitial = null;
     }
+    private fetcherRetrieveFeedPanda;
+    _loadFeedPanda = () => {
+        this.fetcherRetrieveFeedPanda({ referenceId: this.feedPandaRefId }).then(({ data }: {
+            data: BearerRef<Panda>;
+        }) => {
+            this.feedPandaInitial = data;
+        });
+    };
     private manualIntentName: BearerFetch<BearerRef<{
         inlineName: string;
     }>>;
     @Event({ eventName: \\"bearer-SPONGE_BOB-AttachPullRequest-spongeBobdSaved\\" })
     spongeBobdSaved: EventEmitter;
+    @State()
+    shortPandaInitial: BearerRef<{
+        inlineName: string;
+    }>;
     @State()
     shortPanda: BearerRef<{
         inlineName: string;
@@ -503,14 +518,27 @@ export class AttachPullRequestAction {
             this.spongeBobdSaved.emit({ manualreferenceKeyName, shortPanda: data || this.shortPanda });
             this.shortPandaRefId = manualreferenceKeyName;
         });
+        this.shortPandaInitial = null;
     }
+    private fetcherRetrieveShortPanda;
+    _loadShortPanda = () => {
+        this.fetcherRetrieveShortPanda({ referenceId: this.shortPandaRefId }).then(({ data }: {
+            data: BearerRef<{
+                inlineName: string;
+            }>;
+        }) => {
+            this.shortPandaInitial = data;
+        });
+    };
     constructor() {
         Intent('ListRepositories')(this, \\"fetcher\\");
         Intent('getPullRequest', IntentType.FetchData)(this, \\"fetchResource\\");
         Intent(\\"retrieveFarmer\\")(this, \\"fetcherRetrieveFarmer\\");
         Intent(\\"retrieveGoat\\")(this, \\"fetcherRetrieveGoat\\");
         Intent(\\"saveFeedPanda\\")(this, \\"saveFeedPanda\\");
+        Intent(\\"retrieveFeedPanda\\")(this, \\"fetcherRetrieveFeedPanda\\");
         Intent(\\"manualIntentName\\")(this, \\"manualIntentName\\");
+        Intent(\\"retrieveShortPanda\\")(this, \\"fetcherRetrieveShortPanda\\");
     }
     get SCENARIO_ID() { return \\"SPONGE_BOB\\"; }
     @Prop({ \\"context\\": \\"bearer\\" })
@@ -523,6 +551,12 @@ export class AttachPullRequestAction {
         }
         if (this.farmerRefId) {
             this._loadFarmer();
+        }
+        if (this.feedPandaRefId) {
+            this._loadFeedPanda();
+        }
+        if (this.shortPandaRefId) {
+            this._loadShortPanda();
         }
     }
     @Watch(\\"attachedPullRequests\\")
