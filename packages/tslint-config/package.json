@@ -6,6 +6,7 @@
   "homepage": "https://github.com/Bearer/bearer#readme",
   "license": "MIT",
   "main": "tslint.json",
+  "private": false,
   "scripts": {
     "test": "echo 'NO tests'",
     "test:ci": "echo 'NO tests'"
