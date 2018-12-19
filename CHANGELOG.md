@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.81.7"></a>
+## [0.81.7](https://github.com/Bearer/bearer/compare/v0.81.6...v0.81.7) (2018-12-19)
+
+
+### Bug Fixes
+
+* **react:** make the package public ([d45c6a6](https://github.com/Bearer/bearer/commit/d45c6a6))
+
+
+
+
+
 <a name="0.81.6"></a>
 ## [0.81.6](https://github.com/Bearer/bearer/compare/v0.81.5...v0.81.6) (2018-12-19)
 
