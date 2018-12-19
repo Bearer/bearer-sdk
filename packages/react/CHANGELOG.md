@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.81.6"></a>
+## [0.81.6](https://github.com/Bearer/bearer/compare/v0.81.5...v0.81.6) (2018-12-19)
+
+
+### Bug Fixes
+
+* **react:** fix issue where context would not update + expose context ([#437](https://github.com/Bearer/bearer/issues/437)) ([811c4b4](https://github.com/Bearer/bearer/commit/811c4b4))
+
+
+
+
+
 <a name="0.81.5"></a>
 ## [0.81.5](https://github.com/Bearer/bearer/compare/v0.81.4...v0.81.5) (2018-12-18)
 
