@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.83.0"></a>
+# [0.83.0](https://github.com/Bearer/bearer/compare/v0.82.0...v0.83.0) (2018-12-20)
+
+
+### Bug Fixes
+
+* **core:** forward client id to auth request ([d661714](https://github.com/Bearer/bearer/commit/d661714))
+
+
+### Features
+
+* **core:** use integration-service v2 endpoint ([43156f9](https://github.com/Bearer/bearer/commit/43156f9))
+
+
+
+
+
 <a name="0.82.0"></a>
 # [0.82.0](https://github.com/Bearer/bearer/compare/v0.81.9...v0.82.0) (2018-12-19)
 
