@@ -1,6 +1,6 @@
 {
   "name": "@bearer/logger",
-  "version": "0.83.4",
+  "version": "0.84.0",
   "description": "Bearer logger",
   "keywords": [
     "logger",

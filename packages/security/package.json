@@ -1,6 +1,6 @@
 {
   "name": "@bearer/security",
-  "version": "0.83.4",
+  "version": "0.84.0",
   "description": "Bearer tooling for encrypting and decrypting messages",
   "keywords": [
     "security",
