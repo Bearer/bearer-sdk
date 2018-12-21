@@ -10,7 +10,7 @@ export default class Cipher {
   }
 
   decrypt = (encryptedMessage: string) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       let decrypted = ''
       const decipher = crypto.createDecipher('aes192', this.config.key)
       decipher.on('readable', () => {
