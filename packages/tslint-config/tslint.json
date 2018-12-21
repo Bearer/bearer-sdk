@@ -4,7 +4,7 @@
     "no-unused-variable": [true, { "ignore-pattern": "^_" }],
     "no-unused-imports": true,
     "semicolon": [true, "never"],
-    "max-line-length": [true, 120], // 19.12
+    "max-line-length": [true, 120],
     "trailing-comma": [
       true,
       {
