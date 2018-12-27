@@ -4,7 +4,8 @@
     "module": "commonjs",
     "outDir": "./lib",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "declaration": true
   },
   "include": ["src/"],
   "exclude": ["**/*.test.ts"]
