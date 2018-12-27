@@ -18,6 +18,8 @@
     "url": "git+https://github.com/Bearer/bearer.git"
   },
   "scripts": {
+    "prepare": "echo 'nothing to do'",
+    "prepack": "echo 'nothing to do'",
     "test": "echo 'NO tests'",
     "test:ci": "echo 'NO tests'"
   },

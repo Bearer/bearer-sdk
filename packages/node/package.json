@@ -11,10 +11,6 @@
   "homepage": "https://github.com/Bearer/bearer#readme",
   "license": "MIT",
   "main": "lib/index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
   "files": [
     "lib/"
   ],
@@ -26,7 +22,8 @@
     "start": "tsc --watch",
     "build": "tsc",
     "clean": "rm -rf lib",
-    "prepack": "yarn clean && yarn build",
+    "prepare": "yarn clean && yarn build",
+    "prepack": "yarn clean && NODE_ENV=production yarn build",
     "test": "jest",
     "test:ci": "jest --coverage"
   },
