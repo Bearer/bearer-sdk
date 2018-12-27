@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.85.0"></a>
+# [0.85.0](https://github.com/Bearer/bearer/compare/v0.84.2...v0.85.0) (2018-12-27)
+
+**Note:** Version bump only for package @bearer/transpiler
+
+
+
+
+
 <a name="0.84.2"></a>
 ## [0.84.2](https://github.com/Bearer/bearer/compare/v0.84.1...v0.84.2) (2018-12-27)
 

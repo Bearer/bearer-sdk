@@ -1,6 +1,6 @@
 {
   "name": "@bearer/react",
-  "version": "0.84.2",
+  "version": "0.85.0",
   "description": "React tooling for bearer.sh components",
   "keywords": [
     "react",
