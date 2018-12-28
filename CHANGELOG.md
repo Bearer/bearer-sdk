@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.85.1"></a>
+## [0.85.1](https://github.com/Bearer/bearer/compare/v0.85.0...v0.85.1) (2018-12-28)
+
+
+### Bug Fixes
+
+* **core:** use v1 items endpoints ([3d3a161](https://github.com/Bearer/bearer/commit/3d3a161))
+
+
+
+
+
 <a name="0.85.0"></a>
 # [0.85.0](https://github.com/Bearer/bearer/compare/v0.84.2...v0.85.0) (2018-12-27)
 
