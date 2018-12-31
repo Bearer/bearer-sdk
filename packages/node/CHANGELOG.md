@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.85.3"></a>
+## [0.85.3](https://github.com/Bearer/bearer/compare/v0.85.2...v0.85.3) (2018-12-31)
+
+
+### Bug Fixes
+
+* **node:** add better error ([ff191e1](https://github.com/Bearer/bearer/commit/ff191e1))
+
+
+
+
+
 <a name="0.85.2"></a>
 ## [0.85.2](https://github.com/Bearer/bearer/compare/v0.85.1...v0.85.2) (2018-12-31)
 
