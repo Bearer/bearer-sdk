@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.86.2"></a>
+## [0.86.2](https://github.com/Bearer/bearer/compare/v0.86.1...v0.86.2) (2019-01-07)
+
+
+### Bug Fixes
+
+* **cli:** change default Authorization header value ([07ce7c8](https://github.com/Bearer/bearer/commit/07ce7c8))
+
+
+
+
+
 <a name="0.86.1"></a>
 ## [0.86.1](https://github.com/Bearer/bearer/compare/v0.86.0...v0.86.1) (2019-01-03)
 
