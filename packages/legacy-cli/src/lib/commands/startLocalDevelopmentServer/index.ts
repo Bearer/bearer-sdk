@@ -9,7 +9,7 @@ import LocationProvider from '../../locationProvider'
 import { Config } from '../../types'
 
 import auth from './auth'
-import server = require('./server')
+import server from './server'
 import Storage from './storage'
 import { loadUserDefinedData } from './utils'
 
@@ -32,7 +32,7 @@ export default function startLocalDevelopmentServer(
   })
   const router = new Router({ prefix: '/api/' })
 
-  return new Promise(async (resolve, reject) => {
+  return new Promise<string>(async (resolve, reject) => {
     try {
       const { config: devIntentsContext = {} } = (await explorer.search(rootLevel)) || {}
       const distPath = locator.buildIntentsResourcePath('dist')

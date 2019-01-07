@@ -1,16 +1,16 @@
 {
   "name": "@bearer/bearer-cli",
   "version": "0.86.1",
-  "main": "index.js",
+  "main": "lib/bin/index.js",
   "repository": "git@github.com:Bearer/bearer.git",
   "author": "Bearer Team<engineering@bearer.sh>",
   "license": "MIT",
-  "typings": "lib/bin/index",
   "engines": {
     "node": ">=8.11.0"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "static/"
   ],
   "scripts": {
     "clean": "rm -rf lib/",
