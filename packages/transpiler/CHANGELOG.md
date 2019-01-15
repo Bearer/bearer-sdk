@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.87.0"></a>
+# [0.87.0](https://github.com/Bearer/bearer/compare/v0.86.2...v0.87.0) (2019-01-15)
+
+
+### Bug Fixes
+
+* don't set property when data is undefined ([#466](https://github.com/Bearer/bearer/issues/466)) ([558c6d5](https://github.com/Bearer/bearer/commit/558c6d5))
+
+
+### Features
+
+* **types,transpiler:** allow passing arguments to input/output decorators ([68cb454](https://github.com/Bearer/bearer/commit/68cb454))
+
+
+
+
+
 <a name="0.86.0"></a>
 # [0.86.0](https://github.com/Bearer/bearer/compare/v0.85.4...v0.86.0) (2019-01-03)
 

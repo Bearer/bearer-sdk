@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.87.0"></a>
+# [0.87.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.86.2...v0.87.0) (2019-01-15)
+
+
+### Bug Fixes
+
+* open to closed ([0e236a4](https://github.com/ionic-team/stencil-component-starter/commit/0e236a4))
+* **ui:** allow dropdown-button to be customized ([#469](https://github.com/ionic-team/stencil-component-starter/issues/469)) ([54c0b8e](https://github.com/ionic-team/stencil-component-starter/commit/54c0b8e))
+
+
+### Features
+
+* **ui:** add action button ([c14879a](https://github.com/ionic-team/stencil-component-starter/commit/c14879a))
+* **ui:** bearer button customization ([f77fd1e](https://github.com/ionic-team/stencil-component-starter/commit/f77fd1e))
+
+
+
+
+
 <a name="0.86.1"></a>
 ## [0.86.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.86.0...v0.86.1) (2019-01-03)
 

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.87.0"></a>
+# [0.87.0](https://github.com/Bearer/bearer/compare/v0.86.2...v0.87.0) (2019-01-15)
+
+
+### Bug Fixes
+
+* don't set property when data is undefined ([#466](https://github.com/Bearer/bearer/issues/466)) ([558c6d5](https://github.com/Bearer/bearer/commit/558c6d5))
+* open to closed ([0e236a4](https://github.com/Bearer/bearer/commit/0e236a4))
+* **tsconfig:** add null checks ([9b0c945](https://github.com/Bearer/bearer/commit/9b0c945))
+* **ui:** allow dropdown-button to be customized ([#469](https://github.com/Bearer/bearer/issues/469)) ([54c0b8e](https://github.com/Bearer/bearer/commit/54c0b8e))
+
+
+### Features
+
+* **types,transpiler:** allow passing arguments to input/output decorators ([68cb454](https://github.com/Bearer/bearer/commit/68cb454))
+* **ui:** add action button ([c14879a](https://github.com/Bearer/bearer/commit/c14879a))
+* **ui:** bearer button customization ([f77fd1e](https://github.com/Bearer/bearer/commit/f77fd1e))
+
+
+
+
+
 <a name="0.86.2"></a>
 ## [0.86.2](https://github.com/Bearer/bearer/compare/v0.86.1...v0.86.2) (2019-01-07)
 
