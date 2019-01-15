@@ -34,7 +34,8 @@ class NoOptionsComponent {
         propertyReferenceIdName: \\"patrick\\",
         eventName: \\"patrickWasKilled\\",
         intentName: \\"killPatrick\\",
-        autoLoad: false
+        autoLoad: false,
+        intentArguments: [\\"farmer\\", \\"spongeBobOverrided\\", \\"authId\\"]
     })
     spongeBob: BearerRef<Sponge>;
     @Input({
@@ -234,7 +235,7 @@ class NoOptionsComponent {
         }
     }
     _loadSpongeBob = () => {
-        this.fetcherRetrieveSpongeBob({ referenceId: this.patrick }).then(({ data }: {
+        this.fetcherRetrieveSpongeBob({ referenceId: this.patrick, farmerId: this.farmerRefId, spongeBobOverridedId: this.refNotOverrided, authId: this.authId }).then(({ data }: {
             data: BearerRef<Sponge>;
         }) => {
             if (data) {

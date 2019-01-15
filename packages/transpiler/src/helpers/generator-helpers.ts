@@ -4,6 +4,7 @@ import { createOrUpdateComponentDidLoad } from '../../src/transformers/bearer'
 
 import { Decorators } from './../constants'
 import { CreateFetcherMeta, TAddAutoLoad, TCreateLoadDataCall, TCreateLoadResourceMethod } from './../types'
+import { idName } from './name-helpers'
 
 export function createFetcher(meta: CreateFetcherMeta) {
   return ts.createProperty(
@@ -20,13 +21,27 @@ export function createFetcher(meta: CreateFetcherMeta) {
   )
 }
 
-export function createLoadResourceMethod(meta: TCreateLoadResourceMethod) {
+function propertyReferenceIdNames(meta: TCreateLoadResourceMethod, metaCollection: TCreateLoadResourceMethod[]) {
+  return meta.intentArguments.map(name => {
+    const metaInfo = metaCollection.find(meta => meta.propDeclarationName === name)
+    if (metaInfo) {
+      return ts.createPropertyAssignment(
+        idName(name),
+        ts.createPropertyAccess(ts.createThis(), metaInfo.propertyReferenceIdName)
+      )
+    }
+    return ts.createPropertyAssignment(name, ts.createPropertyAccess(ts.createThis(), name))
+  })
+}
+
+export function createLoadResourceMethod(meta: TCreateLoadResourceMethod, metaCollection: TCreateLoadResourceMethod[]) {
   const intentCall = ts.createCall(ts.createPropertyAccess(ts.createThis(), meta.intentMethodName), undefined, [
     ts.createObjectLiteral([
       ts.createPropertyAssignment(
         meta.intentReferenceIdKeyName,
         ts.createPropertyAccess(ts.createThis(), meta.propertyReferenceIdName)
-      )
+      ),
+      ...propertyReferenceIdNames(meta, metaCollection)
     ])
   ])
   const udapteState = ts.createArrowFunction(
