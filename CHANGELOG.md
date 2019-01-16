@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.87.3"></a>
+## [0.87.3](https://github.com/Bearer/bearer/compare/v0.87.2...v0.87.3) (2019-01-16)
+
+
+### Bug Fixes
+
+* **legacy-cli:** allow fetching data using setup-id ([#474](https://github.com/Bearer/bearer/issues/474)) ([8f11d52](https://github.com/Bearer/bearer/commit/8f11d52))
+
+
+
+
+
 <a name="0.87.2"></a>
 ## [0.87.2](https://github.com/Bearer/bearer/compare/v0.87.1...v0.87.2) (2019-01-16)
 
