@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.87.2"></a>
+## [0.87.2](https://github.com/Bearer/bearer/compare/v0.87.1...v0.87.2) (2019-01-16)
+
+
+### Bug Fixes
+
+* **core:** allow setupId to be passed as parameter of the intent call ([d2a18f0](https://github.com/Bearer/bearer/commit/d2a18f0))
+
+
+
+
+
 <a name="0.87.0"></a>
 # [0.87.0](https://github.com/Bearer/bearer/compare/v0.86.2...v0.87.0) (2019-01-15)
 
