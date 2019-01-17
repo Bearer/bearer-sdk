@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.89.2"></a>
+## [0.89.2](https://github.com/BearerSH/bearer/compare/v0.89.1...v0.89.2) (2019-01-17)
+
+
+### Bug Fixes
+
+* **cli:** stop using templates repository ([4a33bf1](https://github.com/BearerSH/bearer/commit/4a33bf1))
+
+
+
+
+
 <a name="0.89.0"></a>
 # [0.89.0](https://github.com/BearerSH/bearer/compare/v0.88.0...v0.89.0) (2019-01-17)
 

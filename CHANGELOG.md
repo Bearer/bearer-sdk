@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.89.2"></a>
+## [0.89.2](https://github.com/Bearer/bearer/compare/v0.89.1...v0.89.2) (2019-01-17)
+
+
+### Bug Fixes
+
+* **cli:** change the way we generate files ([cc36d56](https://github.com/Bearer/bearer/commit/cc36d56))
+* **cli:** disable open api spec generation for now ([67e8dde](https://github.com/Bearer/bearer/commit/67e8dde))
+* **cli:** stop using templates repository ([4a33bf1](https://github.com/Bearer/bearer/commit/4a33bf1))
+
+
+
+
+
 <a name="0.89.1"></a>
 ## [0.89.1](https://github.com/Bearer/bearer/compare/v0.89.0...v0.89.1) (2019-01-17)
 
