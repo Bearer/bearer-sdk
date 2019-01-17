@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.89.1"></a>
+## [0.89.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.89.0...v0.89.1) (2019-01-17)
+
+
+### Bug Fixes
+
+* **ui:** make bearer form great again ([#478](https://github.com/ionic-team/stencil-component-starter/issues/478)) ([660fa7f](https://github.com/ionic-team/stencil-component-starter/commit/660fa7f))
+
+
+
+
+
 <a name="0.89.0"></a>
 # [0.89.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.88.0...v0.89.0) (2019-01-17)
 
