@@ -6,13 +6,8 @@ import { AxiosResponse } from 'axios'
 export type TErrorPayload<ReturnedError> = { error: ReturnedError }
 export type TDataPayload<ReturnedData> = { data: ReturnedData }
 
-/**
- * Intent callbacks
- */
 export type TFetchPayload<ReturnedData = any, ReturnedError = any> = Partial<TDataPayload<ReturnedData>> &
   Partial<TErrorPayload<ReturnedError>>
-
-export type TRetrieveStatePayload<ReturnedData = any, ReturnedError = any> = TFetchPayload<ReturnedData, ReturnedError>
 
 export type TSaveStatePayload<State = any, ReturnedData = any, ReturnedError = any> = {
   state: State
@@ -44,36 +39,27 @@ export type TBearerLambdaContext<AuthContext = TAuthContext> = AuthContext & {
  * Later, data could be automatically loaded by passing a reference ID parameter
  * terraformerId => will inject terrafomer object into context if found within Bearer database
  */
-export type ISaveStateAction<AuthContext = TAuthContext, State = any, ReturnedData = any, Params = any> = (
-  event: {
-    context: TBearerLambdaContext<AuthContext>
-    params: Params
-    state: State
-  }
+export type TSaveStateAction<AuthContext = TAuthContext, State = any, ReturnedData = any, Params = any> = (
+  event: TSaveActionEvent<AuthContext, State, Params>
 ) => Promise<TSaveStatePayload<State, ReturnedData>>
 
-/**
- * Retrieve state action, lets you get the data from Bearer database
- * Alternatively, you can use query string parameter reference ID
- * to load the data directly into action context
- */
-export type IRetrieveStateAction<AuthContext = TAuthContext, State = any, ReturnedData = any, Params = any> = (
-  event: {
-    context: TBearerLambdaContext<AuthContext>
-    params: Params
-    state: State
-  }
-) => Promise<TFetchPayload<ReturnedData>>
+export type TSaveActionEvent<AuthContext = TAuthContext, State = any, Params = any> = {
+  context: TBearerLambdaContext<AuthContext>
+  params: Params
+  state: Partial<State>
+}
 
 /**
  * Fetch any data
  */
-export type TFetchAction<AuthContext = TAuthContext, ReturnedData = any> = (
-  event: {
-    context: TBearerLambdaContext<AuthContext>
-    params: Record<string, any>
-  }
+export type TFetchAction<AuthContext = TAuthContext, Params = Record<string, any>, ReturnedData = any> = (
+  event: TFetchActionEvent<AuthContext, Params>
 ) => Promise<TFetchPayload<ReturnedData>>
+
+export type TFetchActionEvent<AuthContext = TAuthContext, Params = Record<string, any>> = {
+  context: TBearerLambdaContext<AuthContext>
+  params: Params
+}
 
 export type TStateData = AxiosResponse<{
   Item: any
@@ -86,50 +72,3 @@ export type TLambdaEvent<T = TAuthContext> = {
 }
 
 export type TLambdaCallback = (error: any | null, data: any) => void
-
-/**
- * Deprecated
- */
-
-/**
- * @deprecated since version beta5 please use ISaveStateAction
- *
- * Save state action, stores data into Bearer database without having to deal with database communication
- * In subsequent requests set the reference ID query string parameter preload the data into action context
- * e.g. terraformerId => will inject terrafomer object into context if found within Bearer database
- */
-export type ISaveStateIntentAction = (
-  context: TBearerLambdaContext,
-  _params: any,
-  body: any,
-  state: any,
-  callback: (result: TSaveStatePayload) => void
-) => void
-
-/**
- * @deprecated since version beta5 please use IRetrieveStateAction
- * Retrieve state action, let you retrieve data stored into Bearer database
- * Alternatively, you can retrieve data from a fetch Intent by
- */
-export type IRetrieveStateIntentAction = (
-  context: TBearerLambdaContext,
-  _params: any,
-  state: any,
-  callback: (result: TRetrieveStatePayload) => void
-) => void
-
-/**
- * @deprecated since version beta5 please use IRetrieveStateAction
- */
-export type TFetchDataAction = (
-  context: TBearerLambdaContext,
-  params: Record<string, any>,
-  body: Record<string, any>,
-  callback: (result: TFetchPayload) => void
-) => void
-
-/**
- * when success, state represents the data you want to store within Bearer database
- * whereras data sent in intent response could be different
- */
-export type TSaveStateCallback = (payload: TSaveStatePayload & TErrorPayload<any>) => void
