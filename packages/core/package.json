@@ -1,6 +1,6 @@
 {
   "name": "@bearer/core",
-  "version": "0.87.2",
+  "version": "0.88.0",
   "description": "Bearer Core",
   "main": "lib/main.js",
   "types": "lib/index.d.ts",
@@ -60,7 +60,7 @@
     "tslint": "^5.11.0"
   },
   "dependencies": {
-    "@bearer/types": "^0.87.0",
+    "@bearer/types": "^0.88.0",
     "@stencil/core": "0.11.2",
     "fbemitter": "^2.1.1",
     "post-robot": "^8.0.26",

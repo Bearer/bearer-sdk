@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.88.0"></a>
+# [0.88.0](https://github.com/Bearer/bearer/compare/v0.87.3...v0.88.0) (2019-01-17)
+
+
+### Bug Fixes
+
+* **transpiler:** input output transpiler intent arguments ([90cd61a](https://github.com/Bearer/bearer/commit/90cd61a))
+
+
+
+
+
 <a name="0.87.0"></a>
 # [0.87.0](https://github.com/Bearer/bearer/compare/v0.86.2...v0.87.0) (2019-01-15)
 

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.88.0"></a>
+# [0.88.0](https://github.com/Bearer/bearer/compare/v0.87.3...v0.88.0) (2019-01-17)
+
+
+### Bug Fixes
+
+* **transpiler:** input output transpiler intent arguments ([90cd61a](https://github.com/Bearer/bearer/commit/90cd61a))
+
+
+### Features
+
+* **intents:** add first fetsh promise version ([cf98b8c](https://github.com/Bearer/bearer/commit/cf98b8c))
+* **intents:** first version of promisified fetch intent ([d9fbbdc](https://github.com/Bearer/bearer/commit/d9fbbdc))
+* **intents:** implement save state intent ([45284b9](https://github.com/Bearer/bearer/commit/45284b9))
+
+
+
+
+
 <a name="0.87.3"></a>
 ## [0.87.3](https://github.com/Bearer/bearer/compare/v0.87.2...v0.87.3) (2019-01-16)
 
