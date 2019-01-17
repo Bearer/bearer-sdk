@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.89.0"></a>
+# [0.89.0](https://github.com/Bearer/bearer/compare/v0.88.0...v0.89.0) (2019-01-17)
+
+
+### Bug Fixes
+
+* migrate to async for good ([#477](https://github.com/Bearer/bearer/issues/477)) ([da95eb5](https://github.com/Bearer/bearer/commit/da95eb5))
+
+
+
+
+
 <a name="0.88.0"></a>
 # [0.88.0](https://github.com/Bearer/bearer/compare/v0.87.3...v0.88.0) (2019-01-17)
 
