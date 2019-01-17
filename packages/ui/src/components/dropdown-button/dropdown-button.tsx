@@ -1,25 +1,17 @@
-import { Component, Listen, Method, Prop, State } from '@bearer/core'
-import Bearer from '@bearer/core'
+import { Component, Listen, Method, Prop, Element } from '@bearer/core'
 
 @Component({
-  tag: 'bearer-dropdown-button',
-  styleUrl: 'dropdown-button.scss',
-  shadow: true
+  tag: 'bearer-dropdown-button'
 })
 export class BearerDropdownButton {
-  @State() visible: boolean = false
-  @Prop() opened: boolean
+  @Element() el: HTMLElement
+  @Prop() opened: boolean = false
   @Prop() innerListener: string
   @Prop() btnProps: JSXElements.BearerButtonAttributes = {}
-
-  toggleDisplay = e => {
-    e.preventDefault()
-    this.visible = !this.visible
-  }
-
+  @Prop() backNav: boolean = false
   @Listen('body:click')
   clickOutsideHandler() {
-    this.visible = false
+    this.toggle(false)
   }
 
   @Listen('click')
@@ -29,18 +21,27 @@ export class BearerDropdownButton {
 
   @Method()
   toggle(opened: boolean) {
-    this.visible = opened
+    this.popover.toggle(opened)
+  }
+
+  close = () => {
+    this.toggle(false)
   }
 
   componentDidLoad() {
-    if (this.opened === false) {
-      this.visible = false
-    }
     if (this.innerListener) {
-      Bearer.emitter.addListener(this.innerListener, () => {
-        this.visible = false
-      })
+      this.el.addEventListener(this.innerListener, this.close)
     }
+  }
+
+  componentDidUnload() {
+    if (this.innerListener) {
+      this.el.removeEventListener(this.innerListener, this.close)
+    }
+  }
+
+  private get popover(): HTMLBearerDropdownButtonElement {
+    return this.el.querySelector<HTMLBearerDropdownButtonElement>('bearer-button-popover')
   }
 
   render() {
@@ -50,17 +51,21 @@ export class BearerDropdownButton {
       ...rest
     }
     return (
-      <div class="root">
-        <bearer-button {...btnProps} onClick={this.toggleDisplay}>
-          {content}
-          <span class="symbol">▾</span>
-        </bearer-button>
-        {this.visible && (
-          <div class="dropdown-down">
-            <slot />
-          </div>
-        )}
-      </div>
+      <bearer-button-popover
+        btnProps={btnProps}
+        direction="bottom"
+        aligned="left"
+        opened={this.opened}
+        backNav={this.backNav}
+      >
+        <span slot="btn-content">
+          <slot name="dropdown-btn-content" />
+          <span class="symbol" style={{ paddingLeft: '10px' }}>
+            ▾
+          </span>
+        </span>
+        <slot />
+      </bearer-button-popover>
     )
   }
 }

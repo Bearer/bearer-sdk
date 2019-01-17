@@ -18,9 +18,19 @@ import {
   FieldSet,
 } from './components/Forms/Fieldset';
 import {
+  BKind as BKind2,
+} from './components/Button/Button';
+import {
+  TAlignement,
+  TDirection,
+} from './components/button-popover/button-popover';
+import {
   TMember,
   TMemberRenderer,
 } from './components/navigator/types';
+import {
+  TDirection as TDirection2,
+} from './components/button-popover/button-popover';
 import {
   TFetchBearerData,
 } from '@bearer/core';
@@ -69,7 +79,8 @@ declare global {
       'disabled': boolean;
       'kind': BKind;
       'outline': boolean;
-      'size': 'md' | 'sm' | 'lg';
+      'size': 'medium' | 'small' | 'large';
+      'type': string;
     }
 
     interface BearerCheckbox {
@@ -144,11 +155,12 @@ declare global {
     }
 
     interface BearerButtonPopover {
-      'arrow': boolean;
+      'aligned': TAlignement;
       'backNav': boolean;
       'btnProps': JSXElements.BearerButtonAttributes;
-      'direction': string;
+      'direction': TDirection;
       'header': string;
+      'kind': BKind;
       'opened': boolean;
       'toggle': (opened: boolean) => void;
     }
@@ -164,6 +176,7 @@ declare global {
     }
 
     interface BearerDropdownButton {
+      'backNav': boolean;
       'btnProps': JSXElements.BearerButtonAttributes;
       'innerListener': string;
       'opened': boolean;
@@ -204,9 +217,9 @@ declare global {
     }
 
     interface BearerNavigator {
-      'btnProps': JSXElements.BearerButtonAttributes;
+      'btnKind': BKind;
       'complete': <T>(payload: { data: T; complete(): void }) => void;
-      'direction': string;
+      'direction': TDirection;
       'display': string;
     }
 
@@ -243,7 +256,7 @@ declare global {
     }
 
     interface BearerSetup {
-      'fields': Array<any> | string;
+      'fields': any[] | string;
       'referenceId': string;
       'scenarioId': string;
     }
@@ -524,7 +537,8 @@ declare global {
       'disabled'?: boolean;
       'kind'?: BKind;
       'outline'?: boolean;
-      'size'?: 'md' | 'sm' | 'lg';
+      'size'?: 'medium' | 'small' | 'large';
+      'type'?: string;
     }
 
     export interface BearerCheckboxAttributes extends HTMLAttributes {
@@ -606,11 +620,12 @@ declare global {
     }
 
     export interface BearerButtonPopoverAttributes extends HTMLAttributes {
-      'arrow'?: boolean;
+      'aligned'?: TAlignement;
       'backNav'?: boolean;
       'btnProps'?: JSXElements.BearerButtonAttributes;
-      'direction'?: string;
+      'direction'?: TDirection;
       'header'?: string;
+      'kind'?: BKind;
       'onVisibilityChange'?: (event: CustomEvent) => void;
       'opened'?: boolean;
     }
@@ -627,6 +642,7 @@ declare global {
     }
 
     export interface BearerDropdownButtonAttributes extends HTMLAttributes {
+      'backNav'?: boolean;
       'btnProps'?: JSXElements.BearerButtonAttributes;
       'innerListener'?: string;
       'opened'?: boolean;
@@ -667,9 +683,9 @@ declare global {
     }
 
     export interface BearerNavigatorAttributes extends HTMLAttributes {
-      'btnProps'?: JSXElements.BearerButtonAttributes;
+      'btnKind'?: BKind;
       'complete'?: <T>(payload: { data: T; complete(): void }) => void;
-      'direction'?: string;
+      'direction'?: TDirection;
       'display'?: string;
     }
 
@@ -707,7 +723,7 @@ declare global {
     }
 
     export interface BearerSetupAttributes extends HTMLAttributes {
-      'fields'?: Array<any> | string;
+      'fields'?: any[] | string;
       'onSetupSuccess'?: (event: CustomEvent) => void;
       'referenceId'?: string;
       'scenarioId'?: string;
