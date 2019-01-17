@@ -34,7 +34,10 @@ function propertyReferenceIdNames(meta: TCreateLoadResourceMethod, metaCollectio
   })
 }
 
-export function createLoadResourceMethod(meta: TCreateLoadResourceMethod, metaCollection: TCreateLoadResourceMethod[]) {
+export function createLoadResourceMethod(
+  meta: TCreateLoadResourceMethod,
+  metaCollection: TCreateLoadResourceMethod[] = []
+) {
   const intentCall = ts.createCall(ts.createPropertyAccess(ts.createThis(), meta.intentMethodName), undefined, [
     ts.createObjectLiteral([
       ts.createPropertyAssignment(
