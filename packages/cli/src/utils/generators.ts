@@ -1,5 +1,5 @@
 import * as intents from '@bearer/intents'
-import * as fs from 'fs-extra'
+import * as fs from 'fs'
 import * as globby from 'globby'
 import * as path from 'path'
 import * as ts from 'typescript'
@@ -10,54 +10,12 @@ const config = ts.readConfigFile(path.join(__dirname, '../../templates/start', '
 const NON_INTENT_NAMES = ['DBClient']
 const INTENT_NAMES = Object.keys(intents).filter(intentName => !NON_INTENT_NAMES.includes(intentName))
 const INTENT_TYPE_IDENTIFIER = 'intentType'
-// const FUNCTION_NAME_IDENTIFIER = 'action'
 
 const intentEntries: IIntentEntry[] = []
 
-// TODO: CORE-197
-// function getDefinition(tsType: ts.TypeNode, generator: TJS.JsonSchemaGenerator): TJS.Definition {
-//   switch (tsType.kind) {
-//     case ts.SyntaxKind.TypeReference:
-//       try {
-//         const name = ((tsType as ts.TypeReferenceNode).typeName as ts.Identifier).escapedText.toString()
-//         return generator.getSchemaForSymbol(name) as any
-//       } catch (e) {
-//         // TODO: re-use type reference
-//         console.debug(e)
-//         return { type: 'any' }
-//       }
-//     case ts.SyntaxKind.TypeLiteral: {
-//       const typeNode = tsType as ts.TypeLiteralNode
-//       return {
-//         type: 'object',
-//         properties: {
-//           ...typeNode.members.reduce((acc, m) => {
-//             const member = m as ts.PropertySignature
-//             const name = (member.name as ts.Identifier).escapedText.toString()
-//             return {
-//               ...acc,
-//               [name]: {
-//                 description: name,
-//                 name,
-//                 required: !member.questionToken,
-//                 schema: getDefinition(member.type!, generator)
-//               }
-//             }
-//           }, {})
-//         }
-//       }
-//     }
-//     case ts.SyntaxKind.NumberKeyword:
-//       return { type: 'number' }
-//     case ts.SyntaxKind.BooleanKeyword:
-//       return { type: 'boolean' }
-//     case ts.SyntaxKind.StringKeyword:
-//       return { type: 'string' }
-//     default: {
-//       return { type: 'object' } as any
-//     }
-//   }
-// }
+function bodySchema(tsType: ts.ClassDeclaration, generator: TJS.JsonSchemaGenerator): TJS.Definition {
+  return {}
+}
 
 class IntentNodeAdapter implements IIntentEntry {
   constructor(
@@ -76,15 +34,7 @@ class IntentNodeAdapter implements IIntentEntry {
   }
 
   get paramsSchema() {
-    const defaultParams = [...DEFAULT_PARAMS]
-    // TODO: CORE-197, needs to be fixed to keep OpenApi spec generated correctly
-    return defaultParams
-    // const typeNode = getFunctionParameterType(this.node, FUNCTION_NAME_IDENTIFIER, 'params')
-    // if (!typeNode) {
-    //   return defaultParams
-    // }
-    // const paramsSchema = getDefinition(typeNode, this.generator)
-    // return [...this.adaptParamsSchema(paramsSchema), ...defaultParams]
+    return [...DEFAULT_PARAMS]
   }
 
   adaptParamsSchema({ properties = {} }: { properties?: { [key: string]: any } }): ISchemaParam[] {
@@ -104,13 +54,9 @@ class IntentNodeAdapter implements IIntentEntry {
   }
 
   get bodySchema() {
-    // TODO: CORE-197, needs to be fixed to keep OpenApi spec generated correctly
-    return {}
-    // const typeNode = getFunctionParameterType(this.node, FUNCTION_NAME_IDENTIFIER, 'body')
-    // if (!typeNode) {
-    //   return {}
-    // }
-    // return getDefinition(typeNode, this.generator)
+    return {
+      properties: bodySchema(this.node, this.generator)
+    }
   }
 
   get outputSchema() {
@@ -156,37 +102,6 @@ export function getPropertyValue(tsNode: ts.ClassDeclaration, propertyName: stri
     }
   }
 }
-
-// TODO: CORE-197
-// function getFunctionParameterType(
-//   tsNode: ts.ClassDeclaration,
-//   functionNameIdentifier: string,
-//   parameterIdentifier: string
-// ): ts.TypeNode | undefined {
-//   if (tsNode.members) {
-//     const methodDeclaration = tsNode.members.find(node => {
-//       return (
-//         ts.isMethodDeclaration(node) && (node.name as ts.Identifier).escapedText.toString() ===
-// functionNameIdentifier
-//       )
-//     }) as ts.MethodDeclaration
-
-//     if (methodDeclaration.parameters) {
-//       const parameter = methodDeclaration.parameters.find(node => {
-//         if (!ts.isParameter(node)) {
-//           return false
-//         }
-//         // @ts-
-//         console.log('[BEARER]', 'node.name', node.getText())
-//         return (node.name as ts.Identifier).escapedText.toString() === parameterIdentifier
-//       })
-//       if (parameter) {
-//         return parameter.type
-//       }
-//     }
-//   }
-//   return
-// }
 
 export function transformer(generator: TJS.JsonSchemaGenerator): ts.TransformerFactory<ts.SourceFile> {
   return (context: ts.TransformationContext) => {
@@ -310,36 +225,8 @@ export class OpenApiSpecGenerator {
                 }
               },
               responses: {
-                '401': {
-                  description: 'Access forbidden',
-                  content: {
-                    'application/json': {
-                      schema: {
-                        type: 'object',
-                        properties: {
-                          error: {
-                            type: 'string'
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                '403': {
-                  description: 'Unauthorized',
-                  content: {
-                    'application/json': {
-                      schema: {
-                        type: 'object',
-                        properties: {
-                          error: {
-                            type: 'string'
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
+                ...unAuthorizedReponse,
+                ...forbiddenResponse,
                 '200': {
                   description: 'Share',
                   content: {
@@ -366,18 +253,55 @@ const DEFAULT_PARAMS: ISchemaParam[] = [
     },
     description: 'API Key',
     required: true
-  },
-  {
-    name: 'authId',
-    schema: {
-      type: 'string',
-      format: 'uuid'
-    },
-    in: 'query',
-    description: 'User Identifier',
-    required: true
   }
+  // we probably don't neet this one anymore
+  // ,{
+  //   name: 'authId',
+  //   schema: {
+  //     type: 'string',
+  //     format: 'uuid'
+  //   },
+  //   in: 'query',
+  //   description: 'User Identifier',
+  //   required: true
+  // }
 ]
+
+const unAuthorizedReponse = {
+  '401': {
+    description: 'Unauthorized',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            error: {
+              type: 'string'
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+const forbiddenResponse = {
+  '403': {
+    description: 'Access forbidden',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            error: {
+              type: 'string'
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 export interface ISchemaParam {
   in: 'query' | 'header'
@@ -400,9 +324,25 @@ export interface IOpenApiSpec {
       post: {
         parameters: any[]
         summary: any[]
-        requestBody: any[]
-        responses: any[]
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: any
+            }
+          }
+        }
+        responses: Record<TStatus, TResponse>
       }
+    }
+  }
+}
+
+type TStatus = '200' | '401' | '403'
+type TResponse = {
+  description: string
+  content: {
+    'application/json': {
+      schema: any
     }
   }
 }
