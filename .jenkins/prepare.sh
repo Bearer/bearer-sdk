@@ -2,6 +2,7 @@
 
 echo "init dependencies"
 echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+echo "unsafe-perm=true" >> ~/.npmrc 
 
 mkdir -p ~/.ssh
 cat $JENKINS_PRIVATE_KEY >> ~/.ssh/id_rsa
