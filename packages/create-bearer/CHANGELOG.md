@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.90.2](http://github.com/bearer/bearer/packages/create-bearer/compare/v0.90.1...v0.90.2) (2019-01-22)
+
+**Note:** Version bump only for package create-bearer
+
+
+
+
+
 ## [0.90.1](http://github.com/bearer/bearer/packages/create-bearer/compare/v0.90.0...v0.90.1) (2019-01-22)
 
 **Note:** Version bump only for package create-bearer
