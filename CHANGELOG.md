@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.90.0"></a>
+# [0.90.0](https://github.com/Bearer/bearer/compare/v0.89.2...v0.90.0) (2019-01-22)
+
+
+### Features
+
+* **cli:** Core 216/intents as instance ([#482](https://github.com/Bearer/bearer/issues/482)) ([6ed680f](https://github.com/Bearer/bearer/commit/6ed680f))
+* [CORE-216] - intents abstract classes ([#484](https://github.com/Bearer/bearer/issues/484)) ([035684c](https://github.com/Bearer/bearer/commit/035684c))
+
+
+
+
+
 <a name="0.89.2"></a>
 ## [0.89.2](https://github.com/Bearer/bearer/compare/v0.89.1...v0.89.2) (2019-01-17)
 
