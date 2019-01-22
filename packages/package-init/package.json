@@ -1,6 +1,6 @@
 {
   "name": "@bearer/package-init",
-  "version": "0.90.0",
+  "version": "0.90.1",
   "author": "Bearer Team<engineering@bearer.sh>",
   "bin": {
     "aligator": "./bin/run"
