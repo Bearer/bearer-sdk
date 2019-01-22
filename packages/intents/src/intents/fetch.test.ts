@@ -1,39 +1,19 @@
 import { FetchData, FetchActionExecutionError } from './fetch'
 import * as d from '../declaration'
 
-describe('Intents', () => {
-  describe('Async fetch', () => {
-    const defaultAction = () =>
-      jest.fn(() => {
-        return { data: 'returned-data' }
-      })
+describe('FetchData intent', () => {
+  describe('.init', () => {
+    it('forwards context and params (query + body)', async () => {
+      const { intent, event } = setup(PassContextIntent)
+      const result = await intent(event)
 
-    function setup(action = defaultAction()) {
-      const event: d.TLambdaEvent = {
-        context: 'something',
-        queryStringParameters: {
-          firstParams: 'firstValue',
-          overriden: 'weDontCare'
+      expect(result.data).toMatchObject({
+        context: {
+          iDefinedData: 'iDefinedDataExisting',
+          authAccess: {
+            apiKey: 'aKey'
+          }
         },
-        body: {
-          overriden: 'thisOneWeCare'
-        }
-      } as any
-
-      const intent = FetchData.intent(action as any)
-      return {
-        action,
-        event,
-        intent
-      }
-    }
-
-    it('forward context and params (query + body)', async () => {
-      const { intent, event, action } = setup()
-      await intent(event)
-
-      expect(action).toHaveBeenCalledWith({
-        context: 'something',
         params: {
           firstParams: 'firstValue',
           overriden: 'thisOneWeCare'
@@ -41,32 +21,85 @@ describe('Intents', () => {
       })
     })
 
-    it('return a payload', async () => {
-      const { intent, event } = setup()
+    it('returns a payload', async () => {
+      const { intent, event } = setup(FetchIntent)
 
       const result = await intent(event)
 
-      expect(result).toMatchObject({ data: 'returned-data' })
+      expect(result).toMatchObject({ data: ['returned-data', 'somethingFromParams', 'iDefinedDataExisting'] })
     })
 
-    describe('error handling', () => {
-      it('fails gracefully when action throw an error', async () => {
-        const hardFailingAction = jest.fn(() => {
-          throw 'sponge Bob Died'
+    describe('when errors occur', () => {
+      describe('when error is thrown within the action', () => {
+        it('fails gracefully', async () => {
+          const { intent, event } = setup(HardFailingIntent)
+
+          expect(intent(event)).rejects.toEqual(new FetchActionExecutionError('sponge Bob Died'))
         })
-        const { intent, event } = setup(hardFailingAction)
-        return expect(intent(event)).rejects.toEqual(new FetchActionExecutionError('sponge Bob Died'))
       })
 
-      it('fails gracefully when action return error payload', async () => {
-        const errorFromPayloadAction = jest.fn(() => {
-          return { error: '😨 No luck today' } as any
-        })
-        const { intent, event } = setup(errorFromPayloadAction)
+      describe('when action returns an error payload', () => {
+        it('fails gracefully', async () => {
+          const { intent, event } = setup(FailingIntent)
 
-        const result = await intent(event)
-        return expect(result).toMatchObject({ error: '😨 No luck today' })
+          const result = await intent(event)
+
+          expect(result).toMatchObject({ error: '😨 No luck today' })
+        })
       })
     })
   })
 })
+
+class PassContextIntent extends FetchData implements FetchData<any, any, any> {
+  async action(event: d.TFetchActionEvent) {
+    return { data: event }
+  }
+}
+
+class FetchIntent extends FetchData implements FetchData<string[], any, d.TAPIKEYAuthContext> {
+  async action(event: d.TFetchActionEvent<{ typedParam: string }, d.TAPIKEYAuthContext, { iDefinedData: string }>) {
+    return { data: ['returned-data', event.params.typedParam, event.context.iDefinedData] }
+  }
+}
+
+class FailingIntent extends FetchData implements FetchData<any, string, d.TAPIKEYAuthContext> {
+  async action(_event: d.TFetchActionEvent) {
+    return { error: '😨 No luck today' }
+  }
+}
+
+class HardFailingIntent extends FetchData implements FetchData {
+  async action(_event: any) {
+    return await new Promise(() => {
+      throw 'sponge Bob Died'
+    })
+  }
+}
+
+/**
+ * setup
+ * @param intencClass FetchIntent implementation
+ */
+function setup(intencClass: any) {
+  const event: d.TLambdaEvent = {
+    context: {
+      authAccess: { apiKey: 'aKey' },
+      iDefinedData: 'iDefinedDataExisting'
+    },
+    queryStringParameters: {
+      firstParams: 'firstValue',
+      overriden: 'weDontCare',
+      typedParam: 'somethingFromParams'
+    },
+    body: {
+      overriden: 'thisOneWeCare'
+    }
+  } as any
+
+  const intent = intencClass.init()
+  return {
+    event,
+    intent
+  }
+}

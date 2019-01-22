@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Generate APIKEY - generate:intent Fetch intent 1`] = `
+exports[`intents generator When APIKEY intent type: FetchData matches snapshot 1`] = `
 "import { TAPIKEYAuthContext, FetchData, TFetchActionEvent, TFetchPromise } from '@bearer/intents'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class FetchDataIntentIntent extends FetchData implements FetchData<ReturnedData, any, TAPIKEYAuthContext> {
+export default class APIKEYFetchDataIntentIntent extends FetchData implements FetchData<ReturnedData, any, TAPIKEYAuthContext> {
   async action(event: TFetchActionEvent<Params, TAPIKEYAuthContext>): TFetchPromise<ReturnedData> {
     // const token = event.context.authAccess.apiKey
     // Put your logic here
@@ -26,12 +26,12 @@ export type ReturnedData = {
 "
 `;
 
-exports[`Generate APIKEY - generate:intent Save intent 1`] = `
+exports[`intents generator When APIKEY intent type: SaveState matches snapshot 1`] = `
 "import { TAPIKEYAuthContext, SaveState, TSaveActionEvent, TSavePromise } from '@bearer/intents'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class SaveIntentIntent extends SaveState implements SaveState<State, ReturnedData, any, TAPIKEYAuthContext> {
+export default class APIKEYSaveStateIntentIntent extends SaveState implements SaveState<State, ReturnedData, any, TAPIKEYAuthContext> {
   async action(event: TSaveActionEvent<State, Params, TAPIKEYAuthContext>): TSavePromise<State, ReturnedData> {
     // const token = event.context.authAccess.apiKey
     // Put your logic here
@@ -56,12 +56,12 @@ export type ReturnedData = {
 "
 `;
 
-exports[`Generate BASIC - generate:intent Fetch intent 1`] = `
+exports[`intents generator When BASIC intent type: FetchData matches snapshot 1`] = `
 "import { TBASICAuthContext, FetchData, TFetchActionEvent, TFetchPromise } from '@bearer/intents'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class FetchDataIntentIntent extends FetchData implements FetchData<ReturnedData, any, TBASICAuthContext>{
+export default class BASICFetchDataIntentIntent extends FetchData implements FetchData<ReturnedData, any, TBASICAuthContext>{
   async action(event: TFetchActionEvent<Params, TBASICAuthContext>): TFetchPromise<ReturnedData> {
     // const { username, password } = event.context.authAccess
     // Put your logic here
@@ -82,12 +82,12 @@ export type ReturnedData = {
 "
 `;
 
-exports[`Generate BASIC - generate:intent Save intent 1`] = `
+exports[`intents generator When BASIC intent type: SaveState matches snapshot 1`] = `
 "import { TBASICAuthContext, SaveState, TSaveActionEvent, TSavePromise } from '@bearer/intents'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class SaveIntentIntent extends SaveState implements SaveState<State, ReturnedData, any, TBASICAuthContext> {
+export default class BASICSaveStateIntentIntent extends SaveState implements SaveState<State, ReturnedData, any, TBASICAuthContext> {
   async action(event: TSaveActionEvent<State, Params, TBASICAuthContext>): TSavePromise<State, ReturnedData> {
     // const { username, password } = event.context.authAccess
     // Put your logic here
@@ -112,12 +112,12 @@ export type ReturnedData = {
 "
 `;
 
-exports[`Generate NONE - generate:intent Fetch intent 1`] = `
+exports[`intents generator When NONE intent type: FetchData matches snapshot 1`] = `
 "import { FetchData, TFetchActionEvent, TFetchPromise } from '@bearer/intents'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class FetchDataIntentIntent extends FetchData implements FetchData<ReturnedData, any> {
+export default class NONEFetchDataIntentIntent extends FetchData implements FetchData<ReturnedData, any> {
   async action(event: TFetchActionEvent<Params>): TFetchPromise<ReturnedData> {
     // Put your logic here
     return { data: [] }
@@ -137,12 +137,12 @@ export type ReturnedData = {
 "
 `;
 
-exports[`Generate NONE - generate:intent Save intent 1`] = `
+exports[`intents generator When NONE intent type: SaveState matches snapshot 1`] = `
 "import { SaveState, TSaveActionEvent, TSavePromise } from '@bearer/intents'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class SaveIntentIntent extends SaveState implements SaveState<State, ReturnedData, any> {
+export default class NONESaveStateIntentIntent extends SaveState implements SaveState<State, ReturnedData, any> {
   async action(event: TSaveActionEvent<State, Params>): TSavePromise<State, ReturnedData> {
     // Put your logic here
     return { state: [], data: [] }
@@ -167,12 +167,12 @@ export type ReturnedData = {
 "
 `;
 
-exports[`Generate OAUTH2 - generate:intent Fetch intent 1`] = `
+exports[`intents generator When OAUTH2 intent type: FetchData matches snapshot 1`] = `
 "import { TOAUTH2AuthContext, FetchData, TFetchActionEvent, TFetchPromise } from '@bearer/intents'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class FetchDataIntentIntent extends FetchData implements FetchData<ReturnedData, any, TOAUTH2AuthContext> {
+export default class OAUTH2FetchDataIntentIntent extends FetchData implements FetchData<ReturnedData, any, TOAUTH2AuthContext> {
   async action(event: TFetchActionEvent<Params, TOAUTH2AuthContext>): TFetchPromise<ReturnedData> {
     // const token = event.context.authAccess.accessToken
     // Put your logic here
@@ -193,12 +193,12 @@ export type ReturnedData = {
 "
 `;
 
-exports[`Generate OAUTH2 - generate:intent Save intent 1`] = `
+exports[`intents generator When OAUTH2 intent type: SaveState matches snapshot 1`] = `
 "import { TOAUTH2AuthContext, SaveState, TSaveActionEvent, TSavePromise } from '@bearer/intents'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class SaveIntentIntent extends SaveState implements SaveState<State, ReturnedData, any, TOAUTH2AuthContext> {
+export default class OAUTH2SaveStateIntentIntent extends SaveState implements SaveState<State, ReturnedData, any, TOAUTH2AuthContext> {
   async action(event: TSaveActionEvent<State, Params, TOAUTH2AuthContext>): TSavePromise<State, ReturnedData> {
     // const token = event.context.authAccess.accessToken
     // Put your logic here

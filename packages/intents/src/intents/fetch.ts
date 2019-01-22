@@ -5,7 +5,13 @@ import { eventAsActionParams } from './utils'
 
 const logger = debug('intents:fetch-state')
 
-export class FetchData {
+export abstract class FetchData<ReturnedData = any, TError = any, AuthContext = any> {
+  // expected implementation
+  abstract async action(
+    event: d.TFetchActionEvent<any, AuthContext, any>
+  ): Promise<d.TFetchPayload<ReturnedData, TError>>
+
+  // Internal
   static intent(action: d.TFetchAction) {
     return async (event: d.TLambdaEvent) => {
       try {
@@ -20,6 +26,10 @@ export class FetchData {
         throw new FetchActionExecutionError(error)
       }
     }
+  }
+
+  static init() {
+    return FetchData.intent(new (this.prototype.constructor as any)().action)
   }
 }
 
