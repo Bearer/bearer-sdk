@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.90.5](https://github.com/Bearer/bearer/compare/v0.90.4...v0.90.5) (2019-01-23)
+
+**Note:** Version bump only for package @bearer/bearer-cli
+
+
+
+
+
 ## [0.90.4](https://github.com/Bearer/bearer/compare/v0.90.3...v0.90.4) (2019-01-23)
 
 **Note:** Version bump only for package @bearer/bearer-cli

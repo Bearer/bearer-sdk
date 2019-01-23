@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.90.5](https://github.com/BearerSH/bearer/compare/v0.90.4...v0.90.5) (2019-01-23)
+
+
+### Bug Fixes
+
+* **intents:** remove unnecessary typing ([#490](https://github.com/BearerSH/bearer/issues/490)) ([e2f5eed](https://github.com/BearerSH/bearer/commit/e2f5eed))
+
+
+
+
+
 ## [0.90.4](https://github.com/BearerSH/bearer/compare/v0.90.3...v0.90.4) (2019-01-23)
 
 
