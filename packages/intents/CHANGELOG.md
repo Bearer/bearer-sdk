@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.90.4](https://github.com/BearerSH/bearer/compare/v0.90.3...v0.90.4) (2019-01-23)
+
+
+### Bug Fixes
+
+* **intents:** make intent writing less restrictive ([#488](https://github.com/BearerSH/bearer/issues/488)) ([75d8145](https://github.com/BearerSH/bearer/commit/75d8145))
+
+
+
+
+
 ## [0.90.2](https://github.com/BearerSH/bearer/compare/v0.90.1...v0.90.2) (2019-01-22)
 
 **Note:** Version bump only for package @bearer/intents
