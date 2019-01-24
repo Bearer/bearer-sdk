@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.91.0](http://github.com/bearer/bearer/packages/create-bearer/compare/v0.90.6...v0.91.0) (2019-01-24)
+
+
+### Features
+
+* **create-bearer:** allow npm/yarn init npx command runners ([#493](http://github.com/bearer/bearer/packages/create-bearer/issues/493)) ([56145fa](http://github.com/bearer/bearer/packages/create-bearer/commit/56145fa))
+
+
+
+
+
 ## [0.90.2](http://github.com/bearer/bearer/packages/create-bearer/compare/v0.90.1...v0.90.2) (2019-01-22)
 
 **Note:** Version bump only for package create-bearer

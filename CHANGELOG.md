@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.91.0](https://github.com/Bearer/bearer/compare/v0.90.6...v0.91.0) (2019-01-24)
+
+
+### Features
+
+* **cli:** allow password to be passed as env variable ([#491](https://github.com/Bearer/bearer/issues/491)) ([bfdf4d3](https://github.com/Bearer/bearer/commit/bfdf4d3))
+* **cli:** bearer cli setup action components templates ([#492](https://github.com/Bearer/bearer/issues/492)) ([06b5d5c](https://github.com/Bearer/bearer/commit/06b5d5c))
+* **create-bearer:** allow npm/yarn init npx command runners ([#493](https://github.com/Bearer/bearer/issues/493)) ([56145fa](https://github.com/Bearer/bearer/commit/56145fa))
+
+
+
+
+
 ## [0.90.6](https://github.com/Bearer/bearer/compare/v0.90.5...v0.90.6) (2019-01-23)
 
 
