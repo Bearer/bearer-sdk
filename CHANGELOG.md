@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.91.1](https://github.com/Bearer/bearer/compare/v0.91.0...v0.91.1) (2019-01-24)
+
+
+### Bug Fixes
+
+* **create-bearer:** prefix command with new + doc ([#494](https://github.com/Bearer/bearer/issues/494)) ([089a7ce](https://github.com/Bearer/bearer/commit/089a7ce))
+
+
+
+
+
 # [0.91.0](https://github.com/Bearer/bearer/compare/v0.90.6...v0.91.0) (2019-01-24)
 
 
