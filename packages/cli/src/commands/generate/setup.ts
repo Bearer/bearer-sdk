@@ -4,7 +4,8 @@ import * as path from 'path'
 
 import BaseCommand from '../../base-command'
 import { RequireScenarioFolder } from '../../utils/decorators'
-import { copyFiles } from '../../utils/helpers'
+import * as Listr from 'listr'
+import buildSetup from '../../tasks/build-setup'
 
 export default class GenerateSetup extends BaseCommand {
   static description = 'Generate a Bearer Setup'
@@ -20,13 +21,12 @@ export default class GenerateSetup extends BaseCommand {
       const fields = this.scenarioAuthConfig.setupViews
       if (fields && fields.length) {
         try {
-          await copyFiles(
-            this,
-            'generate/setup',
-            this.locator.srcViewsDir,
-            this.getVars(this.bearerConfig.scenarioConfig.scenarioTitle, fields)
-          )
-          this.success('Setup components successfully generated! 🎉')
+          const vars = this.getVars(this.bearerConfig.scenarioConfig.scenarioTitle, fields)
+          const tasks: Listr.ListrTask[] = buildSetup({
+            vars,
+            cmd: this
+          })
+          await new Listr(tasks).run()
         } catch (e) {
           this.error(e)
         }
