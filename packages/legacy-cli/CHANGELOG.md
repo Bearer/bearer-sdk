@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.91.2](https://github.com/Bearer/bearer/compare/v0.91.1...v0.91.2) (2019-01-25)
+
+
+### Bug Fixes
+
+* **cli:** [CORE-191] - fix script packages ([#495](https://github.com/Bearer/bearer/issues/495)) ([183d22a](https://github.com/Bearer/bearer/commit/183d22a))
+
+
+
+
+
 # [0.91.0](https://github.com/Bearer/bearer/compare/v0.90.6...v0.91.0) (2019-01-24)
 
 **Note:** Version bump only for package @bearer/bearer-cli
