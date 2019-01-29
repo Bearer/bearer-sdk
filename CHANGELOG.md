@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.91.3](https://github.com/Bearer/bearer/compare/v0.91.2...v0.91.3) (2019-01-29)
+
+
+### Bug Fixes
+
+* **tranpiler:** run tranpile phase twice ([678e9cc](https://github.com/Bearer/bearer/commit/678e9cc))
+
+
+
+
+
 ## [0.91.2](https://github.com/Bearer/bearer/compare/v0.91.1...v0.91.2) (2019-01-25)
 
 
