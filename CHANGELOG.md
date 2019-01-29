@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.91.4](https://github.com/Bearer/bearer/compare/v0.91.3...v0.91.4) (2019-01-29)
+
+
+### Bug Fixes
+
+* **ui:** Fix button shadow ([#500](https://github.com/Bearer/bearer/issues/500)) ([4bc562d](https://github.com/Bearer/bearer/commit/4bc562d))
+
+
+
+
+
 ## [0.91.3](https://github.com/Bearer/bearer/compare/v0.91.2...v0.91.3) (2019-01-29)
 
 
