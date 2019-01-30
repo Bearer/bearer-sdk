@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.91.8](https://github.com/Bearer/bearer/compare/v0.91.7...v0.91.8) (2019-01-30)
+
+
+### Bug Fixes
+
+* **transpiler:** allow using a different prop as referenceId value ([b6da586](https://github.com/Bearer/bearer/commit/b6da586))
+
+
+
+
+
 ## [0.91.5](https://github.com/Bearer/bearer/compare/v0.91.4...v0.91.5) (2019-01-29)
 
 **Note:** Version bump only for package @bearer/transpiler
