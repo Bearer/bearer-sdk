@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.92.0](https://github.com/Bearer/bearer/compare/v0.91.8...v0.92.0) (2019-01-31)
+
+**Note:** Version bump only for package @bearer/node
+
+
+
+
+
 ## [0.91.5](https://github.com/Bearer/bearer/compare/v0.91.4...v0.91.5) (2019-01-29)
 
 **Note:** Version bump only for package @bearer/node
