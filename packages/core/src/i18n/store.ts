@@ -46,7 +46,7 @@ export class Store implements I18nStore {
     const browserLang = navigator.languages
       .map(lang => lang.split('-')[0].toLowerCase())
       .find(locale => this.translationStore[locale])
-    return (browserLamg || document.documentElement.lang || DEFAULT_LOCALE).toLowerCase()
+    return (browserLang || document.documentElement.lang || DEFAULT_LOCALE).toLowerCase()
   }
 }
 
