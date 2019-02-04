@@ -10,7 +10,7 @@
     "push": "bearer push",
     "start": "bearer start",
     "invoke": "bearer invoke",
-    "generate": "bearer invoke",
+    "generate": "bearer generate",
     "test": "jest"
   },
   "dependencies": {
