@@ -15,7 +15,7 @@ export default class Login extends BaseCommand {
 
   async run() {
     const { flags } = this.parse(Login)
-    const email = flags.email || (await this.askForString('Enter your email'))
+    const email = process.env.BEARER_EMAIL || flags.email || (await this.askForString('Enter your email'))
     const token = process.env.BEARER_TOKEN || (await this.askToken())
     this.ux.action.start('Logging you in')
     const status = await this.logUser(email, token)
