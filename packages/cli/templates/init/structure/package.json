@@ -10,8 +10,7 @@
     "push": "bearer push",
     "start": "bearer start",
     "invoke": "bearer invoke",
-    "generate": "bearer generate",
-    "test": "jest"
+    "generate": "bearer generate"
   },
   "dependencies": {
     "@bearer/core": "{{bearerTagVersion}}",
@@ -21,22 +20,7 @@
   },
   "devDependencies": {
     "@bearer/cli": "{{bearerTagVersion}}",
-    "@types/jest": "latest",
-    "@types/node": "latest",
-    "jest": "latest"
+    "@types/node": "latest"
   },
-  "license": "MIT",
-  "jest": {
-    "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json",
-      "jsx"
-    ]
-  }
+  "license": "MIT"
 }
