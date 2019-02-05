@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.93.1](https://github.com/Bearer/bearer/compare/v0.93.0...v0.93.1) (2019-02-05)
+
+
+### Bug Fixes
+
+* **cli:** update hard coded beta version for now ([7ac2b14](https://github.com/Bearer/bearer/commit/7ac2b14))
+
+
+
+
+
 # [0.93.0](https://github.com/Bearer/bearer/compare/v0.92.1...v0.93.0) (2019-02-05)
 
 
