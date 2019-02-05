@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.93.0](https://github.com/Bearer/bearer/compare/v0.92.1...v0.93.0) (2019-02-05)
+
+
+### Bug Fixes
+
+* **bearer-cli:** add missing routes to support v3 ([#511](https://github.com/Bearer/bearer/issues/511)) ([b76c3dc](https://github.com/Bearer/bearer/commit/b76c3dc))
+
+
+### Features
+
+* bump all versions ([4fb7615](https://github.com/Bearer/bearer/commit/4fb7615))
+* need to bump version for everything ([f413953](https://github.com/Bearer/bearer/commit/f413953))
+
+
+
+
+
 ## [0.92.1](https://github.com/Bearer/bearer/compare/v0.92.0...v0.92.1) (2019-02-01)
 
 
