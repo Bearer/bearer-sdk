@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.93.2](https://github.com/Bearer/bearer/compare/v0.93.1...v0.93.2) (2019-02-05)
+
+
+### Bug Fixes
+
+* **cli:** allow email to be passed as env variable ([613dc96](https://github.com/Bearer/bearer/commit/613dc96))
+
+
+
+
+
 ## [0.93.1](https://github.com/Bearer/bearer/compare/v0.93.0...v0.93.1) (2019-02-05)
 
 
