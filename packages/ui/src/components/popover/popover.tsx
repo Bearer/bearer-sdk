@@ -1,20 +1,18 @@
 import { Component, Event, EventEmitter, Method, Prop, State, Watch } from '@bearer/core'
-import { BKind } from '../Button/Button'
 
 export type TAlignement = 'left' | 'right'
 export type TDirection = 'left' | 'right' | 'top' | 'bottom'
 
 @Component({
-  tag: 'bearer-button-popover',
-  styleUrl: 'button-popover.scss',
+  tag: 'bearer-popover',
+  styleUrl: 'popover.scss',
   shadow: true
 })
-export class BearerButtonPopover {
+export class BearerPopover {
   @Event()
   visibilityChange: EventEmitter
 
-  @Prop({ reflectToAttr: true }) kind: BKind = 'action'
-  @Prop({ reflectToAttr: true, mutable: true }) opened: boolean
+  @Prop({ reflectToAttr: true, mutable: true }) opened: boolean = false
   @Prop({ reflectToAttr: true }) direction: TDirection = 'right'
   @Prop({ reflectToAttr: true }) aligned: TAlignement = 'left'
 
@@ -27,13 +25,13 @@ export class BearerButtonPopover {
   toggleDisplay = e => {
     e.preventDefault()
 
-    console.debug('[BEARER]', 'Button popover: toggleDisplay', !this.visible)
+    console.debug('[BEARER]', 'Popover: toggleDisplay', !this.visible)
     this.visible = !this.visible
   }
 
   set visible(newValue: boolean) {
     if (newValue !== null && this._visible !== newValue) {
-      console.debug('[BEARER]', 'Button popover: visibilityChangeHandler', newValue)
+      console.debug('[BEARER]', 'Popover: visibilityChangeHandler', newValue)
       this._visible = newValue
       this.visibilityChange.emit({ visible: this._visible })
     }
@@ -50,7 +48,7 @@ export class BearerButtonPopover {
   }
 
   @Method()
-  toggle(newValue: boolean) {
+  toggle(newValue?: boolean) {
     // Set visibility to toggle param
     // or inverse the current one.
     this.visible = typeof newValue !== 'undefined' ? newValue : !this.visible
@@ -73,9 +71,10 @@ export class BearerButtonPopover {
 
   render() {
     return [
-      <bearer-button kind={this.kind} {...this.btnProps} onClick={this.toggleDisplay}>
-        <slot name="btn-content" />
-      </bearer-button>,
+      // @ts-ignore
+      <slot name="popover-button" onClick={this.toggleDisplay}>
+        <bearer-button kind="primary">My Bearer's Integration</bearer-button>
+      </slot>,
 
       <div
         onClick={this.clickInsidePopover}
