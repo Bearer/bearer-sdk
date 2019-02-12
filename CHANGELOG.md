@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.94.1](https://github.com/Bearer/bearer/compare/v0.94.0...v0.94.1) (2019-02-12)
+
+
+### Bug Fixes
+
+* **cli:** fix maximum version of [@types](https://github.com/types) node ([9841329](https://github.com/Bearer/bearer/commit/9841329))
+
+
+
+
+
 # [0.94.0](https://github.com/Bearer/bearer/compare/v0.93.4...v0.94.0) (2019-02-12)
 
 
