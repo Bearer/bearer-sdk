@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.94.0](https://github.com/Bearer/bearer/compare/v0.93.4...v0.94.0) (2019-02-12)
+
+**Note:** Version bump only for package @bearer/transpiler
+
+
+
+
+
 # [0.93.0](https://github.com/Bearer/bearer/compare/v0.92.1...v0.93.0) (2019-02-05)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.94.0](https://github.com/Bearer/bearer/compare/v0.93.4...v0.94.0) (2019-02-12)
+
+
+### Features
+
+* update intent endpoint ([#513](https://github.com/Bearer/bearer/issues/513)) ([9363f8d](https://github.com/Bearer/bearer/commit/9363f8d))
+
+
+
+
+
 ## [0.93.4](https://github.com/Bearer/bearer/compare/v0.93.3...v0.93.4) (2019-02-12)
 
 **Note:** Version bump only for package bearer-master
