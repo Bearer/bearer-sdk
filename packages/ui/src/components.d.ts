@@ -262,6 +262,7 @@ declare global {
       'content': string;
       'direction': TDirection;
       'heading': string;
+      'kind': BKind;
       'opened': boolean;
       'toggle': (newValue?: boolean) => void;
     }
@@ -769,6 +770,7 @@ declare global {
       'content'?: string;
       'direction'?: TDirection;
       'heading'?: string;
+      'kind'?: BKind;
       'onVisibilityChange'?: (event: CustomEvent) => void;
       'opened'?: boolean;
     }
