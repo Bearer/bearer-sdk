@@ -696,6 +696,7 @@ declare global {
       'count'?: number;
       'default'?: string;
       'key'?: string;
+      'scope'?: string;
       'var'?: any;
     }
 
