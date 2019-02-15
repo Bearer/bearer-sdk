@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.95.0](https://github.com/Bearer/bearer/compare/v0.94.1...v0.95.0) (2019-02-15)
+
+
+### Bug Fixes
+
+* **cli:** add placeholder to test translations ([0bb4e35](https://github.com/Bearer/bearer/commit/0bb4e35))
+
+
+
+
+
 ## [0.94.1](https://github.com/Bearer/bearer/compare/v0.94.0...v0.94.1) (2019-02-12)
 
 

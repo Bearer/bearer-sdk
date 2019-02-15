@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.95.0](https://github.com/Bearer/bearer/compare/v0.94.1...v0.95.0) (2019-02-15)
+
+
+### Bug Fixes
+
+* **transpiler:** remove aliases ([c130c18](https://github.com/Bearer/bearer/commit/c130c18))
+
+
+### Features
+
+* **transpiler:** add scope attribute to i18n elements ([65ad24e](https://github.com/Bearer/bearer/commit/65ad24e))
+* **transpiler:** alias non aliased imports ([7936133](https://github.com/Bearer/bearer/commit/7936133))
+* **transpiler:** enable i18n modifier actions ([574de9c](https://github.com/Bearer/bearer/commit/574de9c))
+* **transpiler:** inject scoped variables ([b237b30](https://github.com/Bearer/bearer/commit/b237b30))
+* **transpiler:** rename t/p to aliased version ([6335599](https://github.com/Bearer/bearer/commit/6335599))
+* **transpiler:** use case not handled for the moment ([24c7567](https://github.com/Bearer/bearer/commit/24c7567))
+
+
+
+
+
 ## [0.94.1](https://github.com/Bearer/bearer/compare/v0.94.0...v0.94.1) (2019-02-12)
 
 **Note:** Version bump only for package @bearer/transpiler

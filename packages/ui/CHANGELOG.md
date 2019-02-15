@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.95.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.94.1...v0.95.0) (2019-02-15)
+
+
+### Bug Fixes
+
+* **ui:** add missing definition ([a760c7a](https://github.com/ionic-team/stencil-component-starter/commit/a760c7a))
+* **ui:** add react hack ([e32c619](https://github.com/ionic-team/stencil-component-starter/commit/e32c619))
+* **ui:** fix hot reload ([1319506](https://github.com/ionic-team/stencil-component-starter/commit/1319506))
+* **ui:** make i18n component accept a scope ([31b7170](https://github.com/ionic-team/stencil-component-starter/commit/31b7170))
+
+
+
+
+
 ## [0.94.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.94.0...v0.94.1) (2019-02-12)
 
 **Note:** Version bump only for package @bearer/ui

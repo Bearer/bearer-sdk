@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.95.0](https://github.com/Bearer/bearer/compare/v0.94.1...v0.95.0) (2019-02-15)
+
+
+### Bug Fixes
+
+* **core:** export fixes ([1aa5e83](https://github.com/Bearer/bearer/commit/1aa5e83))
+* **ui:** add react hack ([e32c619](https://github.com/Bearer/bearer/commit/e32c619))
+
+
+### Features
+
+* **core:** update i18n signatures before transpiler rewrite ([91fe00a](https://github.com/Bearer/bearer/commit/91fe00a))
+
+
+
+
+
 ## [0.94.1](https://github.com/Bearer/bearer/compare/v0.94.0...v0.94.1) (2019-02-12)
 
 **Note:** Version bump only for package @bearer/core

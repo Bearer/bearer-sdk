@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.95.0](https://github.com/Bearer/bearer/compare/v0.94.1...v0.95.0) (2019-02-15)
+
+
+### Bug Fixes
+
+* **cli:** add placeholder to test translations ([0bb4e35](https://github.com/Bearer/bearer/commit/0bb4e35))
+* **core:** export fixes ([1aa5e83](https://github.com/Bearer/bearer/commit/1aa5e83))
+* **transpiler:** remove aliases ([c130c18](https://github.com/Bearer/bearer/commit/c130c18))
+* **ui:** add missing definition ([a760c7a](https://github.com/Bearer/bearer/commit/a760c7a))
+* **ui:** add react hack ([e32c619](https://github.com/Bearer/bearer/commit/e32c619))
+* **ui:** fix hot reload ([1319506](https://github.com/Bearer/bearer/commit/1319506))
+* **ui:** make i18n component accept a scope ([31b7170](https://github.com/Bearer/bearer/commit/31b7170))
+
+
+### Features
+
+* **core:** update i18n signatures before transpiler rewrite ([91fe00a](https://github.com/Bearer/bearer/commit/91fe00a))
+* **transpiler:** add scope attribute to i18n elements ([65ad24e](https://github.com/Bearer/bearer/commit/65ad24e))
+* **transpiler:** alias non aliased imports ([7936133](https://github.com/Bearer/bearer/commit/7936133))
+* **transpiler:** enable i18n modifier actions ([574de9c](https://github.com/Bearer/bearer/commit/574de9c))
+* **transpiler:** inject scoped variables ([b237b30](https://github.com/Bearer/bearer/commit/b237b30))
+* **transpiler:** rename t/p to aliased version ([6335599](https://github.com/Bearer/bearer/commit/6335599))
+* **transpiler:** use case not handled for the moment ([24c7567](https://github.com/Bearer/bearer/commit/24c7567))
+
+
+
+
+
 ## [0.94.1](https://github.com/Bearer/bearer/compare/v0.94.0...v0.94.1) (2019-02-12)
 
 
