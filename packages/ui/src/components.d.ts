@@ -84,8 +84,6 @@ declare global {
       'dataTooltipType': string;
       'disabled': boolean;
       'kind': BKind;
-      'outline': boolean;
-      'size': 'medium' | 'small' | 'large';
       'type': string;
     }
 
@@ -582,8 +580,6 @@ declare global {
       'dataTooltipType'?: string;
       'disabled'?: boolean;
       'kind'?: BKind;
-      'outline'?: boolean;
-      'size'?: 'medium' | 'small' | 'large';
       'type'?: string;
     }
 
