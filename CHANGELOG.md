@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.96.0](https://github.com/Bearer/bearer/compare/v0.95.1...v0.96.0) (2019-02-21)
+
+
+### Bug Fixes
+
+* **js:** add packave version ([8a3049f](https://github.com/Bearer/bearer/commit/8a3049f))
+
+
+### Features
+
+* **intents:** allow Alice to set error response ([#526](https://github.com/Bearer/bearer/issues/526)) ([ca47652](https://github.com/Bearer/bearer/commit/ca47652))
+* **js:** create base of [@bearer](https://github.com/bearer)/js package ([f440483](https://github.com/Bearer/bearer/commit/f440483))
+
+
+
+
+
 ## [0.95.1](https://github.com/Bearer/bearer/compare/v0.95.0...v0.95.1) (2019-02-20)
 
 **Note:** Version bump only for package bearer-master

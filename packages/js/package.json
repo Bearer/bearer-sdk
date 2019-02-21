@@ -1,6 +1,6 @@
 {
   "name": "@bearer/js",
-  "version": "0.0.2",
+  "version": "0.96.0",
   "description": "A JavaScript library for working with Bearer integrations",
   "jsdelivr": "lib/bearer.production.min.js",
   "unpkg": "lib/bearer.production.min.js",
@@ -14,7 +14,7 @@
     "lib/"
   ],
   "devDependencies": {
-    "@bearer/tsconfig": "^0.95.1",
+    "@bearer/tsconfig": "^0.96.0",
     "@types/jest": "^23.3.13",
     "jest": "^23.6.0",
     "rollup-plugin-commonjs": "^9.2.0",
