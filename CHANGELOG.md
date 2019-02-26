@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.97.0](https://github.com/Bearer/bearer/compare/v0.96.1...v0.97.0) (2019-02-26)
+
+
+### Bug Fixes
+
+* **core:** pass authId to revoke request ([9db5854](https://github.com/Bearer/bearer/commit/9db5854))
+* **js:** remove logger use for now ([af3a772](https://github.com/Bearer/bearer/commit/af3a772))
+* **ui:** forward authId to bearer revoke request ([d374415](https://github.com/Bearer/bearer/commit/d374415))
+
+
+### Features
+
+* **js:** backport functionalities ([acd9fba](https://github.com/Bearer/bearer/commit/acd9fba))
+* **openapi-generator:** introduce openapi-generator package ([#537](https://github.com/Bearer/bearer/issues/537)) ([e154413](https://github.com/Bearer/bearer/commit/e154413))
+
+
+
+
+
 ## [0.96.1](https://github.com/Bearer/bearer/compare/v0.96.0...v0.96.1) (2019-02-22)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@bearer/openapi-generator",
-  "version": "0.0.1",
+  "version": "0.97.0",
   "description": "Intent openapi spec generator",
   "main": "lib/index.js",
   "repository": {
@@ -17,9 +17,9 @@
     "@bearer/package-init": "^0.78.0",
     "@commitlint/cli": "^7.4.0",
     "@commitlint/config-conventional": "^7.3.1",
-    "@types/lodash.merge": "^4.6.5",
     "@oclif/tslint": "^3.1.1",
     "@types/jest": "^23.3.13",
+    "@types/lodash.merge": "^4.6.5",
     "@types/node": "^10.12.19",
     "commitlint": "^7.4.0",
     "cz-conventional-changelog": "^2.1.0",
