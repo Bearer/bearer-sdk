@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.97.1](https://github.com/Bearer/bearer/compare/v0.97.0...v0.97.1) (2019-02-26)
+
+
+### Bug Fixes
+
+* **core:** update event name ([09c0f4c](https://github.com/Bearer/bearer/commit/09c0f4c))
+
+
+
+
+
 # [0.97.0](https://github.com/Bearer/bearer/compare/v0.96.1...v0.97.0) (2019-02-26)
 
 
