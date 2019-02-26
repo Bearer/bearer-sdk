@@ -1,5 +1,5 @@
 import { I18n } from '@bearer/js/lib/cjs/lib/i18n'
-// import { I18nStore } from './store'
+
 import template from 'lodash.template'
 
 const interpolate = /{{([\s\S]+?)}}/g
