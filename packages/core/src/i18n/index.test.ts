@@ -1,7 +1,6 @@
-import { i18n } from '@bearer/js'
 import { scopedPluralize, scopedTranslate } from './index'
 
-describe('i18n.translate', () => {
+describe('.translate', () => {
   it('export a function expecting a store', () => {
     expect(scopedTranslate).toBeInstanceOf(Function)
     expect(scopedTranslate).toHaveLength(1)
@@ -30,7 +29,7 @@ describe('i18n.translate', () => {
   })
 })
 
-describe('i18n.pluralize', () => {
+describe('.pluralize', () => {
   it('export a function expecting a store', () => {
     expect(scopedPluralize).toBeInstanceOf(Function)
     expect(scopedPluralize).toHaveLength(1)
