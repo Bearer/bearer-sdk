@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.97.4](https://github.com/Bearer/bearer/compare/v0.97.3...v0.97.4) (2019-02-27)
+
+
+### Bug Fixes
+
+* **cli:** don't rely on weird tags for openapi-generator ([#548](https://github.com/Bearer/bearer/issues/548)) ([89b544d](https://github.com/Bearer/bearer/commit/89b544d))
+
+
+
+
+
 ## [0.97.3](https://github.com/Bearer/bearer/compare/v0.97.2...v0.97.3) (2019-02-27)
 
 **Note:** Version bump only for package @bearer/cli

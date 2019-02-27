@@ -1,18 +1,18 @@
 {
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "0.97.3",
+  "version": "0.97.4",
   "author": "Bearer Team<engineering@bearer.sh>",
   "bin": {
     "bearer": "./bin/run"
   },
   "bugs": "https://github.com/Bearer/bearer/issues",
   "dependencies": {
-    "@bearer/bearer-cli": "^0.97.3",
+    "@bearer/bearer-cli": "^0.97.4",
     "@bearer/intents": "^0.97.3",
     "@bearer/openapi-generator": "^0.97.3",
     "@bearer/security": "^0.97.3",
-    "@bearer/transpiler": "^0.97.3",
+    "@bearer/transpiler": "^0.97.4",
     "@bearer/types": "^0.97.3",
     "@oclif/command": "^1.5.2",
     "@oclif/config": "^1.8.6",

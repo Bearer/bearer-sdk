@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.97.4](https://github.com/Bearer/bearer/compare/v0.97.3...v0.97.4) (2019-02-27)
+
+
+### Bug Fixes
+
+* **transpiler:** virtually scope events ([42d054c](https://github.com/Bearer/bearer/commit/42d054c))
+
+
+
+
+
 ## [0.97.3](https://github.com/Bearer/bearer/compare/v0.97.2...v0.97.3) (2019-02-27)
 
 **Note:** Version bump only for package @bearer/transpiler
