@@ -1,7 +1,7 @@
 {
   "name": "@bearer/react",
   "private": false,
-  "version": "0.97.2",
+  "version": "0.97.3",
   "description": "React tooling for bearer.sh components",
   "keywords": [
     "react",
@@ -26,7 +26,7 @@
     "url": "https://github.com/Bearer/bearer/issues"
   },
   "devDependencies": {
-    "@bearer/js": "^0.97.2",
+    "@bearer/js": "^0.97.3",
     "@bearer/package-init": "^0.78.0",
     "@commitlint/cli": "^7.3.2",
     "@commitlint/config-conventional": "^7.3.1",
