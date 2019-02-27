@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.97.2](https://github.com/Bearer/bearer/compare/v0.97.1...v0.97.2) (2019-02-27)
+
+
+### Bug Fixes
+
+* **cli:** introduce openapi generator ([#538](https://github.com/Bearer/bearer/issues/538)) ([0f8c78b](https://github.com/Bearer/bearer/commit/0f8c78b))
+* make the logger truly work in the browser ([cc05f9d](https://github.com/Bearer/bearer/commit/cc05f9d))
+* **openapi-generator:** fix the intent order ([#545](https://github.com/Bearer/bearer/issues/545)) ([14c1087](https://github.com/Bearer/bearer/commit/14c1087))
+* **ui:** CSS customization on buttons ([#536](https://github.com/Bearer/bearer/issues/536)) ([4cda4c2](https://github.com/Bearer/bearer/commit/4cda4c2))
+
+
+
+
+
 ## [0.97.1](https://github.com/Bearer/bearer/compare/v0.97.0...v0.97.1) (2019-02-26)
 
 

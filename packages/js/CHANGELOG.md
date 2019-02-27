@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.97.2](https://github.com/Bearer/bearer/packages/js/compare/v0.97.1...v0.97.2) (2019-02-27)
+
+
+### Bug Fixes
+
+* make the logger truly work in the browser ([cc05f9d](https://github.com/Bearer/bearer/packages/js/commit/cc05f9d))
+
+
+
+
+
 # [0.97.0](https://github.com/Bearer/bearer/packages/js/compare/v0.96.1...v0.97.0) (2019-02-26)
 
 

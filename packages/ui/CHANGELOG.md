@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.97.2](https://github.com/ionic-team/stencil-component-starter/compare/v0.97.1...v0.97.2) (2019-02-27)
+
+
+### Bug Fixes
+
+* **ui:** CSS customization on buttons ([#536](https://github.com/ionic-team/stencil-component-starter/issues/536)) ([4cda4c2](https://github.com/ionic-team/stencil-component-starter/commit/4cda4c2))
+
+
+
+
+
 ## [0.97.1](https://github.com/ionic-team/stencil-component-starter/compare/v0.97.0...v0.97.1) (2019-02-26)
 
 **Note:** Version bump only for package @bearer/ui

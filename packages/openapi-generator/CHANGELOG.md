@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.97.2](https://github.com/Bearer/bearer/compare/v0.97.1...v0.97.2) (2019-02-27)
+
+
+### Bug Fixes
+
+* **openapi-generator:** fix the intent order ([#545](https://github.com/Bearer/bearer/issues/545)) ([14c1087](https://github.com/Bearer/bearer/commit/14c1087))
+
+
+
+
+
 # [0.97.0](https://github.com/Bearer/bearer/compare/v0.96.1...v0.97.0) (2019-02-26)
 
 
