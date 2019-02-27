@@ -78,7 +78,7 @@ export class BearerNavigatorAuthScreen extends AuthenticationListener {
 
   renderAuthorized: FWithRevoke = ({ revoke }) => (
     // tslint:disable-next-line:react-this-binding-issue
-    <bearer-button kind="danger" onClick={() => this.onRevokeClick(revoke)}>
+    <bearer-button kind="secondary" onClick={() => this.onRevokeClick(revoke)}>
       {' '}
       Logout{' '}
     </bearer-button>
