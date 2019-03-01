@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.99.1](https://github.com/Bearer/bearer/compare/v0.99.0...v0.99.1) (2019-03-01)
+
+
+### Bug Fixes
+
+* add missing type field to packages ([#551](https://github.com/Bearer/bearer/issues/551)) ([3d96f83](https://github.com/Bearer/bearer/commit/3d96f83))
+
+
+
+
+
 # [0.99.0](https://github.com/Bearer/bearer/compare/v0.98.0...v0.99.0) (2019-02-28)
 
 **Note:** Version bump only for package @bearer/react

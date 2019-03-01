@@ -1,7 +1,7 @@
 {
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "0.99.0",
+  "version": "0.99.1",
   "author": "Bearer Team<engineering@bearer.sh>",
   "bin": {
     "bearer": "./bin/run"
@@ -11,7 +11,7 @@
     "@bearer/bearer-cli": "^0.99.0",
     "@bearer/intents": "^0.99.0",
     "@bearer/openapi-generator": "^0.99.0",
-    "@bearer/security": "^0.99.0",
+    "@bearer/security": "^0.99.1",
     "@bearer/transpiler": "^0.99.0",
     "@bearer/types": "^0.99.0",
     "@oclif/command": "^1.5.2",

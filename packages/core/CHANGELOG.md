@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.99.1](https://github.com/Bearer/bearer/compare/v0.99.0...v0.99.1) (2019-03-01)
+
+
+### Bug Fixes
+
+* **js:** fix incorrect lookup ([#552](https://github.com/Bearer/bearer/issues/552)) ([a9bc997](https://github.com/Bearer/bearer/commit/a9bc997))
+
+
+
+
+
 # [0.99.0](https://github.com/Bearer/bearer/compare/v0.98.0...v0.99.0) (2019-02-28)
 
 **Note:** Version bump only for package @bearer/core
