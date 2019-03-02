@@ -1,6 +1,6 @@
 {
   "name": "@bearer/bearer-cli",
-  "version": "0.99.0",
+  "version": "0.99.2",
   "main": "lib/bin/index.js",
   "repository": "git@github.com:Bearer/bearer.git",
   "author": "Bearer Team<engineering@bearer.sh>",
@@ -24,9 +24,9 @@
     "requirements-check": "node ./check-version.js"
   },
   "dependencies": {
-    "@bearer/intents": "^0.99.0",
-    "@bearer/logger": "^0.99.0",
-    "@bearer/transpiler": "^0.99.0",
+    "@bearer/intents": "^0.99.2",
+    "@bearer/logger": "^0.99.2",
+    "@bearer/transpiler": "^0.99.2",
     "@bearer/types": "^0.99.0",
     "@koa/cors": "^2.2.2",
     "amazon-cognito-identity-js": "^2.0.3",

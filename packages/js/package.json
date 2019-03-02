@@ -1,6 +1,6 @@
 {
   "name": "@bearer/js",
-  "version": "0.99.1",
+  "version": "0.99.2",
   "description": "A JavaScript library for working with Bearer integrations",
   "jsdelivr": "lib/bearer.production.min.js",
   "unpkg": "lib/bearer.production.min.js",
@@ -15,7 +15,7 @@
     "lib/"
   ],
   "dependencies": {
-    "@bearer/logger": "^0.99.0",
+    "@bearer/logger": "^0.99.2",
     "debounce": "^1.2.0",
     "jest-fetch-mock": "^2.1.1"
   },
