@@ -1,6 +1,6 @@
 {
   "name": "@bearer/openapi-generator",
-  "version": "0.99.0",
+  "version": "0.100.0",
   "description": "Intent openapi spec generator",
   "main": "lib/index.js",
   "repository": {

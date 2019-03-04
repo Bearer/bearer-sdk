@@ -1,19 +1,19 @@
 {
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "0.99.2",
+  "version": "0.100.0",
   "author": "Bearer Team<engineering@bearer.sh>",
   "bin": {
     "bearer": "./bin/run"
   },
   "bugs": "https://github.com/Bearer/bearer/issues",
   "dependencies": {
-    "@bearer/bearer-cli": "^0.99.2",
-    "@bearer/intents": "^0.99.2",
-    "@bearer/openapi-generator": "^0.99.0",
-    "@bearer/security": "^0.99.1",
-    "@bearer/transpiler": "^0.99.2",
-    "@bearer/types": "^0.99.0",
+    "@bearer/bearer-cli": "^0.100.0",
+    "@bearer/intents": "^0.100.0",
+    "@bearer/openapi-generator": "^0.100.0",
+    "@bearer/security": "^0.100.0",
+    "@bearer/transpiler": "^0.100.0",
+    "@bearer/types": "^0.100.0",
     "@oclif/command": "^1.5.2",
     "@oclif/config": "^1.8.6",
     "@oclif/plugin-autocomplete": "^0.1.0",
