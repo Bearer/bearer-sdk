@@ -22,7 +22,7 @@ git --no-pager log -1 --format="%H"
 
 if [ $CANARY ==  "true" ]; then
   echo "releasing canary version"
-  yarn lerna publish preminor --yes --canary  --preid canary --force-publish
+  yarn lerna publish --yes --canary  --preid canary --force-publish --npm-client npm
 elif [  $FORCE ==  "true"]; then
   echo "force publishing.."
   yarn lerna-publish $FORCE_ARG
