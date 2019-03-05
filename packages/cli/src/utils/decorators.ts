@@ -5,7 +5,7 @@ type TCommand = InstanceType<Constructor<Command>>
 
 export function RequireScenarioFolder() {
   return function(_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
-    let originalMethod = descriptor.value
+    const originalMethod = descriptor.value
     descriptor.value = async function(this: TCommand) {
       if (this.bearerConfig.isScenarioLocation) {
         await originalMethod.apply(this, arguments)
@@ -19,7 +19,7 @@ export function RequireScenarioFolder() {
 
 export function RequireLinkedScenario() {
   return function(_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
-    let originalMethod = descriptor.value
+    const originalMethod = descriptor.value
     descriptor.value = async function(this: TCommand) {
       if (this.bearerConfig.hasScenarioLinked) {
         await originalMethod.apply(this, arguments)
@@ -36,7 +36,7 @@ export function RequireLinkedScenario() {
 
 export function ensureFreshToken() {
   return function(_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
-    let originalMethod = descriptor.value
+    const originalMethod = descriptor.value
     descriptor.value = async function(this: TCommand) {
       const { authorization, ExpiresAt } = this.bearerConfig.bearerConfig
 
@@ -55,13 +55,12 @@ export function ensureFreshToken() {
         // this.debug('Running original method')
         await originalMethod.apply(this, arguments)
         return descriptor
-      } else {
-        const error =
-          this.colors.bold('⚠️ It looks like you are not logged in\n') +
-          this.colors.yellow(this.colors.italic('Please run: bearer login'))
-        this.error(error)
-        return descriptor
       }
+      const error =
+        this.colors.bold('⚠️ It looks like you are not logged in\n') +
+        this.colors.yellow(this.colors.italic('Please run: bearer login'))
+      this.error(error)
+      return descriptor
     }
     return descriptor
   }
@@ -69,7 +68,9 @@ export function ensureFreshToken() {
 
 async function refreshMyToken(command: TCommand): Promise<boolean | Error> {
   const { RefreshToken } = command.bearerConfig.bearerConfig.authorization.AuthenticationResult!
-
+  if (!RefreshToken) {
+    throw new UnauthorizedRefreshTokenError()
+  }
   // try {
   const { statusCode, body } = await command.serviceClient.refresh({ RefreshToken })
 
