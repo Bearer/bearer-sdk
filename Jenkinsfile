@@ -47,6 +47,11 @@ pipeline {
             }
         }
         stage('Test') {
+             when {
+                expression { params.CANARY  == false }
+                branch 'master'
+            }
+
             steps {
                 container("bearercli") {
                     ansiColor('xterm') {
@@ -57,7 +62,7 @@ pipeline {
         }
         stage("Deploy") {
             when {
-                expression { params.LERNA_TAG  != '' &&  params.CANARY  == false }
+                expression { params.LERNA_TAG  != '' }
                 branch 'master'
             }
 
