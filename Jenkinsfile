@@ -57,7 +57,7 @@ pipeline {
         }
         stage("Deploy") {
             when {
-                expression { params.LERNA_TAG  != '' }
+                expression { params.LERNA_TAG  != '' &&  params.CANARY  == false }
                 branch 'master'
             }
 
