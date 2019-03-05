@@ -1,6 +1,6 @@
 import Bearer from '@bearer/core'
 
-import debug from '../../../logger'
+import debug from '../logger'
 const logger = debug('AuthenticationListener')
 
 export class AuthenticationListener {
