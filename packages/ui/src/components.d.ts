@@ -69,10 +69,10 @@ declare global {
 
     interface BearerAuthorized {
       'authenticate': (authRefId?: string) => void;
+      'integrationId': string;
       'renderAuthorized': FWithRevoke;
       'renderUnauthorized': FWithAuthenticate;
       'revoke': (authRefId: string) => void;
-      'scenarioId': string;
     }
 
     interface BearerBadge {
@@ -183,13 +183,13 @@ declare global {
     }
 
     interface BearerConfigDisplay {
-      'scenarioId': string;
+      'integrationId': string;
     }
 
     interface BearerConfig {
       'fields': any[] | string;
+      'integrationId': string;
       'referenceId': string;
-      'scenarioId': string;
     }
 
     interface BearerDropdownButton {
@@ -212,7 +212,7 @@ declare global {
     interface BearerNavigatorAuthScreen {
       'authId': string;
       'getTitle': () => string;
-      'scenarioId': string;
+      'integrationId': string;
       'willAppear': () => void;
       'willDisappear': () => void;
     }
@@ -231,14 +231,7 @@ declare global {
       'getTitle': () => string;
       'name': string;
       'navigationTitle': ((data: any) => string) | string;
-      'renderFunc': <T>(
-    params: {
-      next: (data: any) => void
-      prev: () => void
-      complete: () => void
-      data: T
-    }
-  ) => void;
+      'renderFunc': <T>(params: { next: (data: any) => void; prev: () => void; complete: () => void; data: T }) => void;
       'willAppear': (data: any) => void;
       'willDisappear': () => void;
     }
@@ -288,15 +281,15 @@ declare global {
     }
 
     interface BearerSetupDisplay {
-      'scenarioId': string;
+      'integrationId': string;
       'setupId': string;
     }
 
     interface BearerSetup {
       'display': 'inline' | 'block';
       'fields': any[] | string;
+      'integrationId': string;
       'referenceId': string;
-      'scenarioId': string;
     }
   }
 
@@ -586,9 +579,9 @@ declare global {
     }
 
     export interface BearerAuthorizedAttributes extends HTMLAttributes {
+      'integrationId'?: string;
       'renderAuthorized'?: FWithRevoke;
       'renderUnauthorized'?: FWithAuthenticate;
-      'scenarioId'?: string;
     }
 
     export interface BearerBadgeAttributes extends HTMLAttributes {
@@ -706,14 +699,14 @@ declare global {
     }
 
     export interface BearerConfigDisplayAttributes extends HTMLAttributes {
-      'scenarioId'?: string;
+      'integrationId'?: string;
     }
 
     export interface BearerConfigAttributes extends HTMLAttributes {
       'fields'?: any[] | string;
+      'integrationId'?: string;
       'onStepCompleted'?: (event: CustomEvent) => void;
       'referenceId'?: string;
-      'scenarioId'?: string;
     }
 
     export interface BearerDropdownButtonAttributes extends HTMLAttributes {
@@ -734,9 +727,9 @@ declare global {
 
     export interface BearerNavigatorAuthScreenAttributes extends HTMLAttributes {
       'authId'?: string;
-      'onScenarioAuthenticate'?: (event: CustomEvent) => void;
+      'integrationId'?: string;
+      'onIntegrationAuthenticate'?: (event: CustomEvent) => void;
       'onStepCompleted'?: (event: CustomEvent) => void;
-      'scenarioId'?: string;
     }
 
     export interface BearerNavigatorBackAttributes extends HTMLAttributes {
@@ -754,17 +747,10 @@ declare global {
     export interface BearerNavigatorScreenAttributes extends HTMLAttributes {
       'name'?: string;
       'navigationTitle'?: ((data: any) => string) | string;
+      'onIntegrationCompleted'?: (event: CustomEvent) => void;
       'onNavigatorGoBack'?: (event: CustomEvent) => void;
-      'onScenarioCompleted'?: (event: CustomEvent) => void;
       'onStepCompleted'?: (event: CustomEvent) => void;
-      'renderFunc'?: <T>(
-    params: {
-      next: (data: any) => void
-      prev: () => void
-      complete: () => void
-      data: T
-    }
-  ) => void;
+      'renderFunc'?: <T>(params: { next: (data: any) => void; prev: () => void; complete: () => void; data: T }) => void;
     }
 
     export interface BearerNavigatorAttributes extends HTMLAttributes {
@@ -813,16 +799,16 @@ declare global {
     }
 
     export interface BearerSetupDisplayAttributes extends HTMLAttributes {
-      'scenarioId'?: string;
+      'integrationId'?: string;
       'setupId'?: string;
     }
 
     export interface BearerSetupAttributes extends HTMLAttributes {
       'display'?: 'inline' | 'block';
       'fields'?: any[] | string;
+      'integrationId'?: string;
       'onSetupSuccess'?: (event: CustomEvent) => void;
       'referenceId'?: string;
-      'scenarioId'?: string;
     }
   }
 
