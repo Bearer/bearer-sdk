@@ -9,10 +9,12 @@ const logger = debug.extend('gather-metadata')
 
 export default function gatherMetadata({ metadata }: TransformerOptions): ts.TransformerFactory<ts.SourceFile> {
   function getTagNames(tagName: string): { initialTagName: string; finalTagName: string } {
-    const finalTag =
-      metadata.prefix && metadata.suffix
-        ? [Case.kebab(metadata.prefix), Case.kebab(metadata.suffix), tagName].join('-')
-        : tagName
+    const parts = [Case.kebab(metadata.prefix) || 'bearer']
+    if (metadata.suffix) {
+      parts.push(Case.kebab(metadata.suffix))
+    }
+    parts.push(tagName)
+    const finalTag = parts.join('-')
     return {
       initialTagName: tagName,
       finalTagName: finalTag
@@ -39,18 +41,15 @@ export default function gatherMetadata({ metadata }: TransformerOptions): ts.Tra
           // Found RootComponent
           else if (hasDecoratorNamed(node, Decorators.RootComponent)) {
             const component = getDecoratorNamed(node, Decorators.RootComponent)
-            const nameExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'role')
-            const name = nameExpression ? nameExpression.text : ''
-            const groupExpression = getExpressionFromDecorator<ts.StringLiteral>(component, 'group')
-            const group = groupExpression ? groupExpression.text : ''
-            const tag = [Case.kebab(group), name].join('-')
-            const names = getTagNames(tag)
+            const name = getExpressionFromDecorator<ts.StringLiteral>(component, 'name')
+
+            const names = getTagNames(name.text.toString())
             metadata.registerComponent({
               fileName: tsSourceFile.fileName,
               classname: node.name.text,
               isRoot: true,
-              ...names,
-              group
+              name: name.text,
+              ...names
             })
             logger('Registered RootComponent %s: new tag name => ', names.initialTagName, names.finalTagName)
           }

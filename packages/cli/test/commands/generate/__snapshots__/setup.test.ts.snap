@@ -11,8 +11,7 @@ import '@bearer/ui'
 import { FieldSet } from \\"@bearer/ui/lib/collection/components/Forms/Fieldset\\";
 
 @RootComponent({
-  group: 'setup',
-  role: 'action'
+  name: 'setup-action',
 })
 export class SetupAction {
   @Prop() onSetupSuccess: (detail: any) => void = (_any: any) => { }
@@ -58,10 +57,9 @@ import { RootComponent } from \\"@bearer/core\\";
 import \\"@bearer/ui\\";
 
 @RootComponent({
-  group: \\"setup\\",
-  role: 'display'
+  name: 'setup-view',
 })
-export class SetupDisplay {
+export class SetupView {
   render() {
     return (
       <bearer-setup-display scenarioId=\\"BEARER_SCENARIO_ID\\" setupId={(this as any).setupId} />
@@ -124,8 +122,7 @@ import '@bearer/ui'
 import { FieldSet } from \\"@bearer/ui/lib/collection/components/Forms/Fieldset\\";
 
 @RootComponent({
-  group: 'setup',
-  role: 'action'
+  name: 'setup-action',
 })
 export class SetupAction {
   @Prop() onSetupSuccess: (detail: any) => void = (_any: any) => { }
@@ -171,10 +168,9 @@ import { RootComponent } from \\"@bearer/core\\";
 import \\"@bearer/ui\\";
 
 @RootComponent({
-  group: \\"setup\\",
-  role: 'display'
+  name: 'setup-view',
 })
-export class SetupDisplay {
+export class SetupView {
   render() {
     return (
       <bearer-setup-display scenarioId=\\"BEARER_SCENARIO_ID\\" setupId={(this as any).setupId} />
@@ -237,8 +233,7 @@ import '@bearer/ui'
 import { FieldSet } from \\"@bearer/ui/lib/collection/components/Forms/Fieldset\\";
 
 @RootComponent({
-  group: 'setup',
-  role: 'action'
+  name: 'setup-action',
 })
 export class SetupAction {
   @Prop() onSetupSuccess: (detail: any) => void = (_any: any) => { }
@@ -284,10 +279,9 @@ import { RootComponent } from \\"@bearer/core\\";
 import \\"@bearer/ui\\";
 
 @RootComponent({
-  group: \\"setup\\",
-  role: 'display'
+  name: 'setup-view',
 })
-export class SetupDisplay {
+export class SetupView {
   render() {
     return (
       <bearer-setup-display scenarioId=\\"BEARER_SCENARIO_ID\\" setupId={(this as any).setupId} />

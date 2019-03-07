@@ -1,8 +1,7 @@
 import { Event, EventEmitter, Listen, RootComponent } from '@bearer/core'
 
 @RootComponent({
-  group: 'complex-feature',
-  role: 'display'
+  name: 'complex-feature'
 })
 export class FeatDisplayRootComponent {
   @Event()
@@ -11,10 +10,10 @@ export class FeatDisplayRootComponent {
   @Event()
   mustBeScopedEvent: EventEmitter
 
-  @Listen('config:saved')
+  @Listen('confiSaved')
   eventHandler() {}
 
-  @Listen('body:eventFromAnotherRootComponent:saved')
+  @Listen('body:eventFromAnotherRootComponentSaved')
   eventFromAnotherRootComponentHandler() {}
 
   @Listen('body:click')

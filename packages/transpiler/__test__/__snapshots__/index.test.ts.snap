@@ -30,7 +30,7 @@ Object {
       ],
       "outputs": Array [
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-inlinedefinition",
+          "eventName": "bearer-sponge-bob-inlinedefinition",
           "name": "inlineDefinition",
           "payloadFormat": Object {
             "properties": Object {
@@ -72,7 +72,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-feedpandasaved",
+          "eventName": "bearer-sponge-bob-feedpandasaved",
           "name": "feedPandaSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -97,7 +97,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-spongebobdsaved",
+          "eventName": "bearer-sponge-bob-spongebobdsaved",
           "name": "spongeBobdSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -155,7 +155,7 @@ type Panda = {
     fullPandaName: string;
 };
 @Component({
-    tag: \\"full-component\\"
+    tag: \\"bearer-full-component\\"
 })
 export class FullComponent {
     private fetcher: BearerFetch;
@@ -166,7 +166,7 @@ export class FullComponent {
     @State()
     ducks: Array<any>;
     private fetchResource: BearerFetch;
-    @Event({ eventName: \\"bearer-sponge-bob-global-anevent\\" })
+    @Event({ eventName: \\"bearer-sponge-bob-anevent\\" })
     anEvent: EventEmitter;
     screenRenderer = () => {
         return (<bearer-navigator-screen navigationTitle=\\"Last Screen\\" renderFunc={() => [<h1>Hello Partick</h1>]}/>);
@@ -191,7 +191,7 @@ export class FullComponent {
       </bearer-navigator>);
     }
     private saveSetup: BearerFetch<string>;
-    @Event({ eventName: \\"bearer-sponge-bob-global-setupsaved\\" })
+    @Event({ eventName: \\"bearer-sponge-bob-setupsaved\\" })
     setupSaved: EventEmitter;
     @State()
     setupInitial: string;
@@ -289,7 +289,7 @@ Object {
       ],
       "outputs": Array [
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-inlinedefinition",
+          "eventName": "bearer-sponge-bob-inlinedefinition",
           "name": "inlineDefinition",
           "payloadFormat": Object {
             "properties": Object {
@@ -331,7 +331,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-feedpandasaved",
+          "eventName": "bearer-sponge-bob-feedpandasaved",
           "name": "feedPandaSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -356,7 +356,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-spongebobdsaved",
+          "eventName": "bearer-sponge-bob-spongebobdsaved",
           "name": "spongeBobdSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -417,9 +417,9 @@ type Panda = {
     fullPandaName: string;
 };
 @Component({
-    tag: \\"attach-pull-request-action\\",
-    styleUrl: \\"AttachPullRequest.css\\",
-    shadow: true
+    tag: \\"bearer-AttachPullRequest\\",
+    shadow: true,
+    styleUrl: \\"./ok.css\\"
 })
 export class AttachPullRequestAction {
     private fetcher: BearerFetch;
@@ -430,7 +430,7 @@ export class AttachPullRequestAction {
     @State()
     ducks: Array<any>;
     private fetchResource: BearerFetch;
-    @Event({ eventName: \\"bearer-sponge-bob-attachpullrequest-inlinedefinition\\" })
+    @Event({ eventName: \\"bearer-sponge-bob-inlinedefinition\\" })
     inlineDefinition: EventEmitter;
     render() {
         return (<bearer-authorized scenarioId=\\"SPONGE_BOB\\">
@@ -440,7 +440,7 @@ export class AttachPullRequestAction {
     }
     @State()
     farmer: BearerRef<Farmer>;
-    @Listen(\\"body:bearer-sponge-bob-attachpullrequest-farmersaved\\")
+    @Listen(\\"body:bearer-sponge-bob-farmersaved\\")
     farmerIdChanged(event) {
         if (this.farmerId !== event.detail.referenceId) {
             if (!this.farmerId) {
@@ -475,7 +475,7 @@ export class AttachPullRequestAction {
         aNumber: number;
         panda: Panda;
     }>;
-    @Listen(\\"body:bearer-sponge-bob-scope-goatmilked\\")
+    @Listen(\\"body:bearer-sponge-bob-goatmilked\\")
     goatIdChanged(event) {
         if (this.goatId !== event.detail.referenceId) {
             if (!this.goatId) {
@@ -509,7 +509,7 @@ export class AttachPullRequestAction {
     @Prop({ \\"mutable\\": true })
     goatId: string;
     private saveFeedPanda: BearerFetch<BearerRef<Panda>>;
-    @Event({ eventName: \\"bearer-sponge-bob-attachpullrequest-feedpandasaved\\" })
+    @Event({ eventName: \\"bearer-sponge-bob-feedpandasaved\\" })
     feedPandaSaved: EventEmitter;
     @State()
     feedPandaInitial: BearerRef<Panda>;
@@ -538,7 +538,7 @@ export class AttachPullRequestAction {
     private manualIntentName: BearerFetch<BearerRef<{
         inlineName: string;
     }>>;
-    @Event({ eventName: \\"bearer-sponge-bob-attachpullrequest-spongebobdsaved\\" })
+    @Event({ eventName: \\"bearer-sponge-bob-spongebobdsaved\\" })
     spongeBobdSaved: EventEmitter;
     @State()
     shortPandaInitial: BearerRef<{
@@ -617,7 +617,7 @@ export class AttachPullRequestAction {
         this.attachedPullRequests = state[\\"attachedPullRequests\\"];
         this.ducks = state[\\"goats\\"];
     };
-    @Event({ eventName: \\"attach-pull-request-action-prop-set\\", bubbles: true, cancelable: true })
+    @Event({ eventName: \\"bearer-attachpullrequest-prop-set\\", bubbles: true, cancelable: true })
     propSetEmitter: EventEmitter;
     @Watch(\\"farmerId\\")
     farmerIdPropSetWatcher(newValue) {
@@ -670,7 +670,7 @@ Object {
       ],
       "outputs": Array [
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-inlinedefinition",
+          "eventName": "bearer-sponge-bob-inlinedefinition",
           "name": "inlineDefinition",
           "payloadFormat": Object {
             "properties": Object {
@@ -712,7 +712,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-feedpandasaved",
+          "eventName": "bearer-sponge-bob-feedpandasaved",
           "name": "feedPandaSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -737,7 +737,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-spongebobdsaved",
+          "eventName": "bearer-sponge-bob-spongebobdsaved",
           "name": "spongeBobdSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -838,7 +838,7 @@ Object {
       ],
       "outputs": Array [
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-inlinedefinition",
+          "eventName": "bearer-sponge-bob-inlinedefinition",
           "name": "inlineDefinition",
           "payloadFormat": Object {
             "properties": Object {
@@ -880,7 +880,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-feedpandasaved",
+          "eventName": "bearer-sponge-bob-feedpandasaved",
           "name": "feedPandaSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -905,7 +905,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-spongebobdsaved",
+          "eventName": "bearer-sponge-bob-spongebobdsaved",
           "name": "spongeBobdSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -960,8 +960,7 @@ Object {
   "file": "invalidRootComponent.tsx",
   "postContent": "import { BearerFetch, BearerState, Intent, IntentType, Component, Prop, Watch, State } from '@bearer/core';
 @Component({
-    tag: \\"attach-pull-request-display\\",
-    styleUrl: \\"attachPullRequest.css\\",
+    tag: \\"bearer-attach-pull-request\\",
     shadow: false
 })
 export class InvalidRootComponent {
@@ -1043,7 +1042,7 @@ Object {
       ],
       "outputs": Array [
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-inlinedefinition",
+          "eventName": "bearer-sponge-bob-inlinedefinition",
           "name": "inlineDefinition",
           "payloadFormat": Object {
             "properties": Object {
@@ -1085,7 +1084,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-feedpandasaved",
+          "eventName": "bearer-sponge-bob-feedpandasaved",
           "name": "feedPandaSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -1110,7 +1109,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-spongebobdsaved",
+          "eventName": "bearer-sponge-bob-spongebobdsaved",
           "name": "spongeBobdSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -1165,7 +1164,7 @@ Object {
   "file": "overrides-decorator.tsx",
   "postContent": "import { Component, Intent, BearerFetch, IntentType, Prop } from '@bearer/core';
 @Component({
-    tag: \\"overrides-decorator-full\\"
+    tag: \\"bearer-overrides-decorator-full\\"
 })
 class OverridesDecorarotFull {
     private fetcher: BearerFetch;
@@ -1226,7 +1225,7 @@ Object {
       ],
       "outputs": Array [
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-inlinedefinition",
+          "eventName": "bearer-sponge-bob-inlinedefinition",
           "name": "inlineDefinition",
           "payloadFormat": Object {
             "properties": Object {
@@ -1268,7 +1267,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-feedpandasaved",
+          "eventName": "bearer-sponge-bob-feedpandasaved",
           "name": "feedPandaSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -1293,7 +1292,7 @@ Object {
           },
         },
         Object {
-          "eventName": "bearer-sponge-bob-attachpullrequest-spongebobdsaved",
+          "eventName": "bearer-sponge-bob-spongebobdsaved",
           "name": "spongeBobdSaved",
           "payloadFormat": Object {
             "properties": Object {
@@ -1348,7 +1347,7 @@ Object {
   "file": "overrides-decorator-less.1.tsx",
   "postContent": "import { Component, Prop } from '@bearer/core';
 @Component({
-    tag: \\"overrides-decorator-less\\"
+    tag: \\"bearer-overrides-decorator-less\\"
 })
 class OverridesDecorarorLess {
     constructor() {

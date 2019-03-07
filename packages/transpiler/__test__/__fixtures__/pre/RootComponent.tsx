@@ -20,8 +20,8 @@ type Panda = {
 }
 
 @RootComponent({
-  group: 'AttachPullRequest',
-  role: 'action'
+  name: 'AttachPullRequest',
+  styleUrl: './ok.css'
 })
 export class AttachPullRequestAction {
   @Intent('ListRepositories')
