@@ -1,10 +1,10 @@
-export default ({ intents }) => {
-  return intents
+export default ({ functions }) => {
+  return functions
     .map(Object.keys)
     .map(
-      intent => `
-const ${intent} = require("./${intent}").default;
-module.exports[${intent}.intentName] = ${intent}.intentType.intent(${intent}.action);
+      func => `
+const ${func} = require("./${func}").default;
+module.exports[${func}.functionName] = ${func}.functionType.call(${func}.action);
 `
     )
     .join('\n')

@@ -1,7 +1,7 @@
 import debug from 'debug'
 export default (scope: string) => debug(`bearer:${scope}`)
 
-export class BearerIntentLogger {
+export class BearerFunctionLogger {
   context: any
   /**
    * @param  {any} context
@@ -13,10 +13,10 @@ export class BearerIntentLogger {
    * @param  {any} data
    */
   log = (data: any) => {
-    debug('bearer:intents')('%j', {
+    debug('bearer:functions')('%j', {
       data,
       integrationId: this.context.integrationUuid,
-      intentName: this.context.intentName
+      functionName: this.context.functionName
     })
   }
 }

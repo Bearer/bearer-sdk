@@ -18,7 +18,7 @@ export type TBearerRequest<T> = (params: any, init?: any) => Promise<T>
 function getClientId(): string {
   const clientId = Bearer.config.clientId
   if (process.env.NODE_ENV !== 'production') {
-    logger('No clientId provided, intent')
+    logger('No clientId provided, function')
   }
   return clientId
 }
@@ -62,21 +62,21 @@ export function itemRequest<T = any>(): TBearerRequest<T> {
   return bearerRequest('api/v1/items')
 }
 
-type TIntentBaseQuery = {
-  intentName: string
+type TFunctionBaseQuery = {
+  functionName: string
   integrationId: string
   setupId: string
 }
 
-export function intentRequest<TReturnFormat>({
-  intentName,
+export function functionRequest<TReturnFormat>({
+  functionName,
   integrationId,
   setupId
-}: TIntentBaseQuery): TBearerRequest<TReturnFormat> {
-  return bearerRequest(`api/v3/intents/${integrationId}/${intentName}`, { setupId })
+}: TFunctionBaseQuery): TBearerRequest<TReturnFormat> {
+  return bearerRequest(`api/v3/functions/${integrationId}/${functionName}`, { setupId })
 }
 
 export default {
-  intentRequest,
+  functionRequest,
   itemRequest
 }

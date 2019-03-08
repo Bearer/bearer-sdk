@@ -2,9 +2,9 @@ import { BearerWindow } from '@bearer/types'
 // import fetch from 'jest-fetch-mock'
 
 import Bearer from './bearer'
-import { intentRequest, itemRequest } from './requests'
+import { functionRequest, itemRequest } from './requests'
 
-const intentName = 'anIntent'
+const functionName = 'anFunction'
 const integrationId = 'aIntegrationId'
 const setupId = '1234'
 declare const window: BearerWindow & { fetch: any }
@@ -24,7 +24,7 @@ describe('requests', () => {
       expect(typeof aRequest).toBe('function')
     })
 
-    it('calls host + intentName + params', async () => {
+    it('calls host + functionName + params', async () => {
       const aRequest = itemRequest()
       global.fetch.mockResponseOnce(JSON.stringify({}))
       window.bearer = { clientId: '42', load: jest.fn() }
@@ -41,22 +41,23 @@ describe('requests', () => {
     })
   })
 
-  describe('intentRequest', () => {
+  describe('functionRequest', () => {
     it('returns a function', () => {
-      const aRequest = intentRequest({ intentName, integrationId, setupId })
+      const aRequest = functionRequest({ functionName, integrationId, setupId })
 
       expect(typeof aRequest).toBe('function')
     })
 
-    it('calls host + intentName + params', async () => {
-      const aRequest = intentRequest({ intentName, integrationId, setupId })
+    it('calls host + functionName + params', async () => {
+      const aRequest = functionRequest({ functionName, integrationId, setupId })
       global.fetch.mockResponseOnce(JSON.stringify({}))
       window.bearer = { clientId: '42', load: jest.fn() }
 
       await aRequest({ page: 1 }, {})
 
       expect(global.fetch).toBeCalledWith(
-        'https://localhost:5555/api/v3/intents/aIntegrationId/anIntent?page=1&setupId=1234&clientId=42&secured=true',
+        // tslint:disable-next-line:max-line-length
+        'https://localhost:5555/api/v3/functions/aIntegrationId/anFunction?page=1&setupId=1234&clientId=42&secured=true',
         {
           credentials: 'include',
           headers: {

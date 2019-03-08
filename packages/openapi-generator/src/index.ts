@@ -4,8 +4,8 @@ import { topOfSpec, specPath } from './openapi-template'
 
 import { convertType } from './convert-type'
 
-export const INTENT_ACTION = 'action'
-type TOutput = { requestBody: any; response: any; intentAuthType?: string }
+export const FUNCTION_ACTION = 'action'
+type TOutput = { requestBody: any; response: any; functionAuthType?: string }
 
 /**
  * find action method in class and return relevant node
@@ -13,7 +13,7 @@ type TOutput = { requestBody: any; response: any; intentAuthType?: string }
 function findActionMethod(node: ts.ClassDeclaration): ts.MethodDeclaration | ts.ArrowFunction | undefined {
   const action = node.members.find((node: ts.ClassElement) => {
     if (node.name) {
-      return node.name.getText() === INTENT_ACTION
+      return node.name.getText() === FUNCTION_ACTION
     }
     return false
   })
@@ -58,7 +58,7 @@ function resolveParameterTypeIndex(t: ts.Type, checker: ts.TypeChecker, i: numbe
   return index
 }
 /**
- *  Find the Parameter type in intent and convert it to json-schema
+ *  Find the Parameter type in func and convert it to json-schema
  */
 function serializeParameters(sym: ts.Symbol | undefined, node: ts.Node, checker: ts.TypeChecker) {
   if (sym) {
@@ -76,7 +76,7 @@ function serializeParameters(sym: ts.Symbol | undefined, node: ts.Node, checker:
  *  @param node action method symbol value declaration
  *  @param checker program type checker
  */
-function getIntentAuthType(sym: ts.Symbol | undefined, node: ts.Node, checker: ts.TypeChecker): string | undefined {
+function getFunctionAuthType(sym: ts.Symbol | undefined, node: ts.Node, checker: ts.TypeChecker): string | undefined {
   if (sym) {
     const typ = checker.getTypeOfSymbolAtLocation(sym, node)
     if (typ.aliasTypeArguments) {
@@ -97,18 +97,18 @@ function getIntentAuthType(sym: ts.Symbol | undefined, node: ts.Node, checker: t
 }
 
 /**
- *  Convert single intent types to json schema
+ *  Convert single func types to json schema
  *  This function tries to find the relevant type definitions, Params and `action` method resposne type
  *  and converts the types to json-schema
- *  @param intentPath absolute path to intent
+ *  @param functionPath absolute path to function
  *  @param options compiler options
  */
-export function intentTypesToSchemaConverter(
-  intentPath: string,
+export function functionTypesToSchemaConverter(
+  functionPath: string,
   options: ts.CompilerOptions = { target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS }
 ): TOutput {
-  const program = ts.createProgram([intentPath], options)
-  const sourceFile = program.getSourceFile(intentPath)
+  const program = ts.createProgram([functionPath], options)
+  const sourceFile = program.getSourceFile(functionPath)
   const checker = program.getTypeChecker()
 
   const output: TOutput = {
@@ -135,7 +135,7 @@ export function intentTypesToSchemaConverter(
         const sym = checker.getSymbolAtLocation(parameterNode.name)
         output.requestBody = serializeParameters(sym, parameterNode, checker)
         output.response = serializeBody(actionMethodNode, checker)
-        output.intentAuthType = getIntentAuthType(sym, parameterNode, checker)
+        output.functionAuthType = getFunctionAuthType(sym, parameterNode, checker)
       }
     }
   }
@@ -149,35 +149,35 @@ export function intentTypesToSchemaConverter(
 }
 
 /**
- *  Generate full openapi spec from intents
- *  @param intentsDir absolute path to intents directory
- *  @param intents list of intent names
+ *  Generate full openapi spec from functions
+ *  @param functionsDir absolute path to functions directory
+ *  @param functions list of func names
  *  @param integrationUuid integration unique identifier
  *  @param integrationName name of the integration
  */
 export default function generator({
-  intentsDir,
-  intents,
+  functionsDir,
+  functions,
   integrationUuid,
   integrationName
 }: {
-  intentsDir: string
-  intents: string[]
+  functionsDir: string
+  functions: string[]
   integrationUuid: string
   integrationName: string
 }): string {
   const doc = topOfSpec(integrationName)
-  const schemas = intents.sort().reduce((acc, intent) => {
-    const intentPath = path.join(intentsDir, `${intent}.ts`)
-    const typeSchema = intentTypesToSchemaConverter(intentPath)
+  const schemas = functions.sort().reduce((acc, func) => {
+    const functionPath = path.join(functionsDir, `${func}.ts`)
+    const typeSchema = functionTypesToSchemaConverter(functionPath)
     return Object.assign(
       acc,
       specPath({
         integrationUuid,
-        intentName: intent,
+        functionName: func,
         response: { type: 'object', properties: typeSchema.response },
         requestBody: typeSchema.requestBody,
-        oauth: typeSchema.intentAuthType === 'OAUTH2' || typeSchema.intentAuthType === 'OAUTH1'
+        oauth: typeSchema.functionAuthType === 'OAUTH2' || typeSchema.functionAuthType === 'OAUTH1'
       })
     )
   }, {})

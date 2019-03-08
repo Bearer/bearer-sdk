@@ -4,20 +4,20 @@
 
 ## Usage
 
-### Call a Bearer intent
+### Call a Bearer function
 
 ```tsx
 // somewhere in your application, we'll use an express route here
 import clientFactory from '@bearer/node/lib/client'
 
 const bearerClient = clientFactory(process.env.BEARER_SECRET_TOKEN)
-// You can pass query or body parameter depending on Intent requirement
+// You can pass query or body parameter depending on Function requirement
 const options = { query: { status: 'open' }, body: { title: 'title' } }
 
 bearerClient
-  .call('1234-integration-to-call', 'intentName', options)
+  .call('1234-integration-to-call', 'functionName', options)
   .then(() => {
-    console.log('Successfully called intent')
+    console.log('Successfully called function')
   })
   .catch(() => {
     console.log('Something wrong happened')
@@ -25,7 +25,7 @@ bearerClient
 
 //async await wait
 try {
-  const reponse = await bearerClient.call('1234-integration-to-call', 'intentName', options)
+  const reponse = await bearerClient.call('1234-integration-to-call', 'functionName', options)
 } catch (e) {
   // handler error
 }
@@ -36,27 +36,27 @@ _Note_: we are using axios a http client. Each .call() returns an Axios Promise.
 
 ### Integration client
 
-Integration client facilitates intent calls and prevent you to pass integration name on every call
+Integration client facilitates func calls and prevent you to pass integration name on every call
 
 ```tsx
 import { IntegrationClient } from '@bearer/node/lib/client'
 
 const integrationClient = new IntegrationClient(process.env.BEARER_SECRET_TOKEN, 'a-integration-uuid')
 
-const reponse = await integrationClient.call('intentName', options)
+const reponse = await integrationClient.call('functionName', options)
 ```
 
-If you are a Typescript user, you can provide a list of intents to use for a integration:
+If you are a Typescript user, you can provide a list of functions to use for a integration:
 
 ```tsx
-const integrationClient = new IntegrationClient<'intentName' | 'other-intent'>(
+const integrationClient = new IntegrationClient<'functionName' | 'other-function'>(
   process.env.BEARER_SECRET_TOKEN,
   'a-integration-uuid'
 )
 
-integrationClient.call('intentName', options) // OK
-integrationClient.call('other-intent', options) // OK
-integrationClient.call('unknow-intent', options) // Argument of type '"unknow-intent"' is not assignable to parameter of type 'TIntegrationIntentNames'.
+integrationClient.call('functionName', options) // OK
+integrationClient.call('other-function', options) // OK
+integrationClient.call('unknow-function', options) // Argument of type '"unknow-function"' is not assignable to parameter of type 'TIntegrationFunctionNames'.
 ```
 
 ### Use Bearer express webhook middleware

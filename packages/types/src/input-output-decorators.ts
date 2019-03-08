@@ -13,17 +13,17 @@ export type TInputDecoratorOptions = {
    */
   eventName: string
   /**
-   * Name of the key used to send referenceId to the intent (as query parameter)
+   * Name of the key used to send referenceId to the func (as query parameter)
    */
-  intentReferenceIdKeyName: string
+  functionReferenceIdKeyName: string
   /**
-   * Intent to retrieve data from
+   * Function to retrieve data from
    */
-  intentName: string
+  functionName: string
   /**
-   * Intent arguments
+   * Function arguments
    */
-  intentArguments: string[]
+  functionArguments: string[]
   /**
    * Autoload data when component mounted
    * default: true
@@ -38,29 +38,29 @@ export type TInputDecorator = (options?: Partial<TInputDecoratorOptions>) => (ta
  */
 export type TOutputDecoratorOptions = {
   /**
-   * Specify an intent you would like to use instead of the default one
+   * Specify an func you would like to use instead of the default one
    */
-  intentName: string
+  functionName: string
   /**
-   * Name of the key used to send the referenceId value to the intent
+   * Name of the key used to send the referenceId value to the function
    * default : referenceId
    */
-  intentReferenceIdKeyName: string
+  functionReferenceIdKeyName: string
   /**
-   * Name of property used to populate the intent intentReferenceIdKeyName param
+   * Name of property used to populate the func functionReferenceIdKeyName param
    */
-  intentReferenceIdValue?: string
+  functionReferenceIdValue?: string
   /**
-   * Intent arguments
+   * Function arguments
    */
-  intentArguments: string[]
+  functionArguments: string[]
   /**
-   * Name of the key name used to send the data to the intent (in the body)
+   * Name of the key name used to send the data to the func (in the body)
    * default: [propertyName]
    */
-  intentPropertyName: string
+  functionPropertyName: string
   /**
-   * Event name triggered when the data has been processed by the intent
+   * Event name triggered when the data has been processed by the function
    * default: [propertyName]Saved
    */
   eventName: string

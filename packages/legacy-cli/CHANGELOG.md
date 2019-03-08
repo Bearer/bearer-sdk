@@ -163,7 +163,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **legacy-cli:** failed intents should return 200 ([#503](https://github.com/Bearer/bearer/issues/503)) ([4763fa7](https://github.com/Bearer/bearer/commit/4763fa7))
+* **legacy-cli:** failed functions should return 200 ([#503](https://github.com/Bearer/bearer/issues/503)) ([4763fa7](https://github.com/Bearer/bearer/commit/4763fa7))
 
 
 
@@ -419,7 +419,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **cli:** handle new intent routes ([068cb23](https://github.com/Bearer/bearer/commit/068cb23))
+* **cli:** handle new func routes ([068cb23](https://github.com/Bearer/bearer/commit/068cb23))
 
 
 
@@ -977,7 +977,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **cli:** Build intents command ([#315](https://github.com/Bearer/bearer/issues/315)) ([95995e1](https://github.com/Bearer/bearer/commit/95995e1))
+* **cli:** Build functions command ([#315](https://github.com/Bearer/bearer/issues/315)) ([95995e1](https://github.com/Bearer/bearer/commit/95995e1))
 * **cli:** Prepare command ([#312](https://github.com/Bearer/bearer/issues/312)) ([fde2dae](https://github.com/Bearer/bearer/commit/fde2dae))
 * **cli:** Push command ([#317](https://github.com/Bearer/bearer/issues/317)) ([84906e4](https://github.com/Bearer/bearer/commit/84906e4))
 
@@ -1083,7 +1083,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 * **cli:** Better deploy error message ([#275](https://github.com/Bearer/bearer/issues/275)) ([70b61af](https://github.com/Bearer/bearer/commit/70b61af))
-* **webserver:** handle not existing intent gracefully ([#277](https://github.com/Bearer/bearer/issues/277)) ([6af021a](https://github.com/Bearer/bearer/commit/6af021a))
+* **webserver:** handle not existing func gracefully ([#277](https://github.com/Bearer/bearer/issues/277)) ([6af021a](https://github.com/Bearer/bearer/commit/6af021a))
 
 
 ### Features
@@ -1105,7 +1105,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **intents:** give access to dbclient ([#270](https://github.com/Bearer/bearer/issues/270)) ([fbf284e](https://github.com/Bearer/bearer/commit/fbf284e))
+* **functions:** give access to dbclient ([#270](https://github.com/Bearer/bearer/issues/270)) ([fbf284e](https://github.com/Bearer/bearer/commit/fbf284e))
 
 
 
@@ -1138,7 +1138,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **cli:** generate component fixes ([ce8a6d4](https://github.com/Bearer/bearer/commit/ce8a6d4))
 * **cli:** give button text a meaning ([1e5c78e](https://github.com/Bearer/bearer/commit/1e5c78e))
 * **cli:** give more meaning to template variable names ([d25d0b6](https://github.com/Bearer/bearer/commit/d25d0b6))
-* **cli:** intents variables generation ([1535f77](https://github.com/Bearer/bearer/commit/1535f77))
+* **cli:** functions variables generation ([1535f77](https://github.com/Bearer/bearer/commit/1535f77))
 
 
 ### Features
@@ -1312,7 +1312,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **intents:** fallback body ([077dc7c](https://github.com/Bearer/bearer/commit/077dc7c))
+- **functions:** fallback body ([077dc7c](https://github.com/Bearer/bearer/commit/077dc7c))
 
 <a name="0.41.1"></a>
 
@@ -1390,7 +1390,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - **cli:** remove useless div ([e0c248a](https://github.com/Bearer/bearer/commit/e0c248a))
-- **cli:** use correct intent type name ([2d5ffa4](https://github.com/Bearer/bearer/commit/2d5ffa4))
+- **cli:** use correct func type name ([2d5ffa4](https://github.com/Bearer/bearer/commit/2d5ffa4))
 
 ### Features
 
@@ -1503,7 +1503,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **cli:** add invoke command to run intent locally ([#165](https://github.com/Bearer/bearer/issues/165)) ([94a909d](https://github.com/Bearer/bearer/commit/94a909d))
+- **cli:** add invoke command to run func locally ([#165](https://github.com/Bearer/bearer/issues/165)) ([94a909d](https://github.com/Bearer/bearer/commit/94a909d))
 - **cli:** prepare production ([#170](https://github.com/Bearer/bearer/issues/170)) ([2a6aa2e](https://github.com/Bearer/bearer/commit/2a6aa2e))
 
 <a name="0.25.1"></a>
@@ -1544,7 +1544,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **cli:** buildartifact dist moved to .bearer ([#156](https://github.com/Bearer/bearer/issues/156)) ([fe16f2a](https://github.com/Bearer/bearer/commit/fe16f2a))
 - **cli:** file renaming was missing ([d9faf0c](https://github.com/Bearer/bearer/commit/d9faf0c))
 - **cli:** handle promise failures ([6d98d71](https://github.com/Bearer/bearer/commit/6d98d71))
-- **cli:** No intent issue ([62e6f9a](https://github.com/Bearer/bearer/commit/62e6f9a))
+- **cli:** No func issue ([62e6f9a](https://github.com/Bearer/bearer/commit/62e6f9a))
 - **cli:** rename screen folder to view ([9211568](https://github.com/Bearer/bearer/commit/9211568))
 - add space between brackets ([9c3f671](https://github.com/Bearer/bearer/commit/9c3f671))
 - clean build ([b638e71](https://github.com/Bearer/bearer/commit/b638e71))
@@ -1554,7 +1554,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - **cli:** add bearer keep ([6eb8a2e](https://github.com/Bearer/bearer/commit/6eb8a2e))
 - **cli:** add options shortcut ([36344ec](https://github.com/Bearer/bearer/commit/36344ec))
-- **cli:** allow screens/intents deploy only ([98bdd6a](https://github.com/Bearer/bearer/commit/98bdd6a))
+- **cli:** allow screens/functions deploy only ([98bdd6a](https://github.com/Bearer/bearer/commit/98bdd6a))
 - **cli:** let deploy use views ([0404f10](https://github.com/Bearer/bearer/commit/0404f10))
 - **cli:** make local deve working ([40c4705](https://github.com/Bearer/bearer/commit/40c4705))
 - **cli:** rename component template name to feature ([63c0374](https://github.com/Bearer/bearer/commit/63c0374))
@@ -1601,7 +1601,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **cli:** upgrade intents dependency ([#141](https://github.com/Bearer/bearer/issues/141)) ([0a575da](https://github.com/Bearer/bearer/commit/0a575da))
+- **cli:** upgrade functions dependency ([#141](https://github.com/Bearer/bearer/issues/141)) ([0a575da](https://github.com/Bearer/bearer/commit/0a575da))
 
 <a name="0.21.1"></a>
 
@@ -1618,7 +1618,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - **cli:** Fix package manager returning to early ([#123](https://github.com/Bearer/bearer/issues/123)) ([7e68dca](https://github.com/Bearer/bearer/commit/7e68dca))
-- **cli:** Update {{intentName}}.ts ([#132](https://github.com/Bearer/bearer/issues/132)) ([05effbb](https://github.com/Bearer/bearer/commit/05effbb))
+- **cli:** Update {{functionName}}.ts ([#132](https://github.com/Bearer/bearer/issues/132)) ([05effbb](https://github.com/Bearer/bearer/commit/05effbb))
 
 ### Features
 
@@ -1650,7 +1650,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **generator:** Improve Intent generator ([#113](https://github.com/Bearer/bearer/issues/113)) ([8f86f46](https://github.com/Bearer/bearer/commit/8f86f46))
+- **generator:** Improve Function generator ([#113](https://github.com/Bearer/bearer/issues/113)) ([8f86f46](https://github.com/Bearer/bearer/commit/8f86f46))
 
 <a name="0.18.0"></a>
 
@@ -1659,7 +1659,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - **generator:** improves client.ts ([#107](https://github.com/Bearer/bearer/issues/107)) ([5c5ffcc](https://github.com/Bearer/bearer/commit/5c5ffcc))
-- **templates:** renames devIntents.config to dev.config ([#108](https://github.com/Bearer/bearer/issues/108)) ([f5d617f](https://github.com/Bearer/bearer/commit/f5d617f))
+- **templates:** renames devFunctions.config to dev.config ([#108](https://github.com/Bearer/bearer/issues/108)) ([f5d617f](https://github.com/Bearer/bearer/commit/f5d617f))
 
 <a name="0.17.5"></a>
 

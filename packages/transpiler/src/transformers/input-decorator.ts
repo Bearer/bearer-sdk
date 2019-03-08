@@ -12,7 +12,7 @@ import {
   extractArrayOptions
 } from '../helpers/decorator-helpers'
 import { addAutoLoad, createFetcher, createLoadDataCall, createLoadResourceMethod } from '../helpers/generator-helpers'
-import { loadName as _loadName, retrieveFetcherName, retrieveIntentName } from '../helpers/name-helpers'
+import { loadName as _loadName, retrieveFetcherName, retrieveFunctionName } from '../helpers/name-helpers'
 import { getNodeName } from '../helpers/node-helpers'
 import { capitalize } from '../helpers/string'
 import { InputMeta, TransformerOptions, OutputMeta } from '../types'
@@ -41,7 +41,7 @@ export default function inputDecorator({ metadata }: TransformerOptions = {}): t
       const sourceFileWithImports = ensureImportsFromCore(tsSourceFile, [
         Decorators.Listen,
         Decorators.State,
-        Decorators.Intent,
+        Decorators.Function,
         Decorators.Watch,
         Decorators.Prop
       ])
@@ -232,15 +232,15 @@ export function retrieveInputsMetas(
           propDeclarationName: name,
           propertyReferenceIdName: refIdName(name),
           eventName: outputEventName(name),
-          intentName: retrieveIntentName(name),
-          intentMethodName: retrieveFetcherName(name), // TODO: retrieve from options
+          functionName: retrieveFunctionName(name),
+          functionMethodName: retrieveFetcherName(name), // TODO: retrieve from options
           autoLoad: true,
           loadMethodName: _loadName(name),
           typeIdentifier: tsNode.type,
           intializer: tsNode.initializer,
           watcherName: _watchName(name),
-          intentReferenceIdKeyName: Properties.ReferenceId,
-          intentArguments: [],
+          functionReferenceIdKeyName: Properties.ReferenceId,
+          functionArguments: [],
           ...options
         })
       }
@@ -260,11 +260,11 @@ function extractInputOptions(decorator: ts.Decorator): Partial<TInputDecoratorOp
     : {
         ...extractStringOptions<TInputDecoratorOptions>(callArgs, [
           'eventName',
-          'intentName',
+          'functionName',
           'propertyReferenceIdName',
-          'intentReferenceIdKeyName'
+          'functionReferenceIdKeyName'
         ]),
-        ...extractArrayOptions<{ intentArguments: string[] }>(callArgs, ['intentArguments']),
+        ...extractArrayOptions<{ functionArguments: string[] }>(callArgs, ['functionArguments']),
         ...extractBooleanOptions<TInputDecoratorOptions>(callArgs, ['autoLoad'])
       }
 }

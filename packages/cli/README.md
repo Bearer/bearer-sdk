@@ -13,14 +13,16 @@ Bearer CLI
 [![License](https://img.shields.io/npm/l/@bearer/cli.svg)](https://github.com/Bearer/bearer/packages/cli/blob/master/package.json)
 
 <!-- toc -->
-* [@bearer/cli](#bearer-cli)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+
+- [@bearer/cli](#bearer-cli)
+- [Usage](#usage)
+- [Commands](#commands)
+  <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @bearer/cli
 $ bearer COMMAND
@@ -32,22 +34,39 @@ USAGE
   $ bearer COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
+
+<<<<<<< HEAD
+
+- [`bearer autocomplete [SHELL]`](#bearer-autocomplete-shell)
+- [`bearer generate`](#bearer-generate)
+- [`bearer generate:component [NAME]`](#bearer-generatecomponent-name)
+- [`bearer generate:function [NAME]`](#bearer-generateintent-name)
+- [`bearer help [COMMAND]`](#bearer-help-command)
+- [`bearer invoke FUNCTION_NAME`](#bearer-invoke-intent-name)
+- [`bearer link INTEGRATION_IDENTIFIER`](#bearer-link-integration-identifier)
+- [`bearer login`](#bearer-login)
+- [`bearer new [INTEGRATIONNAME]`](#bearer-new-integrationname)
+- [`bearer push`](#bearer-push)
+- # [`bearer start`](#bearer-start)
+
 * [`bearer autocomplete [SHELL]`](#bearer-autocomplete-shell)
 * [`bearer generate`](#bearer-generate)
 * [`bearer generate:component [NAME]`](#bearer-generatecomponent-name)
-* [`bearer generate:intent [NAME]`](#bearer-generateintent-name)
+* [`bearer generate:function [NAME]`](#bearer-generatefunction-name)
 * [`bearer help [COMMAND]`](#bearer-help-command)
-* [`bearer invoke INTENT_NAME`](#bearer-invoke-intent-name)
+* [`bearer invoke INTENT_NAME`](#bearer-invoke-function-name)
 * [`bearer link INTEGRATION_IDENTIFIER`](#bearer-link-integration-identifier)
 * [`bearer login`](#bearer-login)
 * [`bearer new [INTEGRATIONNAME]`](#bearer-new-integrationname)
 * [`bearer push`](#bearer-push)
 * [`bearer start`](#bearer-start)
+  > > > > > > > docs: rename intent to functions
 
 ## `bearer autocomplete [SHELL]`
 
@@ -74,7 +93,7 @@ _See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomp
 
 ## `bearer generate`
 
-Generate Intent or Component
+Generate Function or Component
 
 ```
 USAGE
@@ -111,13 +130,13 @@ ALIASES
 
 _See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/generate/component.ts)_
 
-## `bearer generate:intent [NAME]`
+## `bearer generate:function [NAME]`
 
-Generate a Bearer Intent
+Generate a Bearer Function
 
 ```
 USAGE
-  $ bearer generate:intent [NAME]
+  $ bearer generate:function [NAME]
 
 OPTIONS
   -h, --help             show CLI help
@@ -129,7 +148,7 @@ ALIASES
   $ bearer g:i
 ```
 
-_See code: [src/commands/generate/intent.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/generate/intent.ts)_
+_See code: [src/commands/generate/function.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/generate/function.ts)_
 
 ## `bearer help [COMMAND]`
 
@@ -148,13 +167,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
 
-## `bearer invoke INTENT_NAME`
+## `bearer invoke FUNCTION_NAME`
 
-Invoke Intent locally
+Invoke Function locally
 
 ```
 USAGE
-  $ bearer invoke INTENT_NAME
+  $ bearer invoke FUNCTION_NAME
 
 OPTIONS
   -h, --help       show CLI help
@@ -244,4 +263,5 @@ OPTIONS
 ```
 
 _See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/start.ts)_
+
 <!-- commandsstop -->

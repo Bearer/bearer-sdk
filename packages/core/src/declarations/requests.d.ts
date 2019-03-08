@@ -1,11 +1,11 @@
-export declare function intentRequest({
-  intentName,
+export declare function functionRequest({
+  functionName,
   integrationId
 }: {
-  intentName: any
+  functionName: any
   integrationId: any
 }): (params?: {}) => Promise<{}>
 declare const _default: {
-  intentRequest: typeof intentRequest
+  functionRequest: typeof functionRequest
 }
 export default _default

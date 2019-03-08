@@ -17,7 +17,7 @@ class NoOptionsComponent {
   // // generate this
   // @Event() farmerSaved: EventEmitter<Farmer>
   // @State() farmer: BearerRef<Farmer>
-  // @Intent('setFarmer') setFarmer: BearerFetch<Farmer>
+  // @Function('setFarmer') setFarmer: BearerFetch<Farmer>
   // @Watch('farmer')
   // farmerchangeHandler(newValue: BearerRef<Farmer>) {
   //   if (newValue) {
@@ -33,11 +33,11 @@ class NoOptionsComponent {
     eventName: 'milked',
     propertyWatchedName: 'aPanda',
     referenceKeyName: 'aPandaKey',
-    intentName: 'milkWithAbottle',
-    intentReferenceIdKeyName: 'anotherProp',
-    intentReferenceIdValue: 'intentReferenceIdValueValue',
-    intentArguments: ['farmer', 'spongeBobOverrided', 'authId'],
-    intentPropertyName: 'intentPropertyNameOption',
+    functionName: 'milkWithAbottle',
+    functionReferenceIdKeyName: 'anotherProp',
+    functionReferenceIdValue: 'functionReferenceIdValueValue',
+    functionArguments: ['farmer', 'spongeBobOverrided', 'authId'],
+    functionPropertyName: 'functionPropertyNameOption',
     autoLoad: false
   })
   farmerAndPanda: BearerRef<Farmer> = {}

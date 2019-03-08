@@ -9,7 +9,7 @@ type IConfig = {
   body?: {}
 }
 
-export const invoke = (emitter, config, locator: Locator) => async (intent, cmd) => {
+export const invoke = (emitter, config, locator: Locator) => async (func, cmd) => {
   const { path } = cmd
   const { integrationUuid } = config
 
@@ -27,7 +27,7 @@ export const invoke = (emitter, config, locator: Locator) => async (intent, cmd)
 
     const client = axios.create({ baseURL: `${integrationHostURL}api/v1`, timeout: 5000 })
 
-    const { data } = await client.post(`${integrationUuid}/${intent}`, body, { params })
+    const { data } = await client.post(`${integrationUuid}/${func}`, body, { params })
     // used by cli: do not remove
     console.log(JSON.stringify(data, null, 2))
     process.exit(0)
@@ -44,12 +44,12 @@ export const invoke = (emitter, config, locator: Locator) => async (intent, cmd)
 
 export function useWith(program, emitter, config, locator: Locator) {
   program
-    .command('invoke <intent>')
+    .command('invoke <func>')
     .option('-p, --path <path>')
     .description(
-      `invoke Intent locally.
-  $ bearer invoke <IntentName>
-  $ bearer invoke <IntentName> -p tests/intent.json
+      `invoke Function locally.
+  $ bearer invoke <FunctionName>
+  $ bearer invoke <FunctionName> -p tests/func.json
 `
     )
     .action(invoke(emitter, config, locator))

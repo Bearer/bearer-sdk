@@ -11,7 +11,7 @@ type Sponge = {
 }
 
 @RootComponent({
-  name: 'no-options',
+  name: 'no-options'
 })
 class NoOptionsComponent {
   @Input()
@@ -32,11 +32,11 @@ class NoOptionsComponent {
   @Input({
     group: 'other-group',
     propertyReferenceIdName: 'patrick',
-    intentReferenceIdKeyName: 'intentReferenceIdKeyNameOption',
+    functionReferenceIdKeyName: 'functionReferenceIdKeyNameOption',
     eventName: 'patrickWasKilled',
-    intentName: 'killPatrick',
+    functionName: 'killPatrick',
     autoLoad: false,
-    intentArguments: ['farmer', 'spongeBobOverrided', 'authId']
+    functionArguments: ['farmer', 'spongeBobOverrided', 'authId']
   })
   spongeBob: BearerRef<Sponge>
 

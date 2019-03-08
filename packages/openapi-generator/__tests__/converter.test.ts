@@ -2,15 +2,15 @@ import fs from 'fs'
 import path from 'path'
 import ts from 'typescript'
 
-import { intentTypesToSchemaConverter as converter } from '../src/index'
-const INTENTS_DIR = path.join(__dirname, '__fixtures__', 'integration', 'intents')
+import { functionTypesToSchemaConverter as converter } from '../src/index'
+const FUNCTIONS_DIR = path.join(__dirname, '__fixtures__', 'integration', 'functions')
 
-const intents = fs.readdirSync(INTENTS_DIR).map(intent => [intent])
+const functions = fs.readdirSync(FUNCTIONS_DIR).map(func => [func])
 
-describe('#intentTypeToSchemaConverter', () => {
-  test.each(intents)('converts types to schemas for %s', file => {
+describe('#functionTypeToSchemaConverter', () => {
+  test.each(functions)('converts types to schemas for %s', file => {
     expect(
-      converter(path.join(INTENTS_DIR, file), {
+      converter(path.join(FUNCTIONS_DIR, file), {
         target: ts.ScriptTarget.ES5,
         module: ts.ModuleKind.CommonJS
       })

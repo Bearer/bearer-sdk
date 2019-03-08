@@ -12,7 +12,7 @@ import {
   extractArrayOptions
 } from '../helpers/decorator-helpers'
 import { addAutoLoad, createFetcher, createLoadResourceMethod } from '../helpers/generator-helpers'
-import { initialName, retrieveFetcherName, retrieveIntentName, loadName } from '../helpers/name-helpers'
+import { initialName, retrieveFetcherName, retrieveFunctionName, loadName } from '../helpers/name-helpers'
 import { getNodeName } from '../helpers/node-helpers'
 import { capitalize } from '../helpers/string'
 import { TCreateLoadResourceMethod, TransformerOptions, OutputMeta, InputMeta } from '../types'
@@ -43,7 +43,7 @@ export default function outputDecorator({ metadata }: TransformerOptions = {}): 
         Types.BearerFetch,
         Types.EventEmitter,
         Decorators.Event,
-        Decorators.Intent,
+        Decorators.Function,
         Decorators.State,
         Decorators.Watch
       ])
@@ -75,7 +75,7 @@ function injectOuputStatements(
   const newMembers = outputsMeta.reduce(
     (members, meta) => {
       const outputMembers = [
-        createIntent(meta),
+        createFunction(meta),
         createEvent(meta),
         ...createStates(meta),
         createProp(meta),
@@ -193,7 +193,7 @@ function createWatchers(meta: OutputMeta): ts.MethodDeclaration[] {
       undefined,
       ts.createBlock(
         [
-          ts.createStatement(createIntentCall(meta)),
+          ts.createStatement(createFunctionCall(meta)),
           ts.createStatement(
             ts.createBinary(
               ts.createPropertyAccess(ts.createThis(), initialName(meta.propDeclarationName)),
@@ -208,15 +208,15 @@ function createWatchers(meta: OutputMeta): ts.MethodDeclaration[] {
   ]
 }
 
-function createIntent(meta: OutputMeta): ts.PropertyDeclaration {
+function createFunction(meta: OutputMeta): ts.PropertyDeclaration {
   return ts.createProperty(
     [
       ts.createDecorator(
-        ts.createCall(ts.createIdentifier(Decorators.Intent), undefined, [ts.createStringLiteral(meta.intentName)])
+        ts.createCall(ts.createIdentifier(Decorators.Function), undefined, [ts.createStringLiteral(meta.functionName)])
       )
     ],
     undefined,
-    meta.intentName,
+    meta.functionName,
     undefined,
     ts.createTypeReferenceNode(ts.createIdentifier(Types.BearerFetch), [
       meta.typeIdentifier || ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
@@ -225,7 +225,7 @@ function createIntent(meta: OutputMeta): ts.PropertyDeclaration {
   )
 }
 
-function createIntentCall(meta: OutputMeta) {
+function createFunctionCall(meta: OutputMeta) {
   const newValueInitializer = ts.createBinary(
     ts.createIdentifier(data),
     ts.createToken(ts.SyntaxKind.BarBarToken),
@@ -239,17 +239,17 @@ function createIntentCall(meta: OutputMeta) {
 
   return ts.createCall(
     ts.createPropertyAccess(
-      ts.createCall(ts.createPropertyAccess(ts.createThis(), meta.intentName), undefined, [
+      ts.createCall(ts.createPropertyAccess(ts.createThis(), meta.functionName), undefined, [
         ts.createObjectLiteral([
           ts.createPropertyAssignment(
             'body',
             ts.createObjectLiteral([
-              ts.createPropertyAssignment(meta.intentPropertyName, ts.createIdentifier(newValue))
+              ts.createPropertyAssignment(meta.functionPropertyName, ts.createIdentifier(newValue))
             ])
           ),
           ts.createPropertyAssignment(
-            meta.intentReferenceIdKeyName,
-            ts.createPropertyAccess(ts.createThis(), meta.intentReferenceIdValue || meta.propDeclarationNameRefId)
+            meta.functionReferenceIdKeyName,
+            ts.createPropertyAccess(ts.createThis(), meta.functionReferenceIdValue || meta.propDeclarationNameRefId)
           )
         ])
       ]),
@@ -312,7 +312,7 @@ export function refIdName(name: string): string {
   return `${name}Id`
 }
 
-export function saveIntentName(name: string): string {
+export function saveFunctionName(name: string): string {
   return `save${capitalize(name)}`
 }
 
@@ -323,7 +323,7 @@ export function outputEventName(prefix: string, suffix?: string): string {
 
 function createInitialFetcher(meta) {
   const metaForInitial = {
-    intentName: retrieveIntentName(meta.propDeclarationName)
+    functionName: retrieveFunctionName(meta.propDeclarationName)
   }
   return createFetcher({ ...meta, ...metaForInitial })
 }
@@ -345,32 +345,32 @@ export function retrieveOutputsMetas(
           : {
               ...extractStringOptions<TOutputDecoratorOptions>(callArgs, [
                 'eventName',
-                'intentName',
-                'intentPropertyName',
+                'functionName',
+                'functionPropertyName',
                 'propertyWatchedName',
                 'referenceKeyName',
-                'intentReferenceIdValue',
-                'intentReferenceIdKeyName'
+                'functionReferenceIdValue',
+                'functionReferenceIdKeyName'
               ]),
-              ...extractArrayOptions<{ intentArguments: string[] }>(callArgs, ['intentArguments']),
+              ...extractArrayOptions<{ functionArguments: string[] }>(callArgs, ['functionArguments']),
               ...extractBooleanOptions<TOutputDecoratorOptions>(callArgs, ['autoLoad'])
             }
         outputs.push({
           eventName: outputEventName(name),
-          intentName: saveIntentName(name),
-          intentMethodName: retrieveFetcherName(name),
-          intentPropertyName: name,
+          functionName: saveFunctionName(name),
+          functionMethodName: retrieveFetcherName(name),
+          functionPropertyName: name,
           propDeclarationName: name,
           propDeclarationNameRefId: refIdName(name),
           loadMethodName: loadName(name),
-          intentReferenceIdKeyName: Properties.ReferenceId,
+          functionReferenceIdKeyName: Properties.ReferenceId,
           typeIdentifier: tsNode.type,
           initializer: tsNode.initializer,
           referenceKeyName: Properties.ReferenceId,
           propertyWatchedName: name,
           propertyReferenceIdName: refIdName(name),
           autoLoad: true,
-          intentArguments: [],
+          functionArguments: [],
           ...options
         })
       }

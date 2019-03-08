@@ -1,8 +1,8 @@
 import {
   BearerFetch,
   BearerState,
-  Intent,
-  IntentType,
+  Function,
+  FunctionType,
   RootComponent,
   Input,
   Output,
@@ -24,13 +24,13 @@ type Panda = {
   styleUrl: './ok.css'
 })
 export class AttachPullRequestAction {
-  @Intent('ListRepositories')
+  @Function('ListRepositories')
   fetcher: BearerFetch
   @BearerState()
   attachedPullRequests: Array<any>
   @BearerState({ statePropName: 'goats' })
   ducks: Array<any>
-  @Intent('getPullRequest', IntentType.FetchData)
+  @Function('getPullRequest', FunctionType.FetchData)
   fetchResource: BearerFetch
   @Event() inlineDefinition: EventEmitter<{ inlineName: string; inlineNumber: number; other: Panda }>
   @Input()
@@ -39,7 +39,7 @@ export class AttachPullRequestAction {
     group: 'SCOPE',
     propertyReferenceIdName: 'goatId',
     eventName: 'goatMilked',
-    intentName: 'retrieveGoat',
+    functionName: 'retrieveGoat',
     autoLoad: false
   })
   goat: BearerRef<{ aString: string; aNumber: number; panda: Panda }>
@@ -48,9 +48,9 @@ export class AttachPullRequestAction {
   feedPanda: BearerRef<Panda>
 
   @Output({
-    intentName: 'manualIntentName',
-    intentReferenceIdKeyName: 'manualintentReferenceIdKeyName',
-    intentPropertyName: 'manuaLIntentPropertyName',
+    functionName: 'manualFunctionName',
+    functionReferenceIdKeyName: 'manualfunctionReferenceIdKeyName',
+    functionPropertyName: 'manuaLFunctionPropertyName',
     eventName: 'spongeBobdSaved',
     propertyWatchedName: 'manualpropertyWatchedName',
     referenceKeyName: 'manualreferenceKeyName'
