@@ -1,6 +1,6 @@
 {
   "name": "@bearer/core",
-  "version": "0.101.0",
+  "version": "0.101.1",
   "description": "Bearer Core",
   "main": "lib/main.js",
   "types": "lib/index.d.ts",
@@ -38,7 +38,7 @@
     ]
   },
   "devDependencies": {
-    "@bearer/js": "^0.101.0",
+    "@bearer/js": "^0.101.1",
     "@types/fbemitter": "^2.0.32",
     "@types/jest": "^23.3.13",
     "@types/lodash.get": "^4.4.5",

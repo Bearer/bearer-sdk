@@ -1,6 +1,6 @@
 {
   "name": "@bearer/bearer-cli",
-  "version": "0.101.0",
+  "version": "0.101.1",
   "main": "lib/bin/index.js",
   "repository": "Bearer/bearer",
   "homepage": "https://github.com/Bearer/bearer/packages/legacy-cli#readme",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@bearer/functions": "^0.101.0",
     "@bearer/logger": "^0.101.0",
-    "@bearer/transpiler": "^0.101.0",
+    "@bearer/transpiler": "^0.101.1",
     "@bearer/types": "^0.101.0",
     "@koa/cors": "^2.2.2",
     "amazon-cognito-identity-js": "^2.0.3",

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.101.1](https://github.com/Bearer/bearer/compare/v0.101.0...v0.101.1) (2019-03-15)
+
+
+### Bug Fixes
+
+* **react:** make connect component works ([93ed16d](https://github.com/Bearer/bearer/commit/93ed16d))
+* **transpiler:** do not use Function keyword behind the scenes ([2f7a69f](https://github.com/Bearer/bearer/commit/2f7a69f))
+
+
+
+
+
 # [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
 
 
