@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
+
+
+### Bug Fixes
+
+* fix manifest generation ([#580](https://github.com/Bearer/bearer/issues/580)) ([1fcd9cd](https://github.com/Bearer/bearer/commit/1fcd9cd))
+* **cli:** use v3 version ([1ba85f2](https://github.com/Bearer/bearer/commit/1ba85f2))
+
+
+### Features
+
+* Feat/add oauth1 templates to cli ([#542](https://github.com/Bearer/bearer/issues/542)) ([f7ed642](https://github.com/Bearer/bearer/commit/f7ed642))
+* rename scenario to integration ([#570](https://github.com/Bearer/bearer/issues/570)) ([cc34baa](https://github.com/Bearer/bearer/commit/cc34baa))
+
+
+
+
+
 # [0.100.0](https://github.com/Bearer/bearer/compare/v0.99.2...v0.100.0) (2019-03-04)
 
 **Note:** Version bump only for package @bearer/openapi-generator

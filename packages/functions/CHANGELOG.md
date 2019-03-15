@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
+
+
+### Features
+
+* **x-ray:** add package to trace outgoing  http call inside an intent ([#574](https://github.com/Bearer/bearer/issues/574)) ([3b882e1](https://github.com/Bearer/bearer/commit/3b882e1)), closes [#581](https://github.com/Bearer/bearer/issues/581)
+
+
+
+
+
 # [0.100.0](https://github.com/BearerSH/bearer/compare/v0.99.2...v0.100.0) (2019-03-04)
 
 **Note:** Version bump only for package @bearer/functions

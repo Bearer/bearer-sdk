@@ -13,60 +13,42 @@ Bearer CLI
 [![License](https://img.shields.io/npm/l/@bearer/cli.svg)](https://github.com/Bearer/bearer/packages/cli/blob/master/package.json)
 
 <!-- toc -->
-
-- [@bearer/cli](#bearer-cli)
-- [Usage](#usage)
-- [Commands](#commands)
-  <!-- tocstop -->
+* [@bearer/cli](#bearer-cli)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @bearer/cli
 $ bearer COMMAND
 running command...
 $ bearer (-v|--version|version)
-@bearer/cli/0.100.0 linux-x64 node-v10.15.2
+@bearer/cli/0.101.0 linux-x64 node-v10.15.3
 $ bearer --help [COMMAND]
 USAGE
   $ bearer COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-<<<<<<< HEAD
-
-- [`bearer autocomplete [SHELL]`](#bearer-autocomplete-shell)
-- [`bearer generate`](#bearer-generate)
-- [`bearer generate:component [NAME]`](#bearer-generatecomponent-name)
-- [`bearer generate:function [NAME]`](#bearer-generateintent-name)
-- [`bearer help [COMMAND]`](#bearer-help-command)
-- [`bearer invoke FUNCTION_NAME`](#bearer-invoke-intent-name)
-- [`bearer link INTEGRATION_IDENTIFIER`](#bearer-link-integration-identifier)
-- [`bearer login`](#bearer-login)
-- [`bearer new [INTEGRATIONNAME]`](#bearer-new-integrationname)
-- [`bearer push`](#bearer-push)
-- # [`bearer start`](#bearer-start)
-
 * [`bearer autocomplete [SHELL]`](#bearer-autocomplete-shell)
+* [`bearer encrypt ENCRYPTIONKEY MESSAGE`](#bearer-encrypt-encryptionkey-message)
 * [`bearer generate`](#bearer-generate)
 * [`bearer generate:component [NAME]`](#bearer-generatecomponent-name)
 * [`bearer generate:function [NAME]`](#bearer-generatefunction-name)
 * [`bearer help [COMMAND]`](#bearer-help-command)
-* [`bearer invoke INTENT_NAME`](#bearer-invoke-function-name)
+* [`bearer invoke FUNCTION_NAME`](#bearer-invoke-function-name)
 * [`bearer link INTEGRATION_IDENTIFIER`](#bearer-link-integration-identifier)
 * [`bearer login`](#bearer-login)
 * [`bearer new [INTEGRATIONNAME]`](#bearer-new-integrationname)
 * [`bearer push`](#bearer-push)
 * [`bearer start`](#bearer-start)
-  > > > > > > > docs: rename intent to functions
 
 ## `bearer autocomplete [SHELL]`
 
@@ -91,6 +73,22 @@ EXAMPLES
 
 _See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v0.1.0/src/commands/autocomplete/index.ts)_
 
+## `bearer encrypt ENCRYPTIONKEY MESSAGE`
+
+Encrypt using bearer security
+
+```
+USAGE
+  $ bearer encrypt ENCRYPTIONKEY MESSAGE
+
+OPTIONS
+  -h, --help   show CLI help
+  --path=path
+  --silent
+```
+
+_See code: [src/commands/encrypt.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/encrypt.ts)_
+
 ## `bearer generate`
 
 Generate Function or Component
@@ -108,7 +106,7 @@ ALIASES
   $ bearer g
 ```
 
-_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/generate/index.ts)_
+_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/generate/index.ts)_
 
 ## `bearer generate:component [NAME]`
 
@@ -128,7 +126,7 @@ ALIASES
   $ bearer g:c
 ```
 
-_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/generate/component.ts)_
+_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/generate/component.ts)_
 
 ## `bearer generate:function [NAME]`
 
@@ -145,10 +143,10 @@ OPTIONS
   --silent
 
 ALIASES
-  $ bearer g:i
+  $ bearer g:f
 ```
 
-_See code: [src/commands/generate/function.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/generate/function.ts)_
+_See code: [src/commands/generate/function.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/generate/function.ts)_
 
 ## `bearer help [COMMAND]`
 
@@ -180,7 +178,7 @@ OPTIONS
   -p, --path=path
 ```
 
-_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/invoke.ts)_
+_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/invoke.ts)_
 
 ## `bearer link INTEGRATION_IDENTIFIER`
 
@@ -196,7 +194,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/link.ts)_
+_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/link.ts)_
 
 ## `bearer login`
 
@@ -213,7 +211,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/login.ts)_
 
 ## `bearer new [INTEGRATIONNAME]`
 
@@ -224,13 +222,13 @@ USAGE
   $ bearer new [INTEGRATIONNAME]
 
 OPTIONS
-  -a, --authType=OAUTH2|BASIC|APIKEY|NONE  Authorization type
-  -h, --help                               show CLI help
+  -a, --authType=OAUTH1|OAUTH2|BASIC|APIKEY|NONE  Authorization type
+  -h, --help                                      show CLI help
   --path=path
   --silent
 ```
 
-_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/new.ts)_
 
 ## `bearer push`
 
@@ -246,7 +244,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/push.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/push.ts)_
+_See code: [src/commands/push.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/push.ts)_
 
 ## `bearer start`
 
@@ -262,6 +260,5 @@ OPTIONS
   --no-open
 ```
 
-_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.100.0/src/commands/start.ts)_
-
+_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.101.0/src/commands/start.ts)_
 <!-- commandsstop -->

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
+
+
+### Features
+
+* **js:** add secured mechanism ([8c22ffe](https://github.com/Bearer/bearer/commit/8c22ffe))
+
+
+
+
+
 # [0.100.0](https://github.com/Bearer/bearer/packages/js/compare/v0.99.2...v0.100.0) (2019-03-04)
 
 

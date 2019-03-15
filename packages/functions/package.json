@@ -1,6 +1,6 @@
 {
   "name": "@bearer/functions",
-  "version": "0.100.0",
+  "version": "0.101.0",
   "description": "Bearer Functions",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -21,7 +21,7 @@
     "test:ci": "jest --coverage --runInBand"
   },
   "dependencies": {
-    "@bearer/logger": "^0.100.0",
+    "@bearer/logger": "^0.101.0",
     "@bearer/x-ray": "0.92.1-canary.148",
     "axios": "^0.18.0",
     "typescript": "^3.3.3333"

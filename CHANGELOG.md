@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
+
+
+### Bug Fixes
+
+* **cli:** add bearer script tag ([#562](https://github.com/Bearer/bearer/issues/562)) ([aedfebb](https://github.com/Bearer/bearer/commit/aedfebb))
+* **cli:** better logging on failure ([8621997](https://github.com/Bearer/bearer/commit/8621997))
+* **cli:** fix spec.ts ([#572](https://github.com/Bearer/bearer/issues/572)) ([f940327](https://github.com/Bearer/bearer/commit/f940327))
+* **cli:** hadnle weird use case ([7844c94](https://github.com/Bearer/bearer/commit/7844c94))
+* **cli:** remove group reference from prompt ([7bc2367](https://github.com/Bearer/bearer/commit/7bc2367))
+* **cli:** target the correct endpoint ([3a07ce0](https://github.com/Bearer/bearer/commit/3a07ce0))
+* **cli:** use v3 version ([1ba85f2](https://github.com/Bearer/bearer/commit/1ba85f2))
+* **core:** await for json to return before log ([#568](https://github.com/Bearer/bearer/issues/568)) ([c2652a3](https://github.com/Bearer/bearer/commit/c2652a3))
+* fix manifest generation ([#580](https://github.com/Bearer/bearer/issues/580)) ([1fcd9cd](https://github.com/Bearer/bearer/commit/1fcd9cd))
+* setup inlined fix ([a40b29e](https://github.com/Bearer/bearer/commit/a40b29e))
+* **legacy-cli:** fix webpack not resolving json files ([#584](https://github.com/Bearer/bearer/issues/584)) ([cf89ad8](https://github.com/Bearer/bearer/commit/cf89ad8))
+* **transpiler:** normalize event across the transpiler transformers ([#563](https://github.com/Bearer/bearer/issues/563)) ([60310ff](https://github.com/Bearer/bearer/commit/60310ff))
+* **transpiler:** update generated manifest file ([#573](https://github.com/Bearer/bearer/issues/573)) ([12aabdd](https://github.com/Bearer/bearer/commit/12aabdd))
+* **ui:** small CSS changes following Arthur feedback ([#585](https://github.com/Bearer/bearer/issues/585)) ([52180ee](https://github.com/Bearer/bearer/commit/52180ee))
+* **ui:** typo in path ([145570c](https://github.com/Bearer/bearer/commit/145570c))
+
+
+### Features
+
+* **cli:** remove openapi.json from views ([#565](https://github.com/Bearer/bearer/issues/565)) ([b95f8e6](https://github.com/Bearer/bearer/commit/b95f8e6))
+* **js:** add secured mechanism ([8c22ffe](https://github.com/Bearer/bearer/commit/8c22ffe))
+* Feat/add oauth1 templates to cli ([#542](https://github.com/Bearer/bearer/issues/542)) ([f7ed642](https://github.com/Bearer/bearer/commit/f7ed642))
+* **react:** transform props to kebab case ([#561](https://github.com/Bearer/bearer/issues/561)) ([5f42090](https://github.com/Bearer/bearer/commit/5f42090))
+* inline setup action / display ([#558](https://github.com/Bearer/bearer/issues/558)) ([004b97f](https://github.com/Bearer/bearer/commit/004b97f))
+* rename scenario to integration ([#570](https://github.com/Bearer/bearer/issues/570)) ([cc34baa](https://github.com/Bearer/bearer/commit/cc34baa))
+* **transpiler:** fail hard when integration is not provided ([#578](https://github.com/Bearer/bearer/issues/578)) ([878f56b](https://github.com/Bearer/bearer/commit/878f56b))
+* **transpiler:** fix setupId issue  ([2758d23](https://github.com/Bearer/bearer/commit/2758d23))
+* **transpiler:** rename refId to id ([efece4e](https://github.com/Bearer/bearer/commit/efece4e))
+* **x-ray:** add package to trace outgoing  http call inside an intent ([#574](https://github.com/Bearer/bearer/issues/574)) ([3b882e1](https://github.com/Bearer/bearer/commit/3b882e1)), closes [#581](https://github.com/Bearer/bearer/issues/581)
+* rootcomponent simplification ([#567](https://github.com/Bearer/bearer/issues/567)) ([c21d8d4](https://github.com/Bearer/bearer/commit/c21d8d4))
+
+
+
+
+
 # [0.100.0](https://github.com/Bearer/bearer/compare/v0.99.2...v0.100.0) (2019-03-04)
 
 

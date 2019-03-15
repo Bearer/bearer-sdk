@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
+
+
+### Bug Fixes
+
+* **ui:** small CSS changes following Arthur feedback ([#585](https://github.com/Bearer/bearer/issues/585)) ([52180ee](https://github.com/Bearer/bearer/commit/52180ee))
+* **ui:** typo in path ([145570c](https://github.com/Bearer/bearer/commit/145570c))
+* setup inlined fix ([a40b29e](https://github.com/Bearer/bearer/commit/a40b29e))
+
+
+### Features
+
+* inline setup action / display ([#558](https://github.com/Bearer/bearer/issues/558)) ([004b97f](https://github.com/Bearer/bearer/commit/004b97f))
+* rename scenario to integration ([#570](https://github.com/Bearer/bearer/issues/570)) ([cc34baa](https://github.com/Bearer/bearer/commit/cc34baa))
+
+
+
+
+
 # [0.100.0](https://github.com/ionic-team/stencil-component-starter/compare/v0.99.2...v0.100.0) (2019-03-04)
 
 **Note:** Version bump only for package @bearer/ui

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
+
+
+### Bug Fixes
+
+* **legacy-cli:** fix webpack not resolving json files ([#584](https://github.com/Bearer/bearer/issues/584)) ([cf89ad8](https://github.com/Bearer/bearer/commit/cf89ad8))
+
+
+### Features
+
+* rename scenario to integration ([#570](https://github.com/Bearer/bearer/issues/570)) ([cc34baa](https://github.com/Bearer/bearer/commit/cc34baa))
+
+
+
+
+
 # [0.100.0](https://github.com/Bearer/bearer/compare/v0.99.2...v0.100.0) (2019-03-04)
 
 **Note:** Version bump only for package @bearer/bearer-cli

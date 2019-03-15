@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
+
+
+### Bug Fixes
+
+* **transpiler:** normalize event across the transpiler transformers ([#563](https://github.com/Bearer/bearer/issues/563)) ([60310ff](https://github.com/Bearer/bearer/commit/60310ff))
+* **transpiler:** update generated manifest file ([#573](https://github.com/Bearer/bearer/issues/573)) ([12aabdd](https://github.com/Bearer/bearer/commit/12aabdd))
+* fix manifest generation ([#580](https://github.com/Bearer/bearer/issues/580)) ([1fcd9cd](https://github.com/Bearer/bearer/commit/1fcd9cd))
+
+
+### Features
+
+* rename scenario to integration ([#570](https://github.com/Bearer/bearer/issues/570)) ([cc34baa](https://github.com/Bearer/bearer/commit/cc34baa))
+* rootcomponent simplification ([#567](https://github.com/Bearer/bearer/issues/567)) ([c21d8d4](https://github.com/Bearer/bearer/commit/c21d8d4))
+* **transpiler:** fail hard when integration is not provided ([#578](https://github.com/Bearer/bearer/issues/578)) ([878f56b](https://github.com/Bearer/bearer/commit/878f56b))
+* **transpiler:** fix setupId issue  ([2758d23](https://github.com/Bearer/bearer/commit/2758d23))
+* **transpiler:** rename refId to id ([efece4e](https://github.com/Bearer/bearer/commit/efece4e))
+
+
+
+
+
 # [0.100.0](https://github.com/Bearer/bearer/compare/v0.99.2...v0.100.0) (2019-03-04)
 
 **Note:** Version bump only for package @bearer/transpiler

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
+
+
+### Features
+
+* **react:** transform props to kebab case ([#561](https://github.com/Bearer/bearer/issues/561)) ([5f42090](https://github.com/Bearer/bearer/commit/5f42090))
+* rename scenario to integration ([#570](https://github.com/Bearer/bearer/issues/570)) ([cc34baa](https://github.com/Bearer/bearer/commit/cc34baa))
+* **x-ray:** add package to trace outgoing  http call inside an intent ([#574](https://github.com/Bearer/bearer/issues/574)) ([3b882e1](https://github.com/Bearer/bearer/commit/3b882e1)), closes [#581](https://github.com/Bearer/bearer/issues/581)
+
+
+
+
+
 # [0.100.0](https://github.com/Bearer/bearer/compare/v0.99.2...v0.100.0) (2019-03-04)
 
 
