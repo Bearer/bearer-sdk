@@ -9,7 +9,7 @@ Bearer lib can be used instantly in your page or with a package system.
 ### Directly in your page
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@bearer/js@beta5/lib/bearer.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@bearer/js@beta6/lib/bearer.production.min.js"></script>
 <script>
   // you have now access to a global `bearer` function, initialize your code by passing the `clientId` as parameter
   const bearerClient = bearer('clientId')
