@@ -4,7 +4,7 @@
   "packages": [
     "packages/*"
   ],
-  "version": "0.101.1",
+  "version": "0.101.2",
   "command": {
     "version": {
       "npmClient": "npm"

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.101.2](https://github.com/Bearer/bearer/compare/v0.101.1...v0.101.2) (2019-03-18)
+
+
+### Bug Fixes
+
+* **cli:** use the new url endpoints ([9973f66](https://github.com/Bearer/bearer/commit/9973f66))
+
+
+
+
+
 ## [0.101.1](https://github.com/Bearer/bearer/compare/v0.101.0...v0.101.1) (2019-03-15)
 
 
