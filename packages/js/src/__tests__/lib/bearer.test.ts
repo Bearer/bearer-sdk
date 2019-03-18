@@ -52,6 +52,17 @@ describe('main', () => {
       })
     })
   })
+
+  describe('fetch request', () => {
+    it.skip('returns payload if success', () => {
+      expect(false).toBeTruthy()
+    })
+  })
+  describe('function request', () => {
+    it.skip('returns payload if success', () => {
+      expect(false).toBeTruthy()
+    })
+  })
 })
 
 describe('findElements', () => {

@@ -167,10 +167,6 @@ declare global {
     | 'display-4';
     }
 
-    interface AuthConfig {
-
-    }
-
     interface BearerButtonPopover {
       'aligned': TAlignement;
       'backNav': boolean;
@@ -180,16 +176,6 @@ declare global {
       'kind': BKind;
       'opened': boolean;
       'toggle': (newValue: boolean) => void;
-    }
-
-    interface BearerConfigDisplay {
-      'integrationId': string;
-    }
-
-    interface BearerConfig {
-      'fields': any[] | string;
-      'integrationId': string;
-      'referenceId': string;
     }
 
     interface BearerDropdownButton {
@@ -398,35 +384,11 @@ declare global {
     };
     
 
-    interface HTMLAuthConfigElement extends StencilComponents.AuthConfig, HTMLStencilElement {}
-
-    var HTMLAuthConfigElement: {
-      prototype: HTMLAuthConfigElement;
-      new (): HTMLAuthConfigElement;
-    };
-    
-
     interface HTMLBearerButtonPopoverElement extends StencilComponents.BearerButtonPopover, HTMLStencilElement {}
 
     var HTMLBearerButtonPopoverElement: {
       prototype: HTMLBearerButtonPopoverElement;
       new (): HTMLBearerButtonPopoverElement;
-    };
-    
-
-    interface HTMLBearerConfigDisplayElement extends StencilComponents.BearerConfigDisplay, HTMLStencilElement {}
-
-    var HTMLBearerConfigDisplayElement: {
-      prototype: HTMLBearerConfigDisplayElement;
-      new (): HTMLBearerConfigDisplayElement;
-    };
-    
-
-    interface HTMLBearerConfigElement extends StencilComponents.BearerConfig, HTMLStencilElement {}
-
-    var HTMLBearerConfigElement: {
-      prototype: HTMLBearerConfigElement;
-      new (): HTMLBearerConfigElement;
     };
     
 
@@ -550,10 +512,7 @@ declare global {
     'bearer-textarea': JSXElements.BearerTextareaAttributes;
     'bearer-loading': JSXElements.BearerLoadingAttributes;
     'bearer-typography': JSXElements.BearerTypographyAttributes;
-    'auth-config': JSXElements.AuthConfigAttributes;
     'bearer-button-popover': JSXElements.BearerButtonPopoverAttributes;
-    'bearer-config-display': JSXElements.BearerConfigDisplayAttributes;
-    'bearer-config': JSXElements.BearerConfigAttributes;
     'bearer-dropdown-button': JSXElements.BearerDropdownButtonAttributes;
     'bearer-i18n': JSXElements.BearerI18nAttributes;
     'bearer-navigator-auth-screen': JSXElements.BearerNavigatorAuthScreenAttributes;
@@ -683,10 +642,6 @@ declare global {
     | 'display-4';
     }
 
-    export interface AuthConfigAttributes extends HTMLAttributes {
-      'onSubmit'?: (event: CustomEvent) => void;
-    }
-
     export interface BearerButtonPopoverAttributes extends HTMLAttributes {
       'aligned'?: TAlignement;
       'backNav'?: boolean;
@@ -696,17 +651,6 @@ declare global {
       'kind'?: BKind;
       'onVisibilityChange'?: (event: CustomEvent) => void;
       'opened'?: boolean;
-    }
-
-    export interface BearerConfigDisplayAttributes extends HTMLAttributes {
-      'integrationId'?: string;
-    }
-
-    export interface BearerConfigAttributes extends HTMLAttributes {
-      'fields'?: any[] | string;
-      'integrationId'?: string;
-      'onStepCompleted'?: (event: CustomEvent) => void;
-      'referenceId'?: string;
     }
 
     export interface BearerDropdownButtonAttributes extends HTMLAttributes {
@@ -826,10 +770,7 @@ declare global {
     'bearer-textarea': HTMLBearerTextareaElement
     'bearer-loading': HTMLBearerLoadingElement
     'bearer-typography': HTMLBearerTypographyElement
-    'auth-config': HTMLAuthConfigElement
     'bearer-button-popover': HTMLBearerButtonPopoverElement
-    'bearer-config-display': HTMLBearerConfigDisplayElement
-    'bearer-config': HTMLBearerConfigElement
     'bearer-dropdown-button': HTMLBearerDropdownButtonElement
     'bearer-i18n': HTMLBearerI18nElement
     'bearer-navigator-auth-screen': HTMLBearerNavigatorAuthScreenElement
@@ -859,10 +800,7 @@ declare global {
     'bearer-textarea': HTMLBearerTextareaElement;
     'bearer-loading': HTMLBearerLoadingElement;
     'bearer-typography': HTMLBearerTypographyElement;
-    'auth-config': HTMLAuthConfigElement;
     'bearer-button-popover': HTMLBearerButtonPopoverElement;
-    'bearer-config-display': HTMLBearerConfigDisplayElement;
-    'bearer-config': HTMLBearerConfigElement;
     'bearer-dropdown-button': HTMLBearerDropdownButtonElement;
     'bearer-i18n': HTMLBearerI18nElement;
     'bearer-navigator-auth-screen': HTMLBearerNavigatorAuthScreenElement;

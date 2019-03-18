@@ -1,5 +1,3 @@
-import { functionRequest } from '../requests'
-
 /**
  * Declarations
  */
@@ -57,54 +55,35 @@ export declare const Function: (functionName: string) => (target: any, key: stri
 // or
 // @Function('functionNameResource', FunctionType.FetchData) propertyName: BearerFetch
 // tslint:disable-next-line:function-name
-export function _BackendFunction(functionName: string, type: FunctionType = FunctionType.FetchData): IDecorator {
+export function _BackendFunction<T = any>(
+  functionName: string,
+  type: FunctionType = FunctionType.FetchData
+): IDecorator {
   return function(target: BearerComponent, key: string): void {
     const getter = (): BearerFetch => {
-      return function(this: BearerComponent, params = {}): Promise<TFetchBearerData> {
+      return function(this: BearerComponent, params = {}): Promise<TFetchBearerData<T>> {
         // NOTE: here we have to use target. Not sure why
         const integrationId = target.INTEGRATION_ID
         if (!integrationId) {
           return missingIntegrationId()
         }
 
-        const func = functionRequest<TFetchBearerResult>({
-          functionName,
-          integrationId,
-          [setupId]: params[setupId] || retrieveSetupId(target)
-        })
-
-        // prepare params and body
-
-        const referenceId = retrieveReferenceId(this)
-        const { body, ...queryParams } = params
-        const baseQuery = referenceId ? { referenceId } : {}
-        const query = { ...baseQuery, ...queryParams }
-        const init = { method: 'POST', body: JSON.stringify(body || {}) }
-
-        // Build promise
-        return functionPromise(func(query, init))
+        return bearer.instance
+          .functionFetch<T>(integrationId, functionName, {
+            ...params,
+            query: {
+              setupId: retrieveSetupId(this),
+              referenceId: retrieveReferenceId(this)
+            }
+          })
+          .catch(error => {
+            throw error
+          })
       }
     }
 
     defineFunctionProp(target, key, getter)
   }
-}
-
-export function functionPromise(promise: Promise<TFetchBearerResult>): Promise<TFetchBearerData> {
-  return new Promise((resolve, reject) => {
-    promise
-      .then((payload: TFetchBearerResult) => {
-        if (payload.error) {
-          reject({ error: payload.error })
-        } else {
-          const { data, meta: { referenceId } = { referenceId: null } } = payload
-          resolve({ data, referenceId })
-        }
-      })
-      .catch(error => {
-        reject({ error })
-      })
-  })
 }
 
 /**
