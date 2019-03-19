@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.103.0](https://github.com/Bearer/bearer/compare/v0.102.0...v0.103.0) (2019-03-19)
+
+
+### Features
+
+* **transpiler:** don't use group ([40288a7](https://github.com/Bearer/bearer/commit/40288a7))
+
+
+
+
+
 # [0.102.0](https://github.com/Bearer/bearer/compare/v0.101.3...v0.102.0) (2019-03-19)
 
 **Note:** Version bump only for package @bearer/transpiler

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.103.0](https://github.com/Bearer/bearer/compare/v0.102.0...v0.103.0) (2019-03-19)
+
+
+### Bug Fixes
+
+* **legacy-cli:** quick win to hide extra informations ([1d38cb7](https://github.com/Bearer/bearer/commit/1d38cb7))
+* **x-ray:** capture https calls ([43d0165](https://github.com/Bearer/bearer/commit/43d0165))
+
+
+### Features
+
+* **cli:** update template for easier configuration ([2484528](https://github.com/Bearer/bearer/commit/2484528))
+* **functions:** allow functions to be restricted to backend ([f3a86c5](https://github.com/Bearer/bearer/commit/f3a86c5))
+* **transpiler:** don't use group ([40288a7](https://github.com/Bearer/bearer/commit/40288a7))
+
+
+
+
+
 # [0.102.0](https://github.com/Bearer/bearer/compare/v0.101.3...v0.102.0) (2019-03-19)
 
 
