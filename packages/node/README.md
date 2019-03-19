@@ -23,13 +23,15 @@ bearerClient
     console.log('Something wrong happened')
   })
 
-//async await wait
+// or async/await
 try {
-  const reponse = await bearerClient.call('1234-integration-to-call', 'functionName', options)
+  const response = await bearerClient.call('1234-integration-to-call', 'functionName', options)
+  
+  // play with response here
 } catch (e) {
-  // handler error
+  // handle error
 }
-// play with response here
+
 ```
 
 _Note_: we are using axios a http client. Each .call() returns an Axios Promise. https://github.com/axios/axios
