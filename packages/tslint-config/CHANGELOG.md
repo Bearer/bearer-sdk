@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.102.0](https://github.com/Bearer/bearer/compare/v0.101.3...v0.102.0) (2019-03-19)
+
+**Note:** Version bump only for package @bearer/tslint-config
+
+
+
+
+
 # [0.101.0](https://github.com/Bearer/bearer/compare/v0.100.0...v0.101.0) (2019-03-15)
 
 **Note:** Version bump only for package @bearer/tslint-config

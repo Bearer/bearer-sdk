@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.102.0](https://github.com/Bearer/bearer/compare/v0.101.3...v0.102.0) (2019-03-19)
+
+
+### Features
+
+* move requests mechanism from core to js ([#592](https://github.com/Bearer/bearer/issues/592)) ([3870f8e](https://github.com/Bearer/bearer/commit/3870f8e))
+* **react:** create react function call hoc ([#593](https://github.com/Bearer/bearer/issues/593)) ([c1c9eed](https://github.com/Bearer/bearer/commit/c1c9eed))
+
+
+
+
+
 ## [0.101.1](https://github.com/Bearer/bearer/compare/v0.101.0...v0.101.1) (2019-03-15)
 
 
