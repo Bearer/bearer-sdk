@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.104.0](https://github.com/Bearer/bearer/compare/v0.103.0...v0.104.0) (2019-03-20)
+
+
+### Features
+
+* **react:** add success/fails callbacks ([#597](https://github.com/Bearer/bearer/issues/597)) ([d89cf1e](https://github.com/Bearer/bearer/commit/d89cf1e))
+
+
+
+
+
 # [0.103.0](https://github.com/Bearer/bearer/compare/v0.102.0...v0.103.0) (2019-03-19)
 
 **Note:** Version bump only for package @bearer/react
