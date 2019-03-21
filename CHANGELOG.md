@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.105.1](https://github.com/Bearer/bearer/compare/v0.105.0...v0.105.1) (2019-03-21)
+
+
+### Bug Fixes
+
+* **transpiler:** remove unnecessary body wrapping ([58df346](https://github.com/Bearer/bearer/commit/58df346))
+
+
+
+
+
 # [0.105.0](https://github.com/Bearer/bearer/compare/v0.104.0...v0.105.0) (2019-03-21)
 
 
