@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.105.0](https://github.com/Bearer/bearer/compare/v0.104.0...v0.105.0) (2019-03-21)
+
+
+### Bug Fixes
+
+* **cli:** add missing piece of code to get local development work ([844907b](https://github.com/Bearer/bearer/commit/844907b))
+
+
+
+
+
 # [0.104.0](https://github.com/Bearer/bearer/compare/v0.103.0...v0.104.0) (2019-03-20)
 
 **Note:** Version bump only for package @bearer/cli

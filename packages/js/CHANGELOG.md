@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.105.0](https://github.com/Bearer/bearer/compare/v0.104.0...v0.105.0) (2019-03-21)
+
+
+### Bug Fixes
+
+* **js:** create a new instance if none has been created ([38ceacd](https://github.com/Bearer/bearer/commit/38ceacd))
+* **js:** prevent unnecessary code to run on local env ([3899321](https://github.com/Bearer/bearer/commit/3899321))
+* **js:** remove last slash ([b086b17](https://github.com/Bearer/bearer/commit/b086b17))
+
+
+
+
+
 # [0.104.0](https://github.com/Bearer/bearer/compare/v0.103.0...v0.104.0) (2019-03-20)
 
 **Note:** Version bump only for package @bearer/js

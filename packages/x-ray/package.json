@@ -1,6 +1,6 @@
 {
   "name": "@bearer/x-ray",
-  "version": "0.104.0",
+  "version": "0.105.0",
   "description": "Trace outgoing traffic inside the intent",
   "main": "lib/index.js",
   "license": "MIT",
