@@ -1,6 +1,6 @@
 # create-bearer
 
-Start a new Bearer intefration in a minute
+Start a new Bearer integration in a minute
 
 ## How to use it
 
