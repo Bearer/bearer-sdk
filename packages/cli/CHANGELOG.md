@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.106.0](https://github.com/Bearer/bearer/compare/v0.105.1...v0.106.0) (2019-03-28)
+
+
+### Bug Fixes
+
+* **cli:** update retrieve templates ([536e771](https://github.com/Bearer/bearer/commit/536e771))
+* **cli:** update saveSetup ([695552a](https://github.com/Bearer/bearer/commit/695552a))
+
+
+
+
+
 ## [0.105.1](https://github.com/Bearer/bearer/compare/v0.105.0...v0.105.1) (2019-03-21)
 
 **Note:** Version bump only for package @bearer/cli

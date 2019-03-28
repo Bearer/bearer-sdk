@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.106.0](https://github.com/Bearer/bearer/compare/v0.105.1...v0.106.0) (2019-03-28)
+
+
+### Bug Fixes
+
+* typo ([017a71f](https://github.com/Bearer/bearer/commit/017a71f))
+* **cli:** update retrieve templates ([536e771](https://github.com/Bearer/bearer/commit/536e771))
+* **cli:** update saveSetup ([695552a](https://github.com/Bearer/bearer/commit/695552a))
+* **functions:** allow meta for response ([b29bb28](https://github.com/Bearer/bearer/commit/b29bb28))
+* **legacy-cli:** wait for local server to be started ([7a44001](https://github.com/Bearer/bearer/commit/7a44001))
+* **x-ray:** rely on context object ([8e6c0fb](https://github.com/Bearer/bearer/commit/8e6c0fb))
+* **x-ray:** remove duplicate tracking ([ae44531](https://github.com/Bearer/bearer/commit/ae44531))
+
+
+### Features
+
+* **functions:** add store object to event ([105ed18](https://github.com/Bearer/bearer/commit/105ed18))
+* **js:** rename fetch to invoke ([8c9612f](https://github.com/Bearer/bearer/commit/8c9612f))
+* **node:** replace call by invoke ([dbfc124](https://github.com/Bearer/bearer/commit/dbfc124))
+* **react:** rename fetch to invoke ([f03d175](https://github.com/Bearer/bearer/commit/f03d175))
+
+
+
+
+
 ## [0.105.1](https://github.com/Bearer/bearer/compare/v0.105.0...v0.105.1) (2019-03-21)
 
 

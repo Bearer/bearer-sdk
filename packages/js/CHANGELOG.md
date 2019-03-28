@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.106.0](https://github.com/Bearer/bearer/compare/v0.105.1...v0.106.0) (2019-03-28)
+
+
+### Features
+
+* **js:** rename fetch to invoke ([8c9612f](https://github.com/Bearer/bearer/commit/8c9612f))
+
+
+
+
+
 # [0.105.0](https://github.com/Bearer/bearer/compare/v0.104.0...v0.105.0) (2019-03-21)
 
 

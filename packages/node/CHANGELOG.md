@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.106.0](https://github.com/Bearer/bearer/compare/v0.105.1...v0.106.0) (2019-03-28)
+
+
+### Features
+
+* **node:** replace call by invoke ([dbfc124](https://github.com/Bearer/bearer/commit/dbfc124))
+
+
+
+
+
 # [0.105.0](https://github.com/Bearer/bearer/compare/v0.104.0...v0.105.0) (2019-03-21)
 
 **Note:** Version bump only for package @bearer/node
