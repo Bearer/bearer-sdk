@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.106.2](https://github.com/Bearer/bearer/compare/v0.106.1...v0.106.2) (2019-03-29)
+
+
+### Bug Fixes
+
+* **functions:** returned data payload update ([#606](https://github.com/Bearer/bearer/issues/606)) ([ab561d2](https://github.com/Bearer/bearer/commit/ab561d2))
+
+
+
+
+
 ## [0.106.1](https://github.com/Bearer/bearer/compare/v0.106.0...v0.106.1) (2019-03-28)
 
 
