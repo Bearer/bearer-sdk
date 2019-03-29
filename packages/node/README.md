@@ -10,22 +10,22 @@
 // somewhere in your application, we'll use an express route here
 import clientFactory from '@bearer/node/lib/client'
 
-const bearerClient = clientFactory(process.env.BEARER_SECRET_TOKEN)
+const bearerClient = clientFactory(process.env.BEARER_API_KEY)
 // You can pass query or body parameter depending on Function requirement
-const options = { query: { status: 'open' }, body: { title: 'title' } }
+const options = { query: { status: 'open' } }
 
 bearerClient
-  .invoke('1234-integration-to-invoke', 'functionName', options)
+  .invoke('INTEGRATION_ID', 'myFunction', options)
   .then(() => {
-    console.log('Successfully invokeed function')
+    console.log('Successfully invoked function')
   })
   .catch(() => {
-    console.log('Something wrong happened')
+    console.log('Something went wrong')
   })
 
 // or async/await
 try {
-  const response = await bearerClient.invoke('1234-integration-to-invoke', 'functionName', options)
+  const response = await bearerClient.invoke('INTEGRATION_ID', 'myFunction', options)
 
   // play with response here
 } catch (e) {
@@ -42,9 +42,9 @@ Integration client facilitates func invokes and prevent you to pass integration 
 ```tsx
 import { IntegrationClient } from '@bearer/node/lib/client'
 
-const integrationClient = new IntegrationClient(process.env.BEARER_SECRET_TOKEN, 'a-integration-uuid')
+const integrationClient = new IntegrationClient(process.env.BEARER_API_KEY, 'a-integration-uuid')
 
-const reponse = await integrationClient.invoke('functionName', options)
+const reponse = await integrationClient.invoke('myFunction', options)
 ```
 
 If you are a Typescript user, you can provide a list of functions to use for a integration:
