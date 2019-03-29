@@ -38,6 +38,28 @@ class MyApp {
 
 ## Usage
 
+### Invoke Functions
+
+The Bearer SDK for JavaScript lets you invoke integration's functions.
+```js
+const integrations = bearer('BEARER_CLIENT_ID');
+
+integrations.invoke('INTEGRATION_ID', 'myFunction')
+.then(console.log)
+.catch(console.error)
+```
+
+Passing params to your function works as follow:
+```js
+const integrations = bearer('BEARER_CLIENT_ID');
+
+integrations.invoke('INTEGRATION_ID', 'myFunction', {
+  query: { foo: 'bar' }
+})
+.then(console.log)
+.catch(console.error)
+```
+
 ### i18n
 
 `@bearer/js` comes with an i18n module that let you deal with internationalization of Bearer's integrations
