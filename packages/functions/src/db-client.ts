@@ -42,13 +42,16 @@ export class DBClient {
   }
 
   async upsertData<InputData = {}>(referenceId, data): Promise<TPersistedData<InputData>> {
+    if (!referenceId) {
+      throw new SaveDataError(`Error while updating data: no reference given`)
+    }
     try {
-      const response = await this.client.put<TPersistedData<InputData>>(
+      await this.client.put<TPersistedData<InputData>>(
         `api/v2/items/${referenceId}`,
         { data, referenceId, ReadAllowed: true },
         { params: { signature: this.signature } }
       )
-      return response.data
+      return { Item: { data, referenceId, ReadAllowed: true } }
     } catch (error) {
       throw new SaveDataError(`Error while updating data: ${error.toString()}`)
     }
