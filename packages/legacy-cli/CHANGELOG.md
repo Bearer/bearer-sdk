@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.107.0](https://github.com/Bearer/bearer/compare/v0.106.2...v0.107.0) (2019-03-29)
+
+
+### Bug Fixes
+
+* remove openapi reference front front ([051d7a2](https://github.com/Bearer/bearer/commit/051d7a2))
+
+
+### Features
+
+* **cli:** allow start without any views ([4248cd4](https://github.com/Bearer/bearer/commit/4248cd4))
+
+
+
+
+
 ## [0.106.2](https://github.com/Bearer/bearer/compare/v0.106.1...v0.106.2) (2019-03-29)
 
 **Note:** Version bump only for package @bearer/bearer-cli
