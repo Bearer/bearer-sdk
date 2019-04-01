@@ -1,7 +1,7 @@
 {
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "0.107.0",
+  "version": "0.107.1",
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer",
   "homepage": "https://github.com/Bearer/bearer/packages/cli#readme",
@@ -10,9 +10,9 @@
   },
   "bugs": "https://github.com/Bearer/bearer/issues",
   "dependencies": {
-    "@bearer/bearer-cli": "^0.107.0",
-    "@bearer/functions": "^0.107.0",
-    "@bearer/openapi-generator": "^0.107.0",
+    "@bearer/bearer-cli": "^0.107.1",
+    "@bearer/functions": "^0.107.1",
+    "@bearer/openapi-generator": "^0.107.1",
     "@bearer/security": "^0.107.0",
     "@bearer/transpiler": "^0.107.0",
     "@bearer/types": "^0.107.0",

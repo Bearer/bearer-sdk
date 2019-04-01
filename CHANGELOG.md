@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.107.1](https://github.com/Bearer/bearer/compare/v0.107.0...v0.107.1) (2019-04-01)
+
+
+### Bug Fixes
+
+* **cli:** inject only dependencies we need ([3539aad](https://github.com/Bearer/bearer/commit/3539aad))
+* **cli:** mark aws-sdk as external ([f1afb46](https://github.com/Bearer/bearer/commit/f1afb46))
+* **legacy-cli:** mimic int service ([4c6e7d7](https://github.com/Bearer/bearer/commit/4c6e7d7))
+* **legacy-cli:** update wording ([8f7f545](https://github.com/Bearer/bearer/commit/8f7f545))
+* **react:** make peer deps not frozen ([4abaf3d](https://github.com/Bearer/bearer/commit/4abaf3d))
+* **readme:** typo + harmonization ([db8ebe6](https://github.com/Bearer/bearer/commit/db8ebe6))
+
+
+
+
+
 # [0.107.0](https://github.com/Bearer/bearer/compare/v0.106.2...v0.107.0) (2019-03-29)
 
 

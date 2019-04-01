@@ -1,6 +1,6 @@
 {
   "name": "@bearer/bearer-cli",
-  "version": "0.107.0",
+  "version": "0.107.1",
   "main": "lib/bin/index.js",
   "repository": "Bearer/bearer",
   "homepage": "https://github.com/Bearer/bearer/packages/legacy-cli#readme",
@@ -25,7 +25,7 @@
     "requirements-check": "node ./check-version.js"
   },
   "dependencies": {
-    "@bearer/functions": "^0.107.0",
+    "@bearer/functions": "^0.107.1",
     "@bearer/logger": "^0.107.0",
     "@bearer/transpiler": "^0.107.0",
     "@bearer/types": "^0.107.0",

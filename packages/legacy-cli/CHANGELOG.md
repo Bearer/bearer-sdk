@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.107.1](https://github.com/Bearer/bearer/compare/v0.107.0...v0.107.1) (2019-04-01)
+
+
+### Bug Fixes
+
+* **legacy-cli:** mimic int service ([4c6e7d7](https://github.com/Bearer/bearer/commit/4c6e7d7))
+* **legacy-cli:** update wording ([8f7f545](https://github.com/Bearer/bearer/commit/8f7f545))
+
+
+
+
+
 # [0.107.0](https://github.com/Bearer/bearer/compare/v0.106.2...v0.107.0) (2019-03-29)
 
 
