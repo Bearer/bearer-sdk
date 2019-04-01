@@ -6,34 +6,10 @@ import { ensureBearerStructure } from '../../helpers/setup'
 import { readFile } from '../../helpers/utils'
 
 const testCases: any = [
-  [
-    'BASIC',
-    {
-      authType: 'BASIC',
-      setupViews: [
-        { type: 'text', label: 'Username', controlName: 'username' },
-        { type: 'password', label: 'Password', controlName: 'password' }
-      ]
-    }
-  ],
-  [
-    'OAUTH2',
-    {
-      authType: 'OAUTH2',
-      setupViews: [
-        { type: 'text', label: 'Client ID', controlName: 'clientID' },
-        { type: 'password', label: 'Client Secret', controlName: 'clientSecret' }
-      ]
-    }
-  ],
-
-  [
-    'APIKEY',
-    {
-      authType: 'APIKEY',
-      setupViews: [{ type: 'password', label: 'Api Key', controlName: 'apiKey' }]
-    }
-  ]
+  ['BASIC', { authType: 'BASIC' }],
+  ['OAUTH1', { authType: 'OAUTH1' }],
+  ['OAUTH2', { authType: 'OAUTH2' }],
+  ['APIKEY', { authType: 'APIKEY' }]
 ]
 
 describe('generate:setup', () => {
@@ -58,9 +34,21 @@ describe('generate:setup', () => {
   })
 })
 
-describe('No auth', () => {
+describe('No Auth', () => {
   it('create setup files ', async () => {
     const bearerPath: string = ensureBearerStructure({ authConfig: { authType: 'NONE' }, folderName: 'none' })
+    await GenerateSetup.run(['--path', bearerPath])
+    expect(fs.existsSync(path.join(bearerPath, 'views', 'setup-action.tsx'))).toBeFalsy()
+    expect(fs.existsSync(path.join(bearerPath, 'views', 'setup-display.tsx'))).toBeFalsy()
+    expect(fs.existsSync(path.join(bearerPath, 'functions', 'saveSetup.ts'))).toBeFalsy()
+    expect(fs.existsSync(path.join(bearerPath, 'functions', 'retrieveSetup.ts'))).toBeFalsy()
+    await setTimeout(() => {}, 100)
+  })
+})
+
+describe('Custom Auth', () => {
+  it('create setup files ', async () => {
+    const bearerPath: string = ensureBearerStructure({ authConfig: { authType: 'CUSTOM' }, folderName: 'none' })
     await GenerateSetup.run(['--path', bearerPath])
     expect(fs.existsSync(path.join(bearerPath, 'views', 'setup-action.tsx'))).toBeFalsy()
     expect(fs.existsSync(path.join(bearerPath, 'views', 'setup-display.tsx'))).toBeFalsy()

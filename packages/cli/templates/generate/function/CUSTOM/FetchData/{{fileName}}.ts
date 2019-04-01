@@ -1,9 +1,9 @@
-import { TOAUTH1AuthContext, FetchData, TFetchActionEvent, TFetchPromise } from '@bearer/functions'
+import { TCUSTOMAuthContext, FetchData, TFetchActionEvent, TFetchPromise } from '@bearer/functions'
 // Uncomment this line if you need to use Client
 // import Client from './client'
 
-export default class {{functionClassName}}Function extends FetchData implements FetchData<ReturnedData, any, TOAUTH1AuthContext> {
-  async action(event: TFetchActionEvent<Params, TOAUTH1AuthContext>): TFetchPromise<ReturnedData> {
+export default class {{functionClassName}}Function extends FetchData implements FetchData<ReturnedData, any, TCUSTOMAuthContext> {
+  async action(event: TFetchActionEvent<Params, TCUSTOMAuthContext>): TFetchPromise<ReturnedData> {
     // Put your logic here
     return { data: [] }
   }

@@ -6,6 +6,7 @@ import BaseCommand from '../../base-command'
 import { RequireIntegrationFolder, skipIfNoViews } from '../../utils/decorators'
 import * as Listr from 'listr'
 import buildSetup from '../../tasks/build-setup'
+import Authentications from '@bearer/types/lib/authentications'
 
 export default class GenerateSetup extends BaseCommand {
   static description = 'Generate a Bearer Setup'
@@ -19,7 +20,10 @@ export default class GenerateSetup extends BaseCommand {
   async run() {
     const { flags } = this.parse(GenerateSetup)
     if (flags.force || !setupExists(this.locator.srcViewsDir)) {
-      const fields = this.integrationAuthConfig.setupViews
+      const { authType } = this.integrationAuthConfig
+
+      const fields = FIELDS[authType]
+
       if (fields && fields.length) {
         try {
           const vars = this.getVars(this.bearerConfig.integrationConfig.integrationTitle, fields)
@@ -53,4 +57,28 @@ function setupExists(location: string): boolean {
   return (
     fs.existsSync(path.join(location, 'setup-action.tsx')) || fs.existsSync(path.join(location, 'setup-display.tsx'))
   )
+}
+
+type TAuthenticationsField = {
+  type: string,
+  label: string,
+  controlName: string
+}
+const FIELDS: Record<Authentications, TAuthenticationsField[]> = {
+  [Authentications.Basic]: [
+    { type: 'text', label: 'Username', controlName: 'username' },
+    { type: 'password', label: 'Password', controlName: 'password' }
+  ],
+
+  [Authentications.ApiKey]: [{ type: 'password', label: 'Api Key', controlName: 'apiKey' }],
+  [Authentications.OAuth1]: [
+    { type: 'text', label: 'Consumer Key', controlName: 'consumerKey' },
+    { type: 'password', label: 'Consumer Secret', controlName: 'consumerSecret' }
+  ],
+  [Authentications.OAuth2]: [
+    { type: 'text', label: 'Client ID', controlName: 'clientID' },
+    { type: 'password', label: 'Client Secret', controlName: 'clientSecret' }
+  ],
+  [Authentications.NoAuth]: [],
+  [Authentications.Custom]: []
 }

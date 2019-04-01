@@ -30,14 +30,7 @@ What's next?
 
 exports[`with views APIKEY generates an integration without any prompt and APIKEY 2`] = `
 "{
-  \\"authType\\": \\"APIKEY\\",
-  \\"setupViews\\": [
-    {
-      \\"type\\": \\"password\\",
-      \\"label\\": \\"Api Key\\",
-      \\"controlName\\": \\"apiKey\\"
-    }
-  ]
+  \\"authType\\": \\"APIKEY\\"
 }
 "
 `;
@@ -105,19 +98,7 @@ What's next?
 
 exports[`with views BASIC generates an integration without any prompt and BASIC 2`] = `
 "{
-  \\"authType\\": \\"BASIC\\",
-  \\"setupViews\\": [
-    {
-      \\"type\\": \\"text\\",
-      \\"label\\": \\"Username\\",
-      \\"controlName\\": \\"username\\"
-    },
-    {
-      \\"type\\": \\"password\\",
-      \\"label\\": \\"Password\\",
-      \\"controlName\\": \\"password\\"
-    }
-  ]
+  \\"authType\\": \\"BASIC\\"
 }
 "
 `;
@@ -263,19 +244,7 @@ exports[`with views OAUTH1 generates an integration without any prompt and OAUTH
   \\"authorizationParams\\": {},
   \\"config\\": {
     \\"scope\\": []
-  },
-  \\"setupViews\\": [
-    {
-      \\"type\\": \\"text\\",
-      \\"label\\": \\"Consumer Key\\",
-      \\"controlName\\": \\"consumerKey\\"
-    },
-    {
-      \\"type\\": \\"password\\",
-      \\"label\\": \\"Consumer Secret\\",
-      \\"controlName\\": \\"consumerSecret\\"
-    }
-  ]
+  }
 }
 "
 `;
@@ -350,19 +319,7 @@ exports[`with views OAUTH2 generates an integration without any prompt and OAUTH
   \\"authorizationParams\\": {},
   \\"config\\": {
     \\"scope\\": []
-  },
-  \\"setupViews\\": [
-    {
-      \\"type\\": \\"text\\",
-      \\"label\\": \\"Client ID\\",
-      \\"controlName\\": \\"clientID\\"
-    },
-    {
-      \\"type\\": \\"password\\",
-      \\"label\\": \\"Client Secret\\",
-      \\"controlName\\": \\"clientSecret\\"
-    }
-  ]
+  }
 }
 "
 `;
@@ -424,14 +381,7 @@ What's next?
 
 exports[`without views APIKEY generates an integration without any prompt and APIKEY 2`] = `
 "{
-  \\"authType\\": \\"APIKEY\\",
-  \\"setupViews\\": [
-    {
-      \\"type\\": \\"password\\",
-      \\"label\\": \\"Api Key\\",
-      \\"controlName\\": \\"apiKey\\"
-    }
-  ]
+  \\"authType\\": \\"APIKEY\\"
 }
 "
 `;
@@ -488,19 +438,7 @@ What's next?
 
 exports[`without views BASIC generates an integration without any prompt and BASIC 2`] = `
 "{
-  \\"authType\\": \\"BASIC\\",
-  \\"setupViews\\": [
-    {
-      \\"type\\": \\"text\\",
-      \\"label\\": \\"Username\\",
-      \\"controlName\\": \\"username\\"
-    },
-    {
-      \\"type\\": \\"password\\",
-      \\"label\\": \\"Password\\",
-      \\"controlName\\": \\"password\\"
-    }
-  ]
+  \\"authType\\": \\"BASIC\\"
 }
 "
 `;
@@ -624,19 +562,7 @@ exports[`without views OAUTH1 generates an integration without any prompt and OA
   \\"authorizationParams\\": {},
   \\"config\\": {
     \\"scope\\": []
-  },
-  \\"setupViews\\": [
-    {
-      \\"type\\": \\"text\\",
-      \\"label\\": \\"Consumer Key\\",
-      \\"controlName\\": \\"consumerKey\\"
-    },
-    {
-      \\"type\\": \\"password\\",
-      \\"label\\": \\"Consumer Secret\\",
-      \\"controlName\\": \\"consumerSecret\\"
-    }
-  ]
+  }
 }
 "
 `;
@@ -700,19 +626,7 @@ exports[`without views OAUTH2 generates an integration without any prompt and OA
   \\"authorizationParams\\": {},
   \\"config\\": {
     \\"scope\\": []
-  },
-  \\"setupViews\\": [
-    {
-      \\"type\\": \\"text\\",
-      \\"label\\": \\"Client ID\\",
-      \\"controlName\\": \\"clientID\\"
-    },
-    {
-      \\"type\\": \\"password\\",
-      \\"label\\": \\"Client Secret\\",
-      \\"controlName\\": \\"clientSecret\\"
-    }
-  ]
+  }
 }
 "
 `;
