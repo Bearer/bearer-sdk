@@ -1,6 +1,6 @@
 {
   "name": "@bearer/functions",
-  "version": "0.107.1",
+  "version": "0.107.2",
   "description": "Bearer Functions",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
