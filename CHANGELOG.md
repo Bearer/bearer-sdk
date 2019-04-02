@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.107.4](https://github.com/Bearer/bearer/compare/v0.107.3...v0.107.4) (2019-04-02)
+
+
+### Bug Fixes
+
+* **cli:** add axios for Custom auth ([#616](https://github.com/Bearer/bearer/issues/616)) ([b6e226e](https://github.com/Bearer/bearer/commit/b6e226e))
+
+
+
+
+
 ## [0.107.3](https://github.com/Bearer/bearer/compare/v0.107.2...v0.107.3) (2019-04-02)
 
 

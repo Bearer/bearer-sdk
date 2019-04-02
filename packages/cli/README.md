@@ -26,7 +26,7 @@ $ npm install -g @bearer/cli
 $ bearer COMMAND
 running command...
 $ bearer (-v|--version|version)
-@bearer/cli/0.107.2 linux-x64 node-v10.15.3
+@bearer/cli/0.107.4 linux-x64 node-v10.15.3
 $ bearer --help [COMMAND]
 USAGE
   $ bearer COMMAND
@@ -87,7 +87,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/encrypt.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/encrypt.ts)_
+_See code: [src/commands/encrypt.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/encrypt.ts)_
 
 ## `bearer generate`
 
@@ -106,7 +106,7 @@ ALIASES
   $ bearer g
 ```
 
-_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/generate/index.ts)_
+_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/generate/index.ts)_
 
 ## `bearer generate:component [NAME]`
 
@@ -126,7 +126,7 @@ ALIASES
   $ bearer g:c
 ```
 
-_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/generate/component.ts)_
+_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/generate/component.ts)_
 
 ## `bearer generate:function [NAME]`
 
@@ -145,7 +145,7 @@ ALIASES
   $ bearer g:f
 ```
 
-_See code: [src/commands/generate/function.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/generate/function.ts)_
+_See code: [src/commands/generate/function.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/generate/function.ts)_
 
 ## `bearer help [COMMAND]`
 
@@ -177,7 +177,7 @@ OPTIONS
   -p, --path=path
 ```
 
-_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/invoke.ts)_
+_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/invoke.ts)_
 
 ## `bearer link INTEGRATION_IDENTIFIER`
 
@@ -193,7 +193,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/link.ts)_
+_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/link.ts)_
 
 ## `bearer login`
 
@@ -210,7 +210,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/login.ts)_
 
 ## `bearer new [INTEGRATIONNAME]`
 
@@ -228,7 +228,7 @@ OPTIONS
   --withViews
 ```
 
-_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/new.ts)_
 
 ## `bearer push`
 
@@ -244,7 +244,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/push.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/push.ts)_
+_See code: [src/commands/push.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/push.ts)_
 
 ## `bearer start`
 
@@ -260,5 +260,5 @@ OPTIONS
   --no-open
 ```
 
-_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.107.2/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v0.107.4/src/commands/start.ts)_
 <!-- commandsstop -->
