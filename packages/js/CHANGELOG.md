@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.107.3](https://github.com/Bearer/bearer/compare/v0.107.2...v0.107.3) (2019-04-02)
+
+
+### Bug Fixes
+
+* **js:** use referenceId from body if one provided ([#613](https://github.com/Bearer/bearer/issues/613)) ([ba3c23d](https://github.com/Bearer/bearer/commit/ba3c23d))
+
+
+
+
+
 # [0.107.0](https://github.com/Bearer/bearer/compare/v0.106.2...v0.107.0) (2019-03-29)
 
 **Note:** Version bump only for package @bearer/js
