@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.108.0](https://github.com/Bearer/bearer/compare/v0.107.4...v0.108.0) (2019-04-03)
+
+**Note:** Version bump only for package @bearer/ui
+
+
+
+
+
 ## [0.107.3](https://github.com/Bearer/bearer/compare/v0.107.2...v0.107.3) (2019-04-02)
 
 **Note:** Version bump only for package @bearer/ui

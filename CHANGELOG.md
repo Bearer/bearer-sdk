@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.108.0](https://github.com/Bearer/bearer/compare/v0.107.4...v0.108.0) (2019-04-03)
+
+
+### Bug Fixes
+
+* **cli:** improve integration list display ([ab28dcc](https://github.com/Bearer/bearer/commit/ab28dcc))
+* **cli:** views structure ws not copied at the right location ([80096e3](https://github.com/Bearer/bearer/commit/80096e3))
+
+
+### Features
+
+* **cli:** Core 347/login with auth0 ([#612](https://github.com/Bearer/bearer/issues/612)) ([5c5194c](https://github.com/Bearer/bearer/commit/5c5194c)), closes [#614](https://github.com/Bearer/bearer/issues/614) [#615](https://github.com/Bearer/bearer/issues/615)
+
+
+
+
+
 ## [0.107.4](https://github.com/Bearer/bearer/compare/v0.107.3...v0.107.4) (2019-04-02)
 
 
