@@ -10,6 +10,7 @@ export type BaseConfig = {
   DeveloperPortalAPIUrl: string
   DeveloperPortalUrl: string
   CdnHost: string
+  LoginDomain: string
 }
 
 export type BearerConfig = {
@@ -38,25 +39,7 @@ export type IntegrationConfig = {
   open: boolean
   configs: string[]
   rootPathRc: string | null
-  storeBearerConfig: any
   config: string
-}
-
-export type Config = BaseConfig & {
-  runPath: string
-  isYarnInstalled: boolean
-  isIntegrationLocation: boolean
-  command: 'yarn' | 'npm'
-  bearerConfig: BearerConfig
-  integrationConfig: IntegrationConfig
-  orgId: string | undefined
-  integrationTitle: string | undefined
-  integrationId: string | undefined
-  integrationUuid: string
-  rootPathRc: string | null
-  hasIntegrationLinked: boolean
-  setIntegrationConfig(config: any): void
-  storeBearerConfig(config: any): void
 }
 
 export type AuthConfig = {
@@ -69,4 +52,14 @@ export type IntegrationBuildEnv = {
   BEARER_INTEGRATION_HOST: string
   BEARER_AUTHORIZATION_HOST: string
   CDN_HOST: string
+}
+
+export type TAccessToken = {
+  access_token: string
+  id_token: string
+  refresh_token: string
+  scope: string
+  expires_in: number
+  expires_at: number
+  token_type: string
 }

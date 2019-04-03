@@ -1,4 +1,9 @@
+import axios from 'axios'
+
 import Command from '../base-command'
+
+import Login from '../commands/login'
+import { LOGIN_CLIENT_ID } from './constants'
 
 type Constructor<T> = new (...args: any[]) => T
 type TCommand = InstanceType<Constructor<Command>>
@@ -37,14 +42,36 @@ export function RequireLinkedIntegration() {
   return function(_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value
     descriptor.value = async function(this: TCommand) {
-      if (this.bearerConfig.hasIntegrationLinked) {
-        await originalMethod.apply(this, arguments)
-      } else {
-        const error =
-          this.colors.bold('You integration must be linked before running this command\n') +
-          this.colors.yellow(this.colors.italic('Please run: bearer link'))
-        this.error(error)
+      if (!this.bearerConfig.hasIntegrationLinked) {
+        const { choice } = await this.inquirer.prompt([
+          {
+            name: 'choice',
+            message: "Your integration isn't linked, what would you like to do?",
+            type: 'list',
+            choices: [
+              {
+                name: 'Create a new integration',
+                value: 'create'
+              },
+              {
+                name: 'Select an integration from my list',
+                value: 'select'
+              }
+            ]
+          }
+        ])
+        switch (choice) {
+          case 'create':
+            await CreateIntegration.run([])
+            break
+          case 'select':
+            await LinkIntegration.run([])
+          default:
+            break
+        }
       }
+
+      await originalMethod.apply(this, arguments)
     }
     return descriptor
   }
@@ -54,76 +81,58 @@ export function ensureFreshToken() {
   return function(_target: any, _propertyKey: string | symbol, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value
     descriptor.value = async function(this: TCommand) {
-      const { authorization, ExpiresAt } = this.bearerConfig.bearerConfig
-
-      if (authorization && authorization.AuthenticationResult) {
+      const { expires_at, refresh_token } = (await this.bearerConfig.getToken()) || {
+        expires_at: null,
+        refresh_token: null
+      }
+      if (expires_at && refresh_token) {
         try {
-          if (ExpiresAt < Date.now()) {
+          if (expires_at < Date.now()) {
             this.ux.action.start('Refreshing token')
-            await refreshMyToken(this)
+            await refreshMyToken(this, refresh_token)
             this.ux.action.stop()
           }
         } catch (error) {
           this.ux.action.stop(`Failed`)
           this.error(error.message)
         }
-        // TS is complaining with TS2445, commenting out this for now
-        // this.debug('Running original method')
-        await originalMethod.apply(this, arguments)
-        return descriptor
+      } else {
+        const error = this.colors.bold('⚠️ It looks like you are not logged in')
+        this.log(error)
+        const { shoudlLogin } = await this.inquirer.prompt<{ shoudlLogin: boolean }>([
+          {
+            message: 'Would you like to login?',
+            name: 'shoudlLogin',
+            type: 'list',
+            choices: [{ name: 'Yes', value: true }, { name: 'No', value: false }]
+          }
+        ])
+        if (shoudlLogin) {
+          await Login.run([])
+        } else {
+          this.exit(0)
+        }
       }
-      const error =
-        this.colors.bold('⚠️ It looks like you are not logged in\n') +
-        this.colors.yellow(this.colors.italic('Please run: bearer login'))
-      this.error(error)
+      await originalMethod.apply(this, arguments)
       return descriptor
     }
     return descriptor
   }
 }
 
-async function refreshMyToken(command: TCommand): Promise<boolean | Error> {
-  const { RefreshToken } = command.bearerConfig.bearerConfig.authorization.AuthenticationResult!
-  if (!RefreshToken) {
-    throw new UnauthorizedRefreshTokenError()
-  }
-  // try {
-  const { statusCode, body } = await command.serviceClient.refresh({ RefreshToken })
-
-  switch (statusCode) {
-    case 200: {
-      const {
-        authorization: { AuthenticationResult }
-      } = body
-
-      await command.bearerConfig.storeBearerConfig({
-        ExpiresAt: Date.now() + AuthenticationResult.ExpiresIn * 1000,
-        authorization: {
-          AuthenticationResult: {
-            ...AuthenticationResult,
-            RefreshToken
-          }
-        }
-      })
-      return true
-    }
-    case 401: {
-      throw new UnauthorizedRefreshTokenError()
-    }
-    default: {
-      throw new UnexpectedRefreshTokenError(JSON.stringify(body, undefined, 2))
-    }
-  }
+// tslint:disable-next-line variable-name
+async function refreshMyToken(command: TCommand, refresh_token: string): Promise<boolean | Error> {
+  // TODO: rework refresh mechanism
+  const response = await axios.post(`${command.constants.LoginDomain}/oauth/token`, {
+    refresh_token,
+    grant_type: 'refresh_token',
+    client_id: LOGIN_CLIENT_ID
+  })
+  await command.bearerConfig.storeToken({ ...response.data, refresh_token })
+  return true
 }
 
-class UnauthorizedRefreshTokenError extends Error {
-  constructor() {
-    super('Something went wrong, please run bearer login and try again')
-  }
-}
-
-class UnexpectedRefreshTokenError extends Error {
-  constructor(body: any) {
-    super(`body : ${body}`)
-  }
-}
+// note: moving this line here, since link require RequireIntegrationFolder to be defined because it produces
+// this error: decorators_1.RequireIntegrationFolder is not a function
+import LinkIntegration from '../commands/link'
+import CreateIntegration from '../commands/integrations/create'

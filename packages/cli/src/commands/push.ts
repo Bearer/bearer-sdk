@@ -3,12 +3,18 @@ import axios from 'axios'
 import * as fs from 'fs-extra'
 import * as globby from 'globby'
 import * as Listr from 'listr'
+import serviceClient from '@bearer/bearer-cli/lib/lib/serviceClient'
 
 import BaseCommand from '../base-command'
 import { ensureFreshToken, RequireLinkedIntegration, RequireIntegrationFolder } from '../utils/decorators'
 import { ensureFolderExists } from '../utils/helpers'
+import { IntegrationClient } from '../utils/integration-client'
+
 export default class Push extends BaseCommand {
   static description = 'Deploy Integration to Bearer Platform'
+  private integrationClient!: IntegrationClient
+  // TODO: fix typing
+  private serviceClient!: any
 
   static flags = {
     ...BaseCommand.flags
@@ -17,9 +23,20 @@ export default class Push extends BaseCommand {
   static args = []
 
   @RequireIntegrationFolder()
-  @RequireLinkedIntegration()
   @ensureFreshToken()
+  @RequireLinkedIntegration()
   async run() {
+    const { Username, Password } = await this.fetchLoginInformation()
+    this.serviceClient = serviceClient(this.constants.IntegrationServiceUrl)
+    const data = await this.serviceClient.login({ Username, Password })
+    this.debug('auth info : %j', data)
+
+    this.integrationClient = new IntegrationClient(
+      this.constants.DeploymentUrl,
+      data.body.authorization.AuthenticationResult.IdToken,
+      this.config.version
+    )
+
     ensureFolderExists(this.locator.buildArtifactDir, true)
     const archivePath = this.locator.buildArtifactResourcePath('integration.zip')
     const tasks = [
@@ -39,16 +56,12 @@ export default class Push extends BaseCommand {
       this.log(
         // tslint:disable-next-line:prefer-template
         `Your Integration will be available shortly here: ` +
-          this.colors.bold(
-            `${this.bearerConfig.DeveloperPortalUrl}integrations/${this.bearerConfig.integrationUuid}/preview`
-          )
+          this.colors.bold(`${this.constants.DeveloperPortalUrl}integrations/${this.bearerConfig.integrationUuid}`)
       )
       this.log(
         // tslint:disable-next-line:prefer-template
         `\nIn the meantime you can follow the deployment here: ` +
-          this.colors.bold(
-            `${this.bearerConfig.DeveloperPortalUrl}integrations/${this.bearerConfig.integrationUuid}/logs`
-          )
+          this.colors.bold(`${this.constants.DeveloperPortalUrl}integrations/${this.bearerConfig.integrationUuid}/logs`)
       )
     } catch (e) {
       this.error(e)
@@ -122,7 +135,7 @@ export default class Push extends BaseCommand {
         switch (e.response.status) {
           case 401: {
             this.error(
-              `Unauthorized to push, please visit ${this.bearerConfig.DeveloperPortalUrl}integrations/${
+              `Unauthorized to push, please visit ${this.constants.DeveloperPortalUrl}integrations/${
                 this.bearerConfig.integrationUuid
               } to confirm you have access to ${this.colors.bold(this.bearerConfig.integrationUuid)} integration.`
             )
@@ -136,4 +149,34 @@ export default class Push extends BaseCommand {
       return false
     }
   }
+
+  fetchLoginInformation = async () => {
+    const { BEARER_TOKEN, BEARER_EMAIL } = process.env
+    if (BEARER_TOKEN && BEARER_EMAIL) {
+      return {
+        Username: BEARER_EMAIL,
+        Password: BEARER_TOKEN
+      }
+    }
+    const { data } = await this.devPortalClient.request<{
+      currentUser: { email: string; infrastructure: { password: string } }
+    }>({
+      query: QUERY
+    })
+    if (data.data) {
+      return { Username: data.data.currentUser.email, Password: data.data.currentUser.infrastructure.password }
+    }
+    throw 'Fetch credentials error'
+  }
 }
+
+const QUERY = `
+query CLIPush {
+  currentUser {
+    email
+    infrastructure {
+      password
+    }
+  }
+}
+`

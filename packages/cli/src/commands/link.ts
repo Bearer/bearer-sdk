@@ -1,5 +1,6 @@
 import BaseCommand from '../base-command'
 import { RequireIntegrationFolder } from '../utils/decorators'
+import { linkIntegration } from '../utils/commands'
 
 export default class Link extends BaseCommand {
   static description = 'Link your local integration to a remote one'
@@ -8,16 +9,11 @@ export default class Link extends BaseCommand {
     ...BaseCommand.flags
   }
 
-  static args = [{ name: 'Integration_Identifier', required: true }]
+  static args = [{ name: 'Integration_Identifier' }]
 
   @RequireIntegrationFolder()
   async run() {
     const { args } = this.parse(Link)
-    const identifier = args.Integration_Identifier
-    const { integrationTitle } = this.bearerConfig
-    const [orgId, integrationId] = identifier.replace(/\-/, '|').split('|')
-    const integrationRc = { orgId, integrationId, integrationTitle }
-    this.bearerConfig.setIntegrationConfig(integrationRc)
-    this.log('Integration successfully linked! 🎉')
+    await linkIntegration.bind(this)(args.Integration_Identifier)
   }
 }
