@@ -19,19 +19,17 @@ export default class IntegrationsList extends BaseCommand {
         const max = integrations.reduce(
           (acc, inte) => {
             acc.name = Math.max(inte.name.length, acc.name)
-            acc.name = Math.max((inte.latestActivity || { state: '' }).state.length, acc.name)
-            acc.uuid = Math.max(inte.uuid.length, acc.uuid)
+            acc.state = Math.max((inte.latestActivity || { state: '' }).state.length, acc.state)
             return acc
           },
-          { name: 0, state: 0, uuid: 0 }
+          { name: 0, state: 0 }
         )
-
+        this.success('Your integrations\n')
         integrations.forEach(inte => {
           this.log(
-            '| %s | %s | %s',
+            '| %s | %s |',
             inte.name.padEnd(max.name),
-            (inte.latestActivity || { state: '' }).state.padEnd(max.state),
-            inte.uuid.padEnd(max.uuid)
+            (inte.latestActivity || { state: '' }).state.padEnd(max.state)
           )
         })
       } else {
