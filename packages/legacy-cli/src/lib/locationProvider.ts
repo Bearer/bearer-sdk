@@ -5,14 +5,10 @@ import { Config } from './types'
 export default class LocationProvider {
   bearerDir: string
   integrationRoot: string
-  integrationRc: string
 
-  constructor(private readonly config: Config) {
-    this.integrationRc = this.config.integrationConfig.config
-    if (this.integrationRc) {
-      this.integrationRoot = path.dirname(this.integrationRc)
-      this.bearerDir = path.join(this.integrationRoot, '.bearer')
-    }
+  constructor() {
+    this.integrationRoot = process.cwd()
+    this.bearerDir = path.join(this.integrationRoot, '.bearer')
   }
 
   integrationRootResourcePath(filename: string): string {

@@ -27,7 +27,7 @@ export class Config {
   }
 
   get isIntegrationLocation(): boolean {
-    return this.rootPathRc !== null
+    return this.rootPath !== null
   }
 
   get bearerConfig(): BearerConfig {
@@ -35,11 +35,15 @@ export class Config {
   }
 
   get integrationConfig(): IntegrationConfig {
-    return rc('integration', { config: path.join(this.integrationLocation, '.integrationrc') })
+    return rc('integration', { config: this.integrationRc })
+  }
+
+  get integrationRc() {
+    return path.join(this.integrationLocation, '.integrationrc')
   }
 
   get orgId(): string | undefined {
-    return this.integrationConfig.orgId
+    return process.env.BEARER_ORG_ID || this.integrationConfig.orgId
   }
 
   get integrationTitle(): string | undefined {
@@ -47,7 +51,7 @@ export class Config {
   }
 
   get integrationId(): string | undefined {
-    return this.integrationConfig.integrationId
+    return process.env.BEARER_INTEGRATION_ID || this.integrationConfig.integrationId
   }
 
   get integrationUuid(): string {
@@ -61,8 +65,8 @@ export class Config {
     return Boolean(this.orgId) && Boolean(this.integrationId)
   }
 
-  get rootPathRc(): string | null {
-    return findUp.sync('.integrationrc', { cwd: this.integrationLocation })
+  get rootPath(): string | null {
+    return findUp.sync('.bearer', { cwd: this.integrationLocation })
   }
 
   get isYarnInstalled() {
@@ -71,8 +75,8 @@ export class Config {
 
   setIntegrationConfig = (config: { integrationTitle: string; orgId: string; integrationId: string }) => {
     const { integrationTitle, orgId, integrationId } = config
-    if (this.rootPathRc) {
-      fs.writeFileSync(this.rootPathRc, ini.stringify({ integrationTitle, orgId, integrationId }))
+    if (this.rootPath) {
+      fs.writeFileSync(this.integrationRc, ini.stringify({ integrationTitle, orgId, integrationId }))
     }
   }
 
