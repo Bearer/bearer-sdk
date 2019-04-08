@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.110.0](https://github.com/Bearer/bearer/compare/v0.109.0...v0.110.0) (2019-04-08)
+
+
+### Bug Fixes
+
+* wording ([c14945c](https://github.com/Bearer/bearer/commit/c14945c))
+
+
+
+
+
 # [0.109.0](https://github.com/Bearer/bearer/compare/v0.108.0...v0.109.0) (2019-04-04)
 
 **Note:** Version bump only for package @bearer/functions
