@@ -8,9 +8,8 @@ import * as crypto from 'crypto'
 import BaseCommand from '../base-command'
 import { TAccessToken } from '../types'
 import { toParams } from '../utils/helpers'
-import { LOGIN_CLIENT_ID, BEARER_ENV } from '../utils/constants'
+import { LOGIN_CLIENT_ID, BEARER_ENV, BEARER_LOGIN_PORT } from '../utils/constants'
 
-const BEARER_LOGIN_PORT = 56789
 type Event = 'success' | 'error' | 'shutdown'
 
 export default class Login extends BaseCommand {
@@ -51,17 +50,36 @@ export default class Login extends BaseCommand {
     }
     this.debug('authoriwe params %j', params)
     const url = `${this.constants.LoginDomain}/authorize?${toParams(params)}`
-    opn(url)
+    const spawned = await opn(url)
 
-    await Promise.all([
+    await Promise.race([
       new Promise((resolve, reject) => {
-        this.on('success', resolve)
-        this.on('error', reject)
+        spawned.on('close', async (code: any, signal: any) => {
+          if (code !== 0) {
+            this.stopServer()
+            this.warn(
+              this.colors.yellow(
+                `Unable to open a browser. If you want to retrieve a token please follow these steps\n`
+              )
+            )
+            this.log(this.colors.bold('1/ access the url below  and follow the login process:\n\n'), url)
+            this.log()
+            this.log(this.colors.bold(`2/ when you access the success page copy the token and paste it here`))
+            const token = await this.askForString('Token')
+            await this.getToken(token)
+          }
+        })
       }),
-      new Promise((resolve, reject) => {
-        this.on('shutdown', resolve)
-        this.on('error', reject)
-      })
+      Promise.all([
+        new Promise((resolve, reject) => {
+          this.on('success', resolve)
+          this.on('error', reject)
+        }),
+        new Promise((resolve, reject) => {
+          this.on('shutdown', resolve)
+          this.on('error', reject)
+        })
+      ])
     ])
   }
 
@@ -77,6 +95,7 @@ export default class Login extends BaseCommand {
         this._listerners['shutdown'].map(cb => cb())
       })
     }
+    this.ux.action.stop()
   }
 
   private startServer = async (): Promise<http.Server> => {
@@ -101,6 +120,7 @@ export default class Login extends BaseCommand {
                 'Access-Control-Allow-Origin',
                 process.env.LOGIN_ALLOWED_ORIGIN || this.constants.DeveloperPortalUrl
               )
+              response.setHeader('Connection', 'close')
               response.write('OK')
               response.end()
               this.stopServer()
@@ -126,7 +146,6 @@ export default class Login extends BaseCommand {
 
       this.debug(token)
       await this.bearerConfig.storeToken(token)
-      this.ux.action.stop()
       this.success('Successfully logged in!! 🐻')
       this._listerners['success'].map(cb => cb())
     } catch (e) {
