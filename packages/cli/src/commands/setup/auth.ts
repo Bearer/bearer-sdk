@@ -1,9 +1,10 @@
 import * as http from 'http'
 import * as fs from 'fs'
 import axios from 'axios'
+import { modify, applyEdits } from 'jsonc-parser'
 
 import { TConfig, Authentications, configs } from '@bearer/types/lib/authentications'
-
+import { contexts } from '@bearer/functions/lib/declaration'
 import BaseCommand from '../../base-command'
 // @ts-ignore
 import * as open from 'open'
@@ -41,28 +42,37 @@ export default class SetupAuth extends BaseCommand {
     const { authType } = config
     switch (authType) {
       case Authentications.OAuth2: {
-        const { token } = await this.fetchAuthTken(config as configs.TOAuth2Config)
-        this.log('Your token: %s', token)
-        // TODO: save
+        const { BEARER_AUTH_CLIENT_ID, BEARER_AUTH_CLIENT_SECRET } = process.env
+        const clientID = BEARER_AUTH_CLIENT_ID || (await this.askForString('Client ID', { type: 'password' }))
+        const clientSecret =
+          BEARER_AUTH_CLIENT_SECRET || (await this.askForString('Client secret', { type: 'password' }))
+        const newConfig = { ...config, clientID, clientSecret }
+        this.debug('Your credentials:\n%j', { ...config, clientID, clientSecret: clientSecret.replace(/./g, '*') })
+        const { token: accessToken } = await this.fetchAuthToken(newConfig as configs.TOAuth2Config)
+
+        await this.persistSetup({ accessToken } as contexts.OAuth2)
         break
       }
 
       case Authentications.Basic: {
         const username = await this.askForString('Username')
         const password = await this.askForPassword('Password')
-        this.debug(username, password)
-        // TODO: save
-        this.log('Your credentials: username => %s  password => ', username, password.replace(/./g, '*'))
+        await this.persistSetup({ username, password } as contexts.Basic)
         break
       }
       case Authentications.ApiKey: {
         const apiKey = await this.askForPassword('API Key')
-        this.debug(apiKey)
-        // TODO: save
-        this.log('Your api Key: %s', apiKey)
+        await this.persistSetup({ apiKey } as contexts.ApiKey)
         break
       }
       case Authentications.OAuth1: {
+        const consumerKey = process.env.BEARER_AUTH_CONSUMER_KEY || (await this.askForString('Consumer key'))
+        const consumerSecret = process.env.BEARER_AUTH_CONSUMER_SECRET || (await this.askForPassword('Consumer secret'))
+        this.debug('Your credentials:\n%j', { consumerKey, consumerSecret: consumerSecret.replace(/./g, '*') })
+        const newConfig = { ...config, consumerKey, consumerSecret }
+        const { token: accessToken } = await this.fetchAuthToken(newConfig as configs.TOAuth1Config)
+        // TODO: fix this when context.OAuth1 is fixed  and well defined
+        await this.persistSetup({ accessToken, consumerKey } as any)
         break
       }
       case Authentications.Custom:
@@ -79,15 +89,11 @@ export default class SetupAuth extends BaseCommand {
     }
   }
 
-  fetchAuthTken = async (config: configs.TOAuth2Config): Promise<{ token: string }> => {
+  fetchAuthToken = async (config: configs.TOAuth2Config | configs.TOAuth1Config): Promise<{ token: string }> => {
     return new Promise(async (resolve, reject) => {
       this._server = await this.startServer()
-      const { BEARER_AUTH_CLIENT_ID, BEARER_AUTH_CLIENT_SECRET } = process.env
-      const clientID = BEARER_AUTH_CLIENT_ID || (await this.askForString('Client ID', { type: 'password' }))
-      const clientSecret = BEARER_AUTH_CLIENT_SECRET || (await this.askForString('Client secret', { type: 'password' }))
-      const newConfig = { ...config, clientID, clientSecret }
       const location = await axios
-        .post(`${this.constants.IntegrationServiceHost}v2/auth/local-auth`, { config: newConfig }, { maxRedirects: 0 })
+        .post(`${this.constants.IntegrationServiceHost}v2/auth/local-auth`, { config }, { maxRedirects: 0 })
         .catch(e => e.response.headers.location)
       this.debug(config)
 
@@ -169,6 +175,24 @@ export default class SetupAuth extends BaseCommand {
 
   on = <T>(event: Event, callback: (data: T) => void) => {
     this._listerners[event] = [...this._listerners[event], callback as any]
+  }
+
+  persistSetup(config: contexts.OAuth2 | contexts.OAuth1 | contexts.ApiKey | contexts.Basic) {
+    const setupRc = this.locator.localConfigPath
+    if (!fs.existsSync(setupRc)) {
+      fs.writeFileSync(setupRc, '{}', { encoding: 'utf8' })
+    }
+    const rawSetup = fs.readFileSync(setupRc, { encoding: 'utf8' })
+    const updates = modify(rawSetup, ['setup', 'auth'], config, {
+      formattingOptions: {
+        insertSpaces: true,
+        tabSize: 2,
+        eol: '\n'
+      }
+    })
+    const newSetupRc = applyEdits(rawSetup, updates)
+    this.debug('Writing setup config\n%j', { config, setupRc: newSetupRc })
+    fs.writeFileSync(setupRc, newSetupRc, { encoding: 'utf8' })
   }
 }
 
