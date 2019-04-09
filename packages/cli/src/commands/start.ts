@@ -15,6 +15,7 @@ export default class Start extends BaseLegacyCommand {
 
   static flags = {
     help: flags.help({ char: 'h' }),
+    force: flags.boolean({ char: 'f', description: 'Start using random available port' }),
     [noOpen]: flags.boolean({}),
     [noInstall]: flags.boolean({}),
     [noWatcher]: flags.boolean({ hidden: true })
@@ -33,6 +34,10 @@ export default class Start extends BaseLegacyCommand {
     }
     if (flags[noWatcher]) {
       cmdArgs.push(`--${noWatcher}`)
+    }
+
+    if (flags.force) {
+      cmdArgs.push(`--force`)
     }
 
     if (this.hasViews) {
