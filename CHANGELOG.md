@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.111.0](https://github.com/Bearer/bearer/compare/v0.110.0...v0.111.0) (2019-04-09)
+
+
+### Bug Fixes
+
+* **cli:** rely on auth.config.json instead of a hidden file ([8850a2a](https://github.com/Bearer/bearer/commit/8850a2a))
+
+
+### Features
+
+* **cli:** allow force start on random port ([#630](https://github.com/Bearer/bearer/issues/630)) ([bc5a28b](https://github.com/Bearer/bearer/commit/bc5a28b))
+* **cli:** inject setup config data ([99c5ff8](https://github.com/Bearer/bearer/commit/99c5ff8))
+
+
+
+
+
 # [0.110.0](https://github.com/Bearer/bearer/compare/v0.109.0...v0.110.0) (2019-04-08)
 
 
