@@ -193,6 +193,7 @@ export default class SetupAuth extends BaseCommand {
     const newSetupRc = applyEdits(rawSetup, updates)
     this.debug('Writing setup config\n%j', { config, setupRc: newSetupRc })
     fs.writeFileSync(setupRc, newSetupRc, { encoding: 'utf8' })
+    this.success(`Auth credentials have been saved to ${this.locator.toRelative(setupRc)}`)
   }
 }
 

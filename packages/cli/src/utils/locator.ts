@@ -77,4 +77,8 @@ export default class LocationProvider {
   get localConfigPath(): string {
     return this.integrationRootResourcePath('local.config.jsonc')
   }
+
+  toRelative(path: string) {
+    return path.replace(this.integrationRoot, '.')
+  }
 }
