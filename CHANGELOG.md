@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.114.2](https://github.com/Bearer/bearer/compare/v0.114.1...v0.114.2) (2019-04-11)
+
+
+### Bug Fixes
+
+* **cli:** allow users to push when env variables are set ([#636](https://github.com/Bearer/bearer/issues/636)) ([ba897f0](https://github.com/Bearer/bearer/commit/ba897f0))
+
+
+
+
+
 # [0.113.0](https://github.com/Bearer/bearer/compare/v0.111.0...v0.113.0) (2019-04-11)
 
 
