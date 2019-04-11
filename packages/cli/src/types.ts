@@ -14,7 +14,6 @@ export type BaseConfig = {
 }
 
 export type BearerConfig = {
-  OrgId: string
   Username: string
   ExpiresAt: number
   authorization: {
@@ -33,8 +32,6 @@ export type BearerConfig = {
 
 export type IntegrationConfig = {
   integrationId: string
-  integrationUuid: string | null
-  orgId: string
   integrationTitle: string
   open: boolean
   configs: string[]
@@ -48,7 +45,6 @@ export type AuthConfig = {
 
 export type IntegrationBuildEnv = {
   BEARER_INTEGRATION_ID: string
-  BEARER_INTEGRATION_TAG_NAME: string
   BEARER_INTEGRATION_HOST: string
   BEARER_AUTHORIZATION_HOST: string
   CDN_HOST: string

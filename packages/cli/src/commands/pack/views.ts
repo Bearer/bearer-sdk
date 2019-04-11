@@ -3,10 +3,8 @@ import { spawn } from 'child_process'
 
 import BaseCommand from '../../base-command'
 import { IntegrationBuildEnv } from '../../types'
-import { RequireIntegrationFolder, skipIfNoViews } from '../../utils/decorators'
+import { RequireIntegrationFolder, skipIfNoViews, RequireLinkedIntegration } from '../../utils/decorators'
 
-const integrationId = 'integration-id'
-const integrationUuid = 'integration-uuid'
 const cdnHost = 'cdn-host'
 
 export default class PackViews extends BaseCommand {
@@ -14,14 +12,6 @@ export default class PackViews extends BaseCommand {
   static hidden = true
   static flags = {
     ...BaseCommand.flags,
-    [integrationUuid]: flags.string({
-      required: true,
-      description: 'Integration unique identifier'
-    }),
-    [integrationId]: flags.string({
-      required: true,
-      description: 'stencil integration namespace'
-    }),
     [cdnHost]: flags.string({
       required: true,
       description: 'Host url where views are uploade to (ex: https:static.bearer.sh/123456/attach-pull/dist/78901/'
@@ -30,14 +20,14 @@ export default class PackViews extends BaseCommand {
 
   @skipIfNoViews()
   @RequireIntegrationFolder()
+  @RequireLinkedIntegration()
   async run() {
     const { flags } = this.parse(PackViews)
 
     const config = this.constants
     const env: IntegrationBuildEnv = {
       ...process.env,
-      BEARER_INTEGRATION_ID: flags[integrationUuid],
-      BEARER_INTEGRATION_TAG_NAME: flags[integrationId],
+      BEARER_INTEGRATION_ID: this.bearerConfig.BUID!,
       BEARER_INTEGRATION_HOST: config.IntegrationServiceHost,
       BEARER_AUTHORIZATION_HOST: config.IntegrationServiceHost,
       CDN_HOST: flags[cdnHost]
@@ -65,7 +55,7 @@ export default class PackViews extends BaseCommand {
 
       build.on('close', code => {
         if (code === 0) {
-          resolve()
+          resolve(this.locator.buildViewsDir)
         } else {
           reject(new Error("Can't build integration views. please check logs"))
         }
