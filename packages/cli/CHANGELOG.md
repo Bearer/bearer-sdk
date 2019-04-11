@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.113.0](https://github.com/Bearer/bearer/compare/v0.111.0...v0.113.0) (2019-04-11)
+
+
+### Bug Fixes
+
+* **cli:** display success message ([9689549](https://github.com/Bearer/bearer/commit/9689549))
+
+
+### Features
+
+* Buid ([#632](https://github.com/Bearer/bearer/issues/632)) ([f98bb67](https://github.com/Bearer/bearer/commit/f98bb67))
+
+
+
+
+
 # [0.112.0](https://github.com/Bearer/bearer/compare/v0.111.0...v0.112.0) (2019-04-11)
 
 
