@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.112.0](https://github.com/Bearer/bearer/compare/v0.111.0...v0.112.0) (2019-04-11)
+
+
+### Features
+
+* Buid ([#632](https://github.com/Bearer/bearer/issues/632)) ([f98bb67](https://github.com/Bearer/bearer/commit/f98bb67))
+
+
+
+
+
 # [0.111.0](https://github.com/Bearer/bearer/compare/v0.110.0...v0.111.0) (2019-04-09)
 
 **Note:** Version bump only for package @bearer/openapi-generator
