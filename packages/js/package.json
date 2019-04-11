@@ -1,6 +1,6 @@
 {
   "name": "@bearer/js",
-  "version": "0.114.0",
+  "version": "0.114.1",
   "description": "A JavaScript library for working with Bearer integrations",
   "jsdelivr": "lib/bearer.production.min.js",
   "unpkg": "lib/bearer.production.min.js",
@@ -17,12 +17,12 @@
     "lib/"
   ],
   "dependencies": {
-    "@bearer/logger": "^0.114.0",
+    "@bearer/logger": "^0.114.1",
     "debounce": "^1.2.0",
     "post-robot": "^8.0.26"
   },
   "devDependencies": {
-    "@bearer/tsconfig": "^0.114.0",
+    "@bearer/tsconfig": "^0.114.1",
     "@types/debounce": "^1.2.0",
     "@types/jest": "^24.0.11",
     "@types/lodash.get": "^4.4.6",
