@@ -1,7 +1,7 @@
 {
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "0.114.3",
+  "version": "0.114.4",
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer",
   "homepage": "https://github.com/Bearer/bearer/packages/cli#readme",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.114.4](https://github.com/Bearer/bearer/compare/v0.114.3...v0.114.4) (2019-04-15)
+
+
+### Bug Fixes
+
+* **cli:** add bearer shortcut to package.json ([#641](https://github.com/Bearer/bearer/issues/641)) ([72e2564](https://github.com/Bearer/bearer/commit/72e2564))
+
+
+
+
+
 ## [0.114.3](https://github.com/Bearer/bearer/compare/v0.114.2...v0.114.3) (2019-04-15)
 
 
