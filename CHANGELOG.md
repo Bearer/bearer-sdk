@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.114.3](https://github.com/Bearer/bearer/compare/v0.114.2...v0.114.3) (2019-04-15)
+
+
+### Bug Fixes
+
+* **cli:** Update Help Command Texts ([#637](https://github.com/Bearer/bearer/issues/637)) ([7e9d934](https://github.com/Bearer/bearer/commit/7e9d934))
+* **cli:** use the correct token to query data ([#638](https://github.com/Bearer/bearer/issues/638)) ([fba0063](https://github.com/Bearer/bearer/commit/fba0063))
+
+
+
+
+
 ## [0.114.2](https://github.com/Bearer/bearer/compare/v0.114.1...v0.114.2) (2019-04-11)
 
 
