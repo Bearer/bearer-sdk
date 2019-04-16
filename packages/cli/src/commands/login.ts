@@ -4,11 +4,13 @@ import axios from 'axios'
 // @ts-ignore
 import * as opn from 'open'
 import * as crypto from 'crypto'
+import cliUx from 'cli-ux'
 
 import BaseCommand from '../base-command'
 import { TAccessToken } from '../types'
 import { toParams } from '../utils/helpers'
 import { LOGIN_CLIENT_ID, BEARER_ENV, BEARER_LOGIN_PORT } from '../utils/constants'
+import { askForString } from '../utils/prompts'
 
 type Event = 'success' | 'error' | 'shutdown'
 
@@ -35,7 +37,7 @@ export default class Login extends BaseCommand {
     this._server = await this.startServer()
     this._verifier = base64URLEncode(crypto.randomBytes(32))
     this._challenge = base64URLEncode(sha256(this._verifier))
-    this.ux.action.start('Logging you in')
+    cliUx.action.start('Logging you in')
 
     const scopes = 'offline_access email openid'
     const audience = `cli-${BEARER_ENV}`
@@ -65,7 +67,7 @@ export default class Login extends BaseCommand {
             this.log(this.colors.bold('1/ access the url below  and follow the login process:\n\n'), url)
             this.log()
             this.log(this.colors.bold(`2/ when you access the success page copy the token and paste it here`))
-            const token = await this.askForString('Token')
+            const token = await askForString('Token')
             await this.getToken(token)
           }
         })
@@ -95,7 +97,7 @@ export default class Login extends BaseCommand {
         this._listerners['shutdown'].map(cb => cb())
       })
     }
-    this.ux.action.stop()
+    cliUx.action.stop()
   }
 
   private startServer = async (): Promise<http.Server> => {
