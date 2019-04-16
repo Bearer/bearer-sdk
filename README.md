@@ -1,116 +1,221 @@
-# Bearer
+# Bearer - The API Integration Framework
 
-[![Build Status](https://jenkins.bearer.tech/buildStatus/icon?job=Bearer/bearer/master)](https://jenkins.bearer.tech/job/Bearer/job/bearer/job/master/)
+<p align="center">
+  <a href="https://www.bearer.sh">
+    <img alt="Bearer Documentation" src="https://bearer-hub-staging.netlify.com/static/bearer-api-integration-0fc65950490996a35829334804035862.jpg" width="500">
+  </a>
 
-This repository contains
+  <p align="center">
 
-- [@bearer/cli](./packages/cli)
-- [@bearer/core](./packages/core)
-- [create-bearer](./packages/create-bearer)
-- [@bearer/functions](./packages/functions)
-- [@bearer/bearer-cli](./packages/legacy-cli)
-- [@bearer/logger](./packages/logger)
-- [@bearer/node](./packages/node)
-- [@bearer/package-init](./packages/package-init)
-- [@bearer/react](./packages/react)
-- [@bearer/security](./packages/security)
-- [@bearer/transpiler](./packages/transpiler)
-- [@bearer/tsconfig](./packages/tsconfig)
-- [@bearer/tslint-config](./packages/tslint-config)
-- [@bearer/types](./packages/types)
-- [@bearer/ui](./packages/ui)
+Bearer provides all of the tools to build, run and manage API
+<br/>
+<a href="https://www.bearer.sh/?utm_source=github&utm_campaign=repository">Learn more</a>
 
-## How to get Started
-
-**Install NVM**: [site link](https://github.com/creationix/nvm)
-
-Mac Users:
-
-```bash
-brew install nvm
-```
-
-_Follow carefully post install instructions_
-
-**Install correct node version**
-
-```bash
-nvm install
-nvm use
-```
+  </p>
+</p>
 
 ---
 
-We use [Lerna](https://github.com/lerna/lerna) to manage dependencies.
+[![Version][version-svg]][package-url]
+[![License][license-image]][license-url]
+[![Build Status][ci-svg]][ci-url]
+
+<details>
+  <summary><strong>Table of contents</strong></summary>
+
+- [Why](#why)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Documentation](#documentation)
+- [Command References](#command-references)
+- [Contributing](#contributing)
+- [License](#license)
+  </details>
+
+## Why
+
+You should use Bearer if you want to:
+
+- Consume any API in minutes
+- Map API endpoints to your app model
+- Integrate into your code with one line
+- Deploy and Scale without fuss
+- Monitor every API call
+- Manage your integrations
+
+## Installation
 
 ```bash
-// install dependencies
-yarn install
+# Using yarn
+yarn create bearer helloWorld
 
+# Using npm
+npm init bearer helloWorld
 
-// Install dependencies and link packages together
-yarn lerna bootstrap
+# Using npx
+npx create-bearer helloWorld
 ```
 
-_Now You should be able to go into each packages and run existing command (ex: yarn start)_
+## Quick Start
 
-## Development
+Follow the [quick start](http://docs.bearer.sh/building-integration/quick-start) to create your first integration.
 
-### Conventional commits
+## Documentation
 
-As we try to be as clear as possible on changes within bearer packages, we adopted [conventional commits](https://conventionalcommits.org/) as pattern for git commits.
+The documentation is available on the Bearer [doc center](http://docs.bearer.sh).
 
-_Learn more https://conventionalcommits.org/_
+## Command References
 
-This repository is [commitizen](https://github.com/commitizen/cz-cli) friendly, which means you can use the below command to generate your commits. (in the root directory).
-
-_Learn more about Commitizen and available solutions https://github.com/commitizen/cz-cli_
+The Framework comes with a Command Line Interface (CLI) providing many commands:
 
 ```bash
-yarn cm
+$ yarn bearer -h
+
+Bearer CLI
+
+VERSION
+  @bearer/cli/rc-1
+
+USAGE
+  $ bearer [COMMAND]
+
+COMMANDS
+  autocomplete  display autocomplete installation instructions
+  generate      generate function
+  help          display help for bearer
+  integrations  list deployed integrations
+  invoke        invoke function locally
+  link          link to remote Bearer integration
+  login         login using Bearer credentials
+  new           generate integration boilerplate
+  push          deploy integration to Bearer
+  setup         setup API credentials for local development
+  start         start local development environment
 ```
 
-Using conventional commits allow us (through lerna) to generate automatically the [CHANGELOG](./CHANGELOG.md) and pick the correct version
+Find below some explanation of commands by order of importance.
 
-### Local package use
+### New
 
-Sometimes you need to test locally your changes before publishing anything. Here's some tips you can use.
-
-**CLI**
-
-- Let's link and build the CLI
-
-```
-cd packages/cli
-yarn link
-yarn build -w # starts TS compiler with watch mode enabled
-```
-
-- then within your integration
-
-```
-yarn link @bearer/cli
-yarn bearer start # will use the local version you previously linked
-```
-
-At this point you are using your local cli build.
-
-if you want to generate a new integration from you local build then you can run
+As an alternative to the `yarn create bearer` command, you can also use the new command:
 
 ```bash
-/path/bearer/repo/packages/cli/lib/bin/index.js new IntegrationName
+yarn bearer new
 ```
 
-**Other packages**
+### Setup
 
-If you want to use these packages in a local environment (in repositories not contained in this one)
-
-_assuming we have a package named "@bearer/core"_
+This command help you setup your \(test\) API authentication credentials in local development:
 
 ```bash
-lerna exec yarn link --scope='@bearer/core'
-
-// somewhere else on you computer inside a integration, for example
-
-yarn link '@bearer/core'
+yarn bearer setup:auth
 ```
+
+### Generate
+
+The `generate` command provides a fast and easy way to bootstrap a **function**, taking care of much of the boilerplate code:
+
+```text
+yarn bearer generate:function FunctionName
+```
+
+### Invoke
+
+The `invoke` command let you run a function directly from the console:
+
+```bash
+yarn bearer invoke FunctionName
+```
+
+It's a great way to test and debug a function.
+
+You can also pass arguments, as a JSON file, to the `invoke` command, which are translated as params to the function:
+
+```bash
+yarn bearer invoke FunctionName -p tests/function.json
+```
+
+```json
+{ "params": { "fullName": "Bearer/bearer" } }
+```
+
+_NB: The file path is relative to the integration folder._
+
+### Start
+
+The `start` command provides a local Web Server to test the integration:
+
+```bash
+yarn bearer start
+```
+
+Behind the scene, it builds the integration (transpiling code, etc...) and manage things like live reload.
+
+### Push
+
+The `push` command let you deploy your integration to the platform 🚀
+
+```bash
+yarn bearer push
+```
+
+### Login
+
+The login command let you connect to the platform from the CLI:
+
+```bash
+yarn bearer login
+```
+
+It's a required step in order to `push` your integration.
+
+### Link
+
+The `link` command let you link an integration registered on your bearer's dashboard with your current integration code:
+
+```bash
+yarn bearer link
+```
+
+_NB: This command is triggered automatically when you deploy an integration for the first time._
+
+### Integrations
+
+The `integrations` command let list your deployed integration and also create a new one:
+
+```bash
+yarn bearer integrations
+yarn bearer integrations:create
+```
+
+## Contributing
+
+We welcome all contributors, from casual to regular 💙
+
+- **Bug report**. Is something not working as expected? [Send a bug report](https://github.com/bearer/bearer/issues/new).
+- **Feature request**. Would you like to add something to the framework? [Send a feature request](https://github.com/bearer/bearer/issues/new).
+- **Documentation**. Did you find a typo in the doc? [Open an issue](https://github.com/bearer/bearer/issues/new) and we'll take care of it.
+- **Development**. If you don't know where to start, you can check the [open issues](https://github.com/bearer/bearer/issues?q=is%3Aissue+is%3Aopen).
+
+To start contributing to code, you need to:
+
+1. [Fork the project](https://help.github.com/articles/fork-a-repo/)
+2. [Clone the repository](https://help.github.com/articles/cloning-a-repository/)
+3. Checkout the [Getting Started](GETTING_STARTED.md)
+
+## License
+
+Bearer is [MIT licensed][license-url].
+
+<!-- Badges -->
+
+[version-svg]: https://img.shields.io/npm/v/@bearer/react.svg?style=flat-square
+[package-url]: https://npmjs.org/package/@bearer/cli
+[license-image]: http://img.shields.io/badge/license-MIT-green.svg?style=flat-square
+[ci-svg]: https://jenkins.bearer.tech/buildStatus/icon?job=Bearer%2Fbearer%2Fmaster
+[ci-url]: https://jenkins.bearer.tech/job/Bearer/job/bearer/job/master/
+[license-url]: LICENSE
+
+<!-- Links -->
+
+[bearer-website]: https://www.bearer.sh/?utm_source=github&utm_campaign=repository
