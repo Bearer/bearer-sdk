@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.115.1](https://github.com/Bearer/bearer/compare/v0.115.0...v0.115.1) (2019-04-16)
+
+
+### Bug Fixes
+
+* **x-ray:** remove intent reference ([b5e56c8](https://github.com/Bearer/bearer/commit/b5e56c8))
+
+
+
+
+
 # [0.113.0](https://github.com/Bearer/bearer/compare/v0.111.0...v0.113.0) (2019-04-11)
 
 **Note:** Version bump only for package @bearer/x-ray
