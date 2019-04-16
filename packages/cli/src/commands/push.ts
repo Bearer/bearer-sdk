@@ -170,8 +170,8 @@ export default class Push extends BaseCommand {
       }
     }
     const data = await this.fetchCredentials()
-    console.log('[BEARER]', 'fetch', data)
-    return await this.fetchCredentials()
+    this.debug('received credentials: %j', data)
+    return data
   }
 }
 
