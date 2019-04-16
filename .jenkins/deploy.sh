@@ -20,10 +20,7 @@ git status
 git --no-pager diff
 git --no-pager log -1 --format="%H"
 
-if [ $CANARY ==  "true" ]; then
-  echo "releasing canary version"
-  yarn lerna publish prerelease --yes --preid canary --force-publish --canary
-elif [  $FORCE ==  "true"]; then
+if [  $FORCE ==  "true"]; then
   echo "force publishing.."
   yarn lerna-publish $FORCE_ARG
 else
