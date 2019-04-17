@@ -1,12 +1,12 @@
 {
   "private": false,
   "name": "@bearer/x-ray",
-  "version": "0.115.1",
+  "version": "1.0.2",
   "description": "Trace outgoing traffic inside the intent",
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
-    "@bearer/logger": "^0.115.1",
+    "@bearer/logger": "^1.0.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
