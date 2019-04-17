@@ -1,5 +1,10 @@
 # @bearer/functions
 
+[![Version](https://img.shields.io/npm/v/@bearer/functions.svg)](https://npmjs.org/package/@bearer/functions)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@bearer/functions.svg)
+[![Downloads/week](https://img.shields.io/npm/dw/@bearer/functions.svg)](https://npmjs.org/package/@bearer/functions)
+[![License](https://img.shields.io/npm/l/@bearer/functions.svg)](https://github.com/Bearer/bearer/packages/cli/blob/master/package.json)
+
 ## Usage
 
 **Creating a FetchData function**

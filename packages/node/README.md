@@ -1,5 +1,11 @@
 # `@bearer/node`
 
+[![Version](https://img.shields.io/npm/v/@bearer/logger.svg)](https://npmjs.org/package/@bearer/logger)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@bearer/logger.svg)
+![node (scoped)](https://img.shields.io/node/v/@bearer/node.svg)
+[![Downloads/week](https://img.shields.io/npm/dw/@bearer/logger.svg)](https://npmjs.org/package/@bearer/logger)
+[![License](https://img.shields.io/npm/l/@bearer/logger.svg)](https://github.com/Bearer/bearer/packages/logger/blob/master/package.json)
+
 This is the Node client to interact with Bearer's integrations.
 
 ## Usage

@@ -4,11 +4,8 @@ Bearer CLI
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@bearer/cli.svg)](https://npmjs.org/package/@bearer/cli)
-
-[![CircleCI](https://circleci.com/gh/Bearer/bearer/packages/cli/tree/master.svg?style=shield)](https://circleci.com/gh/Bearer/bearer/packages/cli/tree/master)
-
-[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/Bearer/bearer/packages/cli?branch=master&svg=true)](https://ci.appveyor.com/project/Bearer/bearer/packages/cli/branch/master)
-[![Codecov](https://codecov.io/gh/Bearer/bearer/packages/cli/branch/master/graph/badge.svg)](https://codecov.io/gh/Bearer/bearer/packages/cli)
+![node (scoped)](https://img.shields.io/node/v/@bearer/cli.svg)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@bearer/cli.svg)
 [![Downloads/week](https://img.shields.io/npm/dw/@bearer/cli.svg)](https://npmjs.org/package/@bearer/cli)
 [![License](https://img.shields.io/npm/l/@bearer/cli.svg)](https://github.com/Bearer/bearer/packages/cli/blob/master/package.json)
 
@@ -37,20 +34,23 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`bearer autocomplete [SHELL]`](#bearer-autocomplete-shell)
-* [`bearer generate`](#bearer-generate)
-* [`bearer generate:component [NAME]`](#bearer-generatecomponent-name)
-* [`bearer generate:function [NAME]`](#bearer-generatefunction-name)
-* [`bearer help [COMMAND]`](#bearer-help-command)
-* [`bearer integrations`](#bearer-integrations)
-* [`bearer integrations:create`](#bearer-integrationscreate)
-* [`bearer invoke FUNCTION_NAME`](#bearer-invoke-function_name)
-* [`bearer link [INTEGRATION_IDENTIFIER]`](#bearer-link-integration_identifier)
-* [`bearer login`](#bearer-login)
-* [`bearer new [INTEGRATIONNAME]`](#bearer-new-integrationname)
-* [`bearer push`](#bearer-push)
-* [`bearer setup:auth`](#bearer-setupauth)
-* [`bearer start`](#bearer-start)
+- [@bearer/cli](#bearercli)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`bearer autocomplete [SHELL]`](#bearer-autocomplete-shell)
+  - [`bearer generate`](#bearer-generate)
+  - [`bearer generate:component [NAME]`](#bearer-generatecomponent-name)
+  - [`bearer generate:function [NAME]`](#bearer-generatefunction-name)
+  - [`bearer help [COMMAND]`](#bearer-help-command)
+  - [`bearer integrations`](#bearer-integrations)
+  - [`bearer integrations:create`](#bearer-integrationscreate)
+  - [`bearer invoke FUNCTION_NAME`](#bearer-invoke-functionname)
+  - [`bearer link [INTEGRATION_IDENTIFIER]`](#bearer-link-integrationidentifier)
+  - [`bearer login`](#bearer-login)
+  - [`bearer new [INTEGRATIONNAME]`](#bearer-new-integrationname)
+  - [`bearer push`](#bearer-push)
+  - [`bearer setup:auth`](#bearer-setupauth)
+  - [`bearer start`](#bearer-start)
 
 ## `bearer autocomplete [SHELL]`
 

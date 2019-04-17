@@ -1,5 +1,10 @@
 # create-bearer
 
+[![Version](https://img.shields.io/npm/v/create-bearer.svg)](https://npmjs.org/package/create-bearer)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/create-bearer.svg)
+[![Downloads/week](https://img.shields.io/npm/dw/create-bearer.svg)](https://npmjs.org/package/create-bearer)
+[![License](https://img.shields.io/npm/l/create-bearer.svg)](https://github.com/Bearer/bearer/packages/cli/blob/master/package.json)
+
 Start a new Bearer integration in a minute
 
 ## How to use it

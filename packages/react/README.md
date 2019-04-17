@@ -1,5 +1,11 @@
 # @bearer/react
 
+[![Version](https://img.shields.io/npm/v/@bearer/react.svg)](https://npmjs.org/package/@bearer/react)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@bearer/react.svg)
+![node (scoped)](https://img.shields.io/node/v/@bearer/node.svg)
+[![Downloads/week](https://img.shields.io/npm/dw/@bearer/react.svg)](https://npmjs.org/package/@bearer/react)
+[![License](https://img.shields.io/npm/l/@bearer/react.svg)](https://github.com/Bearer/bearer/packages/react/blob/master/package.json)
+
 React tooling for bearer.sh components
 
 ## Installation
