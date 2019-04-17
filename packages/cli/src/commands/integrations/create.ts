@@ -33,7 +33,7 @@ export default class IntegrationsCreate extends BaseCommand {
         const { integration } = data.data.createIntegration
         this.success('Integration successfully created')
         this.log(
-          '      name: %s\n      uuid: %s\nidentifier: %s\n       Url:',
+          '      name: %s\n      uuid: %s\n       Url:',
           integration.name,
           integration.uuid,
           `${this.constants.DeveloperPortalUrl}integrations/${integration.uuid}`
