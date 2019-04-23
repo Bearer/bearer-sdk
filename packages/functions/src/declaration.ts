@@ -13,25 +13,35 @@ export type TFetchPayload<ReturnedData = any, ReturnedError = any> = Partial<TDa
  * Contexts
  */
 
-type TBaseAuthContext<TAuthAccessContent> = { authAccess: TAuthAccessContent; [key: string]: any }
+type TBaseAuthContext<TAuthAccessContent> = {
+  /**
+   * Provides a authentication data
+   */
+  auth: TAuthAccessContent
+  /**
+   * DEPRECATED:  please use auth
+   */
+  authAccess: TAuthAccessContent
+  [key: string]: any
+}
 
 export namespace contexts {
   export interface OAuth2 {
-    accessToken: string
+    accessToken?: string
   }
 
   export interface OAuth1 {
-    accessToken: string
-    tokenSecret: string
+    accessToken?: string
+    tokenSecret?: string
   }
 
   export interface Basic {
-    username: string
-    password: string
+    username?: string
+    password?: string
   }
 
   export interface ApiKey {
-    apiKey: string
+    apiKey?: string
   }
 
   export interface Custom {}
@@ -39,7 +49,7 @@ export namespace contexts {
 }
 
 export type TOAUTH1AuthContext = TBaseAuthContext<contexts.OAuth1> & {
-  setup: { consumerKey: string; consumerSecret: string }
+  setup?: { consumerKey: string; consumerSecret: string }
 }
 
 export type TOAUTH2AuthContext = TBaseAuthContext<contexts.OAuth2>
