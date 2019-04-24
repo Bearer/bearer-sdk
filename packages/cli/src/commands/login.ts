@@ -1,25 +1,25 @@
-import getPort from 'get-port'
 import * as http from 'http'
+import * as express from 'express'
+import * as crypto from 'crypto'
+import getPort from 'get-port'
 import axios from 'axios'
+
+// TODO: use esModuleInterop config
+// @ts-ignore
+import cliUx from 'cli-ux'
 // @ts-ignore
 import * as opn from 'open'
-import * as crypto from 'crypto'
-import cliUx from 'cli-ux'
 
 import BaseCommand from '../base-command'
+
 import { TAccessToken } from '../types'
 import { toParams } from '../utils/helpers'
-import { LOGIN_CLIENT_ID, BEARER_ENV, BEARER_LOGIN_PORT } from '../utils/constants'
+import { LOGIN_CLIENT_ID, BEARER_ENV, BEARER_LOGIN_PORT, SUCCESS_LOGIN_PAGE } from '../utils/constants'
 import { askForString } from '../utils/prompts'
 
-type Event = 'success' | 'error' | 'shutdown'
+type Event = 'success' | 'error'
 
 export default class Login extends BaseCommand {
-  _server?: http.Server
-  _verifier!: string
-  _challenge!: string
-  private _listerners!: Record<Event, (() => void)[]>
-
   static description = 'login using Bearer credentials'
 
   static flags = {
@@ -28,12 +28,12 @@ export default class Login extends BaseCommand {
 
   static args = []
 
+  _server?: http.Server
+  _verifier!: string
+  _challenge!: string
+  private _listerners: Record<Event, (() => void)[]> = { success: [], error: [] }
+
   async run() {
-    this._listerners = {
-      success: [],
-      error: [],
-      shutdown: []
-    }
     this._server = await this.startServer()
     this._verifier = base64URLEncode(crypto.randomBytes(32))
     this._challenge = base64URLEncode(sha256(this._verifier))
@@ -50,15 +50,13 @@ export default class Login extends BaseCommand {
       code_challenge_method: 'S256',
       redirect_uri: this.callbackUrl
     }
-    this.debug('authoriwe params %j', params)
+    this.debug('authorize params %j', params)
     const url = `${this.constants.LoginDomain}/authorize?${toParams(params)}`
     const spawned = await opn(url)
-
     await Promise.race([
       new Promise((resolve, reject) => {
         spawned.on('close', async (code: any, signal: any) => {
           if (code !== 0) {
-            this.stopServer()
             this.warn(
               this.colors.yellow(
                 `Unable to open a browser. If you want to retrieve a token please follow these steps\n`
@@ -73,16 +71,16 @@ export default class Login extends BaseCommand {
         })
       }),
       Promise.all([
-        new Promise((resolve, reject) => {
-          this.on('success', resolve)
+        new Promise((_resolve, reject) => {
           this.on('error', reject)
         }),
-        new Promise((resolve, reject) => {
-          this.on('shutdown', resolve)
-          this.on('error', reject)
+        new Promise((resolve, _reject) => {
+          this.on('success', resolve)
         })
       ])
     ])
+    this.debug('login done')
+    this.stopServer()
   }
 
   on = (event: Event, callback: () => void) => {
@@ -94,13 +92,14 @@ export default class Login extends BaseCommand {
     if (this._server) {
       this._server.close(() => {
         this.debug('server stopped')
-        this._listerners['shutdown'].map(cb => cb())
+        cliUx.action.stop()
       })
     }
-    cliUx.action.stop()
   }
 
   private startServer = async (): Promise<http.Server> => {
+    // stop the server if successfully authenticated
+    this.on('success', this.stopServer)
     const port = await getPort({ port: BEARER_LOGIN_PORT })
     return new Promise((resolve, reject) => {
       if (port !== BEARER_LOGIN_PORT) {
@@ -108,31 +107,30 @@ export default class Login extends BaseCommand {
         reject()
       }
       this.debug('starting server')
-      const server = http
-        .createServer((request, response) => {
-          let body = ''
-          request.on('data', chunk => {
-            body += chunk
-          })
-          request.on('end', () => {
-            try {
-              const data: { code: string } = JSON.parse(body)
-              this.debug(data)
-              response.setHeader(
-                'Access-Control-Allow-Origin',
-                process.env.LOGIN_ALLOWED_ORIGIN || this.constants.DeveloperPortalUrl
-              )
-              response.setHeader('Connection', 'close')
-              response.write('OK')
-              response.end()
-              this.stopServer()
-              this.getToken(data.code)
-            } catch (e) {
-              this.debug(e)
-            }
-          })
-        })
-        .listen(BEARER_LOGIN_PORT, () => resolve(server))
+      const app = express()
+      app.use((_req: express.Request, res: express.Response, next: express.NextFunction) => {
+        res.setHeader('Connection', 'close')
+        next()
+      })
+      app.get('/login/callback', (req: express.Request, res: express.Response) => {
+        const code: string = req.query.code || ''
+        try {
+          res.send(SUCCESS_LOGIN_PAGE)
+          res.end()
+          this.getToken(code)
+        } catch (e) {
+          this.debug(e)
+          this.error('Error while fetching token')
+        }
+      })
+
+      const server = app.listen(BEARER_LOGIN_PORT, () => {
+        this.debug('server started')
+        resolve(server)
+      })
+      server.addListener('connection', socket => {
+        socket.setTimeout(0)
+      })
     })
   }
 
@@ -146,17 +144,17 @@ export default class Login extends BaseCommand {
         redirect_uri: this.callbackUrl
       })
 
-      this.debug(token)
+      this.debug('saving token: %j', token)
       await this.bearerConfig.storeToken(token)
       this.success('Successfully logged in!! 🐻')
-      this._listerners['success'].map(cb => cb())
+      this._listerners.success.map(cb => cb())
     } catch (e) {
       this.error(e)
     }
   }
 
   get callbackUrl(): string {
-    return process.env.BEARER_LOGIN_CALLBACK_URL || `${this.constants.DeveloperPortalUrl}cli-login-callback`
+    return process.env.BEARER_LOGIN_CALLBACK_URL || `${this.constants.DeveloperPortalUrl}cli/login-callback`
   }
 }
 
