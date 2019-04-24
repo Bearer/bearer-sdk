@@ -2,7 +2,7 @@
   "private": false,
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer",
   "homepage": "https://github.com/Bearer/bearer/packages/cli#readme",
