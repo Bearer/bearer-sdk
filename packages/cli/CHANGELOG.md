@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/Bearer/bearer/compare/v1.0.3...v1.0.4) (2019-04-24)
+
+
+### Bug Fixes
+
+* **cli:** add support for local redirect ([b9356fa](https://github.com/Bearer/bearer/commit/b9356fa))
+* **cli:** handle redirections from dev portal ([#653](https://github.com/Bearer/bearer/issues/653)) ([dd35dd2](https://github.com/Bearer/bearer/commit/dd35dd2))
+* **cli:** render nicer page ([a1d83ca](https://github.com/Bearer/bearer/commit/a1d83ca))
+
+
+
+
+
 ## [1.0.3](https://github.com/Bearer/bearer/compare/v1.0.2...v1.0.3) (2019-04-23)
 
 
