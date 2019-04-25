@@ -45,10 +45,6 @@ pipeline {
             }
         }
         stage('Test') {
-             when {
-                expression { params.CANARY  == false }
-            }
-
             steps {
                 container("bearercli") {
                     ansiColor('xterm') {
