@@ -80,7 +80,16 @@ see examples`
         encoding: 'utf8'
       })
     )
-    const { authType } = config
+    const { authType, provider, hint } = config as { authType: Authentications; provider?: string; hint?: string }
+
+    if (hint) {
+      this.log(this.colors.italic(this.colors.yellow(`\n${hint}\n`)))
+    }
+
+    function prefixedPrompt(message: string) {
+      return prefix(message, provider)
+    }
+
     switch (authType) {
       case Authentications.OAuth2: {
         const [idArg, secretArg] = args.credentials.split(SEPARATOR)
@@ -88,8 +97,8 @@ see examples`
           [keys.BEARER_AUTH_CLIENT_ID]: id = idArg,
           [keys.BEARER_AUTH_CLIENT_SECRET]: secret = secretArg
         } = process.env
-        const clientID = id || (await askForString('Client ID', { type: 'password' }))
-        const clientSecret = secret || (await askForString('Client secret', { type: 'password' }))
+        const clientID = id || (await askForString(prefixedPrompt('Client ID'), { type: 'password' }))
+        const clientSecret = secret || (await askForString(prefixedPrompt('Client secret'), { type: 'password' }))
 
         this.debug('Your credentials:\n%j', { ...config, clientID, clientSecret: clientSecret.replace(/./g, '*') })
 
@@ -106,8 +115,8 @@ see examples`
           [keys.BEARER_AUTH_CONSUMER_SECRET]: secret = secretArg
         } = process.env
 
-        const consumerKey = key || (await askForString('Consumer key'))
-        const consumerSecret = secret || (await askForPassword('Consumer secret'))
+        const consumerKey = key || (await askForString(prefixedPrompt('Consumer key')))
+        const consumerSecret = secret || (await askForPassword(prefixedPrompt('Consumer secret')))
 
         this.debug('Your credentials:\n%j', { consumerKey, consumerSecret: consumerSecret.replace(/./g, '*') })
 
@@ -125,8 +134,8 @@ see examples`
           [keys.BEARER_AUTH_USERNAME]: basicUsername = usernameArg,
           [keys.BEARER_AUTH_PASSWORD]: basicPassword = passwordArg
         } = process.env
-        const username = basicUsername || (await askForString('Username'))
-        const password = basicPassword || (await askForPassword('Password'))
+        const username = basicUsername || (await askForString(prefixedPrompt('Username')))
+        const password = basicPassword || (await askForPassword(prefixedPrompt('Password')))
 
         await this.persistSetup({ username, password } as contexts.Basic)
 
@@ -134,7 +143,7 @@ see examples`
       }
       case Authentications.ApiKey: {
         const { [keys.BEARER_AUTH_APIKEY]: key = args.credentials } = process.env
-        const apiKey = key || (await askForPassword('API Key'))
+        const apiKey = key || (await askForPassword(prefixedPrompt('API Key')))
         await this.persistSetup({ apiKey } as contexts.ApiKey)
         break
       }
@@ -272,6 +281,13 @@ function getOpeningUrls(url: string) {
     fallback: `${url}&localHostRedirectSupported=inline`
   }
 }
+
+function prefix(message: string, prefix?: string) {
+  const prefixedMessage = [prefix, message].filter(Boolean).join(' ')
+
+  return `Enter ${prefixedMessage}`
+}
+
 class UnreachableCaseError extends Error {
   constructor(val: never) {
     super(`Unreachable case: ${val}`)
