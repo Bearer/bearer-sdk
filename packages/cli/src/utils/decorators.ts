@@ -3,7 +3,10 @@ import cliUx from 'cli-ux'
 import * as inquirer from 'inquirer'
 import Command from '../base-command'
 
-import Login from '../commands/login'
+import Link from '../actions/link'
+import Create from '../actions/createIntegration'
+import { promptToLogin } from '../actions/login'
+
 import { LOGIN_CLIENT_ID } from './constants'
 
 type Constructor<T> = new (...args: any[]) => T
@@ -77,10 +80,10 @@ export function RequireLinkedIntegration(prompt = true) {
         ])
         switch (choice) {
           case 'create':
-            await CreateIntegration.run([])
+            await Create(this, { link: true })
             break
           case 'select':
-            await LinkIntegration.run([])
+            await Link(this)
           default:
             break
         }
@@ -112,21 +115,7 @@ export function ensureFreshToken() {
           this.error(error.message)
         }
       } else {
-        const error = this.colors.bold('⚠️ It looks like you are not logged in')
-        this.log(error)
-        const { shoudlLogin } = await inquirer.prompt<{ shoudlLogin: boolean }>([
-          {
-            message: 'Would you like to login?',
-            name: 'shoudlLogin',
-            type: 'list',
-            choices: [{ name: 'Yes', value: true }, { name: 'No', value: false }]
-          }
-        ])
-        if (shoudlLogin) {
-          await Login.run([])
-        } else {
-          this.exit(0)
-        }
+        await promptToLogin(this)
       }
       return await originalMethod.apply(this, arguments)
     }
@@ -145,8 +134,3 @@ async function refreshMyToken(command: TCommand, refresh_token: string): Promise
   await command.bearerConfig.storeToken({ ...response.data, refresh_token })
   return true
 }
-
-// note: moving this line here, since link require RequireIntegrationFolder to be defined because it produces
-// this error: decorators_1.RequireIntegrationFolder is not a function
-import LinkIntegration from '../commands/link'
-import CreateIntegration from '../commands/integrations/create'
