@@ -47,7 +47,7 @@ export default class New extends BaseCommand {
     }),
     skipInstall: flags.boolean({ hidden: true, description: 'Do not install dependencies' }),
     withViews: flags.boolean({ description: 'Experimental - generate views' }),
-    force: flags.boolean({ description: 'Force copying files' }),
+    force: flags.boolean({ description: 'Force copying files', char: 'f' }),
     authType: flags.string({
       char: 'a',
       description: 'Authorization type', // help description for flag
@@ -72,7 +72,7 @@ export default class New extends BaseCommand {
       this.copyDestinationFolder = await defineLocationPath(this, {
         name: this.name,
         cwd: this.path || process.cwd(),
-        force: args.force
+        force: flags.force
       })
 
       this.debug('target path: %s', this.copyDestinationFolder)
@@ -80,17 +80,12 @@ export default class New extends BaseCommand {
       let files: string[] = []
 
       if (template) {
-        let folder = directory
-
         const tmp = path.join(os.tmpdir(), Date.now().toString())
         await cloneRepository(template, tmp, this)
 
-        if (!fs.existsSync(path.join(tmp, INTEGRATION_PROOF))) {
-          const { selected } = await selectFolder(tmp)
-          folder = selected
-        }
+        const { selected } = await selectFolder(tmp, { selectedPath: directory })
 
-        const source = path.join(tmp, folder || '')
+        const source = path.join(tmp, selected)
         fs.copySync(source, this.copyDestinationFolder)
         this.debug('copied from %s to %s', source, this.copyDestinationFolder)
         files = await globby(['**/*'], { cwd: this.copyDestinationFolder })
@@ -131,7 +126,11 @@ export default class New extends BaseCommand {
       this.log(this.colors.bold(`   cd ${finalLocation}`))
     } catch (e) {
       this.debug('error: %j', e)
-      this.error(e)
+      if (e instanceof NoIntegrationFoundError) {
+        this.error(this.colors.red('No valid integrations found within the cloned git repository'))
+      } else {
+        this.error(e)
+      }
     }
   }
 
@@ -240,18 +239,26 @@ export async function cloneRepository(url: string, destination: string, logger: 
   cliUx.action.stop()
 }
 
-export async function selectFolder(location: string, integrationRootProof: string = INTEGRATION_PROOF) {
+export async function selectFolder(
+  location: string,
+  { selectedPath, integrationRootProof = INTEGRATION_PROOF }: { integrationRootProof?: string; selectedPath?: string }
+) {
   const list = await globby([`**/${integrationRootProof}`], { cwd: location })
-  const choices = list.sort().map(path => {
-    return {
-      name: path.split(`/${integrationRootProof}`)[0],
-      value: path.split(integrationRootProof)[0].replace(/\/$/, '')
-    }
-  })
+  const choices = list
+    .sort()
+    .map(path => {
+      return {
+        name: path.split(`/${integrationRootProof}`)[0],
+        value: path.split(integrationRootProof)[0].replace(/\/$/, '')
+      }
+    })
+    .filter(choice => {
+      return !Boolean(selectedPath) || choice.value === selectedPath
+    })
 
   switch (choices.length) {
     case 0: {
-      throw new NoIntegrationFoundError(location)
+      throw new NoIntegrationFoundError(selectedPath)
     }
     case 1: {
       return { selected: choices[0].value }
@@ -275,7 +282,6 @@ export async function defineLocationPath(
 ) {
   let location = path.join(cwd, name)
   let shouldForce = force
-
   while (fs.existsSync(location) && shouldForce !== true) {
     if (shouldForce === false) {
       logger.warn(`${location.replace(cwd, '')} already exists\n please provide a different folder name`)
@@ -324,8 +330,8 @@ export function initViewsVars(authType: Authentications) {
  */
 
 class NoIntegrationFoundError extends Error {
-  constructor(location: string) {
-    super(`No valid integration found within the cloned archive: location ${location}`)
+  constructor(selectedFolder?: string) {
+    super(`No valid integrations found ${selectedFolder ? `under ${selectedFolder}` : ''}`)
   }
 }
 
