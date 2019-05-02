@@ -23,7 +23,7 @@ $ npm install -g @bearer/cli
 $ bearer COMMAND
 running command...
 $ bearer (-v|--version|version)
-@bearer/cli/1.0.5 linux-x64 node-v10.15.3
+@bearer/cli/1.1.0 linux-x64 node-v10.15.3
 $ bearer --help [COMMAND]
 USAGE
   $ bearer COMMAND
@@ -46,7 +46,7 @@ USAGE
 * [`bearer login`](#bearer-login)
 * [`bearer new [INTEGRATIONNAME]`](#bearer-new-integrationname)
 * [`bearer push`](#bearer-push)
-* [`bearer setup:auth`](#bearer-setupauth)
+* [`bearer setup:auth [CREDENTIALS]`](#bearer-setupauth-credentials)
 * [`bearer start`](#bearer-start)
 
 ## `bearer autocomplete [SHELL]`
@@ -89,7 +89,7 @@ ALIASES
   $ bearer g
 ```
 
-_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/generate/index.ts)_
+_See code: [src/commands/generate/index.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/generate/index.ts)_
 
 ## `bearer generate:component [NAME]`
 
@@ -109,7 +109,7 @@ ALIASES
   $ bearer g:c
 ```
 
-_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/generate/component.ts)_
+_See code: [src/commands/generate/component.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/generate/component.ts)_
 
 ## `bearer generate:function [NAME]`
 
@@ -128,7 +128,7 @@ ALIASES
   $ bearer g:f
 ```
 
-_See code: [src/commands/generate/function.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/generate/function.ts)_
+_See code: [src/commands/generate/function.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/generate/function.ts)_
 
 ## `bearer help [COMMAND]`
 
@@ -161,7 +161,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/integrations/index.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/integrations/index.ts)_
+_See code: [src/commands/integrations/index.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/integrations/index.ts)_
 
 ## `bearer integrations:create`
 
@@ -180,7 +180,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/integrations/create.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/integrations/create.ts)_
+_See code: [src/commands/integrations/create.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/integrations/create.ts)_
 
 ## `bearer invoke FUNCTION_NAME`
 
@@ -198,7 +198,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/invoke.ts)_
+_See code: [src/commands/invoke.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/invoke.ts)_
 
 ## `bearer link [INTEGRATION_IDENTIFIER]`
 
@@ -214,7 +214,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/link.ts)_
+_See code: [src/commands/link.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/link.ts)_
 
 ## `bearer login`
 
@@ -230,7 +230,7 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/login.ts)_
 
 ## `bearer new [INTEGRATIONNAME]`
 
@@ -242,13 +242,16 @@ USAGE
 
 OPTIONS
   -a, --authType=OAUTH1|OAUTH2|BASIC|APIKEY|NONE|CUSTOM  Authorization type
+  -d, --directory=directory                              Select a directory as source of the integration
+  -f, --force                                            Force copying files
   -h, --help                                             show CLI help
+  -t, --template=template                                Generate an integration from a template (git url)
   --path=path
   --silent
-  --withViews
+  --withViews                                            Experimental - generate views
 ```
 
-_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/new.ts)_
 
 ## `bearer push`
 
@@ -264,23 +267,44 @@ OPTIONS
   --silent
 ```
 
-_See code: [src/commands/push.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/push.ts)_
+_See code: [src/commands/push.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/push.ts)_
 
-## `bearer setup:auth`
+## `bearer setup:auth [CREDENTIALS]`
 
-setup API credentials for local development
+setup API credentials for local development.
 
 ```
 USAGE
-  $ bearer setup:auth
+  $ bearer setup:auth [CREDENTIALS]
+
+ARGUMENTS
+  CREDENTIALS  Provide inline credentials
 
 OPTIONS
   -h, --help   show CLI help
   --path=path
   --silent
+
+DESCRIPTION
+  If you would like to bypass the prompt, you can either:
+  	* pass credentials as argument (see description later)
+  	* use environment variables
+  see examples
+
+EXAMPLES
+  With argument
+  	bearer setup:auth CLIENT_ID:CLIENT_SECRET
+  	bearer setup:auth CONSUMER_KEY:CONSUMER_SECRET
+  	bearer setup:auth USERNAME:PASSWORD
+  	bearer setup:auth APIKEY
+  With environment variables
+  	BEARER_AUTH_CLIENT_ID=CLIENT_ID BEARER_AUTH_CLIENT_SECRET=CLIENT_SECRET bearer setup:auth
+  	BEARER_AUTH_CONSUMER_KEY=CONSUMER_KEY BEARER_AUTH_CONSUMER_SECRET=CONSUMER_SECRET bearer setup:auth
+  	BEARER_AUTH_USERNAME=USERNAME BEARER_AUTH_CONSUMER_SECRET=PASSWORD bearer setup:auth
+  	BEARER_AUTH_APIKEY=APIKEY bearer setup:auth
 ```
 
-_See code: [src/commands/setup/auth.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/setup/auth.ts)_
+_See code: [src/commands/setup/auth.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/setup/auth.ts)_
 
 ## `bearer start`
 
@@ -297,5 +321,5 @@ OPTIONS
   --no-open
 ```
 
-_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v1.0.5/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/Bearer/bearer/blob/v1.1.0/src/commands/start.ts)_
 <!-- commandsstop -->

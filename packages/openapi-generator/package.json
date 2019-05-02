@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/openapi-generator",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Function openapi spec generator",
   "main": "lib/index.js",
   "repository": "Bearer/bearer",

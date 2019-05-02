@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Bearer/bearer/compare/v1.0.5...v1.1.0) (2019-05-02)
+
+
+### Bug Fixes
+
+* update OpenAPI generated files to include Security ([#662](https://github.com/Bearer/bearer/issues/662)) ([8840638](https://github.com/Bearer/bearer/commit/8840638))
+
+
+
+
+
 ## [1.0.3](https://github.com/Bearer/bearer/compare/v1.0.2...v1.0.3) (2019-04-23)
 
 **Note:** Version bump only for package @bearer/openapi-generator

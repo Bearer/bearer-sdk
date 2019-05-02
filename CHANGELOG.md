@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Bearer/bearer/compare/v1.0.5...v1.1.0) (2019-05-02)
+
+
+### Bug Fixes
+
+* **cli:** authentication flow update ([#659](https://github.com/Bearer/bearer/issues/659)) ([4e3467a](https://github.com/Bearer/bearer/commit/4e3467a))
+* update OpenAPI generated files to include Security ([#662](https://github.com/Bearer/bearer/issues/662)) ([8840638](https://github.com/Bearer/bearer/commit/8840638))
+* **cli:** Fix/new command does not use directory option ([#660](https://github.com/Bearer/bearer/issues/660)) ([5958d2d](https://github.com/Bearer/bearer/commit/5958d2d))
+* **security:** remove buffer warnings ([6404fc4](https://github.com/Bearer/bearer/commit/6404fc4))
+
+
+### Features
+
+* **cli:** add hint and provider information to prompt ([#658](https://github.com/Bearer/bearer/issues/658)) ([ac671b7](https://github.com/Bearer/bearer/commit/ac671b7))
+* **cli:** add setup argument option ([#655](https://github.com/Bearer/bearer/issues/655)) ([73e01fd](https://github.com/Bearer/bearer/commit/73e01fd))
+* **cli:** add template option ([#648](https://github.com/Bearer/bearer/issues/648)) ([fc210b3](https://github.com/Bearer/bearer/commit/fc210b3))
+
+
+
+
+
 ## [1.0.5](https://github.com/Bearer/bearer/compare/v1.0.4...v1.0.5) (2019-04-24)
 
 
