@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/Bearer/bearer/compare/v1.2.0...v1.2.1) (2019-05-09)
+
+**Note:** Version bump only for package @bearer/x-ray
+
+
+
+
+
 ## [0.115.1](https://github.com/Bearer/bearer/compare/v0.115.0...v0.115.1) (2019-04-16)
 
 
