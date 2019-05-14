@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Bearer/bearer/compare/v1.2.1...v1.3.0) (2019-05-14)
+
+
+### Bug Fixes
+
+* **x-ray:** remove cloudwatch logger from xray ([#669](https://github.com/Bearer/bearer/issues/669)) ([e3638a2](https://github.com/Bearer/bearer/commit/e3638a2))
+
+
+
+
+
 ## [1.2.1](https://github.com/Bearer/bearer/compare/v1.2.0...v1.2.1) (2019-05-09)
 
 **Note:** Version bump only for package @bearer/x-ray
