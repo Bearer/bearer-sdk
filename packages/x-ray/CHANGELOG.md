@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/Bearer/bearer/compare/v1.3.0...v1.3.1) (2019-05-29)
+
+
+### Bug Fixes
+
+* **x-ray:** fix x-ray logging to many entries in eu-west-1 ([#680](https://github.com/Bearer/bearer/issues/680)) ([95f94f5](https://github.com/Bearer/bearer/commit/95f94f5))
+
+
+
+
+
 # [1.3.0](https://github.com/Bearer/bearer/compare/v1.2.1...v1.3.0) (2019-05-14)
 
 
