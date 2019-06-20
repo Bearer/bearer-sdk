@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Bearer/bearer/compare/v1.3.1...v1.4.0) (2019-06-20)
+
+
+### Bug Fixes
+
+* check integration is returned from DP query and raise if not ([#683](https://github.com/Bearer/bearer/issues/683)) ([65793e9](https://github.com/Bearer/bearer/commit/65793e9))
+* freeze inquirer dependency (freeze issue) ([#688](https://github.com/Bearer/bearer/issues/688)) ([2922f3d](https://github.com/Bearer/bearer/commit/2922f3d))
+
+
+
+
+
 ## [1.3.1](https://github.com/Bearer/bearer/compare/v1.3.0...v1.3.1) (2019-05-29)
 
 **Note:** Version bump only for package @bearer/cli
