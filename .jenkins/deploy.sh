@@ -1,7 +1,7 @@
 #! /bin/bash
 
-ARG="--yes --npm-tag=$LERNA_TAG"
-FORCE_ARG="--yes --npm-tag=$LERNA_TAG --force-publish"
+ARG="--yes --dist-tag=$LERNA_TAG"
+FORCE_ARG="--yes --dist-tag=$LERNA_TAG --force-publish"
 
 if [ ! .npmrc ]; then
   echo "Missing .npmrc file"
@@ -20,7 +20,7 @@ git status
 git --no-pager diff
 git --no-pager log -1 --format="%H"
 
-if [  $FORCE ==  "true"]; then
+if [ $FORCE == "true"]; then
   echo "force publishing.."
   yarn lerna-publish $FORCE_ARG
 else
