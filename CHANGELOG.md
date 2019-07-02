@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Bearer/bearer/compare/v1.5.0...v1.6.0) (2019-07-02)
+
+
+### Bug Fixes
+
+* **x-ray:** remove duplicate override ([cda0519](https://github.com/Bearer/bearer/commit/cda0519))
+
+
+### Features
+
+* **node:** multi-method client ([#700](https://github.com/Bearer/bearer/issues/700)) ([d9ef122](https://github.com/Bearer/bearer/commit/d9ef122))
+
+
+
+
+
 # [1.5.0](https://github.com/Bearer/bearer/compare/v1.4.1...v1.5.0) (2019-07-02)
 
 
