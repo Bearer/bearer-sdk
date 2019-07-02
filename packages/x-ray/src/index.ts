@@ -15,7 +15,8 @@ export const captureHttps = () => {
   logger('%j', { message: 'Overriding request and get methods', application: 'x-ray' })
 
   overrideRequestMethod(httpModule)
-  overrideRequestMethod(httpsModule)
+  // AWS does the stuff for us
+  // overrideRequestMethod(httpsModule)
 }
 
 export const setupFunctionIdentifiers = function(event: any) {
