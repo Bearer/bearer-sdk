@@ -108,7 +108,8 @@ action "Publish next" {
   ]
 
   args    = [
-    "lerna-publish --npm-tag=next"
+    "lerna-publish",
+    "--npm-tag=next"
   ]
 
   secrets = [
