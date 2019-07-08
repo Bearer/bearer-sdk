@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.2](https://github.com/Bearer/bearer/compare/v1.6.1...v1.6.2) (2019-07-08)
+
+
+### Bug Fixes
+
+* handle correct hostname ([#702](https://github.com/Bearer/bearer/issues/702)) ([8939263](https://github.com/Bearer/bearer/commit/8939263))
+* host filtering done right ([#704](https://github.com/Bearer/bearer/issues/704)) ([ef6dd24](https://github.com/Bearer/bearer/commit/ef6dd24))
+* simplify function bundling ([#703](https://github.com/Bearer/bearer/issues/703)) ([ad39b1a](https://github.com/Bearer/bearer/commit/ad39b1a))
+
+
+
+
+
 ## [1.6.1](https://github.com/Bearer/bearer/compare/v1.6.0...v1.6.1) (2019-07-02)
 
 **Note:** Version bump only for package bearer-master
