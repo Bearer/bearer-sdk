@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.3](https://github.com/Bearer/bearer/compare/v1.6.2...v1.6.3) (2019-07-09)
+
+
+### Bug Fixes
+
+* **cli:** allow nested files ([#707](https://github.com/Bearer/bearer/issues/707)) ([0bc5696](https://github.com/Bearer/bearer/commit/0bc5696))
+
+
+
+
+
 ## [1.6.2](https://github.com/Bearer/bearer/compare/v1.6.1...v1.6.2) (2019-07-08)
 
 
