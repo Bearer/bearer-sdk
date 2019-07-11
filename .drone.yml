@@ -29,7 +29,7 @@ steps:
   - name: release
     image: node:10
     commands:
-      - git checkout master
+      - git checkout  -b master
       - yarn lerna-publish --dist-tag=next --yes
 
 trigger:
@@ -84,6 +84,6 @@ trigger:
     - canary
 ---
 kind: signature
-hmac: 19c57583c7ce289b8c7beba2bea6ae3b3aeef9aaa7b96a008c8e1ebf98ef1e1b
+hmac: 7c747d246f15c891dd8b721aa13d48cf294cb70c553a12cb103c2b390f3ad9f7
 
 ...

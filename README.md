@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://www.bearer.sh">
-    <img alt="Bearer Documentation" src="https://bearer-hub-staging.netlify.com/static/bearer-api-integration-0fc65950490996a35829334804035862.jpg" width="500">
+    <img alt="Bearer Documentation" src="https://static.bearer.sh/assets/share-min.jpg" width="500">
   </a>
 
   <p align="center">
