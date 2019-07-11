@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.4](https://github.com/Bearer/bearer/compare/v1.6.3...v1.6.4) (2019-07-11)
+
+
+### Bug Fixes
+
+* **js:** setupId is optinal ([#711](https://github.com/Bearer/bearer/issues/711)) ([f8e123c](https://github.com/Bearer/bearer/commit/f8e123c))
+* badges ([d4ae4e8](https://github.com/Bearer/bearer/commit/d4ae4e8))
+
+
+
+
+
 ## [1.6.3](https://github.com/Bearer/bearer/compare/v1.6.2...v1.6.3) (2019-07-09)
 
 

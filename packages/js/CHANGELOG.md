@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.4](https://github.com/Bearer/bearer/compare/v1.6.3...v1.6.4) (2019-07-11)
+
+
+### Bug Fixes
+
+* **js:** setupId is optinal ([#711](https://github.com/Bearer/bearer/issues/711)) ([f8e123c](https://github.com/Bearer/bearer/commit/f8e123c))
+
+
+
+
+
 ## [1.6.1](https://github.com/Bearer/bearer/compare/v1.6.0...v1.6.1) (2019-07-02)
 
 **Note:** Version bump only for package @bearer/js
