@@ -1,4 +1,4 @@
---------
+---
 kind: pipeline
 name: Build and Test
 
@@ -16,8 +16,7 @@ trigger:
   event:
   - push
 
-
---------
+---
 kind: pipeline
 name: Release (next)
 
@@ -44,7 +43,7 @@ trigger:
     include:
       - refs/tags/release-next-*
 
---------
+---
 kind: pipeline
 name: Release (forced)
 
@@ -71,7 +70,7 @@ trigger:
     include:
       - refs/tags/release-forced-*
 
---------
+---
 kind: pipeline
 name: Canary release
 
@@ -90,3 +89,8 @@ trigger:
     - push
   branch:
     - canary
+---
+kind: signature
+hmac: 104d9bd37111c9c219a912b126d26aca09c90aaf0b4307aecab8a0df960ab6b3
+
+...

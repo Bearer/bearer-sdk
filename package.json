@@ -12,7 +12,9 @@
   },
   "lint-staged": {
     ".drone.yml": [
-      "npm run drone:sign"
+      "yarn drone:fmt",
+      "yarn drone:lint",
+      "cross-env-shell SERVER=$DRONE_SERVER TOKEN=$DRONE_TOKEN \"yarn drone:sign\""
     ],
     "*.{md}": [
       "prettier --write"
@@ -30,7 +32,9 @@
     "test": "lerna run test:ci --stream --ignore=@bearer/ui",
     "cm": "git-cz",
     "postinstall": "lerna run prepare --ignore=@bearer/ui && lerna link",
-    "drone:sign": "DRONE_SERVER=https://cloud.drone.io drone sign Bearer/bearer --save"
+    "drone:sign": "cross-env-shell DRONE_TOKEN=$TOKEN DRONE_SERVER=$SERVER \"sh scripts/sign.sh\"",
+    "drone:lint": "drone lint",
+    "drone:fmt": "drone fmt"
   },
   "license": "MIT",
   "husky": {
@@ -43,6 +47,7 @@
     "@bearer/tslint-config": ">=0.80.1",
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
+    "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^1.3.1",
     "lerna": "^3.15.0",
