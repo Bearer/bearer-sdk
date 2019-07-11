@@ -26,14 +26,10 @@ steps:
     commands:
       - yarn install
 
-  - name: Test
-    image: node:10
-    commands:
-      - yarn test
-
   - name: release
     image: node:10
     commands:
+      - git checkout master
       - yarn lerna-publish --dist-tag=next --yes
 
 trigger:
@@ -88,6 +84,6 @@ trigger:
     - canary
 ---
 kind: signature
-hmac: fbecfac63e4ca628ec7ae216bdee73cb73db4490d0da6a951f96b13e9e43152b
+hmac: 19c57583c7ce289b8c7beba2bea6ae3b3aeef9aaa7b96a008c8e1ebf98ef1e1b
 
 ...
