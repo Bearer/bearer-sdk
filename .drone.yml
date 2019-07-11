@@ -38,10 +38,9 @@ steps:
 
 trigger:
   event:
-    - push
+    - tag
   ref:
-    include:
-      - refs/tags/release-next-*
+    - refs/tags/release-next-*
 
 ---
 kind: pipeline
@@ -65,11 +64,9 @@ steps:
 
 trigger:
   event:
-    - push
+    - tag
   ref:
-    include:
-      - refs/tags/release-forced-*
-
+    - refs/tags/release-latest-*
 ---
 kind: pipeline
 name: Canary release
@@ -91,4 +88,4 @@ trigger:
     - canary
 ---
 kind: signature
-hmac: 104d9bd37111c9c219a912b126d26aca09c90aaf0b4307aecab8a0df960ab6b3
+hmac: fc65b6b47696c0b2832b4bea09fd9dd03e3f371bec6e5a2b2b3ad09c8a5f5d22
