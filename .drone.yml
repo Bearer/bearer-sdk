@@ -88,4 +88,6 @@ trigger:
     - canary
 ---
 kind: signature
-hmac: fc65b6b47696c0b2832b4bea09fd9dd03e3f371bec6e5a2b2b3ad09c8a5f5d22
+hmac: fbecfac63e4ca628ec7ae216bdee73cb73db4490d0da6a951f96b13e9e43152b
+
+...
