@@ -23,13 +23,23 @@ Bearer provides all of the tools to build, run and manage API
 <details>
   <summary><strong>Table of contents</strong></summary>
 
-- [Why](#why)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Documentation](#documentation)
-- [Command References](#command-references)
-- [Contributing](#contributing)
-- [License](#license)
+- [Bearer - The API Integration Framework](#Bearer---The-API-Integration-Framework)
+  - [Why](#Why)
+  - [Installation](#Installation)
+  - [Quick Start](#Quick-Start)
+  - [Documentation](#Documentation)
+  - [Command References](#Command-References)
+    - [New](#New)
+    - [Setup](#Setup)
+    - [Generate](#Generate)
+    - [Invoke](#Invoke)
+    - [Start](#Start)
+    - [Push](#Push)
+    - [Login](#Login)
+    - [Link](#Link)
+    - [Integrations](#Integrations)
+  - [Contributing](#Contributing)
+  - [License](#License)
   </details>
 
 ## Why
@@ -212,8 +222,8 @@ Bearer is [MIT licensed][license-url].
 [version-svg]: https://img.shields.io/npm/v/@bearer/react.svg?style=flat-square
 [package-url]: https://npmjs.org/package/@bearer/cli
 [license-image]: http://img.shields.io/badge/license-MIT-green.svg?style=flat-square
-[ci-svg]: https://jenkins.bearer.tech/buildStatus/icon?job=Bearer%2Fbearer%2Fmaster
-[ci-url]: https://jenkins.bearer.tech/job/Bearer/job/bearer/job/master/
+[ci-svg]:  https://cloud.drone.io/api/badges/Bearer/bearer/status.svg
+[ci-url]: https://cloud.drone.io/Bearer/bearer
 [license-url]: LICENSE
 
 <!-- Links -->
