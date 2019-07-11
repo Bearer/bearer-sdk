@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.5](https://github.com/Bearer/bearer/compare/v1.6.4...v1.6.5) (2019-07-11)
+
+
+### Bug Fixes
+
+* register authorize only once ([#714](https://github.com/Bearer/bearer/issues/714)) ([7aaa1fa](https://github.com/Bearer/bearer/commit/7aaa1fa))
+* update README to match new `.auth` behaviour ([#713](https://github.com/Bearer/bearer/issues/713)) ([c6ede08](https://github.com/Bearer/bearer/commit/c6ede08))
+
+
+
+
+
 ## [1.6.4](https://github.com/Bearer/bearer/compare/v1.6.3...v1.6.4) (2019-07-11)
 
 
