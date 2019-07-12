@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.7](https://github.com/Bearer/bearer/compare/v1.6.6...v1.6.7) (2019-07-12)
+
+
+### Features
+
+* bump version ([63df4e4](https://github.com/Bearer/bearer/commit/63df4e4))
+
+
+
+
+
 ## [1.6.6](https://github.com/Bearer/bearer/compare/v1.6.5...v1.6.6) (2019-07-12)
 
 
