@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.6](https://github.com/Bearer/bearer/compare/v1.6.5...v1.6.6) (2019-07-12)
+
+
+### Bug Fixes
+
+* allow numbers to be used as header values ([#715](https://github.com/Bearer/bearer/issues/715)) ([64eba80](https://github.com/Bearer/bearer/commit/64eba80))
+* **node:** add generic types for requests ([#717](https://github.com/Bearer/bearer/issues/717)) ([a29923b](https://github.com/Bearer/bearer/commit/a29923b))
+
+
+
+
+
 ## [1.6.5](https://github.com/Bearer/bearer/compare/v1.6.4...v1.6.5) (2019-07-11)
 
 
