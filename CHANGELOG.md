@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Bearer/bearer/compare/v1.6.8...v1.7.0) (2019-07-15)
+
+
+### Features
+
+* **webhook:** allow alias as key handler ([#718](https://github.com/Bearer/bearer/issues/718)) ([ff0271f](https://github.com/Bearer/bearer/commit/ff0271f))
+
+
+
+
+
 ## [1.6.8](https://github.com/Bearer/bearer/compare/v1.6.7...v1.6.8) (2019-07-12)
 
 

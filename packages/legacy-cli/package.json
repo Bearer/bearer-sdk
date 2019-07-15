@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/bearer-cli",
-  "version": "1.6.8",
+  "version": "1.7.0",
   "main": "lib/bin/index.js",
   "repository": "Bearer/bearer",
   "homepage": "https://github.com/Bearer/bearer/packages/legacy-cli#readme",
@@ -24,10 +24,10 @@
     "test:ci": "jest --coverage --runInBand --colors"
   },
   "dependencies": {
-    "@bearer/functions": "^1.6.8",
-    "@bearer/logger": "^1.6.8",
-    "@bearer/transpiler": "^1.6.8",
-    "@bearer/types": "^1.6.8",
+    "@bearer/functions": "^1.7.0",
+    "@bearer/logger": "^1.7.0",
+    "@bearer/transpiler": "^1.7.0",
+    "@bearer/types": "^1.7.0",
     "@koa/cors": "^2.2.2",
     "amazon-cognito-identity-js": "^2.0.3",
     "aws-sdk": "^2.224.1",
