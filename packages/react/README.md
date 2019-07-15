@@ -50,7 +50,7 @@ class MyComponent extends React.Component {
             if (error) {
               return (
                 <div>
-                  Error, please retry <button onClick={connect}>Retry</button>
+                  Error, please retry <button onClick={() => connect()}>Retry</button>
                 </div>
               )
             }
@@ -83,19 +83,24 @@ interface TProps {
 }
 
 function DisplayComponent(props: TProps) {
-  if (this.props.loading) {
+  if (props.loading) {
     return 'Loading'
   }
-  if (this.props.error) {
-    return <div>Error: {this.props.error}</div>
+  if (props.error) {
+    return <div>Error: {props.error}</div>
   }
-  if (this.props.data) {
-    return <div>Some data passed: {this.props.data}</div>
+  if (props.data) {
+    return <div>Some data passed: {props.data}</div>
   }
+
+  const invoke = () => {
+    props.invoke({query: { authId: 'AUTH_ID'}})
+  }
+
   return (
     <div>
-      {this.props.otherDataYouWantToPass}
-      <button onClick={this.props.invoke}>Click to invoke</button>
+      {props.otherDataYouWantToPass}
+      <button onClick={invoke}>Click to invoke</button>
     </div>
   )
 }
