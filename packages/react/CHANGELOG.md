@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/Bearer/bearer/compare/v1.7.0...v1.8.0) (2019-07-24)
+
+
+### Features
+
+* **js:** add proxy methods ([#722](https://github.com/Bearer/bearer/issues/722)) ([c7836ee](https://github.com/Bearer/bearer/commit/c7836ee))
+
+
+
+
+
 # [1.7.0](https://github.com/Bearer/bearer/compare/v1.6.8...v1.7.0) (2019-07-15)
 
 **Note:** Version bump only for package @bearer/react
