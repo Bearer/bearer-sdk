@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.2](https://github.com/Bearer/bearer/compare/v1.8.1...v1.8.2) (2019-07-29)
+
+
+### Bug Fixes
+
+* update test to match authType ([#724](https://github.com/Bearer/bearer/issues/724)) ([79f815b](https://github.com/Bearer/bearer/commit/79f815b))
+
+
+
+
+
 ## [1.8.1](https://github.com/Bearer/bearer/compare/v1.8.0...v1.8.1) (2019-07-25)
 
 **Note:** Version bump only for package @bearer/cli
