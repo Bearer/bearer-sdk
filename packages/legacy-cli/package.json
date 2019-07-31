@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/bearer-cli",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "main": "lib/bin/index.js",
   "repository": "Bearer/bearer",
   "homepage": "https://github.com/Bearer/bearer/packages/legacy-cli#readme",
@@ -24,7 +24,7 @@
     "test:ci": "jest --coverage --runInBand --colors"
   },
   "dependencies": {
-    "@bearer/functions": "^1.8.2",
+    "@bearer/functions": "^1.8.3",
     "@bearer/logger": "^1.7.0",
     "@bearer/transpiler": "^1.7.0",
     "@bearer/types": "^1.7.0",
