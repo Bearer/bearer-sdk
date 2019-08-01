@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/Bearer/bearer/compare/v1.8.3...v1.9.0) (2019-08-01)
+
+
+### Features
+
+* target es5 for frontend libraries ([#727](https://github.com/Bearer/bearer/issues/727)) ([8884c40](https://github.com/Bearer/bearer/commit/8884c40))
+
+
+
+
+
 # [1.8.0](https://github.com/Bearer/bearer/compare/v1.7.0...v1.8.0) (2019-07-24)
 
 
