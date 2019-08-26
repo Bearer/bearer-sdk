@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/Bearer/bearer/compare/v1.9.0...v1.10.0) (2019-08-26)
+
+
+### Features
+
+* **functions:** add correlation ids to environment ([#728](https://github.com/Bearer/bearer/issues/728)) ([5ba9033](https://github.com/Bearer/bearer/commit/5ba9033))
+
+
+
+
+
 ## [1.8.3](https://github.com/Bearer/bearer/compare/v1.8.2...v1.8.3) (2019-07-31)
 
 **Note:** Version bump only for package @bearer/functions
