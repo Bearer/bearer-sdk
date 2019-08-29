@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/Bearer/bearer/compare/v1.10.0...v1.10.1) (2019-08-29)
+
+
+### Bug Fixes
+
+* handle case where correlation ids are undefined ([#729](https://github.com/Bearer/bearer/issues/729)) ([b511e89](https://github.com/Bearer/bearer/commit/b511e89))
+
+
+
+
+
 # [1.10.0](https://github.com/Bearer/bearer/compare/v1.9.0...v1.10.0) (2019-08-26)
 
 
