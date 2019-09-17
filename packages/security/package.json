@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/security",
-  "version": "1.13.1",
+  "version": "1.13.2",
   "engines": {
     "node": "<11"
   },
@@ -38,5 +38,6 @@
     "prepack": "yarn clean && yarn build",
     "test": "jest --colors",
     "test:ci": "jest --coverage --colors"
-  }
+  },
+  "gitHead": "7687898b77bcbc0afc0a6d5a228535947a189622"
 }

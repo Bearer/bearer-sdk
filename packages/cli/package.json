@@ -2,7 +2,7 @@
   "private": false,
   "name": "@bearer/cli",
   "description": "Bearer CLI",
-  "version": "1.13.1",
+  "version": "1.13.2",
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer",
   "homepage": "https://github.com/Bearer/bearer/packages/cli#readme",
@@ -11,12 +11,12 @@
   },
   "bugs": "https://github.com/Bearer/bearer/issues",
   "dependencies": {
-    "@bearer/bearer-cli": "^1.13.1",
-    "@bearer/functions": "^1.13.1",
-    "@bearer/openapi-generator": "^1.13.1",
-    "@bearer/security": "^1.13.1",
-    "@bearer/transpiler": "^1.13.1",
-    "@bearer/types": "^1.13.1",
+    "@bearer/bearer-cli": "^1.13.2",
+    "@bearer/functions": "^1.13.2",
+    "@bearer/openapi-generator": "^1.13.2",
+    "@bearer/security": "^1.13.2",
+    "@bearer/transpiler": "^1.13.2",
+    "@bearer/types": "^1.13.2",
     "@oclif/command": "^1.5.12",
     "@oclif/config": "^1.12.12",
     "@oclif/plugin-autocomplete": "^0.1.0",
@@ -115,5 +115,5 @@
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",
-  "gitHead": "cb2654b19000e2ad6f31a0e4ed715a6298c8df2d"
+  "gitHead": "7687898b77bcbc0afc0a6d5a228535947a189622"
 }

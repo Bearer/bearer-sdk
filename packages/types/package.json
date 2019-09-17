@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/types",
-  "version": "1.13.1",
+  "version": "1.13.2",
   "description": "Provide typing for Bearer packages",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -45,5 +45,6 @@
       "json",
       "node"
     ]
-  }
+  },
+  "gitHead": "7687898b77bcbc0afc0a6d5a228535947a189622"
 }
