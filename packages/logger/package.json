@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/logger",
-  "version": "1.7.0",
+  "version": "1.13.1",
   "description": "Bearer logger",
   "keywords": [
     "logger",

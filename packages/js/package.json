@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/js",
-  "version": "1.9.0",
+  "version": "1.13.1",
   "description": "A JavaScript library for working with Bearer integrations",
   "jsdelivr": "lib/bearer.production.min.js",
   "unpkg": "lib/bearer.production.min.js",
@@ -17,7 +17,7 @@
     "lib/"
   ],
   "dependencies": {
-    "@bearer/logger": "^1.7.0",
+    "@bearer/logger": "^1.13.1",
     "axios": "^0.19.0",
     "debounce": "^1.2.0",
     "post-robot": "^8.0.26"
