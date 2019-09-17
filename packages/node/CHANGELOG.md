@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/Bearer/bearer/compare/v1.12.0...v1.13.0) (2019-09-17)
+
+
+### Features
+
+* make node client inline with node conventions ([#736](https://github.com/Bearer/bearer/issues/736)) ([aa4cd2c](https://github.com/Bearer/bearer/commit/aa4cd2c))
+
+
+
+
+
 # [1.11.0](https://github.com/Bearer/bearer/compare/v1.10.1...v1.11.0) (2019-09-12)
 
 **Note:** Version bump only for package @bearer/node
