@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/security",
-  "version": "1.13.2",
+  "version": "1.13.4",
   "engines": {
     "node": "<11"
   },

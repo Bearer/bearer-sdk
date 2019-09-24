@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/express",
-  "version": "1.13.2",
+  "version": "1.13.4",
   "description": "Express webhook middleware",
   "keywords": [
     "node",
@@ -40,8 +40,8 @@
     "typescript": "^3.4.1"
   },
   "dependencies": {
-    "@bearer/logger": "^1.13.2",
-    "@bearer/security": "^1.13.2",
+    "@bearer/logger": "^1.13.4",
+    "@bearer/security": "^1.13.4",
     "express": "^4.16.4",
     "on-headers": "^1.0.1"
   },
