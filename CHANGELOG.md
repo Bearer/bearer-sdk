@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.6](https://github.com/Bearer/bearer/compare/v1.13.5...v1.13.6) (2019-09-30)
+
+
+### Bug Fixes
+
+* **functions:** provide link to setup frontend api calls ([ff1de87](https://github.com/Bearer/bearer/commit/ff1de87))
+
+
+
+
+
 ## [1.13.5](https://github.com/Bearer/bearer/compare/v1.13.4...v1.13.5) (2019-09-30)
 
 
