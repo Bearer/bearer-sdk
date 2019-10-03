@@ -8,7 +8,7 @@
   "types": "lib/types/components.d.ts",
   "collection": "lib/collection/collection-manifest.json",
   "repository": "Bearer/bearer",
-  "homepage": "https://github.com/Bearer/bearer/packages/ui#readme",
+  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/ui#readme",
   "author": "Bearer Team<engineering@bearer.sh>",
   "license": "MIT",
   "files": [

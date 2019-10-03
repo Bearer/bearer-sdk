@@ -5,7 +5,7 @@
   "description": "Function openapi spec generator",
   "main": "lib/index.js",
   "repository": "Bearer/bearer",
-  "homepage": "https://github.com/Bearer/bearer/packages/openapi-generator#readme",
+  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/openapi-generator#readme",
   "author": "Bearer Team",
   "license": "MIT",
   "files": [
@@ -13,6 +13,7 @@
   ],
   "devDependencies": {
     "@bearer/package-init": "^0.78.0",
+    "@bearer/tsconfig": "^0.116.1",
     "@types/jest": "^24.0.11",
     "@types/lodash.merge": "^4.6.6",
     "@types/node": "^10.12.19",

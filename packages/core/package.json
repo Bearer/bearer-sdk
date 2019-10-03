@@ -8,7 +8,7 @@
   "module": "lib/main.es.js",
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer",
-  "homepage": "https://github.com/Bearer/bearer/packages/core#readme",
+  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/core#readme",
   "license": "MIT",
   "files": [
     "lib/"
