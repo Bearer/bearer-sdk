@@ -1,8 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 
+const DEFAULT_TIMEOUT = 5 * 1000 // 5 seconds
+
 class Bearer {
   protected readonly bearerApiKey: string
-  protected options: BearerClientOptions = { host: 'https://int.bearer.sh' }
+  protected options: BearerClientOptions = { host: 'https://int.bearer.sh', timeout: DEFAULT_TIMEOUT }
 
   constructor(bearerApiKey: string, options?: BearerClientOptions) {
     this.options = { ...this.options, ...options }
@@ -36,7 +38,11 @@ class BearerClient {
     readonly bearerApiKey: string,
     readonly setupId?: string,
     readonly authId?: string
-  ) {}
+  ) {
+    this.client = axios.create({
+      timeout: this.options.timeout || DEFAULT_TIMEOUT
+    })
+  }
 
   public auth = (authId: string) => {
     return new BearerClient(this.integrationId, this.options, this.bearerApiKey, this.setupId, authId)
@@ -86,9 +92,10 @@ class BearerClient {
       throw new InvalidRequestOptions()
     }
 
+    const pkg = require('../package.json')
     const preheaders: BearerHeaders = {
       Authorization: this.bearerApiKey,
-      'User-Agent': 'Bearer.sh',
+      'User-Agent': `Bearer-Node (${pkg.version})`,
       'Bearer-Auth-Id': this.authId!,
       'Bearer-Setup-Id': this.setupId!
     }
@@ -157,7 +164,7 @@ interface BearerRequestParameters {
 }
 
 type BearerRequestOptions = any
-type BearerClientOptions = { host: string }
+type BearerClientOptions = { host: string; timeout?: number }
 
 /**
  * Errors handling
