@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "create-bearer",
-  "version": "1.13.6",
+  "version": "1.13.8",
   "description": "Quickly create a new Bearer integration",
   "main": "lib/index.js",
   "repository": "Bearer/bearer-sdk",
@@ -30,7 +30,7 @@
     "static/"
   ],
   "dependencies": {
-    "@bearer/cli": "^1.13.6"
+    "@bearer/cli": "^1.13.8"
   },
   "gitHead": "7687898b77bcbc0afc0a6d5a228535947a189622"
 }

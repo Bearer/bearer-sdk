@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/core",
-  "version": "1.13.5",
+  "version": "1.13.8",
   "description": "Bearer Core",
   "main": "lib/main.js",
   "types": "lib/index.d.ts",
@@ -67,8 +67,8 @@
     "typescript": "^3.4.1"
   },
   "dependencies": {
-    "@bearer/logger": "^1.13.4",
-    "@bearer/types": "^1.13.4",
+    "@bearer/logger": "^1.13.8",
+    "@bearer/types": "^1.13.8",
     "@stencil/core": "0.11.2",
     "fbemitter": "^2.1.1",
     "lodash.get": "^4.4.2",
