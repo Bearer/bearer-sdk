@@ -9,7 +9,7 @@
   ],
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer",
-  "homepage": "https://github.com/Bearer/bearer/packages/logger#readme",
+  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/logger#readme",
   "license": "MIT",
   "main": "lib/logger.js",
   "module": "lib/logger.es.js",

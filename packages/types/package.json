@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": "Bearer/bearer",
-  "homepage": "https://github.com/Bearer/bearer/packages/types#readme",
+  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/types#readme",
   "author": "Bearer Team<engineering@bearer.sh>",
   "files": [
     "lib/"

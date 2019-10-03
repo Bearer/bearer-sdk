@@ -4,7 +4,7 @@
   "version": "1.13.6",
   "main": "lib/bin/index.js",
   "repository": "Bearer/bearer",
-  "homepage": "https://github.com/Bearer/bearer/packages/legacy-cli#readme",
+  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/legacy-cli#readme",
   "author": "Bearer Team<engineering@bearer.sh>",
   "license": "MIT",
   "engines": {

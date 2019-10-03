@@ -8,7 +8,7 @@
   "author": "Bearer Team<engineering@bearer.sh>",
   "license": "MIT",
   "repository": "Bearer/bearer",
-  "homepage": "https://github.com/Bearer/bearer/packages/functions#readme",
+  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/functions#readme",
   "files": [
     "lib/"
   ],

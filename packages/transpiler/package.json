@@ -7,7 +7,7 @@
   "types": "lib/index.d.ts",
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer",
-  "homepage": "https://github.com/Bearer/bearer/packages/transpiler#readme",
+  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/transpiler#readme",
   "license": "MIT",
   "files": [
     "lib/"
