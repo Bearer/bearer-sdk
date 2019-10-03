@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@bearer/ui",
-  "version": "1.13.8",
+  "version": "1.13.9",
   "description": "Bearer UI helper",
   "main": "lib/index.js",
   "module": "lib/esm/index.js",
@@ -28,8 +28,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@bearer/core": "^1.13.8",
-    "@bearer/logger": "^1.13.8",
+    "@bearer/core": "^1.13.9",
+    "@bearer/logger": "^1.13.9",
     "@stencil/core": "0.11.2",
     "@stencil/sass": "^0.1.0",
     "bootstrap": "^4.1.0",
