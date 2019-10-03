@@ -5,7 +5,7 @@
   "description": "Provide typing for Bearer packages",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "repository": "Bearer/bearer",
+  "repository": "Bearer/bearer-sdk",
   "homepage": "https://github.com/Bearer/bearer/tree/master/packages/types#readme",
   "author": "Bearer Team<engineering@bearer.sh>",
   "files": [

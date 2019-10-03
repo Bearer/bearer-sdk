@@ -7,7 +7,7 @@
   "module": "lib/esm/index.js",
   "types": "lib/types/components.d.ts",
   "collection": "lib/collection/collection-manifest.json",
-  "repository": "Bearer/bearer",
+  "repository": "Bearer/bearer-sdk",
   "homepage": "https://github.com/Bearer/bearer/tree/master/packages/ui#readme",
   "author": "Bearer Team<engineering@bearer.sh>",
   "license": "MIT",

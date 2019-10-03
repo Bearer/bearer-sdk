@@ -4,7 +4,7 @@
   "description": "Bearer CLI",
   "version": "1.13.6",
   "author": "Bearer Team<engineering@bearer.sh>",
-  "repository": "Bearer/bearer",
+  "repository": "Bearer/bearer-sdk",
   "homepage": "https://github.com/Bearer/bearer/tree/master/packages/cli#readme",
   "bin": {
     "bearer": "./bin/run"

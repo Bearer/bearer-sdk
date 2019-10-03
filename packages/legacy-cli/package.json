@@ -3,7 +3,7 @@
   "name": "@bearer/bearer-cli",
   "version": "1.13.6",
   "main": "lib/bin/index.js",
-  "repository": "Bearer/bearer",
+  "repository": "Bearer/bearer-sdk",
   "homepage": "https://github.com/Bearer/bearer/tree/master/packages/legacy-cli#readme",
   "author": "Bearer Team<engineering@bearer.sh>",
   "license": "MIT",

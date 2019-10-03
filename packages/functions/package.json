@@ -7,7 +7,7 @@
   "types": "lib/index.d.ts",
   "author": "Bearer Team<engineering@bearer.sh>",
   "license": "MIT",
-  "repository": "Bearer/bearer",
+  "repository": "Bearer/bearer-sdk",
   "homepage": "https://github.com/Bearer/bearer/tree/master/packages/functions#readme",
   "files": [
     "lib/"
