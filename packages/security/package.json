@@ -12,7 +12,7 @@
   ],
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer-sdk",
-  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/security#readme",
+  "homepage": "https://github.com/Bearer/bearer-sdk/tree/master/packages/security#readme",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

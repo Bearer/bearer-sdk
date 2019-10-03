@@ -9,7 +9,7 @@
   ],
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer-sdk",
-  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/logger#readme",
+  "homepage": "https://github.com/Bearer/bearer-sdk/tree/master/packages/logger#readme",
   "license": "MIT",
   "main": "lib/logger.js",
   "module": "lib/logger.es.js",
@@ -29,7 +29,7 @@
     "test:ci": "jest --coverage --colors"
   },
   "bugs": {
-    "url": "https://github.com/Bearer/bearer/issues"
+    "url": "https://github.com/Bearer/bearer-sdk/issues"
   },
   "devDependencies": {
     "@types/debug": "^4.1.3",

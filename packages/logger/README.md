@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/@bearer/logger.svg)](https://npmjs.org/package/@bearer/logger)
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@bearer/logger.svg)
 [![Downloads/week](https://img.shields.io/npm/dw/@bearer/logger.svg)](https://npmjs.org/package/@bearer/logger)
-[![License](https://img.shields.io/npm/l/@bearer/logger.svg)](https://github.com/Bearer/bearer/packages/logger/blob/master/package.json)
+[![License](https://img.shields.io/npm/l/@bearer/logger.svg)](https://github.com/Bearer/bearer-sdk/packages/logger/blob/master/package.json)
 
 ## Usage
 

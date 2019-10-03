@@ -5,7 +5,7 @@
   "description": "Function openapi spec generator",
   "main": "lib/index.js",
   "repository": "Bearer/bearer-sdk",
-  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/openapi-generator#readme",
+  "homepage": "https://github.com/Bearer/bearer-sdk/tree/master/packages/openapi-generator#readme",
   "author": "Bearer Team",
   "license": "MIT",
   "files": [

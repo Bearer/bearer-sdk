@@ -5,7 +5,7 @@
   "description": "Quickly create a new Bearer integration",
   "main": "lib/index.js",
   "repository": "Bearer/bearer-sdk",
-  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/create-bearer#readme",
+  "homepage": "https://github.com/Bearer/bearer-sdk/tree/master/packages/create-bearer#readme",
   "author": "Bearer Team<engineering@bearer.sh>",
   "license": "MIT",
   "bin": {

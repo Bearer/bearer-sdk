@@ -5,11 +5,11 @@
   "version": "1.13.8",
   "author": "Bearer Team<engineering@bearer.sh>",
   "repository": "Bearer/bearer-sdk",
-  "homepage": "https://github.com/Bearer/bearer/tree/master/packages/cli#readme",
+  "homepage": "https://github.com/Bearer/bearer-sdk/tree/master/packages/cli#readme",
   "bin": {
     "bearer": "./bin/run"
   },
-  "bugs": "https://github.com/Bearer/bearer/issues",
+  "bugs": "https://github.com/Bearer/bearer-sdk/issues",
   "dependencies": {
     "@bearer/bearer-cli": "^1.13.8",
     "@bearer/functions": "^1.13.8",

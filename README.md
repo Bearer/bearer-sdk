@@ -23,24 +23,24 @@ Bearer provides all of the tools to build, run and manage API
 <details>
   <summary><strong>Table of contents</strong></summary>
 
-- [Bearer - The API Integration Framework](#Bearer---The-API-Integration-Framework)
-  - [Why](#Why)
-  - [Installation](#Installation)
-  - [Quick Start](#Quick-Start)
-  - [Documentation](#Documentation)
-  - [Command References](#Command-References)
-    - [New](#New)
-    - [Setup](#Setup)
-    - [Generate](#Generate)
-    - [Invoke](#Invoke)
-    - [Start](#Start)
-    - [Push](#Push)
-    - [Login](#Login)
-    - [Link](#Link)
-    - [Integrations](#Integrations)
-  - [Contributing](#Contributing)
-  - [License](#License)
-  </details>
+- [Bearer - The API Integration Framework](#bearer---the-api-integration-framework)
+  - [Why](#why)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+  - [Documentation](#documentation)
+  - [Command References](#command-references)
+    - [New](#new)
+    - [Setup](#setup)
+    - [Generate](#generate)
+    - [Invoke](#invoke)
+    - [Start](#start)
+    - [Push](#push)
+    - [Login](#login)
+    - [Link](#link)
+    - [Integrations](#integrations)
+  - [Contributing](#contributing)
+  - [License](#license)
+    </details>
 
 ## Why
 
@@ -202,10 +202,10 @@ yarn bearer integrations:create
 
 We welcome all contributors, from casual to regular 💙
 
-- **Bug report**. Is something not working as expected? [Send a bug report](https://github.com/bearer/bearer/issues/new).
-- **Feature request**. Would you like to add something to the framework? [Send a feature request](https://github.com/bearer/bearer/issues/new).
-- **Documentation**. Did you find a typo in the doc? [Open an issue](https://github.com/bearer/bearer/issues/new) and we'll take care of it.
-- **Development**. If you don't know where to start, you can check the [open issues](https://github.com/bearer/bearer/issues?q=is%3Aissue+is%3Aopen).
+- **Bug report**. Is something not working as expected? [Send a bug report](https://github.com/Bearer/bearer-sdk/issues/new).
+- **Feature request**. Would you like to add something to the framework? [Send a feature request](https://github.com/Bearer/bearer-sdk/issues/new).
+- **Documentation**. Did you find a typo in the doc? [Open an issue](https://github.com/Bearer/bearer-sdk/issues/new) and we'll take care of it.
+- **Development**. If you don't know where to start, you can check the [open issues](https://github.com/Bearer/bearer-sdk/issues?q=is%3Aissue+is%3Aopen).
 
 To start contributing to code, you need to:
 
@@ -219,11 +219,9 @@ Bearer is [MIT licensed][license-url].
 
 <!-- Badges -->
 
-[version-svg]: https://img.shields.io/npm/v/@bearer/react.svg?style=flat-square
+[version-svg]: https://img.shields.io/npm/v/@bearer/cli.svg?style=flat-square
 [package-url]: https://npmjs.org/package/@bearer/cli
 [license-image]: http://img.shields.io/badge/license-MIT-green.svg?style=flat-square
-[ci-svg]:  https://cloud.drone.io/api/badges/Bearer/bearer/status.svg
-[ci-url]: https://cloud.drone.io/Bearer/bearer
 [license-url]: LICENSE
 
 <!-- Links -->
