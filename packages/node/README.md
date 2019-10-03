@@ -53,20 +53,6 @@ const response = await github
 console.log(response)
 ```
 
-### Calling custom functions
-
-```tsx
-import bearer from '@bearer/node'
-
-const client = bearer(process.env.BEARER_SECRET_KEY) // copy and paste the `API key`
-const github = client.integration('INTEGRATION_ID')
-
-github
-  .invoke('myFunction')
-  .then(console.log)
-  .catch(console.error)
-```
-
 ### Setting the request timeout
 
 By default bearer client times out after 5 seconds. Bearer allows to increase the timeout to up to 30 seconds
